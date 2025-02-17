@@ -1,0 +1,125 @@
+#include "split_layer.h"
+
+#include "../cells.h"
+#include "../mesh.h"
+
+int CUDA_WRAP_allocLayer(struct cudaLayer **dl,int Ny,int Nz,int Np)
+{
+   cudaMalloc(dl,sizeof(struct cudaLayer));
+   
+   cudaMalloc(&(*dl->Ex),sizeof(double)*Ny*Nz);
+   cudaMalloc(&(*dl->Ey),sizeof(double)*Ny*Nz);
+   cudaMalloc(&(*dl->Ez),sizeof(double)*Ny*Nz);
+   cudaMalloc(&(*dl->Bx),sizeof(double)*Ny*Nz);
+   cudaMalloc(&(*dl->By),sizeof(double)*Ny*Nz);
+   cudaMalloc(&(*dl->Bz),sizeof(double)*Ny*Nz);
+
+   cudaMalloc(&(*dl->Jx),sizeof(double)*Ny*Nz);
+   cudaMalloc(&(*dl->Jy),sizeof(double)*Ny*Nz);
+   cudaMalloc(&(*dl->Jz),sizeof(double)*Ny*Nz);
+   
+   cudaMalloc(&(dl->particles),Np*sizeof(struct beamParticle));
+   
+   return 0;
+}
+
+int CUDA_WRAP_copyLayerToDevice(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,int Nz,struct cudaLayer **dl)
+{ 
+   double *Ex,*Ey,*Ez,*Bx,*By,*Bz,*Jx,*Jy,*Jz,*Rho;
+   struct beamParticle *bp;
+   int np = 0;
+      
+   for (int k=0; k<Nz; k++)
+   {
+      for (int j=0; j<Ny; j++)
+      {
+         for (int i=0; i<Nx; i++)
+         {
+              long nccc = mesh->GetN(i, j,k);
+              Cell &ccc = p_CellArray[nccc];	    
+	      Particle *p  = ccc.GetParticles();
+		
+	      for(np = 0;(p != NULL);np++);
+	      
+	  }
+      }
+   }
+   
+   Ex = (double *)malloc(sizeof(double)*Ny*Nz);
+   Ey = (double *)malloc(sizeof(double)*Ny*Nz);
+   Ez = (double *)malloc(sizeof(double)*Ny*Nz);
+   Bx = (double *)malloc(sizeof(double)*Ny*Nz);
+   By = (double *)malloc(sizeof(double)*Ny*Nz);
+   Bz = (double *)malloc(sizeof(double)*Ny*Nz);
+   Jx = (double *)malloc(sizeof(double)*Ny*Nz);
+   Jy = (double *)malloc(sizeof(double)*Ny*Nz);
+   Jz = (double *)malloc(sizeof(double)*Ny*Nz);
+   
+   bp = (struct beamParticle *)malloc(Np*sizeof(struct beamParticle));
+   
+   CUDA_WRAP_allocLayer(dl,Ny,Nz,Np);
+	      
+   for (int k=0; k<Nz; k++)
+   {
+      for (int j=0; j<Ny; j++)
+      {
+         for (int i=0; i<Nx; i++)
+         {
+              long nccc = mesh->GetN(i, j,k);
+              Cell &ccc = p_CellArray[nccc];	    
+	      Particle *p  = ccc.GetParticles();
+		
+	      for(np = 0;(p != NULL);np++)
+	      {
+		 beamParticle *pc = bp + total_np;
+		 pc->f_X      = p->f_X;
+		 pc->f_Y      = p->f_Y;
+		 pc->f_Z      = p->f_Z;
+		 pc->f_Px     = p->f_Px;
+		 pc->f_Py     = p->f_Py;
+		 pc->f_Pz     = p->f_Pz;
+		 pc->f_Weight = p->f_Weight;
+		 pc->f_Q2m    = p->f_Q2m;
+		 //if(total_np < 16) printf("Pz %d %25.15e \n",total_np,p_cuda->f_Pz);
+		 p_cuda->i_X      = i;
+		 p_cuda->i_Y      = j;
+		 p_cuda->i_Z      = k;
+		 curbp = *bp;
+		 
+		 p = p->p_Next;
+		 total_np++;
+	      }  
+	      long n = j + ny*k;
+
+              Rho[n] = ccc.GetDens(); // - dens;
+
+              Ex[n]  = ccc.GetEx();
+              Ey[n]  = ccc.GetEy();
+              Ez[n]  = ccc.GetEz();
+	      
+              Bx[n]  = ccc.GetEx();
+              By[n]  = ccc.GetEy();
+              Bz[n]  = ccc.GetEz();
+
+              Jx[n] = ccc.GetJx();
+              Jy[n] = ccc.GetJy();
+              Jz[n] = ccc.GetJz();
+	 }
+      }
+   }
+   cudaMemcpy(*dl->Ex,Ex,sizeof(double)*Ny*Nz,cudaMemcpyHostToDevice);
+   cudaMemcpy(*dl->Ey,Ey,sizeof(double)*Ny*Nz,cudaMemcpyHostToDevice);
+   cudaMemcpy(*dl->Ez,Ez,sizeof(double)*Ny*Nz,cudaMemcpyHostToDevice);
+
+   cudaMemcpy(*dl->Bx,Bx,sizeof(double)*Ny*Nz,cudaMemcpyHostToDevice);
+   cudaMemcpy(*dl->By,By,sizeof(double)*Ny*Nz,cudaMemcpyHostToDevice);
+   cudaMemcpy(*dl->Bz,Bz,sizeof(double)*Ny*Nz,cudaMemcpyHostToDevice);
+   
+   cudaMemcpy(*dl->Jx,Jx,sizeof(double)*Ny*Nz,cudaMemcpyHostToDevice);
+   cudaMemcpy(*dl->Jy,Jy,sizeof(double)*Ny*Nz,cudaMemcpyHostToDevice);
+   cudaMemcpy(*dl->Jz,Jz,sizeof(double)*Ny*Nz,cudaMemcpyHostToDevice);
+
+   cudaMemcpy(*dl->particles,bp,Np*sizeof(struct beamParticle),cudaMemcpyHostToDevice);
+   
+   return 0;
+}
