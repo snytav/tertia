@@ -16,10 +16,17 @@
 
 //#include "../cudaParticle/cudaPIC.h"
 
-surface<void, 2> in_surfaceT,out_surface; 
+double *in_surfaceT,*out_surface;
+int in_surface_N;
 cudaArray       *cuInputArrayTranspose;//,*cuOutputArray; 
 
 int transposeFirstCall = 1;
+
+__device__ void surf2Dread(double *x_re,double *in_surfaceT,int nx,int ny,int N)
+{
+         double t = in_surfaceT[nx*N+ny];
+         *x_re = t;
+}
 
 
 
@@ -35,8 +42,8 @@ __global__ void transposeKernelCOMPLEX(int height,double *result)
   
      
         //CUDA array is column-major. Thus here the FIRST DIMENSION index doubled (actuall it is the SECOND)	
-        surf2Dread(&x_re,  in_surfaceT, 2*nx * 8, ny);
-        surf2Dread(&x_im,  in_surfaceT, (2*nx+1) * 8, ny);
+        surf2Dread(&x_re,  in_surfaceT, 2*nx, ny,in_surface_N);
+        surf2Dread(&x_im,  in_surfaceT, (2*nx+1), ny,in_surface_N);
         
 
 //	cmult(x_re,x_im,alpha[2*ny],alpha[2*ny+1],&re,&im);
@@ -59,8 +66,8 @@ __global__ void transposeKernelCOMPLEX_imaginaryZero(int height,double *result)
   
      
         //CUDA array is column-major. Thus here the FIRST DIMENSION index doubled (actuall it is the SECOND)	
-        surf2Dread(&x_re,  in_surfaceT, 2*nx * 8, ny);
-        surf2Dread(&x_im,  in_surfaceT, (2*nx+1) * 8, ny);
+        surf2Dread(&x_re,  in_surfaceT, 2*nx , ny,in_surface_N);
+        surf2Dread(&x_im,  in_surfaceT, (2*nx+1) , ny,in_surface_N);
         
 
 //	cmult(x_re,x_im,alpha[2*ny],alpha[2*ny+1],&re,&im);
