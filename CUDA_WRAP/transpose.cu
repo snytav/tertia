@@ -90,8 +90,8 @@ __global__ void transposeKernelCOMPLEX_realZero(int height,double *result)
   
      
         //CUDA array is column-major. Thus here the FIRST DIMENSION index doubled (actuall it is the SECOND)	
-        surf2Dread(&x_re,  in_surfaceT, 2*nx * 8, ny);
-        surf2Dread(&x_im,  in_surfaceT, (2*nx+1) * 8, ny);
+        surf2Dread(&x_re,  in_surfaceT, 2*nx, ny,in_surface_N);
+        surf2Dread(&x_im,  in_surfaceT, (2*nx+1), ny,in_surface_N);
         
 
 //	cmult(x_re,x_im,alpha[2*ny],alpha[2*ny+1],&re,&im);
