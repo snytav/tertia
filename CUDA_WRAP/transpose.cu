@@ -37,7 +37,7 @@ __device__ void surf2Dread
 //"height" of a matrix (number of rows)
 //result - complex result matrix
 // alpha - complex turn vector
-__global__ void transposeKernelCOMPLEX(int height,double *result,double *in_surfaceT,int in_surface_N)
+__global__ void transposeKernelCOMPLEX(int height,double *result)
 {
         // Calculate surface coordinates 
         unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x; 
@@ -46,8 +46,8 @@ __global__ void transposeKernelCOMPLEX(int height,double *result,double *in_surf
   
      
         //CUDA array is column-major. Thus here the FIRST DIMENSION index doubled (actuall it is the SECOND)	
-        surf2Dread(&x_re,  in_surfaceT, 2*nx, ny,in_surface_N);
-        surf2Dread(&x_im,  in_surfaceT, (2*nx+1), ny,in_surface_N);
+        surf2Dread(&x_re,  result, 2*nx, ny,height);
+        surf2Dread(&x_im,  result, (2*nx+1), ny,height);
         
 
 //	cmult(x_re,x_im,alpha[2*ny],alpha[2*ny+1],&re,&im);
@@ -70,8 +70,8 @@ __global__ void transposeKernelCOMPLEX_imaginaryZero(int height,double *result)
   
      
         //CUDA array is column-major. Thus here the FIRST DIMENSION index doubled (actuall it is the SECOND)	
-        surf2Dread(&x_re,  in_surfaceT, 2*nx , ny,in_surface_N);
-        surf2Dread(&x_im,  in_surfaceT, (2*nx+1) , ny,in_surface_N);
+        surf2Dread(&x_re,  result, 2*nx , ny,height);
+        surf2Dread(&x_im,  result, (2*nx+1) , ny,height);
         
 
 //	cmult(x_re,x_im,alpha[2*ny],alpha[2*ny+1],&re,&im);
@@ -94,8 +94,8 @@ __global__ void transposeKernelCOMPLEX_realZero(int height,double *result)
   
      
         //CUDA array is column-major. Thus here the FIRST DIMENSION index doubled (actuall it is the SECOND)	
-        surf2Dread(&x_re,  in_surfaceT, 2*nx, ny,in_surface_N);
-        surf2Dread(&x_im,  in_surfaceT, (2*nx+1), ny,in_surface_N);
+        surf2Dread(&x_re,  result, 2*nx, ny,height);
+        surf2Dread(&x_im,  result, (2*nx+1), ny,height);
         
 
 //	cmult(x_re,x_im,alpha[2*ny],alpha[2*ny+1],&re,&im);

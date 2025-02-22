@@ -9,6 +9,7 @@
 #include <cuComplex.h> 
 
 #include "diagnostic_print.h"
+#include "surf.h"
 
 //#include "cuPrintf.cu"
 
@@ -18,10 +19,10 @@
 
 //#include "../cudaParticle/cudaPIC.h"
 
-surface<void, 2> in_surface,out_surface; 
+double *in_surface,*out_surface;
 cudaArray       *cuInputArray,*cuOutputArray; 
 
-surface<void, 2> alpha_surface; 
+double *alpha_surface;
 cudaArray        *cuAlphaArray; 
 
 double *d_ctrl;
@@ -53,13 +54,13 @@ __global__ void turnKernelCOMPLEX(int height,double *result,double *alpha,double
 	//cuPrintf("qq \n");
 	
         //CUDA array is column-major. Thus here the FIRST DIMENSION index doubled (actuall it is the SECOND)	
-        surf2Dread(&x_re,  in_surface, 2*ny * 8, nx);
-        surf2Dread(&x_im,  in_surface, (2*ny+1) * 8, nx);
+        surf2Dread(&x_re,  result, 2*ny, nx,height);
+        surf2Dread(&x_im,  result, (2*ny+1) , nx,height);
 
 	//cuPrintf("qq %d %d %e %e \n",nx,ny,x_re,x_im);
 	
-	surf2Dread(&surf_alpha_re,  alpha_surface, 0,ny );
-	surf2Dread(&surf_alpha_im,  alpha_surface, 8,ny );
+	surf2Dread(&surf_alpha_re,  result, 0,ny,height );
+	surf2Dread(&surf_alpha_im,  result, 8,ny,height );
 //	ctrl_alpha[2*ny]   = surf_alpha_re;//alpha[2*ny];
 //	ctrl_alpha[2*ny+1] = surf_alpha_im;//alpha[2*ny+1];
 
@@ -80,15 +81,19 @@ int CUDA_WRAP_create_particle_surfaceCOMPLEX(int width,int height,double *h_data
   
     //THE SIZE IN double's is 2*width*height 
     int size = 2*width*height*sizeof(double);
-        
-    cudaChannelFormatDesc channelDesc2 = cudaCreateChannelDesc(16, 16, 16, 16, cudaChannelFormatKindUnsigned); 
-        
-    //CUDA array is column-major. Thus here the FIRST DIMENSION is twice more (actuall it is the SECOND)
-    cudaMallocArray(&cuInputArray, &channelDesc2, 2*width, height, cudaArraySurfaceLoadStore); 
 
-    cudaMemcpyToArray(cuInputArray, 0, 0,      h_data_in, size, cudaMemcpyHostToDevice); 
-	
-    cudaBindSurfaceToArray(in_surface,  cuInputArray); 
+
+    cudaMalloc(&in_surface,size);
+    cudaMemcpy(in_surface,h_data_in,size,cudaMemcpyHostToDevice);
+        
+//     cudaChannelFormatDesc channelDesc2 = cudaCreateChannelDesc(16, 16, 16, 16, cudaChannelFormatKindUnsigned);
+//
+//     //CUDA array is column-major. Thus here the FIRST DIMENSION is twice more (actuall it is the SECOND)
+//     cudaMallocArray(&cuInputArray, &channelDesc2, 2*width, height, cudaArraySurfaceLoadStore);
+//
+//     cudaMemcpyToArray(cuInputArray, 0, 0,      h_data_in, size, cudaMemcpyHostToDevice);
+//
+//     cudaBindSurfaceToArray(in_surface,  cuInputArray);
 
     return 0;
 }
@@ -108,11 +113,15 @@ int CUDA_WRAP_create_alpha_surfaceCOMPLEX(int width,int height,double *d_phi)
         //CUDA array is column-major. Thus here the FIRST DIMENSION is twice more (actuall it is the SECOND)
         cudaMallocArray(&cuAlphaArray, &channelDesc2, 2, height, cudaArraySurfaceLoadStore); 
 	turnAlphaFirstCall = 0;
+        cudaMalloc(&alpha_surface,size);
+
     }
 
-    cudaMemcpyToArray(cuAlphaArray, 0, 0,      d_phi, size, cudaMemcpyDeviceToDevice); 
+
+
+    cudaMemcpy(alpha_surface,d_phi, size, cudaMemcpyDeviceToDevice);
 	
-    cudaBindSurfaceToArray(alpha_surface,  cuAlphaArray); 
+//     cudaBindSurfaceToArray(alpha_surface,  cuAlphaArray);
 
     return 0;
 }
@@ -132,10 +141,11 @@ int CUDA_WRAP_create_particle_surfaceCOMPLEX_fromDevice(int width,int height,dou
     {
        cudaMallocArray(&cuInputArray, &channelDesc2, 2*width, height, cudaArraySurfaceLoadStore); 
        turnFirstCall = 0;
+       cudaMalloc(&in_surface,size);
     }
-    cudaMemcpyToArray(cuInputArray, 0, 0,      d_data_in, size, cudaMemcpyDeviceToDevice); 
+//     cudaMemcpyToArray(cuInputArray, 0, 0,      d_data_in, size, cudaMemcpyDeviceToDevice);
 	
-    cudaBindSurfaceToArray(in_surface,  cuInputArray); 
+    cudaMemcpy(in_surface,d_data_in,size,cudaMemcpyDeviceToDevice);
 
     return 0;
 }
