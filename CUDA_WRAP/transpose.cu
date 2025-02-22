@@ -26,9 +26,9 @@ __device__ void surf2Dread
 (double *x_re,
                            double *in_surfaceT,
                            int nx,int ny,
-                           int N)
+                           int NY)
 {
-         double t = in_surfaceT[nx*N+ny];
+         double t = in_surfaceT[nx*NY + ny];
          *x_re = t;
 }
 
@@ -37,7 +37,7 @@ __device__ void surf2Dread
 //"height" of a matrix (number of rows)
 //result - complex result matrix
 // alpha - complex turn vector
-__global__ void transposeKernelCOMPLEX(int height,double *result)
+__global__ void transposeKernelCOMPLEX(int height,double *result,double *in_surfaceT,int in_surface_N)
 {
         // Calculate surface coordinates 
         unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x; 
@@ -109,24 +109,25 @@ __global__ void transposeKernelCOMPLEX_realZero(int height,double *result)
 
 //width, height - THE REAL SIZE OF THE MATRIX (NOT REGARDING THAT THE ELEMENTS ARE COMPLEX) THE SIZE IN double's is 2*width*height 
 //h_data_in     - COMPLEX matrix  (in)  
-int CUDA_WRAP_create_particle_surfaceCOMPLEX_transpose(int width,int height,double *h_data_in)
-{
-  
-    //THE SIZE IN double's is 2*width*height 
-    int size = 2*width*height*sizeof(double);
-        
-    cudaChannelFormatDesc channelDesc2 = cudaCreateChannelDesc(16, 16, 16, 16, cudaChannelFormatKindUnsigned); 
-        
-    //CUDA array is column-major. Thus here the FIRST DIMENSION is twice more (actuall it is the SECOND)
-    cudaMalloc(&in_surfaceT, 2*width*height*sizeof(double) );
-
-//     cudaMemcpyToArray(cuInputArrayTranspose, 0, 0,      h_data_in, size, cudaMemcpyHostToDevice);
+// int CUDA_WRAP_create_particle_surfaceCOMPLEX_transpose(int width,int height,double *h_data_in)
+// {
 //
-//     cudaBindSurfaceToArray(in_surfaceT,  cuInputArrayTranspose);
+//     //THE SIZE IN double's is 2*width*height
+//     int size = 2*width*height*sizeof(double);
+//
+//     cudaChannelFormatDesc channelDesc2 = cudaCreateChannelDesc(16, 16, 16, 16, cudaChannelFormatKindUnsigned);
+//
+//     //CUDA array is column-major. Thus here the FIRST DIMENSION is twice more (actuall it is the SECOND)
+//     cudaMalloc(&in_surfaceT, 2*width*height*sizeof(double) );
+//
+// //     cudaMemcpyToArray(cuInputArrayTranspose, 0, 0,      h_data_in, size, cudaMemcpyHostToDevice);
+// //
+// //     cudaBindSurfaceToArray(in_surfaceT,  cuInputArrayTranspose);
+//
+//     return 0;
+// }
 
-    return 0;
-}
-
+/*
 int CUDA_WRAP_create_particle_surfaceCOMPLEX_transpose_fromDevice(int width,int height,double *d_data_in)
 {
   
@@ -149,6 +150,8 @@ int CUDA_WRAP_create_particle_surfaceCOMPLEX_transpose_fromDevice(int width,int 
 
     return 0;
 }
+*/
+
 
 /*
 //width, height - THE REAL SIZE OF THE MATRIX (NOT REGARDING THAT THE ELEMENTS ARE COMPLEX) THE SIZE IN double's is 2*width*height 
@@ -257,8 +260,8 @@ int CUDA_WRAP_transposeMatrix_from_deviceCOMPLEX(int n1,int n2,double *d_m,doubl
 //    cudaMalloc((void**)&d_phi,2*n2*sizeof(double));
 //    cudaMemcpy(d_phi,phi,2*n2*sizeof(double),cudaMemcpyHostToDevice);
     
-    
-    CUDA_WRAP_create_particle_surfaceCOMPLEX_transpose_fromDevice(n1,n2,d_m);
+    cudaMalloc(&d_m,sizeof(double)*n1*n2);
+//     CUDA_WRAP_create_particle_surfaceCOMPLEX_transpose_fromDevice(n1,n2,d_m);
        
     gettimeofday(&tv[1],NULL);
     
