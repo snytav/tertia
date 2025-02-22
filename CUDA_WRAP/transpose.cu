@@ -22,7 +22,11 @@ cudaArray       *cuInputArrayTranspose;//,*cuOutputArray;
 
 int transposeFirstCall = 1;
 
-__device__ void surf2Dread(double *x_re,double *in_surfaceT,int nx,int ny,int N)
+__device__ void surf2Dread
+(double *x_re,
+                           double *in_surfaceT,
+                           int nx,int ny,
+                           int N)
 {
          double t = in_surfaceT[nx*N+ny];
          *x_re = t;
@@ -114,11 +118,11 @@ int CUDA_WRAP_create_particle_surfaceCOMPLEX_transpose(int width,int height,doub
     cudaChannelFormatDesc channelDesc2 = cudaCreateChannelDesc(16, 16, 16, 16, cudaChannelFormatKindUnsigned); 
         
     //CUDA array is column-major. Thus here the FIRST DIMENSION is twice more (actuall it is the SECOND)
-    cudaMallocArray(&cuInputArrayTranspose, &channelDesc2, 2*width, height, cudaArraySurfaceLoadStore); 
+    cudaMalloc(&in_surfaceT, 2*width*height*sizeof(double) );
 
-    cudaMemcpyToArray(cuInputArrayTranspose, 0, 0,      h_data_in, size, cudaMemcpyHostToDevice); 
-	
-    cudaBindSurfaceToArray(in_surfaceT,  cuInputArrayTranspose); 
+//     cudaMemcpyToArray(cuInputArrayTranspose, 0, 0,      h_data_in, size, cudaMemcpyHostToDevice);
+//
+//     cudaBindSurfaceToArray(in_surfaceT,  cuInputArrayTranspose);
 
     return 0;
 }
