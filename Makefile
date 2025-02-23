@@ -181,7 +181,7 @@ objects =  mesh.o movepart.o movefields.o movieframe.o \
 		CUDA_WRAP/beam_copy.o CUDA_WRAP/profile.o CUDA_WRAP/cuBeam.o \
 		CUDA_WRAP/cuParticles.o CUDA_WRAP/cuBeamValues.o CUDA_WRAP/copy_hydro.o \
 		CUDA_WRAP/plasma_particles.o CUDA_WRAP/cuLayers.o CUDA_WRAP/paraLayers.o \
-		CUDA_WRAP/paraCPUlayers.o
+		CUDA_WRAP/paraCPUlayers.o CUDA_WRAP/surf.o
 		
 		
 #========================================================================================================#
