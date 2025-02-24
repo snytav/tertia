@@ -1,9 +1,20 @@
 #ifndef SURF_H
-extern "C"  __device__ void surf2Dread
-(double *x_re,
+  __device__ void surf2Dread
+(
+    double *x_re,
                            double *in_surfaceT,
                            int nx,int ny,
-                           int NY);
+                           int ny1
+);
+
+__device__ void surf2Dwrite
+(
+                           double *in_surfaceT,
+                           int nx,int ny,
+                           int ny1,
+                           double t
+ );
+
 
 
 #endif

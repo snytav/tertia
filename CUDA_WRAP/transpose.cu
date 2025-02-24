@@ -32,6 +32,18 @@ __device__ void surf2Dread
          *x_re = t;
 }
 
+__device__ void surf2Dwrite
+(
+                           double *in_surfaceT,
+                           int nx,int ny,
+                           int NY,
+                           double t
+ )
+{
+         in_surfaceT[nx*NY + ny] = t;
+//          *x_re = t;
+}
+
 
 
 //"height" of a matrix (number of rows)

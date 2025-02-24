@@ -22,6 +22,7 @@
 //#include "cuPrintf.cu"
 
 #include "surfaceFFT.h"
+#include "surf.h"
 
 /*
 #define NZ 2
@@ -31,14 +32,15 @@
 #define THREADS_PER_BLOCK_Y 4
 */
 
-surface<void, 2> in_surface,out_surface; 
+double *in_surface,*out_surface;
 cudaArray       *cuFFT_InputArray,*cuFFT_OutputArray; 
-
-surface<void, 2> alpha_surface; 
+double *alpha_surface;
+int alpha_size;
 cudaArray        *cuFFT_AlphaArray; 
+double *surf3D;
+double *cu3DArray;
 
-surface<void,3> surf3D;
-cudaArray       *cu3DArray;
+
 
 
 
@@ -51,7 +53,7 @@ __global__ void outKernel(int height)
 	double x_re;
 	
 	//printf("grid %d %d %d dim %d %d %d\n",blockIdx.x,blockIdx.y,blockIdx.z, blockDim.x, blockDim.y, blockDim.z);
-        surf2Dread(&x_re,  in_surface, nx * 8, ny+height*nz);
+    surf2Dread(&x_re,  in_surface, nx * 8, ny+height*nz,height);
 //	cuPrintf("inKERNEL %d %d %d %e\n",nx,ny,nz,x_re);
 }
 
@@ -62,7 +64,7 @@ __global__ void resultKernel(int height)
         unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y; 
 	unsigned int nz = threadIdx.z;
 	double x_re;
-        surf2Dread(&x_re,  in_surface, nx * 8, ny+nz*height);
+        surf2Dread(&x_re,  in_surface, nx * 8, ny+nz*height,height);
 	
 	//printf("nx %d ny %d nz %d %f\n",nx,ny,nz,x_re);
 //	cuPrintf("RESULT nx %d ny %d nz %d %e\n",nx,ny,nz,x_re);
@@ -75,7 +77,7 @@ __global__ void inSurfaceToGlobal(int height,double *d_m,int layer)
         unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y; 
 	double x_re;
 	
-        surf2Dread(&x_re,  in_surface, nx * 8, ny+height*layer);
+        surf2Dread(&x_re,  in_surface, nx * 8, ny+height*layer,height);
 	d_m[nx*height + ny] = x_re;
 	//cuPrintf("RESULT %d %d %e\n",nx,ny,x_re);
 }
@@ -88,7 +90,7 @@ __global__ void globalToSurface(int height,double *d_m,int layer)
 	double x_re;
 	
 	x_re = d_m[nx*height + ny];
-	surf2Dwrite(x_re,in_surface,nx * 8, ny+height*layer);
+	surf2Dwrite(in_surface,nx, ny+height*layer,height,x_re);
 }
 
 
@@ -99,8 +101,8 @@ __global__ void outKernelAlpha()
         unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x; 
         unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y; 
 	double x_re,x_im;
-        surf2Dread(&x_re,  alpha_surface, 2*ny * 8, nx);
-        surf2Dread(&x_im,  alpha_surface, (2*ny+1) * 8, nx);
+        surf2Dread(&x_re,  alpha_surface, 2*ny,     nx,alpha_size);
+        surf2Dread(&x_im,  alpha_surface, (2*ny+1), nx,alpha_size);
 //	cuPrintf("outALPHA nx %d ny %d %e %e\n",nx,ny,x_re,x_im);
 }
 
@@ -122,12 +124,12 @@ __global__ void fft1D_X(int height,int *odd_layers)
 
 	for(int i = 0;i < height;i++)
 	{
-           surf2Dread(&x_re,  in_surface, i * 8, ny+shift);
-           surf2Dread(&surf_alpha_re,  alpha_surface, (2*nx+odd)*8,i);
+           surf2Dread(&x_re,  in_surface, i, ny+shift,height);
+           surf2Dread(&surf_alpha_re,  alpha_surface, (2*nx+odd),i,alpha_size);
    	   t += x_re*surf_alpha_re; 
 	   //printf("i %d ny %d nz %d value %e \n",i,ny,nz,x_re);
 	}
-	surf2Dwrite(t,out_surface,nx*8,ny+shift);
+	surf2Dwrite(out_surface,nx,ny+shift,height,t);
 }
 
 __global__ void fft1D_Y(int width,int height,int *odd_layers)
@@ -147,14 +149,14 @@ __global__ void fft1D_Y(int width,int height,int *odd_layers)
 	
 	for(int i = 0;i < height;i++)
 	{
-           surf2Dread(&x_re,  out_surface, nx * 8, i+shift);
-           surf2Dread(&surf_alpha_re,  alpha_surface, (2*i+odd)*8,ny);
+           surf2Dread(&x_re,  out_surface, nx, i+shift,height);
+           surf2Dread(&surf_alpha_re,  alpha_surface, (2*i+odd),i+shift,alpha_size);
    	   t += x_re*surf_alpha_re; 
 	  // printf("nx %d ny %d (2*i+odd) %d i+shift %d\n",nx,ny,(2*i+odd),i+shift);
 	}
 	
 	//surf2Dwrite(t,in_surface,ny*8,nx+shift);
-	surf2Dwrite(t,in_surface,ny*8,nx+shift);
+	surf2Dwrite(in_surface,ny,nx+shift,height,t);
 	//printf("FINAL 1DY ny*8 %d nx %d shift %d nx+shift %d \n",ny*8,nx,shift, nx+shift);
 }
 
@@ -205,9 +207,10 @@ int CUDA_WRAP_create_alpha_surfaceCOMPLEX(int width,int height)
     cudaChannelFormatDesc channelDesc2 = cudaCreateChannelDesc(16, 16, 16, 16, cudaChannelFormatKindUnsigned); 
         
     //CUDA array is column-major. Thus here the FIRST DIMENSION is twice more (actuall it is the SECOND)
-    cudaMallocArray(&cuFFT_AlphaArray, &channelDesc2,  2*width,height, cudaArraySurfaceLoadStore); 
+     cudaMalloc(&cuFFT_AlphaArray,2*width*height*size(double));
+     //cudaArraySurfaceLoadStore);
 
-    cudaMemcpyToArray(cuFFT_AlphaArray, 0, 0,      d_phi, size, cudaMemcpyDeviceToDevice); 
+    cudaMemcpyToArray(cuFFT_AlphaArray,d_phi, size, cudaMemcpyDeviceToDevice);
 	
     cudaBindSurfaceToArray(alpha_surface,  cuFFT_AlphaArray); 
 
@@ -251,7 +254,7 @@ int CUDA_WRAP_getSurfaceLayer(int n1,int n2,int layer,double *d_res,dim3 dimBloc
 int CUDA_WRAP_prepareFFTfromDevice(int n1,int n2,int n3,double *d_m)
 {
 //    int ny = n1,nz = n2;
-    int alpha_size;
+
     
     if (n1 < n2) alpha_size = n2;
     else alpha_size = n1;
