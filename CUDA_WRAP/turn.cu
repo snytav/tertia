@@ -18,6 +18,7 @@
 //#include "f.cu"
 
 //#include "../cudaParticle/cudaPIC.h"
+#include "surf.h"
 
 double *in_surface,*out_surface;
 cudaArray       *cuInputArray,*cuOutputArray; 

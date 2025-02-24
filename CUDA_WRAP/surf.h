@@ -1,5 +1,5 @@
 #ifndef SURF_H
-__device__ void surf2Dread
+extern "C"  __device__ void surf2Dread
 (double *x_re,
                            double *in_surfaceT,
                            int nx,int ny,
