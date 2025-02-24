@@ -171,7 +171,7 @@ int CUDA_WRAP_create_particle_surfaceCOMPLEX_fromDevice(int width,int height,int
     cudaChannelFormatDesc channelDesc2 = cudaCreateChannelDesc(16, 16, 16, 16, cudaChannelFormatKindUnsigned); 
         
     //CUDA array is column-major. Thus here the FIRST DIMENSION is twice more (actuall it is the SECOND)
-    cudaMallocArray(&cuFFT_InputArray, &channelDesc2, width, depth*height, cudaArraySurfaceLoadStore); 
+    cudaMalloc(&cuFFT_InputArray,  size); //cudaArraySurfaceLoadStore);
 
     for(int i = 0;i < width;i++)
     {
@@ -181,9 +181,9 @@ int CUDA_WRAP_create_particle_surfaceCOMPLEX_fromDevice(int width,int height,int
        }
     }
         
-    cudaMemcpyToArray(cuFFT_InputArray, 0, 0,      h_def, size, cudaMemcpyHostToDevice); 
+    cudaMemcpy(cuFFT_InputArray, h_def, size, cudaMemcpyHostToDevice);
 	
-    cudaBindSurfaceToArray(in_surface,  cuFFT_InputArray); 
+//     cudaBindSurfaceToArray(in_surface,  cuFFT_InputArray);
     
     return 0;
 }
