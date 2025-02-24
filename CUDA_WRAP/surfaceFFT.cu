@@ -368,13 +368,13 @@ int HalfInteger(int n1,int n2,double *fft1d_tab)
 }
 
 //CUDA_WRAP_create_particle_surfaceCOMPLEX_fromDevice
-int CUDA_WRAP_create_output_surfaceCOMPLEX_fromDevice(int width,int height,int depth,surface<void,2> &surf,cudaArray *array)
+int CUDA_WRAP_create_output_surfaceCOMPLEX_fromDevice(int width,int height,int depth,double **surf,double *array)
 {
-    cudaChannelFormatDesc channelDesc2 = cudaCreateChannelDesc(16, 16, 16, 16, cudaChannelFormatKindUnsigned); 
-        
-    cudaMallocArray(&array, &channelDesc2, width, height*depth, cudaArraySurfaceLoadStore); 
+//     cudaChannelFormatDesc channelDesc2 = cudaCreateChannelDesc(16, 16, 16, 16, cudaChannelFormatKindUnsigned);
+    //double *array;
+    cudaMalloc(surf, height*depth*sizeof(double));
 
-    cudaBindSurfaceToArray(surf,  array); 
+    cudaMemcpy(*surf, array,height*depth*sizeof(double),cudaMemcpyHostToDevice);
 
     return 0;
 }
