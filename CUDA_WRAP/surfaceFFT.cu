@@ -36,7 +36,7 @@ double *in_surface,*out_surface;
 cudaArray       *cuFFT_InputArray,*cuFFT_OutputArray; 
 double *alpha_surface;
 int alpha_size;
-cudaArray        *cuFFT_AlphaArray; 
+double        *cuFFT_AlphaArray;
 double *surf3D;
 double *cu3DArray;
 
@@ -207,12 +207,12 @@ int CUDA_WRAP_create_alpha_surfaceCOMPLEX(int width,int height)
     cudaChannelFormatDesc channelDesc2 = cudaCreateChannelDesc(16, 16, 16, 16, cudaChannelFormatKindUnsigned); 
         
     //CUDA array is column-major. Thus here the FIRST DIMENSION is twice more (actuall it is the SECOND)
-     cudaMalloc(&cuFFT_AlphaArray,2*width*height*size(double));
+     cudaMalloc(&cuFFT_AlphaArray,2*width*height*sizeof(double));
      //cudaArraySurfaceLoadStore);
 
-    cudaMemcpyToArray(cuFFT_AlphaArray,d_phi, size, cudaMemcpyDeviceToDevice);
+    cudaMemcpy(cuFFT_AlphaArray,d_phi, size, cudaMemcpyDeviceToDevice);
 	
-    cudaBindSurfaceToArray(alpha_surface,  cuFFT_AlphaArray); 
+//     cudaBindSurfaceToArray(alpha_surface,  cuFFT_AlphaArray);
 
     return 0;
 }
