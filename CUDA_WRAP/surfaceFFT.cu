@@ -33,7 +33,8 @@
 */
 
 double *in_surface,*out_surface;
-cudaArray       *cuFFT_InputArray,*cuFFT_OutputArray; 
+double *       cuFFT_InputArray;
+double *cuFFT_OutputArray;
 double *alpha_surface;
 int alpha_size;
 double        *cuFFT_AlphaArray;
@@ -44,7 +45,7 @@ double *cu3DArray;
 
 
 
-__global__ void outKernel(int height)
+__global__ void outKernel(int height,double *in_surface)
 {
         // Calculate surface coordinates 
         unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x; 
@@ -53,18 +54,18 @@ __global__ void outKernel(int height)
 	double x_re;
 	
 	//printf("grid %d %d %d dim %d %d %d\n",blockIdx.x,blockIdx.y,blockIdx.z, blockDim.x, blockDim.y, blockDim.z);
-    surf2Dread(&x_re,  in_surface, nx * 8, ny+height*nz,height);
+    surf2Dread(&x_re,  in_surface, nx, ny+height*nz,height);
 //	cuPrintf("inKERNEL %d %d %d %e\n",nx,ny,nz,x_re);
 }
 
-__global__ void resultKernel(int height)
+__global__ void resultKernel(int height,double *in_surface)
 {
         // Calculate surface coordinates 
         unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x; 
         unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y; 
 	unsigned int nz = threadIdx.z;
 	double x_re;
-        surf2Dread(&x_re,  in_surface, nx * 8, ny+nz*height,height);
+        surf2Dread(&x_re,  in_surface, nx, ny+nz*height,height);
 	
 	//printf("nx %d ny %d nz %d %f\n",nx,ny,nz,x_re);
 //	cuPrintf("RESULT nx %d ny %d nz %d %e\n",nx,ny,nz,x_re);
@@ -222,7 +223,7 @@ int CUDA_WRAP_copyGlobalToSurfaceLayer(int n1,int n2,int layer,double *d_m,dim3 
     int size = n1*n2*sizeof(double);
 //    int numBlocksZ = dimBlock.z;
     
-    cudaMemcpyToArray(cuFFT_InputArray, 0, layer*n2,      d_m, size, cudaMemcpyDeviceToDevice);
+    cudaMemcpy(cuFFT_InputArray, d_m, size, cudaMemcpyDeviceToDevice);
     
    // dimBlock.z = 1;
     //printf("WriteBlock %d %d %d grid %d %d %d \n",dimBlock.x,dimBlock.y,dimBlock.z,dimGrid.x,dimGrid.y,dimGrid.z);
@@ -235,9 +236,9 @@ int CUDA_WRAP_copyGlobalToSurfaceLayer(int n1,int n2,int layer,double *d_m,dim3 
 
 int CUDA_WRAP_surfaceFFTfree()
 {
-    cudaFreeArray(cuFFT_InputArray); 
-    cudaFreeArray(cuFFT_OutputArray);
-    cudaFreeArray(cuFFT_AlphaArray); 
+    cudaFree(cuFFT_InputArray);
+    cudaFree(cuFFT_OutputArray);
+    cudaFree(cuFFT_AlphaArray);
 
     return 0;
 }
@@ -260,7 +261,9 @@ int CUDA_WRAP_prepareFFTfromDevice(int n1,int n2,int n3,double *d_m)
     else alpha_size = n1;
     
     CUDA_WRAP_create_particle_surfaceCOMPLEX_fromDevice(n1,n2,n3,d_m);
-    CUDA_WRAP_create_output_surfaceCOMPLEX_fromDevice(n1,n2,n3,out_surface,cuFFT_OutputArray);
+    CUDA_WRAP_create_output_surfaceCOMPLEX_fromDevice(n1,n2,n3,
+                                                      out_surface,
+                                                      cuFFT_OutputArray);
     CUDA_WRAP_create_alpha_surfaceCOMPLEX(alpha_size,alpha_size);//,alpha_surface,cuFFT_AlphaArray);
     
     return 0;
@@ -331,7 +334,7 @@ int CUDA_WRAP_surfaceFFT(int n1,int n2,double *ktime,dim3 &dimBlock,dim3 &dimGri
     double frac_ideal,frac_rude;
     
     CUDA_WRAP_compare_device_array(n1*n2,debug_host,debug_device,&frac_ideal,&frac_rude,"RhoP","in surface",DETAILS);
-     outKernel<<<dimGrid, dimBlock>>>(n2);
+     outKernel<<<dimGrid, dimBlock>>>(n2,in_surface);
      
     //return 0;
     gettimeofday(&tv1,NULL);
@@ -341,7 +344,7 @@ int CUDA_WRAP_surfaceFFT(int n1,int n2,double *ktime,dim3 &dimBlock,dim3 &dimGri
     //outKernel<<<dimGrid, dimBlock>>>(n2);
     fft1D_Y<<<dimGrid, dimBlock>>>(n1,n2,d_flagsY); 
     CUDA_WRAP_compare_device_array(n1*n2,debug_host,debug_device,&frac_ideal,&frac_rude,"RhoP","in surface1.2",DETAILS);
-    resultKernel<<<dimGrid, dimBlock>>>(n2);
+    resultKernel<<<dimGrid, dimBlock>>>(n2,in_surface);
     gettimeofday(&tv2,NULL);
     CUDA_WRAP_compare_device_array(n1*n2,debug_host,debug_device,&frac_ideal,&frac_rude,"RhoP","in surface2",DETAILS);
     //puts("2=======================================================");
