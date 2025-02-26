@@ -1388,9 +1388,9 @@ int CUDA_WRAP_fill_particle_attributes(Mesh *mesh,int i_layer,int Ny,int Nz,Cell
 	
 	CUDA_WRAP_create_particle_surface(partSurfOut,&cuOutputArrayX,NUMBER_ATTRIBUTES*(part_per_cell_max+CUDA_WRAP_PARTICLE_START),width,h_data_in);
 	
-	cudaDeviceSynchronize();
+// 	cudaDeviceSynchronize();
 	
-	free(h_data_in);
+//	free(h_data_in);
   
   
         return part_per_cell_max;
@@ -1398,7 +1398,9 @@ int CUDA_WRAP_fill_particle_attributes(Mesh *mesh,int i_layer,int Ny,int Nz,Cell
 
 int CUDA_WRAP_check_particle_attributes(Mesh *mesh,int i_layer,int Ny,int Nz,Cell *p_CellArray)
 {
-        int part_per_cell_max,cell_number,de_facto_particles = 0,wrong_particles = 0.0;
+        int part_per_cell_max,cell_number;
+        int de_facto_particles = 0;
+        int wrong_particles = 0.0;
         int width = Ny*Nz; 
         double *h_data_in;
 	
