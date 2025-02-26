@@ -85,7 +85,7 @@ __global__ void inSurfaceToGlobal(int height,double *d_m,int layer,
 	//cuPrintf("RESULT %d %d %e\n",nx,ny,x_re);
 }
 
-__global__ void globalToSurface(int height,double *d_m,int layer)
+__global__ void globalToSurface(int height,double *d_m,int layer,double *in_surface)
 {
         unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x; 
         unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y; 
@@ -252,7 +252,7 @@ int CUDA_WRAP_surfaceFFTfree()
 
 int CUDA_WRAP_getSurfaceLayer(int n1,int n2,int layer,double *d_res,dim3 dimBlock,dim3 dimGrid)
 {
-    inSurfaceToGlobal<<<dimGrid, dimBlock>>>(n2,d_res,layer);
+    inSurfaceToGlobal<<<dimGrid, dimBlock>>>(n2,d_res,layer,in_surface);
     
     return 0;
 }
