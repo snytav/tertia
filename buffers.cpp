@@ -47,7 +47,7 @@ long CBuffer::FindCRC(long upto)
 }
 
 //---CBuffer::------------->
-void CBuffer::npush(void *ptr, long size, long nitems) throw(bad_alloc)
+void CBuffer::npush(void *ptr, long size, long nitems)// throw(bad_alloc)
 {
    long to_push = size*nitems;
 
@@ -64,7 +64,7 @@ void CBuffer::npush(void *ptr, long size, long nitems) throw(bad_alloc)
 }
 
 //---CBuffer::------------->
-void CBuffer::npop(void *ptr, long size, long nitems) throw(CBufferError)
+void CBuffer::npop(void *ptr, long size, long nitems) //throw(CBufferError)
 {
    long to_pop = size*nitems;
 

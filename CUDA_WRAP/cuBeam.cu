@@ -42,10 +42,10 @@ int get4DpositionHost(int Ny,int Nz,int Np,int i,int k,int l,int n)
 
 // TODO: COPY ADDITIONAL LAYER FROM THE RIGHT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!        
 
-surface<void,2> beam_surface,field3D;
-cudaArray      *beam_array,*field3Darray;
+double *beam_surface,*field3D;
+double*      *beam_array,*field3Darray;
 
-int CUDA_WRAP_create_Beam_particle_surface(surface<void,2> & surf,cudaArray *surf_array,int width,int height,double *h_data_in)
+int CUDA_WRAP_create_Beam_particle_surface(double*surf,double *surf_array,int width,int height,double *h_data_in)
 {
 //        int width = Nx;
   //      int height = (Ny+1)*(Nz+1)*6*sizeof(double);
@@ -53,12 +53,12 @@ int CUDA_WRAP_create_Beam_particle_surface(surface<void,2> & surf,cudaArray *sur
 
 	cudaChannelFormatDesc channelDesc2 = cudaCreateChannelDesc(32, 32, 0, 0, cudaChannelFormatKindUnsigned); 
         
-        int err = cudaMallocArray(&surf_array, &channelDesc2,height,width, cudaArraySurfaceLoadStore); 
+        int err = cudaMalloc(&surf_array, size);
 
-        err = cudaMemcpyToArray(surf_array, 0, 0,      h_data_in, size, cudaMemcpyHostToDevice); 
+        err = cudaMemcpy(surf_array,h_data_in, size, cudaMemcpyHostToDevice);
         
         // Bind the arrays to the surface references 
-        err = cudaBindSurfaceToArray( surf, surf_array); 
+//         err = cudaBindSurfaceToArray( surf, surf_array);
 
         return 0;
 }

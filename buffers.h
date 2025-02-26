@@ -55,8 +55,8 @@ public:
    virtual void push(double rd) {npush( &rd, sizeof(double), 1);};
    virtual void push(VComplex cc) {npush( &cc.re, sizeof(double), 2);};
 
-   virtual void npush(void *ptr, long size, long nitems=1) throw(bad_alloc);
-   virtual void npop (void *ptr, long size, long nitems=1) throw(CBufferError);
+   virtual void npush(void *ptr, long size, long nitems=1); //throw(bad_alloc);
+   virtual void npop (void *ptr, long size, long nitems=1); //throw(CBufferError);
 
    virtual void pop(char &rc)   {npop(&rc, sizeof(char), 1);};
    virtual void pop(int &ri)    {npop(&ri, sizeof(int), 1);};
