@@ -71,7 +71,9 @@ __global__ void resultKernel(int height,double *in_surface)
 //	cuPrintf("RESULT nx %d ny %d nz %d %e\n",nx,ny,nz,x_re);
 }
 
-__global__ void inSurfaceToGlobal(int height,double *d_m,int layer)
+__global__ void inSurfaceToGlobal(int height,double *d_m,int layer,
+                                  double *in_surface
+                                  )
 {
         // Calculate surface coordinates 
         unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x; 
@@ -96,7 +98,7 @@ __global__ void globalToSurface(int height,double *d_m,int layer)
 
 
 
-__global__ void outKernelAlpha()
+__global__ void outKernelAlpha(double *alpha_surface,int alpha_size)
 {
         // Calculate surface coordinates 
         unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x; 
@@ -108,7 +110,10 @@ __global__ void outKernelAlpha()
 }
 
 
-__global__ void fft1D_X(int height,int *odd_layers)
+__global__ void fft1D_X(int height,int *odd_layers,int alpha_size,
+                        double *in_surface,
+                        double *out_surface,
+                        double *alpha_surface)
 {
         // Calculate surface coordinates 
         unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x; 
@@ -133,7 +138,8 @@ __global__ void fft1D_X(int height,int *odd_layers)
 	surf2Dwrite(out_surface,nx,ny+shift,height,t);
 }
 
-__global__ void fft1D_Y(int width,int height,int *odd_layers)
+__global__ void fft1D_Y(int width,int height,int *odd_layers,int alpha_size,
+                        double *alpha_surface,double *in_surface,double *out_surface)
 {
         unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x; 
         unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y; 
@@ -338,11 +344,11 @@ int CUDA_WRAP_surfaceFFT(int n1,int n2,double *ktime,dim3 &dimBlock,dim3 &dimGri
      
     //return 0;
     gettimeofday(&tv1,NULL);
-    fft1D_X<<<dimGrid, dimBlock>>>(n2,d_flagsX); 
+    fft1D_X<<<dimGrid, dimBlock>>>(n2,d_flagsX,alpha_size,in_surface,out_surface,alpha_surface);
     CUDA_WRAP_compare_device_array(n1*n2,debug_host,debug_device,&frac_ideal,&frac_rude,"RhoP","in surface1",DETAILS);
     //printf("GRID %d %d %d %d %d %d \n",dimGrid.x,dimGrid.y,dimGrid.z,dimBlock.x,dimBlock.y,dimBlock.z);
     //outKernel<<<dimGrid, dimBlock>>>(n2);
-    fft1D_Y<<<dimGrid, dimBlock>>>(n1,n2,d_flagsY); 
+    fft1D_Y<<<dimGrid, dimBlock>>>(n1,n2,d_flagsY,alpha_size,alpha_surface,in_surface,out_surface);
     CUDA_WRAP_compare_device_array(n1*n2,debug_host,debug_device,&frac_ideal,&frac_rude,"RhoP","in surface1.2",DETAILS);
     resultKernel<<<dimGrid, dimBlock>>>(n2,in_surface);
     gettimeofday(&tv2,NULL);
