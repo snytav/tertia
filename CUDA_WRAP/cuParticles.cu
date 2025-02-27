@@ -55,16 +55,27 @@ int write_values_first_call = 1;
 int iFullStep;
 
 __device__ void surf2Dwrite
-(
+(                          double t,
                            double *in_surfaceT,
                            int nx,int ny,
-                           int ny1,
-                           double t
+                           int ny1
+
  )
 {
          in_surfaceT[nx*ny1 + ny] = t;
 //          *x_re = t;
 }
+
+__device__ void surf2Dread
+(double *x_re,
+                           double *in_surfaceT,
+                           int nx,int ny,
+                           int NY)
+{
+         double t = in_surfaceT[nx*NY + ny];
+         *x_re = t;
+}
+
 
 
 __device__ void cuDepositRhoInCell(int l_My,int part_number,double *buf,
@@ -193,17 +204,17 @@ __device__ int ncell1(int nx,int ny)
     return n;
 }
 
-__device__ void controlWriteSurface(int cell_number,double x,double y,double z,double px,double py,double pz,double weight,double f_Q2m)
-{
-            surf2Dwrite(x,      partSurfOut, 0,   cell_number ); 
-            surf2Dwrite(y,      partSurfOut, 1*8, cell_number ); 
-            surf2Dwrite(z,      partSurfOut, 2*8, cell_number ); 
-            surf2Dwrite(px,     partSurfOut, 3*8, cell_number ); 
-            surf2Dwrite(py,     partSurfOut, 4*8, cell_number ); 
-            surf2Dwrite(pz,     partSurfOut, 5*8, cell_number ); 
-            surf2Dwrite(weight, partSurfOut, 6*8, cell_number ); 
-            surf2Dwrite(f_Q2m,  partSurfOut, 7*8, cell_number );   
-}
+// __device__ void controlWriteSurface(int cell_number,double x,double y,double z,double px,double py,double pz,double weight,double f_Q2m)
+// {
+//             surf2Dwrite(x,      partSurfOut, 0,   cell_number );
+//             surf2Dwrite(y,      partSurfOut, 1*8, cell_number );
+//             surf2Dwrite(z,      partSurfOut, 2*8, cell_number );
+//             surf2Dwrite(px,     partSurfOut, 3*8, cell_number );
+//             surf2Dwrite(py,     partSurfOut, 4*8, cell_number );
+//             surf2Dwrite(pz,     partSurfOut, 5*8, cell_number );
+//             surf2Dwrite(weight, partSurfOut, 6*8, cell_number );
+//             surf2Dwrite(f_Q2m,  partSurfOut, 7*8, cell_number );
+// }
 
 //writing a value to the control array for a definite particle in a definite cell
 __device__ int write_particle_value(int Ny,int i,int j,int num_attr,int ppc_max,int k,int n,double *d_p,double t)
@@ -249,18 +260,20 @@ __global__ void testSurfKernel(double *t)
 }
 
 //reading particle coordinates from a surface
-__device__ void getParticle(int cn,int pn,double *x,double *y,double *z,double *px,double *py,double *pz,double *w,double *qm)
+__device__ void getParticle(int cn,int pn,double *x,double *y,double *z,double *px,double *py,double *pz,double *w,double *qm,
+                            int Ny,int Nz)
 {
 //            //cuPrintf("getParticle cn %d \n",cn);
             pn += CUDA_WRAP_PARTICLE_START_INDEX;  
-            surf2Dread(x, partSurfIn, pn,       cn ); 
-            surf2Dread(y, partSurfIn, pn + 1*8, cn ); 
-            surf2Dread(z, partSurfIn, pn + 2*8, cn ); 
-            surf2Dread(px,partSurfIn, pn + 3*8, cn ); 
-            surf2Dread(py,partSurfIn, pn + 4*8, cn ); 
-            surf2Dread(pz,partSurfIn, pn + 5*8, cn ); 
-            surf2Dread(w, partSurfIn, pn + 6*8, cn ); 
-            surf2Dread(qm,partSurfIn, pn + 7*8, cn ); 
+
+            surf2Dread(x, partSurfIn, pn,       cn,Ny*Nz );
+            surf2Dread(y, partSurfIn, pn + 1*8, cn,Ny*Nz );
+            surf2Dread(z, partSurfIn, pn + 2*8, cn,Ny*Nz );
+            surf2Dread(px,partSurfIn, pn + 3*8, cn,Ny*Nz );
+            surf2Dread(py,partSurfIn, pn + 4*8, cn,Ny*Nz );
+            surf2Dread(pz,partSurfIn, pn + 5*8, cn,Ny*Nz );
+            surf2Dread(w, partSurfIn, pn + 6*8, cn,Ny*Nz );
+            surf2Dread(qm,partSurfIn, pn + 7*8, cn,Ny*Nz );
 	    
 #ifdef CUDA_WRAP_CUPRINTF_IN_OUT	    
 	     //cuPrintf("I read %e %e %e %e %e %e pn %d cell %d \n",*x,*y,*z,*px,*py,*pz,pn,cn);
@@ -271,7 +284,7 @@ __device__ void getParticle(int cn,int pn,double *x,double *y,double *z,double *
 void __global__ getParticleFromCell(int ny,int nz,double *part)
 {
    double  w,q;
-   getParticle(ncell(ny,nz),0,&part[0],&part[1],&part[2],&part[3],&part[4],&part[5],&w,&q);
+   getParticle(ncell(ny,nz),0,&part[0],&part[1],&part[2],&part[3],&part[4],&part[5],&w,&q,ny,nz);
    
 }
 
@@ -282,7 +295,7 @@ double __device__ getField(int nx,int ny,int attr,double *d_F)
 }
 
 //writing each of all the field components including necessary shifts
-void __device__ setFieldComponent(int nx,int ny,int attr,double *d_F)
+void __device__ setFieldComponent(int nx,int ny,int attr,double *d_F,int surf_height)
 {
     int     nccc,ncpc,nccp,ncpp,ncmc,nccm,ncmm,ncmp,ncpm;
     double  accc,acpc,accp,acpp,acmc,accm,acmm,acmp,acpm;
@@ -317,37 +330,36 @@ void __device__ setFieldComponent(int nx,int ny,int attr,double *d_F)
     acmm = d_F[ncmm];
     acmm = getField(nx-1,ny-1,attr,d_F);
     
-    surf2Dwrite(accc, partSurfIn, attr*NUMBER_ATTRIBUTES*8, nccc); 
+    surf2Dwrite(accc, partSurfIn, attr*NUMBER_ATTRIBUTES + 0, nccc,surf_height);
 
-    if(attr == 0) //cuPrintf("nx %2d ny %2d acpc0 %25.15e \n",nx,ny,acpc);
-    surf2Dwrite(acpc, partSurfIn, attr*NUMBER_ATTRIBUTES*8 + 8, nccc);
-    surf2Dwrite(accp, partSurfIn, attr*NUMBER_ATTRIBUTES*8 + 16, nccc); 
-    surf2Dwrite(acpp, partSurfIn, attr*NUMBER_ATTRIBUTES*8 + 24, nccc); 
-    surf2Dwrite(acpm, partSurfIn, attr*NUMBER_ATTRIBUTES*8 + 32, nccc); 
-    surf2Dwrite(acmp, partSurfIn, attr*NUMBER_ATTRIBUTES*8 + 40, nccc); 
+    surf2Dwrite(acpc, partSurfIn, attr*NUMBER_ATTRIBUTES + 1, nccc,surf_height);
+    surf2Dwrite(accp, partSurfIn, attr*NUMBER_ATTRIBUTES + 2, nccc,surf_height);
+    surf2Dwrite(acpp, partSurfIn, attr*NUMBER_ATTRIBUTES + 3, nccc,surf_height);
+    surf2Dwrite(acpm, partSurfIn, attr*NUMBER_ATTRIBUTES + 4, nccc,surf_height);
+    surf2Dwrite(acmp, partSurfIn, attr*NUMBER_ATTRIBUTES + 5, nccc,surf_height);
             
 //	    return;
-    surf2Dwrite(acmc, partSurfIn, attr*NUMBER_ATTRIBUTES*8 + 48, nccc); 
-    surf2Dwrite(accm, partSurfIn, attr*NUMBER_ATTRIBUTES*8 + 56, nccc); 
-    surf2Dwrite(acmm, partSurfIn, attr*NUMBER_ATTRIBUTES*8 + 64, nccc); 
+    surf2Dwrite(acmc, partSurfIn, attr*NUMBER_ATTRIBUTES + 6, nccc,surf_height);
+    surf2Dwrite(accm, partSurfIn, attr*NUMBER_ATTRIBUTES + 7, nccc,surf_height);
+    surf2Dwrite(acmm, partSurfIn, attr*NUMBER_ATTRIBUTES + 8, nccc,surf_height);
     
   //  printf("nx %3d ny %3d attr %3d accc %10.3e acpc %25.15e accp %10.3e acpp %10.3e acpm %10.3e acmp %10.3e acmc %10.3e accm %10.3e acmm %10.3e \n",
 //	    nx,ny,attr,accc,acpc,accp,acpp,acpm,acmp,acmc,accm,acmm);
 }
 
 //writing all the field components
-__global__ void SetField(double *ex,double *ey,double *ez,double *bx,double *by,double *bz)
+__global__ void SetField(double *ex,double *ey,double *ez,double *bx,double *by,double *bz,int surf_height)
 {
     unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x; 
     unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y;   
     
-    setFieldComponent(nx,ny,0,ex);
-    setFieldComponent(nx,ny,1,ey);
-    setFieldComponent(nx,ny,2,ez);
+    setFieldComponent(nx,ny,0,ex,surf_height);
+    setFieldComponent(nx,ny,1,ey,surf_height);
+    setFieldComponent(nx,ny,2,ez,surf_height);
     
-    setFieldComponent(nx,ny,3,bx);
-    setFieldComponent(nx,ny,4,by);
-    setFieldComponent(nx,ny,5,bz);
+    setFieldComponent(nx,ny,3,bx,surf_height);
+    setFieldComponent(nx,ny,4,by,surf_height);
+    setFieldComponent(nx,ny,5,bz,surf_height);
 }
 
 //reading one field component for a particle in a cell   
@@ -550,7 +562,7 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
             //cuPrintf("cell %d part %d\n",cell_number,part_number);
 #endif	    
             
-	    getParticle(cell_number,part_number,&x,&y,&z,&px,&py,&pz,&weight,&f_Q2m);
+	    getParticle(cell_number,part_number,&x,&y,&z,&px,&py,&pz,&weight,&f_Q2m,l_My,l_Mz);
 	    
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	   
 	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,30,buf,x);
@@ -1775,7 +1787,7 @@ int CUDA_WRAP_move_particles(int Ny,int Nz,int part_per_cell_max,double hx,doubl
 
     double d_t = 0.0; 
  //   testSurfKernel<<<dimGrid, dimBlock>>>(&d_t);
-    SetField<<<dimGrid, dimBlock>>>(d_rEx,d_rEy,d_rEz,d_rBx,d_rBy,d_rBz);
+    SetField<<<dimGrid, dimBlock>>>(d_rEx,d_rEy,d_rEz,d_rBx,d_rBy,d_rBz,Ny*Nz);
     CUDA_DEBUG_printDdevice_matrix(Ny,Nz,d_partRho,"Rho begin move-1 "); 
     CUDA_DEBUG_printDdevice_matrix(Ny,Nz,d_partJy,"Jy setField ");
     printf("Rho begin move-1 fullstep %d \n",i_fs);
