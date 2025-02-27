@@ -33,16 +33,16 @@ double *h_aqq,*d_aqq;
 double *d_partRho = NULL, *d_partJx = NULL,*d_partJy = NULL,*d_partJz = NULL;
 
 //surface<void, 2> partSurfInFloat; 
-surface<void, 2> partSurfIn; 
-cudaArray       *cuInputArrayX; 
+double *partSurfIn;
+double *cuInputArrayX;
 
-surface<void, 2> SurfEx;
+double *SurfEx;
 
 //surface<void,2>SurfEy,SurfEz,SurfBx,SurfBy,SurfBz; 
 //cudaArray       *cuExInputArray,*cuEyInputArray,*cuEzInputArray,*cuBxInputArray,*cuByInputArray,*cuBzInputArray; 
 
 cudaArray *cuOutputArrayX; 
-surface<void, 2> partSurfOut; 
+double    *partSurfOut;
 
 double *d_particleResult = NULL;
 double *d_params = NULL;
@@ -53,6 +53,19 @@ int write_values_first_call = 1;
 
 
 int iFullStep;
+
+__device__ void surf2Dwrite
+(
+                           double *in_surfaceT,
+                           int nx,int ny,
+                           int ny1,
+                           double t
+ )
+{
+         in_surfaceT[nx*ny1 + ny] = t;
+//          *x_re = t;
+}
+
 
 __device__ void cuDepositRhoInCell(int l_My,int part_number,double *buf,
                       double *d_partJx,double *d_partRho,  
@@ -1402,7 +1415,7 @@ int CUDA_WRAP_check_particle_attributes(Mesh *mesh,int i_layer,int Ny,int Nz,Cel
         int de_facto_particles = 0;
         int wrong_particles = 0.0;
         int width = Ny*Nz; 
-        double *h_data_in;
+//         double *h_data_in;
 	
 #ifdef CUDA_WRAP_PARTICLE_CONTROL_FILE
 	FILE *f;
@@ -1414,7 +1427,7 @@ int CUDA_WRAP_check_particle_attributes(Mesh *mesh,int i_layer,int Ny,int Nz,Cel
 #endif	
 	
 	part_per_cell_max = findMaxNumberOfParticlesPerCell(mesh,i_layer,Ny,Nz,p_CellArray);
-	h_data_in   = (double*) malloc(NUMBER_ATTRIBUTES*part_per_cell_max*width*sizeof(double));
+	double *h_data_in   = (double*) malloc(NUMBER_ATTRIBUTES*part_per_cell_max*width*sizeof(double));
 	
 	//GET PARTICLE DATA FROM SURFACE
 	//CUDA_WRAP_get_particle_surface(partSurfOut,cuOutputArrayX,NUMBER_ATTRIBUTES*part_per_cell_max,width,h_data_in);
