@@ -217,7 +217,7 @@ __device__ int ncell1(int nx,int ny)
 // }
 
 //writing a value to the control array for a definite particle in a definite cell
-__device__ int write_particle_value(int Ny,int i,int j,int num_attr,int ppc_max,int k,int n,double *d_p,double t)
+__device__ int write_particle_value(int Ny,int i,int j,int num_attr,int ppc_max,int k,int n,double *d_p,double t,int surf_height)
 {
 	int cell_number = i*Ny + j;
 	
@@ -363,24 +363,24 @@ __global__ void SetField(double *ex,double *ey,double *ez,double *bx,double *by,
 }
 
 //reading one field component for a particle in a cell   
-__device__ void getFieldForParticle(int nx,int ny,int attr,double *ccc,double *cpc,double *ccp,double *cpp,double *cpm,double *cmp,double *cmc,double *ccm,double *cmm)
+__device__ void getFieldForParticle(int nx,int ny,int attr,double *ccc,double *cpc,double *ccp,double *cpp,double *cpm,double *cmp,double *cmc,double *ccm,double *cmm, int surf_height)
 {
    int nccc;//,ncpc,nccp,ncpp,ncmc,nccm,ncmm,ncmp,ncpm;
    double t;
-            nccc = ncell(ny,nx);
+   nccc = ncell(ny,nx);
             
-            surf2Dread(ccc, partSurfIn, attr*NUMBER_ATTRIBUTES*8, nccc); 
+   surf2Dread(ccc, partSurfIn, attr*NUMBER_ATTRIBUTES, nccc,surf_height);
 	    
-            surf2Dread(cpc, partSurfIn, attr*NUMBER_ATTRIBUTES*8 + 8, nccc);
-            surf2Dread(ccp, partSurfIn, attr*NUMBER_ATTRIBUTES*8 + 16, nccc); 
-            surf2Dread(cpp, partSurfIn, attr*NUMBER_ATTRIBUTES*8 + 24, nccc); 
-            surf2Dread(cpm, partSurfIn, attr*NUMBER_ATTRIBUTES*8 + 32, nccc); 
-            surf2Dread(cmp, partSurfIn, attr*NUMBER_ATTRIBUTES*8 + 40, nccc); 
+   surf2Dread(cpc, partSurfIn, attr*NUMBER_ATTRIBUTES+1,nccc,surf_height);
+   surf2Dread(ccp, partSurfIn, attr*NUMBER_ATTRIBUTES + 2, nccc,surf_height);
+   surf2Dread(cpp, partSurfIn, attr*NUMBER_ATTRIBUTES + 3, nccc,surf_height);
+   surf2Dread(cpm, partSurfIn, attr*NUMBER_ATTRIBUTES + 4, nccc,surf_height);
+   surf2Dread(cmp, partSurfIn, attr*NUMBER_ATTRIBUTES + 5, nccc,surf_height);
             
 //	    return;
-            surf2Dread(cmc, partSurfIn, attr*NUMBER_ATTRIBUTES*8 + 48, nccc); 
-            surf2Dread(ccm, partSurfIn, attr*NUMBER_ATTRIBUTES*8 + 56, nccc); 
-            surf2Dread(cmm, partSurfIn, attr*NUMBER_ATTRIBUTES*8 + 64, nccc); 
+   surf2Dread(cmc, partSurfIn, attr*NUMBER_ATTRIBUTES + 6, nccc,surf_height);
+   surf2Dread(ccm, partSurfIn, attr*NUMBER_ATTRIBUTES + 7, nccc,surf_height);
+   surf2Dread(cmm, partSurfIn, attr*NUMBER_ATTRIBUTES + 8, nccc,surf_height);
 }
 
 __device__ void getFieldForParticleDirect(double *d_F,int nx,int ny,int attr,double *ccc,double *cpc,double *ccp,double *cpp,double *cpm,double *cmp,double *cmc,double *ccm,double *cmm)
@@ -420,17 +420,17 @@ __device__ void getFieldForParticleDirect(double *d_F,int nx,int ny,int attr,dou
 
 
 // writing new particle coordinates to the surface
-__device__ void writeParticle(int cell_number,int pn,double x,double y, double z,double px,double py, double pz,double weight,double f_Q2m)
+__device__ void writeParticle(int cell_number,int pn,double x,double y, double z,double px,double py, double pz,double weight,double f_Q2m,int surf_height)
 {
             pn += NUMBER_ATTRIBUTES*8; 
-            surf2Dwrite(x,      partSurfOut, pn,       cell_number ); 
-            surf2Dwrite(y,      partSurfOut, pn + 1*8, cell_number ); 
-            surf2Dwrite(z,      partSurfOut, pn + 2*8, cell_number ); 
-            surf2Dwrite(px,     partSurfOut, pn + 3*8, cell_number ); 
-            surf2Dwrite(py,     partSurfOut, pn + 4*8, cell_number ); 
-            surf2Dwrite(pz,     partSurfOut, pn + 5*8, cell_number ); 
-            surf2Dwrite(weight, partSurfOut, pn + 6*8, cell_number ); 
-            surf2Dwrite(f_Q2m,  partSurfOut, pn + 7*8, cell_number );   
+            surf2Dwrite(x,      partSurfOut, pn,       cell_number,surf_height );
+            surf2Dwrite(y,      partSurfOut, pn + 1*8, cell_number,surf_height );
+            surf2Dwrite(z,      partSurfOut, pn + 2*8, cell_number,surf_height );
+            surf2Dwrite(px,     partSurfOut, pn + 3*8, cell_number,surf_height );
+            surf2Dwrite(py,     partSurfOut, pn + 4*8, cell_number,surf_height );
+            surf2Dwrite(pz,     partSurfOut, pn + 5*8, cell_number,surf_height );
+            surf2Dwrite(weight, partSurfOut, pn + 6*8, cell_number,surf_height );
+            surf2Dwrite(f_Q2m,  partSurfOut, pn + 7*8, cell_number,surf_height );
 	    
 #ifdef CUDA_WRAP_CUPRINTF_IN_OUT	    
 	    //cuPrintf("O write %e %e %e %e %e %e pn %d cell %d\n",x,y,z,px,py,pz,pn,cell_number);
@@ -439,7 +439,7 @@ __device__ void writeParticle(int cell_number,int pn,double x,double y, double z
 }
 
 //writing particles from output surface to input surface
-void __global__ copyParticlesToInputSurface()
+void __global__ copyParticlesToInputSurface(int surf_height)
 {
             unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x; 
             unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y;
@@ -449,14 +449,14 @@ void __global__ copyParticlesToInputSurface()
             int cell_number = ncell(nx,ny);
 	    
 	    int pn1 = pn + NUMBER_ATTRIBUTES*8; 
-            surf2Dread(&x,      partSurfOut, pn1,       cell_number ); 
-            surf2Dread(&y,      partSurfOut, pn1 + 1*8, cell_number ); 
-            surf2Dread(&z,      partSurfOut, pn1 + 2*8, cell_number ); 
-            surf2Dread(&px,     partSurfOut, pn1 + 3*8, cell_number ); 
-            surf2Dread(&py,     partSurfOut, pn1 + 4*8, cell_number ); 
-            surf2Dread(&pz,     partSurfOut, pn1 + 5*8, cell_number ); 
-            surf2Dread(&w,      partSurfOut, pn1 + 6*8, cell_number ); 
-            surf2Dread(&qm,     partSurfOut, pn1 + 7*8, cell_number );   
+            surf2Dread(&x,      partSurfOut, pn1,       cell_number,surf_height );
+            surf2Dread(&y,      partSurfOut, pn1 + 1, cell_number,surf_height );
+            surf2Dread(&z,      partSurfOut, pn1 + 2, cell_number,surf_height );
+            surf2Dread(&px,     partSurfOut, pn1 + 3, cell_number,surf_height );
+            surf2Dread(&py,     partSurfOut, pn1 + 4, cell_number,surf_height );
+            surf2Dread(&pz,     partSurfOut, pn1 + 5, cell_number,surf_height );
+            surf2Dread(&w,      partSurfOut, pn1 + 6, cell_number,surf_height );
+            surf2Dread(&qm,     partSurfOut, pn1 + 7, cell_number,surf_height );
 #ifdef CUDA_WRAP_CUPRINTF_IN_OUT	    
 	    //cuPrintf("O2I: write %e %e %e %e %e %e\n",x,y,z,px,py,pz);
 #endif	    
@@ -464,14 +464,14 @@ void __global__ copyParticlesToInputSurface()
 #ifdef CUDA_WRAP_CUPRINTF_IN_OUT	    
 	    //cuPrintf("O2I pn1 %d pn2 %d cellnumber %d \n",pn1,pn2,cell_number);
 #endif	    
-            surf2Dwrite(x, partSurfIn, pn2,       cell_number ); 
-            surf2Dwrite(y, partSurfIn, pn2 + 1*8, cell_number ); 
-            surf2Dwrite(z, partSurfIn, pn2 + 2*8, cell_number ); 
-            surf2Dwrite(px,partSurfIn, pn2 + 3*8, cell_number ); 
-            surf2Dwrite(py,partSurfIn, pn2 + 4*8, cell_number ); 
-            surf2Dwrite(pz,partSurfIn, pn2 + 5*8, cell_number ); 
-            surf2Dwrite(w, partSurfIn, pn2 + 6*8, cell_number ); 
-            surf2Dwrite(qm,partSurfIn, pn2 + 7*8, cell_number );   
+            surf2Dwrite(x, partSurfIn, pn2,     cell_number ,surf_height);
+            surf2Dwrite(y, partSurfIn, pn2 + 1, cell_number ,surf_height);
+            surf2Dwrite(z, partSurfIn, pn2 + 2, cell_number ,surf_height);
+            surf2Dwrite(px,partSurfIn, pn2 + 3, cell_number ,surf_height);
+            surf2Dwrite(py,partSurfIn, pn2 + 4, cell_number ,surf_height);
+            surf2Dwrite(pz,partSurfIn, pn2 + 5, cell_number ,surf_height);
+            surf2Dwrite(w, partSurfIn, pn2 + 6, cell_number ,surf_height);
+            surf2Dwrite(qm,partSurfIn, pn2 + 7, cell_number ,surf_height);
 }
 
 //transverse currents copy from computation array to array accessible by Poisson solver
@@ -565,12 +565,12 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
 	    getParticle(cell_number,part_number,&x,&y,&z,&px,&py,&pz,&weight,&f_Q2m,l_My,l_Mz);
 	    
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	   
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,30,buf,x);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,31,buf,y);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,32,buf,z);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,33,buf,px);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,34,buf,py);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,35,buf,pz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,30,buf,x,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,31,buf,y,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,32,buf,z,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,33,buf,px,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,34,buf,py,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,35,buf,pz,l_My*l_Mz);
 #endif	    
 	    controlWrite(cell_number,part_per_cell_max,part_number,x,y,z,px,py,pz,weight,f_Q2m,result);
 
@@ -611,28 +611,28 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
             //cuPrintf("trace %d %d %25.15e %25.15e %25.15e %25.15e %25.15e %25.15e \n",nx,ny,x,y,z,px,py,pz);
 #endif	    
 ///////////////////////////////////////////////////////////////////////////////
-	    getFieldForParticle(nx,ny,0,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm);
+	    getFieldForParticle(nx,ny,0,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
 	   // write_particle_value(int Ny,int i,int j,int num_attr,int ppc_max,int k, int n, double *d_p,double t)
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	    
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,110,buf,acc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,111,buf,apc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,112,buf,acp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,113,buf,app);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,114,buf,amp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,115,buf,apm);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,116,buf,amc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,117,buf,acm);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,118,buf,amm);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,110,buf,acc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,111,buf,apc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,112,buf,acp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,113,buf,app,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,114,buf,amp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,115,buf,apm,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,116,buf,amc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,117,buf,acm,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,118,buf,amm,l_My*l_Mz);
 
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,20,buf,ccc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,21,buf,cpc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,22,buf,ccp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,23,buf,cpp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,24,buf,cmp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,25,buf,cpm);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,26,buf,cmc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,27,buf,ccm);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,28,buf,cmm);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,20,buf,ccc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,21,buf,cpc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,22,buf,ccp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,23,buf,cpp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,24,buf,cmp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,25,buf,cpm,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,26,buf,cmc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,27,buf,ccm,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,28,buf,cmm,l_My*l_Mz);
 #endif	    
 	    //getFieldForParticle1(nx,ny,0,params);
 
@@ -649,17 +649,17 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
 #endif	
 	    
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-	    getFieldForParticle(nx,ny,1,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm);
+	    getFieldForParticle(nx,ny,1,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	    
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,140,buf,ccc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,141,buf,cpc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,142,buf,ccp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,143,buf,cpp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,144,buf,cmp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,145,buf,cpm);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,146,buf,cmc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,147,buf,ccm);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,148,buf,cmm);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,140,buf,ccc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,141,buf,cpc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,142,buf,ccp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,143,buf,cpp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,144,buf,cmp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,145,buf,cpm,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,146,buf,cmc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,147,buf,ccm,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,148,buf,cmm,l_My*l_Mz);
 #endif	    
 
 	    ey = acc*ccc + apc*cpc + acp*ccp + app*cpp +
@@ -670,7 +670,7 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
 	    //cuPrintf("Ey %e\n",ey);
 #endif	    
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-	    getFieldForParticle(nx,ny,2,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm);
+	    getFieldForParticle(nx,ny,2,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
 
 	    ez = acc*ccc + apc*cpc + acp*ccp + app*cpp +
                  apm*cpm + amp*cmp + amc*cmc + acm*ccm + amm*cmm;
@@ -692,7 +692,7 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
 #endif	    
 //***************************************************************************************************************
 ///////////////////////////////////////////////////////////////////////////////
-	    getFieldForParticle(nx,ny,3,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm);
+	    getFieldForParticle(nx,ny,3,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	    
 	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,160,buf,ccc);
 	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,161,buf,cpc);
@@ -713,7 +713,7 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
 	    //cuPrintf("Bx %e\n",bx);
 #endif	    
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-	    getFieldForParticle(nx,ny,4,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm);
+	    getFieldForParticle(nx,ny,4,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	    
 	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,120,buf,ccc);
 	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,121,buf,cpc);
@@ -734,7 +734,7 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
 	    //cuPrintf("By %e\n",ey);
 #endif	    
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-	    getFieldForParticle(nx,ny,5,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm);
+	    getFieldForParticle(nx,ny,5,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
 
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	    
 	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,130,buf,ccc);
@@ -1138,10 +1138,10 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
 
             if (iFullStep) {
                xtmp = 0.;
-	       writeParticle(cell_number,part_number,xtmp,ytmp,ztmp,px,py,pz,weight,f_Q2m);
-	       write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,86,buf,xtmp);  
-	       write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,87,buf,ytmp);  
-	       write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,88,buf,ztmp);  
+	       writeParticle(cell_number,part_number,xtmp,ytmp,ztmp,px,py,pz,weight,f_Q2m,l_My*l_Mz);
+	       write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,86,buf,xtmp,l_My*l_Mz);
+	       write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,87,buf,ytmp,l_My*l_Mz);
+	       write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,88,buf,ztmp,l_My*l_Mz);
 	       
 /*               long nnew = GetN(i-1,jtmp,ktmp);
                Cell &cnew = p_CellArray[nnew];
@@ -1794,7 +1794,7 @@ int CUDA_WRAP_move_particles(int Ny,int Nz,int part_per_cell_max,double hx,doubl
     moveKernel<<<dimGrid, dimBlock>>>(width, height, part_per_cell_max,Ny,Nz,i_fs,d_params,d_particleResult,buf,d_partRho,d_partJx,d_partJy,d_partJz,d_rEx); // ,hx,hy,hz,djx0,djy0,djz0,drho0);
     CUDA_DEBUG_printDdevice_matrix(Ny,Nz,d_partRho,"Rho begin move-2 "); 
   //  moveKernel<<<dimGrid, dimBlock>>>(width, height, part_per_cell_max,Ny,Nz,i_fs,d_params,d_particleResult,d_partRho,d_partJx,d_partJy,d_partJz); // ,hx,hy,hz,djx0,djy0,djz0,drho0);
-    if(i_fs == 1) copyParticlesToInputSurface<<<dimGrid, dimBlock>>>();
+    if(i_fs == 1) copyParticlesToInputSurface<<<dimGrid, dimBlock>>>(Ny*Nz);
     CUDA_DEBUG_printDdevice_matrix(Ny,Nz,d_partRho,"Rho begin move-3 "); 
     gettimeofday(&tv2,NULL);  
     
