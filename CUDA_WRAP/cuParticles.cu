@@ -675,15 +675,16 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
 	    ez = acc*ccc + apc*cpc + acp*ccp + app*cpp +
                  apm*cpm + amp*cmp + amc*cmc + acm*ccm + amm*cmm;
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	    
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,150,buf,ccc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,151,buf,cpc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,152,buf,ccp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,153,buf,cpp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,154,buf,cmp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,155,buf,cpm);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,156,buf,cmc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,157,buf,ccm);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,158,buf,cmm);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,150,buf,ccc,l_My*l_Mz);
+
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,151,buf,cpc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,152,buf,ccp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,153,buf,cpp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,154,buf,cmp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,155,buf,cpm,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,156,buf,cmc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,157,buf,ccm,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,158,buf,cmm,l_My*l_Mz);
 #endif		 
 		 
 #ifdef CUDA_WRAP_CUPRINTF_ALL	    
@@ -694,15 +695,15 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
 ///////////////////////////////////////////////////////////////////////////////
 	    getFieldForParticle(nx,ny,3,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	    
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,160,buf,ccc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,161,buf,cpc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,162,buf,ccp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,163,buf,cpp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,164,buf,cmp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,165,buf,cpm);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,166,buf,cmc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,167,buf,ccm);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,168,buf,cmm);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,160,buf,ccc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,161,buf,cpc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,162,buf,ccp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,163,buf,cpp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,164,buf,cmp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,165,buf,cpm,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,166,buf,cmc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,167,buf,ccm,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,168,buf,cmm,l_My*l_Mz);
 #endif	    
 
 	    bx = acc*ccc + apc*cpc + acp*ccp + app*cpp +
