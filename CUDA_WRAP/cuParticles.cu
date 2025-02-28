@@ -716,15 +716,15 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 	    getFieldForParticle(nx,ny,4,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	    
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,120,buf,ccc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,121,buf,cpc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,122,buf,ccp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,123,buf,cpp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,124,buf,cmp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,125,buf,cpm);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,126,buf,cmc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,127,buf,ccm);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,128,buf,cmm);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,120,buf,ccc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,121,buf,cpc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,122,buf,ccp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,123,buf,cpp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,124,buf,cmp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,125,buf,cpm,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,126,buf,cmc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,127,buf,ccm,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,128,buf,cmm,l_My*l_Mz);
 #endif	    
 	    by = acc*ccc + apc*cpc + acp*ccp + app*cpp +
                  apm*cpm + amp*cmp + amc*cmc + acm*ccm + amm*cmm;
@@ -738,15 +738,15 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
 	    getFieldForParticle(nx,ny,5,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
 
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	    
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,130,buf,ccc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,131,buf,cpc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,132,buf,ccp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,133,buf,cpp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,134,buf,cmp);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,135,buf,cpm);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,136,buf,cmc);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,137,buf,ccm);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,138,buf,cmm);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,130,buf,ccc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,131,buf,cpc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,132,buf,ccp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,133,buf,cpp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,134,buf,cmp,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,135,buf,cpm,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,136,buf,cmc,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,137,buf,ccm,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,138,buf,cmm,l_My*l_Mz);
 #endif	    
 	    
 	    
@@ -771,22 +771,22 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
             double q2m = f_Q2m*hx*0.5;
 //            double f_GammaMax = 1.0;
             double djx,djy,djz,drho;
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,81,buf,px);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,82,buf,py);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,83,buf,pz);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,84,buf,res_sqrt);
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,85,buf,Vx);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,81,buf,px,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,82,buf,py,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,83,buf,pz,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,84,buf,res_sqrt,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,85,buf,Vx,l_My*l_Mz);
 	    
 	    
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	    
-	     write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,0,buf,Vx);   
+	     write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,0,buf,Vx,l_My*l_Mz);
             
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,1,buf,ex);   
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,2,buf,ey);   
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,3,buf,ez);   
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,4,buf,bx);   
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,5,buf,by);   
-	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,6,buf,bz);   
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,1,buf,ex,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,2,buf,ey,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,3,buf,ez,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,4,buf,bx,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,5,buf,by,l_My*l_Mz);
+	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,6,buf,bz,l_My*l_Mz);
 #endif	
 	    
 #ifdef CUDA_WRAP_CUPRINTF_IN_OUT	    
