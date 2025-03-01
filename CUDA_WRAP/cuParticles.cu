@@ -78,20 +78,21 @@ __device__ void surf2Dread
 
 
 
-__device__ void cuDepositRhoInCell(int l_My,int part_number,double *buf,
-                      double *d_partJx,double *d_partRho,  
-                      int isort, 
-                      int i, int nx, int ny, 
-                      double Vx, double Vy, double Vz, 
-                      double x, double y, double z, 
+__device__ void cuDepositRhoInCell(int l_My,int l_Mz,int part_number,double *buf,
+                      double *d_partJx,double *d_partRho,
+                      int isort,
+                      int i, int nx, int ny,
+                      double Vx, double Vy, double Vz,
+                      double x, double y, double z,
                       double djx, double djy, double djz, double drho);
 
-__device__ void cuDepositCurrentsInCell(int l_My,int part_number,double *buf,
-                      double *d_partJy,double *d_partJz, 
-                      int isort, 
-                      int i, int nx, int ny, 
-                      double Vx, double Vy, double Vz, 
-                      double x, double y, double z, 
+
+__device__ void cuDepositCurrentsInCell(int l_My,int l_Mz,int part_number,double *buf,
+                      double *d_partJy,double *d_partJz,
+                      int isort,
+                      int i, int nx, int ny,
+                      double Vx, double Vy, double Vz,
+                      double x, double y, double z,
                       double djx, double djy, double djz, double drho);
 
 
@@ -1120,8 +1121,18 @@ double *partSurfOut,
 		  {
 #ifdef CUDA_WRAP_CUPRINTF_IN_OUT   
 	//cuPrintf("rho-5.2 %e \n",d_partRho[10]);
-#endif		    
-                     cuDepositCurrentsInCell(l_My,part_number,buf,d_partJy,d_partJz,isort, itmp, jtmp, ktmp, Vx, Vy, Vz, xtmp, ytmp, ztmp, 
+#endif
+
+
+// __device__ void cuDepositCurrentsInCell(int l_My,int l_Mz,int part_number,double *buf,
+//                       double *d_partJy,double *d_partJz,
+//                       int isort,
+//                       int i, int nx, int ny,
+//                       double Vx, double Vy, double Vz,
+//                       double x, double y, double z,
+//                       double djx, double djy, double djz, double drho)
+
+            cuDepositCurrentsInCell(l_My,l_Mz,part_number,buf,d_partJy,d_partJz,isort, itmp, jtmp, ktmp, Vx, Vy, Vz, xtmp, ytmp, ztmp,
                          part_djx, part_djy, part_djz, part_drho);
 #ifdef CUDA_WRAP_CUPRINTF_IN_OUT   
 	//cuPrintf("rho-5.3 %e \n",d_partRho[10]);
@@ -1133,8 +1144,22 @@ double *partSurfOut,
 		    
 #ifdef CUDA_WRAP_CUPRINTF_IN_OUT   
 	//cuPrintf("rho-5A %e \n",d_partRho[10]);
-#endif		    
-                     cuDepositRhoInCell     (l_My,part_number,buf, d_partJx,d_partRho,isort, itmp, jtmp, ktmp, Vx, Vy, Vz, xtmp, ytmp, ztmp, 
+
+
+#endif
+
+
+// __device__ void cuDepositRhoInCell(int l_My,int l_Mz,int part_number,double *buf,
+//                       double *d_partJx,double *d_partRho,
+//                       int isort,
+//                       int i, int nx, int ny,
+//                       double Vx, double Vy, double Vz,
+//                       double x, double y, double z,
+//                       double djx, double djy, double djz, double drho)
+
+
+
+   cuDepositRhoInCell(l_My,l_Mz,part_number,buf, d_partJx,d_partRho,isort, itmp, jtmp, ktmp, Vx, Vy, Vz, xtmp, ytmp, ztmp,
                          part_djx, part_djy, part_djz, part_drho);
 #ifdef CUDA_WRAP_CUPRINTF_IN_OUT   
 	//cuPrintf("rho-5B %e \n",d_partRho[10]);
