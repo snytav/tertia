@@ -428,7 +428,8 @@ __device__ void getFieldForParticleDirect(double *d_F,int nx,int ny,int attr,dou
 
 
 // writing new particle coordinates to the surface
-__device__ void writeParticle(int cell_number,int pn,double x,double y, double z,double px,double py, double pz,double weight,double f_Q2m,int surf_height)
+__device__ void writeParticle(double *partSurfOut,
+                              int cell_number,int pn,double x,double y, double z,double px,double py, double pz,double weight,double f_Q2m,int surf_height)
 {
             pn += NUMBER_ATTRIBUTES*8; 
             surf2Dwrite(x,      partSurfOut, pn,       cell_number,surf_height );
@@ -447,7 +448,9 @@ __device__ void writeParticle(int cell_number,int pn,double x,double y, double z
 }
 
 //writing particles from output surface to input surface
-void __global__ copyParticlesToInputSurface(int surf_height)
+void __global__ copyParticlesToInputSurface(double *partSurfIn,
+                                            double *partSurfOut,
+                                            int surf_height)
 {
             unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x; 
             unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y;
@@ -659,7 +662,8 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
 #endif	
 	    
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-	    getFieldForParticle(nx,ny,1,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
+	    getFieldForParticle(partSurfIn,
+                            nx,ny,1,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	    
 	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,140,buf,ccc,l_My*l_Mz);
 	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,141,buf,cpc,l_My*l_Mz);
@@ -680,7 +684,8 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
 	    //cuPrintf("Ey %e\n",ey);
 #endif	    
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-	    getFieldForParticle(nx,ny,2,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
+	    getFieldForParticle(partSurfIn,
+           nx,ny,2,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
 
 	    ez = acc*ccc + apc*cpc + acp*ccp + app*cpp +
                  apm*cpm + amp*cmp + amc*cmc + acm*ccm + amm*cmm;
@@ -703,7 +708,8 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
 #endif	    
 //***************************************************************************************************************
 ///////////////////////////////////////////////////////////////////////////////
-	    getFieldForParticle(nx,ny,3,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
+	    getFieldForParticle(partSurfIn,
+                            nx,ny,3,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	    
 	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,160,buf,ccc,l_My*l_Mz);
 	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,161,buf,cpc,l_My*l_Mz);
@@ -724,7 +730,8 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
 	    //cuPrintf("Bx %e\n",bx);
 #endif	    
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-	    getFieldForParticle(nx,ny,4,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
+	    getFieldForParticle(partSurfIn,
+                            nx,ny,4,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	    
 	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,120,buf,ccc,l_My*l_Mz);
 	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,121,buf,cpc,l_My*l_Mz);
@@ -745,7 +752,8 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
 	    //cuPrintf("By %e\n",ey);
 #endif	    
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-	    getFieldForParticle(nx,ny,5,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
+	    getFieldForParticle(partSurfIn,
+                            nx,ny,5,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
 
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	    
 	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,130,buf,ccc,l_My*l_Mz);
@@ -1149,7 +1157,8 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
 
             if (iFullStep) {
                xtmp = 0.;
-	       writeParticle(cell_number,part_number,xtmp,ytmp,ztmp,px,py,pz,weight,f_Q2m,l_My*l_Mz);
+	       writeParticle(partSurfOut,
+                         cell_number,part_number,xtmp,ytmp,ztmp,px,py,pz,weight,f_Q2m,l_My*l_Mz);
 	       write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,86,buf,xtmp,l_My*l_Mz);
 	       write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,87,buf,ytmp,l_My*l_Mz);
 	       write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,88,buf,ztmp,l_My*l_Mz);
@@ -1811,7 +1820,8 @@ int CUDA_WRAP_move_particles(
     moveKernel<<<dimGrid, dimBlock>>>(width, height, part_per_cell_max,Ny,Nz,i_fs,d_params,d_particleResult,buf,d_partRho,d_partJx,d_partJy,d_partJz,d_rEx); // ,hx,hy,hz,djx0,djy0,djz0,drho0);
     CUDA_DEBUG_printDdevice_matrix(Ny,Nz,d_partRho,"Rho begin move-2 "); 
   //  moveKernel<<<dimGrid, dimBlock>>>(width, height, part_per_cell_max,Ny,Nz,i_fs,d_params,d_particleResult,d_partRho,d_partJx,d_partJy,d_partJz); // ,hx,hy,hz,djx0,djy0,djz0,drho0);
-    if(i_fs == 1) copyParticlesToInputSurface<<<dimGrid, dimBlock>>>(Ny*Nz);
+    if(i_fs == 1) copyParticlesToInputSurface<<<dimGrid, dimBlock>>>(partSurfIn,
+       Ny*Nz);
     CUDA_DEBUG_printDdevice_matrix(Ny,Nz,d_partRho,"Rho begin move-3 "); 
     gettimeofday(&tv2,NULL);  
     
