@@ -260,20 +260,21 @@ __global__ void testSurfKernel(double *t)
 }
 
 //reading particle coordinates from a surface
-__device__ void getParticle(int cn,int pn,double *x,double *y,double *z,double *px,double *py,double *pz,double *w,double *qm,
+__device__ void getParticle(double *partSurfIn,
+   int cn,int pn,double *x,double *y,double *z,double *px,double *py,double *pz,double *w,double *qm,
                             int Ny,int Nz)
 {
 //            //cuPrintf("getParticle cn %d \n",cn);
             pn += CUDA_WRAP_PARTICLE_START_INDEX;  
 
-            surf2Dread(x, partSurfIn, pn,       cn,Ny*Nz );
-            surf2Dread(y, partSurfIn, pn + 1*8, cn,Ny*Nz );
-            surf2Dread(z, partSurfIn, pn + 2*8, cn,Ny*Nz );
-            surf2Dread(px,partSurfIn, pn + 3*8, cn,Ny*Nz );
-            surf2Dread(py,partSurfIn, pn + 4*8, cn,Ny*Nz );
-            surf2Dread(pz,partSurfIn, pn + 5*8, cn,Ny*Nz );
-            surf2Dread(w, partSurfIn, pn + 6*8, cn,Ny*Nz );
-            surf2Dread(qm,partSurfIn, pn + 7*8, cn,Ny*Nz );
+            surf2Dread(x, partSurfIn, pn,     cn,Ny*Nz );
+            surf2Dread(y, partSurfIn, pn + 1, cn,Ny*Nz );
+            surf2Dread(z, partSurfIn, pn + 2, cn,Ny*Nz );
+            surf2Dread(px,partSurfIn, pn + 3, cn,Ny*Nz );
+            surf2Dread(py,partSurfIn, pn + 4, cn,Ny*Nz );
+            surf2Dread(pz,partSurfIn, pn + 5, cn,Ny*Nz );
+            surf2Dread(w, partSurfIn, pn + 6, cn,Ny*Nz );
+            surf2Dread(qm,partSurfIn, pn + 7, cn,Ny*Nz );
 	    
 #ifdef CUDA_WRAP_CUPRINTF_IN_OUT	    
 	     //cuPrintf("I read %e %e %e %e %e %e pn %d cell %d \n",*x,*y,*z,*px,*py,*pz,pn,cn);
@@ -281,10 +282,11 @@ __device__ void getParticle(int cn,int pn,double *x,double *y,double *z,double *
 }
 
 // reading particle attributes as an array
-void __global__ getParticleFromCell(int ny,int nz,double *part)
+void __global__ getParticleFromCell(double *partSurfIn,
+   int ny,int nz,double *part)
 {
    double  w,q;
-   getParticle(ncell(ny,nz),0,&part[0],&part[1],&part[2],&part[3],&part[4],&part[5],&w,&q,ny,nz);
+   getParticle(partSurfIn,ncell(ny,nz),0,&part[0],&part[1],&part[2],&part[3],&part[4],&part[5],&w,&q,ny,nz);
    
 }
 
@@ -295,7 +297,9 @@ double __device__ getField(int nx,int ny,int attr,double *d_F)
 }
 
 //writing each of all the field components including necessary shifts
-void __device__ setFieldComponent(int nx,int ny,int attr,double *d_F,int surf_height)
+void __device__ setFieldComponent(
+   double *partSurfIn,
+   int nx,int ny,int attr,double *d_F,int surf_height)
 {
     int     nccc,ncpc,nccp,ncpp,ncmc,nccm,ncmm,ncmp,ncpm;
     double  accc,acpc,accp,acpp,acmc,accm,acmm,acmp,acpm;
@@ -348,22 +352,26 @@ void __device__ setFieldComponent(int nx,int ny,int attr,double *d_F,int surf_he
 }
 
 //writing all the field components
-__global__ void SetField(double *ex,double *ey,double *ez,double *bx,double *by,double *bz,int surf_height)
+__global__ void SetField(
+   double *partSurfIn,
+   double *ex,double *ey,double *ez,double *bx,double *by,double *bz,int surf_height)
 {
     unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x; 
     unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y;   
     
-    setFieldComponent(nx,ny,0,ex,surf_height);
-    setFieldComponent(nx,ny,1,ey,surf_height);
-    setFieldComponent(nx,ny,2,ez,surf_height);
+    setFieldComponent(partSurfIn,nx,ny,0,ex,surf_height);
+    setFieldComponent(partSurfIn,nx,ny,1,ey,surf_height);
+    setFieldComponent(partSurfIn,nx,ny,2,ez,surf_height);
     
-    setFieldComponent(nx,ny,3,bx,surf_height);
-    setFieldComponent(nx,ny,4,by,surf_height);
-    setFieldComponent(nx,ny,5,bz,surf_height);
+    setFieldComponent(partSurfIn,nx,ny,3,bx,surf_height);
+    setFieldComponent(partSurfIn,nx,ny,4,by,surf_height);
+    setFieldComponent(partSurfIn,nx,ny,5,bz,surf_height);
 }
 
 //reading one field component for a particle in a cell   
-__device__ void getFieldForParticle(int nx,int ny,int attr,double *ccc,double *cpc,double *ccp,double *cpp,double *cpm,double *cmp,double *cmc,double *ccm,double *cmm, int surf_height)
+__device__ void getFieldForParticle(
+   double *partSurfIn,
+   int nx,int ny,int attr,double *ccc,double *cpc,double *ccp,double *cpp,double *cpm,double *cmp,double *cmc,double *ccm,double *cmm, int surf_height)
 {
    int nccc;//,ncpc,nccp,ncpp,ncmc,nccm,ncmm,ncmp,ncpm;
    double t;
@@ -562,7 +570,8 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
             //cuPrintf("cell %d part %d\n",cell_number,part_number);
 #endif	    
             
-	    getParticle(cell_number,part_number,&x,&y,&z,&px,&py,&pz,&weight,&f_Q2m,l_My,l_Mz);
+	    getParticle(partSurfIn,
+                    cell_number,part_number,&x,&y,&z,&px,&py,&pz,&weight,&f_Q2m,l_My,l_Mz);
 	    
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	   
 	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,30,buf,x,l_My*l_Mz);
@@ -611,7 +620,8 @@ __global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,
             //cuPrintf("trace %d %d %25.15e %25.15e %25.15e %25.15e %25.15e %25.15e \n",nx,ny,x,y,z,px,py,pz);
 #endif	    
 ///////////////////////////////////////////////////////////////////////////////
-	    getFieldForParticle(nx,ny,0,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
+	    getFieldForParticle(partSurfIn,
+           nx,ny,0,&ccc,&cpc,&ccp,&cpp,&cpm,&cmp,&cmc,&ccm,&cmm,l_My*l_Mz);
 	   // write_particle_value(int Ny,int i,int j,int num_attr,int ppc_max,int k, int n, double *d_p,double t)
 #ifdef CUDA_WRAP_CHECK_PARTICLE_VALUES	    
 	    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,110,buf,acc,l_My*l_Mz);
@@ -1747,7 +1757,9 @@ int allocParticleAuxillaries(int width,int height)
 }
 
 
-int CUDA_WRAP_move_particles(int Ny,int Nz,int part_per_cell_max,double hx,double hy,double hz,double djx0,double djy0, double djz0,double drho0,int i_fs,double *buf)
+int CUDA_WRAP_move_particles(
+
+                             int Ny,int Nz,int part_per_cell_max,double hx,double hy,double hz,double djx0,double djy0, double djz0,double drho0,int i_fs,double *buf)
 {
     double params[10];
     int width = Ny*Nz,height = part_per_cell_max*NUMBER_ATTRIBUTES;
@@ -1792,7 +1804,7 @@ int CUDA_WRAP_move_particles(int Ny,int Nz,int part_per_cell_max,double hx,doubl
 
     double d_t = 0.0; 
  //   testSurfKernel<<<dimGrid, dimBlock>>>(&d_t);
-    SetField<<<dimGrid, dimBlock>>>(d_rEx,d_rEy,d_rEz,d_rBx,d_rBy,d_rBz,Ny*Nz);
+    SetField<<<dimGrid, dimBlock>>>(partSurfIn,d_rEx,d_rEy,d_rEz,d_rBx,d_rBy,d_rBz,Ny*Nz);
     CUDA_DEBUG_printDdevice_matrix(Ny,Nz,d_partRho,"Rho begin move-1 "); 
     CUDA_DEBUG_printDdevice_matrix(Ny,Nz,d_partJy,"Jy setField ");
     printf("Rho begin move-1 fullstep %d \n",i_fs);
@@ -2317,7 +2329,8 @@ int CUDA_WRAP_EMERGENCY_HIDDEN_CURRENTS_COPY(int Ny,int Nz,Mesh *mesh,Cell *p_Ce
 
 
 
-int print_particle_in_cell(int ny,int nz,int Ny,int Nz,double *x,double *y,double *z,double *px,double *py,double *pz)
+int print_particle_in_cell(double *partSurfIn,
+   int ny,int nz,int Ny,int Nz,double *x,double *y,double *z,double *px,double *py,double *pz)
 {
     dim3 dimBlock(Ny, Nz,1); 
     dim3 dimGrid(1 , 1);
@@ -2325,7 +2338,9 @@ int print_particle_in_cell(int ny,int nz,int Ny,int Nz,double *x,double *y,doubl
     
     cudaMalloc((void **)&d_part,6*sizeof(double));
     
-    getParticleFromCell<<<dimGrid, dimBlock>>>(ny,nz,d_part);
+    getParticleFromCell<<<dimGrid, dimBlock>>>(
+       partSurfIn,
+       ny,nz,d_part);
     
     cudaMemcpy(part,d_part,6*sizeof(double),cudaMemcpyDeviceToHost);
     
@@ -2339,12 +2354,14 @@ int print_particle_in_cell(int ny,int nz,int Ny,int Nz,double *x,double *y,doubl
     return 0;
 }
 
-int CUDA_WRAP_check_on_device(int Ny,int Nz,Mesh *mesh,int i_layer,Cell *p_CellArray)
+int CUDA_WRAP_check_on_device(
+   double *partSurfIn,
+   int Ny,int Nz,Mesh *mesh,int i_layer,Cell *p_CellArray)
 {
     double x,y,z,px,py,pz;
     int ny = 1,nz = 1;
 
-    print_particle_in_cell(ny,nz,Ny,Nz,&x,&y,&z,&px,&py,&pz);
+    print_particle_in_cell(partSurfIn,ny,nz,Ny,Nz,&x,&y,&z,&px,&py,&pz);
 
     printf("CELL      %3d %3d %25.15e %25.15e %25.15e %25.15e %25.15e %25.15e \n ",ny,nz,x,y,z,px,py,pz);
 
