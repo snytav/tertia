@@ -525,7 +525,10 @@ int CUDA_WRAP_copy_particle_density(int Nx,int Ny,int Nz,int iLayer_jx,int iLaye
 }
 
 //main kernel - particle movement
-__global__ void moveKernel(int width, int height,int part_per_cell_max,int l_My,int l_Mz,int iFullStep,double *params,double *result,double *buf,
+__global__ void moveKernel(
+double*partSurfIn,
+double *partSurfOut,
+   int width, int height,int part_per_cell_max,int l_My,int l_Mz,int iFullStep,double *params,double *result,double *buf,
 		           double *d_partRho,double *d_partJx,double *d_partJy,double *d_partJz,double *Ex)
 {
         // Calculate surface coordinates 
@@ -1766,7 +1769,7 @@ int allocParticleAuxillaries(int width,int height)
 }
 
 
-int CUDA_WRAP_move_particles(
+int CUDA_WRAP_move_particles(double*partSurfIn,
 
                              int Ny,int Nz,int part_per_cell_max,double hx,double hy,double hz,double djx0,double djy0, double djz0,double drho0,int i_fs,double *buf)
 {
@@ -1817,11 +1820,12 @@ int CUDA_WRAP_move_particles(
     CUDA_DEBUG_printDdevice_matrix(Ny,Nz,d_partRho,"Rho begin move-1 "); 
     CUDA_DEBUG_printDdevice_matrix(Ny,Nz,d_partJy,"Jy setField ");
     printf("Rho begin move-1 fullstep %d \n",i_fs);
-    moveKernel<<<dimGrid, dimBlock>>>(width, height, part_per_cell_max,Ny,Nz,i_fs,d_params,d_particleResult,buf,d_partRho,d_partJx,d_partJy,d_partJz,d_rEx); // ,hx,hy,hz,djx0,djy0,djz0,drho0);
+    moveKernel<<<dimGrid, dimBlock>>>(partSurfIn,partSurfOut,
+                                      width, height, part_per_cell_max,Ny,Nz,i_fs,d_params,d_particleResult,buf,d_partRho,d_partJx,d_partJy,d_partJz,d_rEx); // ,hx,hy,hz,djx0,djy0,djz0,drho0);
     CUDA_DEBUG_printDdevice_matrix(Ny,Nz,d_partRho,"Rho begin move-2 "); 
   //  moveKernel<<<dimGrid, dimBlock>>>(width, height, part_per_cell_max,Ny,Nz,i_fs,d_params,d_particleResult,d_partRho,d_partJx,d_partJy,d_partJz); // ,hx,hy,hz,djx0,djy0,djz0,drho0);
-    if(i_fs == 1) copyParticlesToInputSurface<<<dimGrid, dimBlock>>>(partSurfIn,
-       Ny*Nz);
+    if(i_fs == 1) copyParticlesToInputSurface<<<dimGrid, dimBlock>>>(
+       partSurfIn,partSurfOut,Ny*Nz);
     CUDA_DEBUG_printDdevice_matrix(Ny,Nz,d_partRho,"Rho begin move-3 "); 
     gettimeofday(&tv2,NULL);  
     
