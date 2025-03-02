@@ -289,7 +289,7 @@ int CUDA_WRAP_prepareFFTfromDevice(int n1,int n2,int n3,double *d_m)
     
     CUDA_WRAP_create_particle_surfaceCOMPLEX_fromDevice(n1,n2,n3,d_m);
     CUDA_WRAP_create_output_surfaceCOMPLEX_fromDevice(n1,n2,n3,
-                                                      out_surface,
+                                                      &out_surface,
                                                       cuFFT_OutputArray);
     CUDA_WRAP_create_alpha_surfaceCOMPLEX(alpha_size,alpha_size);//,alpha_surface,cuFFT_AlphaArray);
     
@@ -401,7 +401,8 @@ int HalfInteger(int n1,int n2,double *fft1d_tab)
 }
 
 //CUDA_WRAP_create_particle_surfaceCOMPLEX_fromDevice
-int CUDA_WRAP_create_output_surfaceCOMPLEX_fromDevice(int width,int height,int depth,double **surf,double *array)
+int CUDA_WRAP_create_output_surfaceCOMPLEX_fromDevice(int width,int height,int depth,
+                                                      double **surf,double *array)
 {
 //     cudaChannelFormatDesc channelDesc2 = cudaCreateChannelDesc(16, 16, 16, 16, cudaChannelFormatKindUnsigned);
     //double *array;

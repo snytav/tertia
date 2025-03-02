@@ -18,6 +18,8 @@
 #include "../run_control.h"
 #include "beam_copy.h"
 
+#include "surf.h"
+
 double last_wrong,last_delta;
 int    last_max_delta_value; 
 
@@ -66,15 +68,15 @@ __device__ void surf2Dwrite
 //          *x_re = t;
 }
 
-__device__ void surf2Dread
-(double *x_re,
-                           double *in_surfaceT,
-                           int nx,int ny,
-                           int NY)
-{
-         double t = in_surfaceT[nx*NY + ny];
-         *x_re = t;
-}
+// __device__ void surf2Dread
+// (double *x_re,
+//                            double *in_surfaceT,
+//                            int nx,int ny,
+//                            int NY)
+// {
+//          double t = in_surfaceT[nx*NY + ny];
+//          *x_re = t;
+// }
 
 
 
