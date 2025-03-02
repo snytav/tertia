@@ -43,27 +43,27 @@ double *cu3DArray;
 
 
 
-__device__ void surf2Dread
-(double *x_re,
-                           double *in_surfaceT,
-                           int nx,int ny,
-                           int ny1)
-{
-         double t = in_surfaceT[nx*ny1 + ny];
-         *x_re = t;
-}
-
-__device__ void surf2Dwrite
-(
-                           double *in_surfaceT,
-                           int nx,int ny,
-                           int ny1,
-                           double t
- )
-{
-         in_surfaceT[nx*ny1 + ny] = t;
+// __device__ void surf2Dread
+// (double *x_re,
+//                            double *in_surfaceT,
+//                            int nx,int ny,
+//                            int ny1)
+// {
+//          double t = in_surfaceT[nx*ny1 + ny];
 //          *x_re = t;
-}
+// }
+//
+// __device__ void surf2Dwrite
+// (
+//                            double *in_surfaceT,
+//                            int nx,int ny,
+//                            int ny1,
+//                            double t
+//  )
+// {
+//          in_surfaceT[nx*ny1 + ny] = t;
+// //          *x_re = t;
+// }
 
 
 __global__ void outKernel(int height,double *in_surface)
