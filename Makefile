@@ -45,9 +45,12 @@ CFLAGS = -pg -g $(OO) $(GG) $(ICC_FLAGS) -c $(MPI_INCLUDE) $(GSL_INCLUDE) $(HDF5
          $(MPI) $(NO-DEPRECATED) $(WARNING) \
          $(CUDA_INC)
 
+HDF5_LIB_DIR = -L/usr/lib/x86_64-linux-gnu/hdf5/serial/
+HDF5_LIB = -lhdf5 -lz
+
 
 test:   $(cuobj) $(obj)
-	nvcc -rdc=true *.o  -o test
+	nvcc -rdc=true *.o  -o test $(HDF5_LIB_DIR) $(HDF5_LIB)
 %.o:    %.cu
 	@echo $<
 	nvcc $(CUDA_INC) $(CUDAFLAGS) $<
