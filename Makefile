@@ -24,7 +24,7 @@ cuobj = CUDA_WRAP/transpose.o CUDA_WRAP/turn.o CUDA_WRAP/1d_batch.o \
                 CUDA_WRAP/beam_copy.o CUDA_WRAP/profile.o CUDA_WRAP/cuBeam.o \
                 CUDA_WRAP/cuParticles.o CUDA_WRAP/cuBeamValues.o CUDA_WRAP/copy_hydro.o \
                 CUDA_WRAP/plasma_particles.o CUDA_WRAP/cuLayers.o CUDA_WRAP/paraLayers.o \
-                CUDA_WRAP/paraCPUlayers.o
+                CUDA_WRAP/paraCPUlayers.o CUDA_WRAP/half_integer2D.o
 
 HDF5=/usr/include/hdf5/
 HDF5_INCLUDE = -I$(HDF5)/serial/
@@ -36,6 +36,8 @@ MPI_INCLUDE = -I$(MPI_DIR)/include
 CUDAFLAGS = -dc  -g
 CUDA_INC = -I/usr/local/cuda/include  $(HDF5_INCLUDE) \
             $(MPI_INCLUDE)
+
+CUDA_LIB =  -lcudart -lcufft -L/usr/local/cuda/lib64
 
 CC = g++ -std=c++03
 MPI_INCLUDE = -I$(MPI_DIR)/include
@@ -51,9 +53,14 @@ HDF5_LIB = -lhdf5 -lz
 MPI_LIB = -lmpi  -lmpi_cxx -pg -lcublas -lcudart \
              -L/opt/cuda4/lib64/
 
+FFTW=/usr/lib64/
+FFTW_LIB_DIR = -L/usr/lib64/
+FFTW_LIB = -lfftw3 -lfftw3_threads
+
 
 test:   $(cuobj) $(obj)
-	nvcc -rdc=true *.o  -o test $(HDF5_LIB_DIR) $(HDF5_LIB) $(MPI_LIB)
+	nvcc -rdc=true *.o  -o test $(HDF5_LIB_DIR) $(HDF5_LIB) $(MPI_LIB) \
+	                            $(FFTW_LIB) $(FFTW_LIB_DIR) $(CUDA_LIB)
 %.o:    %.cu
 	@echo $<
 	nvcc $(CUDA_INC) $(CUDAFLAGS) $<
