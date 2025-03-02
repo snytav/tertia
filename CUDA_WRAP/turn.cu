@@ -33,15 +33,15 @@ int turnAlphaFirstCall = 1;
 int turnGlobalFirstCall = 1;
 
 
-__device__ void surf2Dread
-(double *x_re,
-                           double *in_surfaceT,
-                           int nx,int ny,
-                           int NY)
-{
-         double t = in_surfaceT[nx*NY + ny];
-         *x_re = t;
-}
+// __device__ void surf2Dread
+// (double *x_re,
+//                            double *in_surfaceT,
+//                            int nx,int ny,
+//                            int NY)
+// {
+//          double t = in_surfaceT[nx*NY + ny];
+//          *x_re = t;
+// }
 
 
 
