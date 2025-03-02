@@ -1,3 +1,19 @@
+obj =  mesh.o movepart.o movefields.o movieframe.o \
+		movebeam.o movefieldshydro.o movefieldshydrolinlayer.o \
+		movefieldshydrolinlayersplit.o \
+		movepart_layer.o movepart_splitlayer.o \
+		boundary.o cells.o cell3d.o Cgs.o controls.o \
+		diagnose.o domain.o adk.o \
+		elements.o exchange.o save.o load.o save_movie_frame.o \
+		mkdirLinux.o myhdfshell.o \
+		particles.o partition.o plasma.o pulse.o \
+		step.o synchrotron.o \
+		vlpl3d.o \
+		namelist.o buffers.o  para.o\
+		half_integer1D.o
+
+
+
 cuobj = CUDA_WRAP/transpose.o CUDA_WRAP/turn.o CUDA_WRAP/1d_batch.o \
         CUDA_WRAP/phase.o \
                 CUDA_WRAP/mult.o CUDA_WRAP/diagnostic_print.o \
@@ -13,7 +29,7 @@ cuobj = CUDA_WRAP/transpose.o CUDA_WRAP/turn.o CUDA_WRAP/1d_batch.o \
 HDF5=/usr/include/hdf5/
 HDF5_INCLUDE = -I$(HDF5)/serial/
 
-#MPI_DIR=/opt/mvapich2/
+MPI_DIR=/usr/lib/x86_64-linux-gnu/openmpi/
 MPI_INCLUDE = -I$(MPI_DIR)/include
 
 
@@ -21,12 +37,25 @@ CUDAFLAGS = -dc  -g
 CUDA_INC = -I/usr/local/cuda/include  $(HDF5_INCLUDE) \
             $(MPI_INCLUDE)
 
+CC = g++ -std=c++03
+MPI_INCLUDE = -I$(MPI_DIR)/include
+GSL_INCLUDE = -I$(GSL_DIR)/include/gsl
+CFLAGS = -pg -g $(OO) $(GG) $(ICC_FLAGS) -c $(MPI_INCLUDE) $(GSL_INCLUDE) $(HDF5_INCLUDE)  \
+	 $(KTRACE_INCLUDE) $(FS) $(DEFINES) \
+         $(MPI) $(NO-DEPRECATED) $(WARNING) \
+         $(CUDA_INC)
 
-test:   $(cuobj)
-	nvcc -rdc=true *.o -o test
+
+test:   $(cuobj) $(obj)
+	nvcc -rdc=true *.o  -o test
 %.o:    %.cu
 	@echo $<
 	nvcc $(CUDA_INC) $(CUDAFLAGS) $<
+	cp *.o ..
+
+%.o:    %.cpp
+	@echo $<
+	$(CC) $(CFLAGS) $<
 
 clean:
 	rm *.o test CUDA_WRAP/*.o
