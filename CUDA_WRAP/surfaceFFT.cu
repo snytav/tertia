@@ -32,7 +32,7 @@
 #define THREADS_PER_BLOCK_Y 4
 */
 
-double *in_surface,*out_surface;
+double *in_surface,*out_surfaceFFT;
 double *       cuFFT_InputArray;
 double *cuFFT_OutputArray;
 double *alpha_surface;
@@ -289,7 +289,7 @@ int CUDA_WRAP_prepareFFTfromDevice(int n1,int n2,int n3,double *d_m)
     
     CUDA_WRAP_create_particle_surfaceCOMPLEX_fromDevice(n1,n2,n3,d_m);
     CUDA_WRAP_create_output_surfaceCOMPLEX_fromDevice(n1,n2,n3,
-                                                      &out_surface,
+                                                      &out_surfaceFFT,
                                                       cuFFT_OutputArray);
     CUDA_WRAP_create_alpha_surfaceCOMPLEX(alpha_size,alpha_size);//,alpha_surface,cuFFT_AlphaArray);
     
@@ -365,11 +365,11 @@ int CUDA_WRAP_surfaceFFT(int n1,int n2,double *ktime,dim3 &dimBlock,dim3 &dimGri
      
     //return 0;
     gettimeofday(&tv1,NULL);
-    fft1D_X<<<dimGrid, dimBlock>>>(n2,d_flagsX,alpha_size,in_surface,out_surface,alpha_surface);
+    fft1D_X<<<dimGrid, dimBlock>>>(n2,d_flagsX,alpha_size,in_surface,out_surfaceFFT,alpha_surface);
     CUDA_WRAP_compare_device_array(n1*n2,debug_host,debug_device,&frac_ideal,&frac_rude,"RhoP","in surface1",DETAILS);
     //printf("GRID %d %d %d %d %d %d \n",dimGrid.x,dimGrid.y,dimGrid.z,dimBlock.x,dimBlock.y,dimBlock.z);
     //outKernel<<<dimGrid, dimBlock>>>(n2);
-    fft1D_Y<<<dimGrid, dimBlock>>>(n1,n2,d_flagsY,alpha_size,alpha_surface,in_surface,out_surface);
+    fft1D_Y<<<dimGrid, dimBlock>>>(n1,n2,d_flagsY,alpha_size,alpha_surface,in_surface,out_surfaceFFT);
     CUDA_WRAP_compare_device_array(n1*n2,debug_host,debug_device,&frac_ideal,&frac_rude,"RhoP","in surface1.2",DETAILS);
     resultKernel<<<dimGrid, dimBlock>>>(n2,in_surface);
     gettimeofday(&tv2,NULL);

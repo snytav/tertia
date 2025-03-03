@@ -20,10 +20,10 @@
 //#include "../cudaParticle/cudaPIC.h"
 #include "surf.h"
 
-double *in_surface,*out_surface;
+double *in_surface_turn,*out_surface_turn;
 cudaArray       *cuInputArray,*cuOutputArray; 
 
-double *alpha_surface;
+double *alpha_surface_turn;
 cudaArray        *cuAlphaArray; 
 
 double *d_ctrl;
@@ -35,11 +35,11 @@ int turnGlobalFirstCall = 1;
 
 // __device__ void surf2Dread
 // (double *x_re,
-//                            double *in_surfaceT,
+//                            double *in_surface_turn_turnT,
 //                            int nx,int ny,
 //                            int NY)
 // {
-//          double t = in_surfaceT[nx*NY + ny];
+//          double t = in_surface_turn_turnT[nx*NY + ny];
 //          *x_re = t;
 // }
 
@@ -96,8 +96,8 @@ int CUDA_WRAP_create_particle_surfaceCOMPLEX(int width,int height,double *h_data
     int size = 2*width*height*sizeof(double);
 
 
-    cudaMalloc(&in_surface,size);
-    cudaMemcpy(in_surface,h_data_in,size,cudaMemcpyHostToDevice);
+    cudaMalloc(&in_surface_turn,size);
+    cudaMemcpy(in_surface_turn,h_data_in,size,cudaMemcpyHostToDevice);
         
 //     cudaChannelFormatDesc channelDesc2 = cudaCreateChannelDesc(16, 16, 16, 16, cudaChannelFormatKindUnsigned);
 //
@@ -106,14 +106,14 @@ int CUDA_WRAP_create_particle_surfaceCOMPLEX(int width,int height,double *h_data
 //
 //     cudaMemcpyToArray(cuInputArray, 0, 0,      h_data_in, size, cudaMemcpyHostToDevice);
 //
-//     cudaBindSurfaceToArray(in_surface,  cuInputArray);
+//     cudaBindSurfaceToArray(in_surface_turn,  cuInputArray);
 
     return 0;
 }
 
 //width, height - THE REAL SIZE OF THE MATRIX (NOT REGARDING THAT THE ELEMENTS ARE COMPLEX) THE SIZE IN double's is 2*width*height 
 //h_data_in     - COMPLEX matrix  (in)  
-int CUDA_WRAP_create_alpha_surfaceCOMPLEX(int width,int height,double *d_phi)
+int CUDA_WRAP_create_alpha_surface_turnCOMPLEX(int width,int height,double *d_phi)
 {
   
     //THE SIZE IN double's is 2*width*height 
@@ -126,15 +126,15 @@ int CUDA_WRAP_create_alpha_surfaceCOMPLEX(int width,int height,double *d_phi)
         //CUDA array is column-major. Thus here the FIRST DIMENSION is twice more (actuall it is the SECOND)
         cudaMallocArray(&cuAlphaArray, &channelDesc2, 2, height, cudaArraySurfaceLoadStore); 
 	turnAlphaFirstCall = 0;
-        cudaMalloc(&alpha_surface,size);
+        cudaMalloc(&alpha_surface_turn,size);
 
     }
 
 
 
-    cudaMemcpy(alpha_surface,d_phi, size, cudaMemcpyDeviceToDevice);
+    cudaMemcpy(alpha_surface_turn,d_phi, size, cudaMemcpyDeviceToDevice);
 	
-//     cudaBindSurfaceToArray(alpha_surface,  cuAlphaArray);
+//     cudaBindSurfaceToArray(alpha_surface_turn,  cuAlphaArray);
 
     return 0;
 }
@@ -154,11 +154,11 @@ int CUDA_WRAP_create_particle_surfaceCOMPLEX_fromDevice(int width,int height,dou
     {
        cudaMallocArray(&cuInputArray, &channelDesc2, 2*width, height, cudaArraySurfaceLoadStore); 
        turnFirstCall = 0;
-       cudaMalloc(&in_surface,size);
+       cudaMalloc(&in_surface_turn,size);
     }
 //     cudaMemcpyToArray(cuInputArray, 0, 0,      d_data_in, size, cudaMemcpyDeviceToDevice);
 	
-    cudaMemcpy(in_surface,d_data_in,size,cudaMemcpyDeviceToDevice);
+    cudaMemcpy(in_surface_turn,d_data_in,size,cudaMemcpyDeviceToDevice);
 
     return 0;
 }
@@ -291,7 +291,7 @@ int CUDA_WRAP_turnMatrix_from_deviceCOMPLEX(int n1,int n2,double *d_m,double *d_
    gettimeofday(&tv[0],NULL);
 
    CUDA_WRAP_create_particle_surfaceCOMPLEX_fromDevice(n1,n2,d_m);
-   CUDA_WRAP_create_alpha_surfaceCOMPLEX(n1,n2,d_phi);
+   CUDA_WRAP_create_alpha_surface_turnCOMPLEX(n1,n2,d_phi);
    
    if(turnGlobalFirstCall == 1)
    {
