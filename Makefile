@@ -50,8 +50,8 @@ CFLAGS = -pg -g $(OO) $(GG) $(ICC_FLAGS) -c $(MPI_INCLUDE) $(GSL_INCLUDE) $(HDF5
 HDF5_LIB_DIR = -L/usr/lib/x86_64-linux-gnu/hdf5/serial/
 HDF5_LIB = -lhdf5 -lz
 
-MPI_LIB = -lmpi  -lmpi_cxx -pg -lcublas -lcudart \
-             -L/opt/cuda4/lib64/
+MPI_LIB = -lmpi  -lmpi_cxx -pg -lcublas -lcudart 
+             
 
 FFTW=/usr/lib64/
 FFTW_LIB_DIR = -L/usr/lib64/
