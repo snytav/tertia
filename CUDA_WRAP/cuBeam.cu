@@ -22,6 +22,9 @@
 beamParticle *beam_particles;
 
 double *h_beam_values,*d_beam_values;
+static int first_h_beam_values = 1;
+
+
 
 
 __device__ int get4Dposition(int Ny,int Nz,int Np,int i,int k,int l,int n)
@@ -788,7 +791,12 @@ int CUDA_WRAP_beam_move(int Np,int Nx,int Ny,int Nz,double hx,double hy,double h
     
     //exit(0);
     
-#ifdef CUDA_WRAP_CHECK_BEAM_VALUES_ALLOWED    
+#ifdef CUDA_WRAP_CHECK_BEAM_VALUES_ALLOWED
+    if(first_h_beam_values)
+    {
+       first_h_beam_values = 0;
+       h_beam_values = (double*)malloc(Np*BEAM_VALUES_NUMBER*sizeof(double));
+    }
     CUDA_WRAP_check_beam_values(Np,BEAM_VALUES_NUMBER,h_beam_values,d_beam_values,dimBlock.x*dimGrid.x,dimBlock.y*dimGrid.y,"beamValues.dat");
 #endif
 }

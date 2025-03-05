@@ -98,7 +98,9 @@ void Mesh::MoveBeamParticles()
 
             if (p==NULL)
                continue;
-             
+
+            int NP_guess = 1000000; //guess of beam particles number;
+            h_beam_values = (double *)malloc(NP_guess*BEAM_VALUES_NUMBER*sizeof(double));
 	    
 	    int nump = 0;
 	    
