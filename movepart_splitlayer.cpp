@@ -780,6 +780,8 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 int Mesh::getLayerParticles(int iLayer)
 {
    int num = 0;
+   int i,k,j;
+
    for (k=0; k<l_Mz; k++)
    {
       for (j=0; j<l_My; j++)
@@ -967,7 +969,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
             if (j==l_My/3 && k==l_Mz/3 && i==l_Mx/2) {
                double check1=0;
             };
-            create_h_plasma_particles(np);
+            create_h_plasma_particles(this->getLayerParticles());
             CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,0,(double)j);  
             CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,1,(double)k);  
             l_Processed++;
