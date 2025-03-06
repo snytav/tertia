@@ -777,6 +777,47 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
    return;
 }
 
+int Mesh::getLayerParticles(int iLayer)
+{
+   int num = 0;
+   for (k=0; k<l_Mz; k++)
+   {
+      for (j=0; j<l_My; j++)
+      {
+
+         i=iLayer;
+         int ip = i+1;
+         long ncc = GetNyz(j,  k);
+
+         long npc = ncc + 1;
+         long ncp = ncc + l_sizeY;
+         long npp = ncp + 1;
+         long nmc = ncc - 1;
+         long ncm = ncc - l_sizeY;
+         long nmm = ncm - 1;
+         long nmp = ncp - 1;
+         long npm = npc - l_sizeY;
+
+         Particle *p = NULL;
+         Cell &pcc = p_CellLayerP[ncc];
+
+
+         p = pcc.p_Particles;
+
+         if (p==NULL)
+            continue;
+
+         p_PrevPart = NULL;
+         while(p)
+         {
+            Particle *p_next = p->p_Next;
+	        num++;
+         }
+      }
+   }
+   return num;
+}
+
 //---Mesh:: ---------------------------------------------->
 void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double part) 
 {

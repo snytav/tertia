@@ -58,6 +58,7 @@ public:
    void MoveFieldsHydro(void);
    void GuessFieldsHydroLinLayer(int iLayer);
    void GuessFieldsHydroLinLayerSplit(int iLayer,int iSplit);
+   int  getLayerParticles(int iLayer);
    double IterateFieldsHydroLinLayer(int iLayer);
    double IterateFieldsHydroLinLayerSplit(int iLayer,int iSplit,int N_iter);
    void ExchangeCurrents(int iLayer);
