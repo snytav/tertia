@@ -3,6 +3,8 @@
 
 #include "cuCell.h"
 
+int create_h_plasma_particles(int Np);
+
 int particlesPrepareAtLayer(Mesh *mesh,Cell *p_CellArrayP,Cell *p_CellArrayC,int iLayer,int Ny,int Nz,int Np);
 
 void cuMoveSplitParticles(int iLayer,int Np,cudaLayer *cl,cudaLayer *pl,int Ny);

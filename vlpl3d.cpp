@@ -8,6 +8,7 @@
 #include "vlpl3d.h"
 
 #include "para.h"
+#include "CUDA_WRAP/plasma_particles.h"
 
 
 int main(int argc, char** argv)
@@ -65,6 +66,8 @@ infile = "v.ini";
 
   srand( time(NULL) + rank );
   Domain *domain = new Domain(infile, rank);
+
+  //create_h_plasma_particles();
 
 #ifdef V_MPI
   //  MPI_Buffer_detach(p_b, &buf_size);

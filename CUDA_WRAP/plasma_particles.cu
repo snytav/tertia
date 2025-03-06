@@ -15,6 +15,7 @@
 
 
 double *h_plasma_values,*d_plasma_values;
+static int first_h_plasma_values = 1;
 
 cudaLayer *cl,*pl;
 
@@ -38,10 +39,23 @@ __device__ double cuda_atomicAddP(double *address, double val)
     return old;
 }                                 
 
+int create_h_plasma_particles(int Np)
+{
+    if(first_h_plasma_values)
+    {
+       first_h_plasma_values = 0;
+       h_plasma_values = (double *)malloc(Np*PLASMA_VALUES_NUMBER*sizeof(double));
+    }
+
+}
+
 int particlesPrepareAtLayer(Mesh *mesh,Cell *p_CellArrayP,Cell *p_CellArrayC,int iLayer,int Ny,int Nz,int Np)
 {
     static int prepareFirstCall = 1;
-      
+
+    create_h_plasma_particles(Np);
+
+
     if(prepareFirstCall)
     {
         CUDA_WRAP_alloc_beam_values(Np,PLASMA_VALUES_NUMBER,&h_plasma_values,&d_plasma_values);
@@ -721,6 +735,8 @@ int CUDA_WRAP_write_plasma_value(int i,int num_attr,int n,double t)
 {
 
 #ifdef CUDA_WRAP_CHECK_BEAM_VALUES_ALLOWED 
+
+//   create_h_plasma_particles(Np);
 
 	//int cell_number = i*Ny + j;
 	
