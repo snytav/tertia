@@ -58,7 +58,7 @@ FFTW_LIB_DIR = -L/usr/lib64/
 FFTW_LIB = -lfftw3 -lfftw3_threads
 
 
-test:   $(cuobj) $(obj)
+all:   $(cuobj) $(obj)
 	nvcc -rdc=true *.o  -o test $(HDF5_LIB_DIR) $(HDF5_LIB) $(MPI_LIB) \
 	                            $(FFTW_LIB) $(FFTW_LIB_DIR) $(CUDA_LIB)
 %.o:    %.cu
