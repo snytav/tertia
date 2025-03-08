@@ -814,6 +814,7 @@ int Mesh::getLayerParticles(int iLayer)
          {
             Particle *p_next = p->p_Next;
 	        num++;
+	        p = p_next;
          }
          printf("cell %10d %5d %5d particles %15d \n",i,j,k,num);
       }
