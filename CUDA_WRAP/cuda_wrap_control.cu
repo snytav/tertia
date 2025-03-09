@@ -61,8 +61,10 @@ int CUDA_WRAP_compare_device_array(int n,double *h_m,double *d_m,double *frac_id
    if(details_flag == DETAILS)
    {
      // CUDA_DEBUG_printDdevice_matrix(4,4,d_m,legend);
+#ifdef CUDA_WRAP_CONTROL
       printf("AT: %s COMPARE %10s : ideal %10.2f wrong %10.2f delta %15.5e MAX(%2d): device %25.15e host %25.15e \n",
 	    where,legend,*frac_ideal,*frac_rude,dmax,i_max,h_copy[i_max],h_m[i_max]);
+#endif
    }
    int err4 = cudaGetLastError(); 
    

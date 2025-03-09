@@ -1532,7 +1532,7 @@ double Mesh::IterateFieldsHydroLinLayerSplit(int iLayer,int iSplit,int N_iter)
    for (int n=0; n<ncomplex; n++) carray[n] = fft_of_Bz[n];
    fftw_execute(planR2Rb_Bz);
 #endif   
-#ifdef CUDA_WRAP_CHECK_ALL      
+#ifdef CUDA_WRAP_CHECK_ALL
    CUDA_WRAP_CHECK(l_My,l_Mz,"Iterate after 2nd fourier",DETAILS,this,iLayer,p_CellArray);
 #endif      
 
