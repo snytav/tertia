@@ -408,6 +408,8 @@ void Mesh::MoveAllSplitLayers()
          
          
          MoveSplitLayer(iLayer,iSplit);
+         printf("MoveSplitLayer %5d %03d +++++++++++++++++++++++\n",
+        		        iLayer,iSplit);
          cuLayerPrintCentre(h_P,-100,this,p_CellLayerP,"P after MoveSplitLayer");
          cuLayerPrintCentre(h_C,-110,this,p_CellLayerC,"C after MoveSplitLayer");
          //printf("rank %d after move \n",GetRank());
@@ -816,7 +818,7 @@ int Mesh::getLayerParticles(int iLayer)
 	        num++;
 	        p = p_next;
          }
-         printf("cell %10d %5d %5d particles %15d \n",i,j,k,num);
+//         printf("cell %10d %5d %5d particles %15d \n",i,j,k,num);
       }
    }
    return num;

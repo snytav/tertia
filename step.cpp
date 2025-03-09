@@ -127,8 +127,12 @@ int Domain::Step(void)
       p_M->MoveAllLayers();
    };
    printf(" field %e beam %e \n",(tv2.tv_sec-tv1.tv_sec)+1e-6*(tv2.tv_usec-tv1.tv_usec),(tvc2.tv_sec-tvc1.tv_sec)+1e-6*(tvc2.tv_usec-tvc1.tv_usec));
-   CUDA_WRAP_diagnose(l_Xsize,l_Ysize,l_Zsize,p_M->Hx(),p_M->Hy(),p_Cntrl->l_Nstep);
+   */
+//nt CUDA_WRAP_diagnose(int l_Xsize,int l_Ysize,int l_Zsize,double hx, double hy,int step,Mesh *mesh,Cell *p_CellArray);
+   CUDA_WRAP_diagnose(    l_Xsize,    l_Ysize,    l_Zsize,p_M->Hx(),p_M->Hy(),p_Cntrl->l_Nstep,p_M,p_M->p_CellArray);
    //exit(0);
+    /*
+
 
    CUDA_WRAP_compare3DFields(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray);
  //  CUDA_WRAP_copy3DFields(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray);

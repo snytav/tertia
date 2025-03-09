@@ -1352,9 +1352,9 @@ int CUDA_WRAP_writeXYSection(int Nx,int Ny,int Nz,double hx,double hy,double *d_
 
 int CUDA_WRAP_diagnose(int l_Xsize,int l_Ysize,int l_Zsize,double hx, double hy,int step,Mesh *mesh,Cell *p_CellArray)
 {
-  //CUDA_WRAP_writeXYSection(l_Xsize,l_Ysize,l_Zsize,hx,hy,d_Ex3D,"EX",step,mesh,p_CellArray,0);
+  CUDA_WRAP_writeXYSection(l_Xsize,l_Ysize,l_Zsize,hx,hy,d_Ex3D,"EX",step,mesh,p_CellArray,0);
   CUDA_WRAP_writeXYSection(l_Xsize,l_Ysize,l_Zsize,hx,hy,d_Ey3D,"EY",step,mesh,p_CellArray,1);
-  //CUDA_WRAP_writeXYSection(l_Xsize,l_Ysize,l_Zsize,hx,hy,d_Ez3D,"EZ",step,mesh,p_CellArray,2);
+  CUDA_WRAP_writeXYSection(l_Xsize,l_Ysize,l_Zsize,hx,hy,d_Ez3D,"EZ",step,mesh,p_CellArray,2);
   
   CUDA_WRAP_writeXYSection(l_Xsize,l_Ysize,l_Zsize,hx,hy,d_RhoBeam3D,"RhoBeam",step,mesh,p_CellArray,6);
   

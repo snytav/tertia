@@ -736,6 +736,7 @@ int CUDA_WRAP_printBeamDensity3D(Mesh *p_M,int step,char *where)
          }
       }
     }
+    fclose(f);
 #endif	    
 
    return 0; 
@@ -777,7 +778,9 @@ int CUDA_WRAP_printBeamParticles(Mesh *p_M,int step,char *where)
          }
       }
     }
-#endif	    
+    fclose(f);   
+#endif	 
+   
 
    return 0; 
 }

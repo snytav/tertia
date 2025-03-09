@@ -555,6 +555,9 @@ double *a22,double *d_a22,char *s22
 
 )
 {
+#ifndef VERIFY_ALL_VECTORS
+    return 0;
+#else
     puts("BEGIN VERIFY =========================================================================================");
     compare_vector_from_device(a_size,a15,d_a15,"in ver 15");
     
@@ -582,6 +585,7 @@ double *a22,double *d_a22,char *s22
     puts("END VERIFY ========================================================================================="); 
     
     return 0;
+#endif
 }
 
 
