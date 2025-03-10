@@ -1,0 +1,7 @@
+1. switch on
+   a. plasma
+   b. field
+   c. beam
+   computing on GPU
+2. check that diagnose outpits is done from GPU
+3. learn how to switch host computing off (make just one switch ) 
