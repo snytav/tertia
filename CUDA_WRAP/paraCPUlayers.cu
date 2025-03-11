@@ -59,6 +59,11 @@ int CUDA_WRAP_getLayerFromMesh(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,in
    Rho = (double *)malloc(sizeof(double)*Ny*Nz);
    JxBeamP  = (double *)malloc(sizeof(double)*Ny*Nz);
    RhoBeamP = (double *)malloc(sizeof(double)*Ny*Nz);
+
+   int err22 = cudaGetLastError();
+   printf("in getLayerFromMesh after alloc Layer %d count err %d \n",iLayer,err22);
+   //exit(0);
+
    
    CUDA_WRAP_getBeamFFT(JxBeamP,RhoBeamP,Ny*Nz);
    

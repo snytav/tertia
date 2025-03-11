@@ -71,6 +71,10 @@ static double maxRho;
 
 void CUDA_WRAP_getBeamFFT(double *jx,double *rho,int ncomplex)
 {
+   static int first = 1;
+
+
+
    for (int n=0; n<ncomplex; n++) 
    {
       jx[n]   = fft_of_JxBeam[n];
