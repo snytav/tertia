@@ -407,7 +407,7 @@ void Mesh::MoveAllSplitLayers()
          cuLayerPrintCentre(h_C,-11,this,p_CellLayerC,"C before MoveSplitLayer");
          
          
-         MoveSplitLayer(iLayer,iSplit);
+//         cuMoveSplitParticles(iLayer,iSplit);
          printf("MoveSplitLayer %5d %03d +++++++++++++++++++++++\n",
         		        iLayer,iSplit);
          cuLayerPrintCentre(h_P,-100,this,p_CellLayerP,"P after MoveSplitLayer");
