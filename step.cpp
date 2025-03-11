@@ -99,7 +99,7 @@ int Domain::Step(void)
 //   Exchange(SPACK_PB);
 #endif  
 
-   
+   CUDA_WRAP_diagnose(    l_Xsize,    l_Ysize,    l_Zsize,p_M->Hx(),p_M->Hy(),p_Cntrl->l_Nstep,p_M,p_M->p_CellArray);
    printf("long after sending particles rank %d \n",GetRank());
    gettimeofday(&tv1,NULL);
    p_M->MoveAllSplitLayers();
