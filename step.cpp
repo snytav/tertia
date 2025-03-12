@@ -71,7 +71,9 @@ int Domain::Step(void)
 ///////////////////////////////////////////////////////////////////
  //  CUDA_WRAP_compare3DFields(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray);
    gettimeofday(&tvc1,NULL);   
+   printf("before beam move\n");
    CUDA_WRAP_beam_move(Np,l_Xsize,l_Ysize,l_Zsize,p_M->Hx(),p_M->Hy(),p_M->Hz(),p_M->Ts());
+   printf("after beam move\n");
    gettimeofday(&tvc2,NULL);   
 #endif
 

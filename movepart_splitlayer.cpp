@@ -408,8 +408,11 @@ void Mesh::MoveAllSplitLayers()
          
          
 //         cuMoveSplitParticles(iLayer,iSplit);
-         printf("MoveSplitLayer %5d %03d +++++++++++++++++++++++\n",
+         if(iLayer % 10 == 0)
+         {
+             printf("MoveSplitLayer %5d %03d +++++++++++++++++++++++\n",
         		        iLayer,iSplit);
+         }
          cuLayerPrintCentre(h_P,-100,this,p_CellLayerP,"P after MoveSplitLayer");
          cuLayerPrintCentre(h_C,-110,this,p_CellLayerC,"C after MoveSplitLayer");
          //printf("rank %d after move \n",GetRank());

@@ -770,7 +770,7 @@ int CUDA_WRAP_beam_move(int Np,int Nx,int Ny,int Nz,double hx,double hy,double h
   //  printf("rank %d in beam move before kernel Np %d Nx %d hx %e gridSize %d \n",GetRank(),Np,Nx,hx,gridSize);
     
     CUDA_WRAP_printParticles(beam_particles,"before kernel particles ");
-    
+    printf("before beam kernel");
     moveBeamKernel<<<dimGrid, dimBlock>>>(beam_particles,d_beam_values,Np,Nx,Ny,Nz,hx,hy,hz,ts,d_Ex3D,d_Ey3D,d_Ez3D,d_Bx3D,d_By3D,d_Bz3D,
 					  d_JxBeam3D,d_JyBeam3D,d_JzBeam3D,d_RhoBeam3D);
     
