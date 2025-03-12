@@ -234,6 +234,7 @@ void Mesh::GuessFieldsHydroLinLayerSplit(int iLayer,int iSplit)
    double max_Ey = 0.;
    double maxEx, maxEy, maxEz, maxBx, maxBy, maxBz;
    struct timeval tv[CUDA_WRAP_TN];
+   printf("in GuessFieldsHydroLinLayerSplit \n");
    
 //   int err0 = cudaGetLastError();
    gettimeofday(&tv[0],NULL);

@@ -28,6 +28,8 @@ void Mesh::MoveAllSplitLayers()
     struct timeval tv1,tv2,tvl1,tvl2,tvs1,tvs2,tvs15,tvs12,tv15;
     cudaLayer *host_send_layer;
 
+    printf("in MoveAllSplitLayers \n ");
+
 //#ifndef PARALLEL_ONLY
     gettimeofday(&tv1,NULL);
     //printf("begin moveAll %d \n",GetRank());
@@ -413,6 +415,7 @@ void Mesh::MoveAllSplitLayers()
              printf("MoveSplitLayer %5d %03d +++++++++++++++++++++++\n",
         		        iLayer,iSplit);
          }
+         MoveSplitLayer(iLayer,iSplit);
          cuLayerPrintCentre(h_P,-100,this,p_CellLayerP,"P after MoveSplitLayer");
          cuLayerPrintCentre(h_C,-110,this,p_CellLayerC,"C after MoveSplitLayer");
          //printf("rank %d after move \n",GetRank());
@@ -578,7 +581,7 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
    double g_time = 0.0,p_time = 0.0,i_time = 0.0;
    struct timeval tg1,tg2,tp1,tp2,ti1,ti2,t1,t2;
    cudaLayer *h_C,*h_P;
-   
+   printf("in ");
    //printf("rank %d in move \n",GetRank());
 //   if(GetRank() == 0 && (iSplit == 1)) exit(0);
    
@@ -591,9 +594,9 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
    cuLayerPrintCentre(h_P,-50,this,p_CellLayerP,"P before guess ");
    cuLayerPrintCentre(h_C,-51,this,p_CellLayerC,"C before guess ");
    
-  // printf("before guess %d\n",GetRank());
+   printf("before guess %d\n",GetRank());
    GuessFieldsHydroLinLayerSplit(iLayer,iSplit);
-  // printf("after guess %d\n",GetRank());
+   printf("after guess %d\n",GetRank());
    //cuLayerPrintCentre(h_C,iLayer,this,p_CellArray);
    
    cuLayerPrintCentre(h_P,-52,this,p_CellLayerP,"P after guess ");

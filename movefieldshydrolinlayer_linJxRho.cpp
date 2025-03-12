@@ -48,6 +48,7 @@ void Mesh::GuessFieldsHydroLinLayer(int iLayer)
    double max_dEy = 0.;
    double max_Ey = 0.;
    double maxEx, maxEy, maxEz, maxBx, maxBy, maxBz;
+   printf("in guess GuessFieldsHydroLinLayer");
 
    i = l_Mx-1;;
    j = l_My/2.;
