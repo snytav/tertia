@@ -748,7 +748,7 @@ CUDA_WRAP_copyArraysDevice(l_My*l_Mz,d_rEx,d_rEy,d_rEz,d_rJx,d_rJy,d_rJz,d_rJxBe
    fftw_execute(planR2R_Jz);
 #endif   
    gettimeofday(&tv[4],NULL);
-   printf("before Fourier block =============================================\n");
+   printf("before Fourier block block 3=============================================\n");
    CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rRho,d_rRho,d_fft_of_Rho,FFTW_REDFT11,FFTW_REDFT11,iLayer);
    
    
@@ -769,7 +769,7 @@ CUDA_WRAP_copyArraysDevice(l_My*l_Mz,d_rEx,d_rEy,d_rEz,d_rJx,d_rJy,d_rJz,d_rJxBe
    
    CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rEx,d_rJz,d_fft_of_Jz,FFTW_RODFT11,FFTW_REDFT11,iLayer);
    gettimeofday(&tv[5],NULL);
-   printf("after Fourier block ====================\n");
+   printf("end    Fourier block block 3=============================================\n");
    
 
       

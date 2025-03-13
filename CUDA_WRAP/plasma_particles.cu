@@ -837,14 +837,14 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
  //    cudaPrintfInit();
      gettimeofday(&tv1,NULL);
      err = cudaGetLastError();
-     printf("before particles kernel %d \n",err);
+     printf("block 2 before particles kernel %03d -------------------------------------\n",err);
      
      cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl,d_pl,Ny,Nz,hx,hy,hz,
                                      d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
 
      cudaDeviceSynchronize();
      err = cudaGetLastError();
-     printf("after particles kernel %d \n",err);
+     printf("block 2 after particles kernel %03d --------------------------------------\n",err);
                                            
      gettimeofday(&tv2,NULL);
     // printf("particle kernel %e \n",(tv2.tv_sec-tv1.tv_sec)+1e-6*(tv2.tv_usec-tv1.tv_usec));

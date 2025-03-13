@@ -770,16 +770,18 @@ int CUDA_WRAP_beam_move(int Np,int Nx,int Ny,int Nz,double hx,double hy,double h
   //  printf("rank %d in beam move before kernel Np %d Nx %d hx %e gridSize %d \n",GetRank(),Np,Nx,hx,gridSize);
     
     CUDA_WRAP_printParticles(beam_particles,"before kernel particles ");
-    printf("before beam kernel");
+    printf("before beam kernel block 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     moveBeamKernel<<<dimGrid, dimBlock>>>(beam_particles,d_beam_values,Np,Nx,Ny,Nz,hx,hy,hz,ts,d_Ex3D,d_Ey3D,d_Ez3D,d_Bx3D,d_By3D,d_Bz3D,
 					  d_JxBeam3D,d_JyBeam3D,d_JzBeam3D,d_RhoBeam3D);
     
     cudaDeviceSynchronize();
+    printf("after  beam kernel block 1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
     int err = cudaGetLastError();
     
     if(err != cudaSuccess)
     {
-       printf("beam kernel error %d \n",err);
+       printf("after beam kernel block 1 error %d \n",err);
        exit(0);
     }
     //cudaPrintfDisplay(stdout, true);
