@@ -57,11 +57,12 @@ int Domain::Step(void)
 ///////////////////////////////////////////////////////////////////   
    struct timeval tv1,tv2,tvc1,tvc2;
       
-   CUDA_WRAP_printBeamParticles(p_M,p_Cntrl->l_Nstep,"AfterMove");
+   CUDA_WRAP_printBeamParticles(p_M,p_Cntrl->l_Nstep,"BeforeMove");
  //  puts("BEFORE BEAM");
 #ifdef CUDA_WRAP_COMPUTE_BEAM_ON_HOST   
    p_M->MoveBeamParticles();
  //  puts("AFTER BEAM");
+   CUDA_WRAP_printBeamParticles(p_M,p_Cntrl->l_Nstep,"AfterMove");
 #endif
 
    CUDA_WRAP_printBeamDensity3D(p_M,p_Cntrl->l_Nstep,"AfterMove");
