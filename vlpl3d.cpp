@@ -11,7 +11,7 @@
 #include "CUDA_WRAP/plasma_particles.h"
 
 //TODO
-// 0. remove mpicxx, mpicc from makefile
+//
 // 1. find particle and field output
 // 2. check GPU computation
 // 3. simulate some 100s of steps
