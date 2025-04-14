@@ -10,6 +10,11 @@
 #include "para.h"
 #include "CUDA_WRAP/plasma_particles.h"
 
+//TODO
+// 1. find particle and field output
+// 2. check GPU computation
+// 3. simulate some 100s of steps
+// attach MAGMA solver
 
 int main(int argc, char** argv)
 {
