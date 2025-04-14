@@ -1,5 +1,5 @@
 
-#include <mpi.h>
+// #include <mpi.h>
 #include <stdlib.h>
 
 
@@ -87,7 +87,7 @@ int Set_l_Mx(int *l_Mx)
 
 int ParallelFinalize()
 {
-    return MPI_Finalize();
+//    return MPI_Finalize();
     return 0;
 }
 
@@ -322,15 +322,15 @@ int SendLayer(cudaLayer *d_l,int Ny,int Nz,int Np)
 
     
     dest = GetRank() - 1;
-    MPI_Send(&buf_size,1,MPI_INTEGER,dest,SEND_BUFSIZE_TAG,MPI_COMM_WORLD);
+//    MPI_Send(&buf_size,1,MPI_INTEGER,dest,SEND_BUFSIZE_TAG,MPI_COMM_WORLD);
     
 #ifdef CUDA_WRAP_PARALLEL_DEBUG
     printf("rank %d in send layer B size %d \n",GetRank(),buf_size);
 #endif    
-    MPI_Request   request;
+//     MPI_Request   request;
        
     //MPI_Send(buf,buf_size,MPI_DOUBLE_PRECISION,dest,SEND_BUFFER_TAG,MPI_COMM_WORLD);
-    MPI_Isend(buf,buf_size,MPI_DOUBLE_PRECISION,dest,SEND_BUFFER_TAG,MPI_COMM_WORLD,&request);
+//    MPI_Isend(buf,buf_size,MPI_DOUBLE_PRECISION,dest,SEND_BUFFER_TAG,MPI_COMM_WORLD,&request);
     
 #ifdef CUDA_WRAP_PARALLEL_DEBUG
     printf("rank %d in send layer C \n",GetRank());
@@ -349,7 +349,7 @@ int ReceiveLayer(cudaLayer *h_result_l,int Ny,int Nz,int Np)
     cudaLayer *h_l,*h_d_l;
     double *buf;
     int buf_size,src;
-    MPI_Status status;
+//     MPI_Status status;
 
     return 0;
 
@@ -370,7 +370,7 @@ int ReceiveLayer(cudaLayer *h_result_l,int Ny,int Nz,int Np)
     printf("rank %d in receive layer A \n",GetRank());
 #endif  
     src = GetRank() + 1;
-    MPI_Recv(&buf_size,1,MPI_INTEGER,src,SEND_BUFSIZE_TAG,MPI_COMM_WORLD,&status);
+//     MPI_Recv(&buf_size,1,MPI_INTEGER,src,SEND_BUFSIZE_TAG,MPI_COMM_WORLD,&status);
 #ifdef CUDA_WRAP_PARALLEL_DEBUG
     printf("rank %d in receive layer B \n",GetRank());
 #endif    
@@ -380,7 +380,7 @@ int ReceiveLayer(cudaLayer *h_result_l,int Ny,int Nz,int Np)
     printf("rank %d in receive layer C size  %d \n",GetRank(),buf_size);
 #endif    
        
-    MPI_Recv(buf,buf_size,MPI_DOUBLE_PRECISION,src,SEND_BUFFER_TAG,MPI_COMM_WORLD,&status);
+//     MPI_Recv(buf,buf_size,MPI_DOUBLE_PRECISION,src,SEND_BUFFER_TAG,MPI_COMM_WORLD,&status);
 #ifdef CUDA_WRAP_PARALLEL_DEBUG
     printf("rank %d in receive layer D \n",GetRank());
 #endif    
@@ -420,7 +420,7 @@ int SendBeamParticles(int *Np)
     static beamParticle *d_send_up,*d_send_down,*d_recv_up,*d_recv_down;
     int send_up_cnt,send_down_cnt,recv_up_cnt,recv_down_cnt;
     int up,down;
-    MPI_Status status;
+//     MPI_Status status;
     static int nstep = 0;
     static int first_call = 1;
     printf("rank %d in send particles \n",GetRank());
@@ -492,7 +492,7 @@ int SendBeamParticles(int *Np)
 #ifdef CUDA_WRAP_PARALLEL_DEBUG
 	   printf("send down %d \n",GetRank()); 
 #endif	   
-           MPI_Sendrecv(&send_down_cnt,1,MPI_INTEGER,down,PARTICLE_NUMBER_TAG,&recv_down_cnt,1,MPI_INTEGER,down,PARTICLE_NUMBER_TAG,MPI_COMM_WORLD,&status);
+//            MPI_Sendrecv(&send_down_cnt,1,MPI_INTEGER,down,PARTICLE_NUMBER_TAG,&recv_down_cnt,1,MPI_INTEGER,down,PARTICLE_NUMBER_TAG,MPI_COMM_WORLD,&status);
 	}
         if(GetRank() < size - 1)
 	{
@@ -500,7 +500,7 @@ int SendBeamParticles(int *Np)
 	   printf("send up %d \n",GetRank()); 
 #endif	   
 	  
-           MPI_Sendrecv(&send_up_cnt,1,MPI_INTEGER,up,PARTICLE_NUMBER_TAG,&recv_up_cnt,1,MPI_INTEGER,up,PARTICLE_NUMBER_TAG,MPI_COMM_WORLD,&status);
+//            MPI_Sendrecv(&send_up_cnt,1,MPI_INTEGER,up,PARTICLE_NUMBER_TAG,&recv_up_cnt,1,MPI_INTEGER,up,PARTICLE_NUMBER_TAG,MPI_COMM_WORLD,&status);
 	}
     }
     else
@@ -511,7 +511,7 @@ int SendBeamParticles(int *Np)
 	   printf("send up %d \n",rank); 
 #endif	   
 	  
-           MPI_Sendrecv(&send_up_cnt,1,MPI_INTEGER,up,PARTICLE_NUMBER_TAG,&recv_up_cnt,1,MPI_INTEGER,up,PARTICLE_NUMBER_TAG,MPI_COMM_WORLD,&status);
+//            MPI_Sendrecv(&send_up_cnt,1,MPI_INTEGER,up,PARTICLE_NUMBER_TAG,&recv_up_cnt,1,MPI_INTEGER,up,PARTICLE_NUMBER_TAG,MPI_COMM_WORLD,&status);
 	}
         if(GetRank() > 0)
 	{
@@ -519,7 +519,7 @@ int SendBeamParticles(int *Np)
 	   printf("send down %d \n",rank); 
 #endif	   
 	  
-           MPI_Sendrecv(&send_down_cnt,1,MPI_INTEGER,down,PARTICLE_NUMBER_TAG,&recv_down_cnt,1,MPI_INTEGER,down,PARTICLE_NUMBER_TAG,MPI_COMM_WORLD,&status);
+//            MPI_Sendrecv(&send_down_cnt,1,MPI_INTEGER,down,PARTICLE_NUMBER_TAG,&recv_down_cnt,1,MPI_INTEGER,down,PARTICLE_NUMBER_TAG,MPI_COMM_WORLD,&status);
 	}
       
     }
@@ -541,27 +541,27 @@ int SendBeamParticles(int *Np)
     {
         if(GetRank() > 0)
 	{
-           MPI_Sendrecv(h_send_down,send_down_cnt*sizeof(beamParticle),MPI_BYTE,down,PARTICLE_TAG,
-			h_recv_down,recv_down_cnt*sizeof(beamParticle),MPI_BYTE,down,PARTICLE_TAG,MPI_COMM_WORLD,&status);
+//            /*MPI_Sendrecv(h_send_down,send_down_cnt*sizeof(beamParticle),MPI_BYTE,down,PARTICLE_TAG,
+// 			h_r*/ecv_down,recv_down_cnt*sizeof(beamParticle),MPI_BYTE,down,PARTICLE_TAG,MPI_COMM_WORLD,&status);
 	}
         if(GetRank() < size -1)
 	{
-           MPI_Sendrecv(h_send_up,send_up_cnt*sizeof(beamParticle),MPI_BYTE,up,PARTICLE_TAG,
-			h_recv_up,recv_up_cnt*sizeof(beamParticle),MPI_BYTE,up,PARTICLE_TAG,MPI_COMM_WORLD,&status);
+//            MPI_Sendrecv(h_send_up,send_up_cnt*sizeof(beamParticle),MPI_BYTE,up,PARTICLE_TAG,
+// 			h_recv_up,recv_up_cnt*sizeof(beamParticle),MPI_BYTE,up,PARTICLE_TAG,MPI_COMM_WORLD,&status);
 	}
     }
     else
     {
         if(GetRank() < size -1)
 	{
-           MPI_Sendrecv(h_send_up,send_up_cnt*sizeof(beamParticle),MPI_BYTE,up,PARTICLE_TAG,
-			h_recv_up,recv_up_cnt*sizeof(beamParticle),MPI_BYTE,up,PARTICLE_TAG,MPI_COMM_WORLD,&status);
+//            MPI_Sendrecv(h_send_up,send_up_cnt*sizeof(beamParticle),MPI_BYTE,up,PARTICLE_TAG,
+// 			h_recv_up,recv_up_cnt*sizeof(beamParticle),MPI_BYTE,up,PARTICLE_TAG,MPI_COMM_WORLD,&status);
 	}
 
         if(GetRank() > 0)
 	{
-           MPI_Sendrecv(h_send_down,send_down_cnt*sizeof(beamParticle),MPI_BYTE,down,PARTICLE_TAG,
-			h_recv_down,recv_down_cnt*sizeof(beamParticle),MPI_BYTE,down,PARTICLE_TAG,MPI_COMM_WORLD,&status);
+//            MPI_Sendrecv(h_send_down,send_down_cnt*sizeof(beamParticle),MPI_BYTE,down,PARTICLE_TAG,
+// 			h_recv_down,recv_down_cnt*sizeof(beamParticle),MPI_BYTE,down,PARTICLE_TAG,MPI_COMM_WORLD,&status);
 	}
       
     }    
@@ -589,7 +589,7 @@ int SendBeamParticlesUp(int *Np)
     static beamParticle *d_send_up,*d_send_down,*d_recv_up,*d_recv_down;
     int send_up_cnt,send_down_cnt,recv_up_cnt = 0,recv_down_cnt = 0;
     int up,down;
-    MPI_Status status;
+//     MPI_Status status;
     static int nstep = 0;
     static int first_call = 1;
 
@@ -661,7 +661,7 @@ int SendBeamParticlesUp(int *Np)
 	   printf("send up %d \n",rank); 
 #endif	   
 	  
-           MPI_Sendrecv(&send_up_cnt,1,MPI_INTEGER,up,PARTICLE_NUMBER_TAG,&recv_up_cnt,1,MPI_INTEGER,up,PARTICLE_NUMBER_TAG,MPI_COMM_WORLD,&status);
+//            MPI_Sendrecv(&send_up_cnt,1,MPI_INTEGER,up,PARTICLE_NUMBER_TAG,&recv_up_cnt,1,MPI_INTEGER,up,PARTICLE_NUMBER_TAG,MPI_COMM_WORLD,&status);
         }
  //   if(size > 1)
  //   {
@@ -677,8 +677,8 @@ int SendBeamParticlesUp(int *Np)
 
         if(GetRank() < size -1)
 	{
-           MPI_Sendrecv(h_send_up,send_up_cnt*sizeof(beamParticle),MPI_BYTE,up,PARTICLE_TAG,
-			h_recv_up,recv_up_cnt*sizeof(beamParticle),MPI_BYTE,up,PARTICLE_TAG,MPI_COMM_WORLD,&status);
+//            MPI_Sendrecv(h_send_up,send_up_cnt*sizeof(beamParticle),MPI_BYTE,up,PARTICLE_TAG,
+// 			h_recv_up,recv_up_cnt*sizeof(beamParticle),MPI_BYTE,up,PARTICLE_TAG,MPI_COMM_WORLD,&status);
 	}
 #ifdef CUDA_WRAP_PARALLEL_DEBUG
  printf("rank %d in send particles C \n",GetRank());    
@@ -708,7 +708,7 @@ int SendBeamParticlesDown(int *Np)
     static beamParticle *d_send_up,*d_send_down,*d_recv_up,*d_recv_down;
     int send_up_cnt,send_down_cnt,recv_up_cnt = 0,recv_down_cnt = 0;
     int up,down;
-    MPI_Status status;
+//     MPI_Status status;
     static int nstep = 0;
     static int first_call = 1;
     
@@ -781,7 +781,7 @@ int SendBeamParticlesDown(int *Np)
 #ifdef CUDA_WRAP_PARALLEL_DEBUG
 	   printf("send down %d \n",GetRank()); 
 #endif	   
-           MPI_Sendrecv(&send_down_cnt,1,MPI_INTEGER,down,PARTICLE_NUMBER_TAG,&recv_down_cnt,1,MPI_INTEGER,down,PARTICLE_NUMBER_TAG,MPI_COMM_WORLD,&status);
+//            MPI_Sendrecv(&send_down_cnt,1,MPI_INTEGER,down,PARTICLE_NUMBER_TAG,&recv_down_cnt,1,MPI_INTEGER,down,PARTICLE_NUMBER_TAG,MPI_COMM_WORLD,&status);
 	}
  //   if(size > 1)
  //   {
@@ -798,8 +798,8 @@ int SendBeamParticlesDown(int *Np)
 
         if(GetRank() > 0)
 	{
-           MPI_Sendrecv(h_send_down,send_down_cnt*sizeof(beamParticle),MPI_BYTE,down,PARTICLE_TAG,
-			h_recv_down,recv_down_cnt*sizeof(beamParticle),MPI_BYTE,down,PARTICLE_TAG,MPI_COMM_WORLD,&status);
+//            MPI_Sendrecv(h_send_down,send_down_cnt*sizeof(beamParticle),MPI_BYTE,down,PARTICLE_TAG,
+// 			h_recv_down,recv_down_cnt*sizeof(beamParticle),MPI_BYTE,down,PARTICLE_TAG,MPI_COMM_WORLD,&status);
 	}
 #ifdef CUDA_WRAP_PARALLEL_DEBUG
  printf("rank %d in send particles C \n",rank);    
