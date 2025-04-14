@@ -351,6 +351,8 @@ int ReceiveLayer(cudaLayer *h_result_l,int Ny,int Nz,int Np)
     int buf_size,src;
     MPI_Status status;
 
+    return 0;
+
 #ifdef CUDA_WRAP_PARALLEL_DEBUG
     printf("rank %d in receive layer \n",GetRank());
     printf("begin recv %d %d %d \n ",h_result_l->Ny,h_result_l->Nz,h_result_l->Np);
