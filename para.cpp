@@ -25,7 +25,7 @@ int beamNp = 0;
 
 int getBeamNp()
 {
-    return beamNp;
+    return 0;
 }
 
 int setBeamNp(int n)
@@ -34,16 +34,16 @@ int setBeamNp(int n)
 }
 
 
-int GetRank(){return rank;}
-int GetSize(){return size;}
+int GetRank(){return 0;}
+int GetSize(){return 1;}
 
-double GetXmin(){return X_min;}
+double GetXmin(){return 0.0;}
 double GetXmax(){return X_max;}
 
 int ParallelExit()
 {
-   MPI_Barrier(MPI_COMM_WORLD);
-   MPI_Finalize();
+//    MPI_Barrier(MPI_COMM_WORLD);
+//    MPI_Finalize();
    exit(0);
    
    return 0;
@@ -52,12 +52,12 @@ int ParallelExit()
 
 int ParallelInit(int argc,char *argv[])
 {
-    MPI_Init(&argc,&argv);
-    
-    MPI_Comm_size(MPI_COMM_WORLD,&size);
-    MPI_Comm_rank(MPI_COMM_WORLD,&rank);
-    
-    printf("rank %d size %d \n",GetRank(),size);
+//     MPI_Init(&argc,&argv);
+//
+//     MPI_Comm_size(MPI_COMM_WORLD,&size);
+//     MPI_Comm_rank(MPI_COMM_WORLD,&rank);
+//
+//     printf("rank %d size %d \n",GetRank(),size);
     
   
     return 0;
@@ -69,25 +69,26 @@ int SetXSize(long *l_Mx,double x_size)
   
     X_min = 0.0;
     X_max = (x_size/(double)size);
-#ifdef CUDA_WRAP_PARALLEL_DEBUG    
+/*#ifdef CUDA_WRAP_PARALLEL_DEBUG
     printf("rank %d l_Mx %d min %e max %e \n",rank,*l_Mx,X_min,X_max);
-#endif    
+#endif   */
 }
 
 int Set_l_Mx(int *l_Mx)
 {
-    *l_Mx = (*l_Mx - 1)/size + 1;
-  
-//    X_min = (x_size/(double)size)*rank;
-//    X_max = (x_size/(double)size)*(rank+1);
-#ifdef CUDA_WRAP_PARALLEL_DEBUG    
-    printf("rank %d l_Mx \n",rank,*l_Mx);
-#endif    
+//     *l_Mx = (*l_Mx - 1)/size + 1;
+//
+// //    X_min = (x_size/(double)size)*rank;
+// //    X_max = (x_size/(double)size)*(rank+1);
+// #ifdef CUDA_WRAP_PARALLEL_DEBUG
+//     printf("rank %d l_Mx \n",rank,*l_Mx);
+// #endif
 }
 
 int ParallelFinalize()
 {
     return MPI_Finalize();
+    return 0;
 }
 
 
