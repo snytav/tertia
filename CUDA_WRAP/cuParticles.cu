@@ -1136,6 +1136,8 @@ double *partSurfOut,
 
             cuDepositCurrentsInCell(l_My,l_Mz,part_number,buf,d_partJy,d_partJz,isort, itmp, jtmp, ktmp, Vx, Vy, Vz, xtmp, ytmp, ztmp,
                          part_djx, part_djy, part_djz, part_drho);
+            //write currents section
+           // CUDA_WRAP_writeXYSection(l_My,l_My,l_Mz,hx,hy,part_djx,"Jx",step,mesh,p_CellArray,0);
 #ifdef CUDA_WRAP_CUPRINTF_IN_OUT   
 	//cuPrintf("rho-5.3 %e \n",d_partRho[10]);
 #endif		    
@@ -1163,6 +1165,8 @@ double *partSurfOut,
 
    cuDepositRhoInCell(l_My,l_Mz,part_number,buf, d_partJx,d_partRho,isort, itmp, jtmp, ktmp, Vx, Vy, Vz, xtmp, ytmp, ztmp,
                          part_djx, part_djy, part_djz, part_drho);
+   //write rho section, m.b. currents too
+
 #ifdef CUDA_WRAP_CUPRINTF_IN_OUT   
 	//cuPrintf("rho-5B %e \n",d_partRho[10]);
 #endif		     

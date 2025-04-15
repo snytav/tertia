@@ -117,7 +117,7 @@ int Domain::Step(void)
    
  
    
-//   CUDA_WRAP_diagnose(l_Xsize,l_Ysize,l_Zsize,p_M->Hx(),p_M->Hy(),p_Cntrl->l_Nstep,p_M,p_M->p_CellArray);
+  CUDA_WRAP_diagnose(l_Xsize,l_Ysize,l_Zsize,p_M->Hx(),p_M->Hy(),p_Cntrl->l_Nstep,p_M,p_M->p_CellArray);
 
    printf("rank %d after diagnose \n",GetRank());   
    

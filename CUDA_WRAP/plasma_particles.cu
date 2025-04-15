@@ -779,7 +779,7 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
 {
 
 #ifdef CUDA_WRAP_FFTW_ALLOWED
-     return;
+    // return;
 #endif
 
      int Np = h_pl->Np;
@@ -817,6 +817,7 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
         cudaMemcpy(d_djy0,djy0,sizeof(double)*nsorts,cudaMemcpyHostToDevice);
         cudaMemcpy(d_djz0,djz0,sizeof(double)*nsorts,cudaMemcpyHostToDevice);
         cudaMemcpy(d_drho0,drho0,sizeof(double)*nsorts,cudaMemcpyHostToDevice);
+        // insert section output
      
         cudaMalloc(&d_pl,sizeof(cudaLayer));
         cudaMemcpy(d_pl,h_pl,sizeof(cudaLayer),cudaMemcpyHostToDevice);
