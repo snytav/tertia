@@ -212,7 +212,7 @@ void Mesh::MoveAllSplitLayers()
      cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"afgter copy to P"); 
 
       
-       //getLayersPC(&h_cl,&h_pl);
+      getLayersPC(&h_cl,&h_pl);
       CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_C,h_P);
       
       gettimeofday(&tv15,NULL);
