@@ -782,7 +782,7 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
     // return;
 #endif
 
-    // int Np = h_pl->Np;
+     int Np = h_pl->Np;
      static cudaLayer *d_cl,*d_pl;
      struct timeval tv1,tv2,tf1,tf2;
 
