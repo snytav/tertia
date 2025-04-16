@@ -26,7 +26,7 @@ void Mesh::MoveAllSplitLayers()
 {
     cudaLayer *h_P,*h_C,*h_left,*h_right;
     struct timeval tv1,tv2,tvl1,tvl2,tvs1,tvs2,tvs15,tvs12,tv15;
-    cudaLayer *host_send_layer;
+    cudaLayer *host_send_layer,*h_cl,*h_pl;
 
     printf("in MoveAllSplitLayers \n ");
 
@@ -859,8 +859,8 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
 #ifndef CUDA_WRAP_FFTW_ALLOWED 
    int Np = particlesPrepareAtLayer(this,p_CellLayerP,p_CellLayerC,iLayer,l_My,l_Mz,h_pl->Np);   
 #endif   
-//   h_cl = (cudaLayer *)malloc(sizeof(cudaLayer));
-//   h_pl = (cudaLayer *)malloc(sizeof(cudaLayer));
+   h_cl = (cudaLayer *)malloc(sizeof(cudaLayer));
+   h_pl = (cudaLayer *)malloc(sizeof(cudaLayer));
  //  cudaMemcpy(h_cl,d_pl,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
  //  CUDA_WRAP_print_layer(d_pl,Np,"layerFormed",l_My,l_Mz);
    int nsorts = domain()->GetNsorts();
