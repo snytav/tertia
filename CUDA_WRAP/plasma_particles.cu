@@ -843,6 +843,12 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
      cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl,d_pl,Ny,Nz,hx,hy,hz,
                                      d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
 
+     cudaLayer *h_cl1,*h_pl1;
+     h_cl1 = (cudaLayer*)malloc(sizeof(cudaLayer));
+     h_pl1 = (cudaLayer*)malloc(sizeof(cudaLayer));
+     cudaMemcpy(h_cl1,d_cl,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
+     cudaMemcpy(h_pl1,d_pl,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
+
      cudaDeviceSynchronize();
      err = cudaGetLastError();
      printf("block 2 after particles kernel %03d --------------------------------------\n",err);
