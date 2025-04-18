@@ -9,7 +9,7 @@
 #include "../run_control.h"
 #include "plasma_particles.h"
 #include <stdio.h>
-//#include "cuPrintf.cu"
+#include "cuPrintf.cu"
 #include "cuLayers.h"
 #include <sys/time.h>
 
@@ -106,14 +106,14 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
 #endif	 
 	
 	 if(np >= pl->Np) return;
-#ifdef PLASMA_MOVE_CUPRINTF	 
+// #ifdef PLASMA_MOVE_CUPRINTF
 	 cuPrintf("after Np check Np %d \n",pl->Np);
-#endif	 
+// #endif
 	 //return;
 	 p = pl->particles + np;
          j = p->i_Y;
-         //cuPrintf("jread %d \n",j);
-         //if(iLayer == 120 && iSplit == 1 && iFullStep == 0) return;
+         cuPrintf("jread %d \n",j);
+         if(iLayer == 120 && iSplit == 1 && iFullStep == 0) return;
          //j = 0;
 #ifdef PLASMA_MOVE_CUPRINTF	 
          cuPrintf("first-j \n");
@@ -122,7 +122,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          //return;
          k = p->i_Z;  
 //#ifdef PLASMA_VALUES_CUPRINTF         
-//         if(np < 50) cuPrintf("jjj np %d j %d k %d i %d %e %e %e\n",np,p->i_Y,p->i_Z,p->i_X,p->f_Px,p->f_Py,p->f_Pz);
+        if(np < 50) cuPrintf("jjj np %d j %d k %d i %d %e %e %e\n",np,p->i_Y,p->i_Z,p->i_X,p->f_Px,p->f_Py,p->f_Pz);
 //#endif         
          
          write_plasma_value(np,PLASMA_VALUES_NUMBER,0,d_p,(double)j);
@@ -218,7 +218,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          {
                double dummy = 0.;
          }
-         //cuPrintf("begin interplolate \n");
+         cuPrintf("begin interplolate \n");
 //         if(iLayer == 120 && iSplit == 1 && iFullStep == 0)return;
 
 
@@ -250,9 +250,8 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          double bx=0.;
          double by=0.;
          double bz=0.;
-#ifdef PLASMA_MOVE_CUPRINTF         
          cuPrintf("fields preparation \n");
-#endif         
+// #endif
          //cuPrintf("after 29 \n");
         // if(iLayer == 120 && iSplit == 1 && iFullStep == 0)return;
          //return;
@@ -774,6 +773,37 @@ double CUDA_WRAP_check_plasma_values(int Np,int num_attr,int blocksize_x,int blo
 }
 
 
+void copyLayerFromDeviceToHost(cudaLayer **h_l,cudaLayer *d_l)
+{
+     cudaLayer *hostlayer_device_components,*hl_hc;
+
+     hostlayer_device_components = (cudaLayer*)malloc(sizeof(cudaLayer));
+
+     cudaMemcpy(hostlayer_device_components,d_l,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
+     int Ny = hostlayer_device_components->Ny;
+     int Nz = hostlayer_device_components->Nz;
+     hl_hc = (cudaLayer*)malloc(sizeof(cudaLayer));
+     hl_hc->Bx = (double*)malloc(sizeof(double)*Ny*Nz);
+     hl_hc->By = (double*)malloc(sizeof(double)*Ny*Nz);
+     hl_hc->Bz = (double*)malloc(sizeof(double)*Ny*Nz);
+     cudaMemcpy(hl_hc->Bx,hostlayer_device_components->Bx,sizeof(double)*Ny*Nz,cudaMemcpyDeviceToHost);
+     cudaMemcpy(hl_hc->By,hostlayer_device_components->By,sizeof(double)*Ny*Nz,cudaMemcpyDeviceToHost);
+     cudaMemcpy(hl_hc->Bz,hostlayer_device_components->Bz,sizeof(double)*Ny*Nz,cudaMemcpyDeviceToHost);
+
+     hl_hc->Ex = (double*)malloc(sizeof(double)*Ny*Nz);
+     hl_hc->Ey = (double*)malloc(sizeof(double)*Ny*Nz);
+     hl_hc->Ez = (double*)malloc(sizeof(double)*Ny*Nz);
+
+     hl_hc->Jx = (double*)malloc(sizeof(double)*Ny*Nz);
+     hl_hc->Jy = (double*)malloc(sizeof(double)*Ny*Nz);
+     hl_hc->Jz = (double*)malloc(sizeof(double)*Ny*Nz);
+
+
+
+
+}
+
+
 void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,int Ny,int Nz,double hx,double hy,double hz,
                                      double *djx0,double *djy0,double *djz0,double *drho0,int nsorts,int iFullStep)
 {
@@ -839,11 +869,13 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
      gettimeofday(&tv1,NULL);
      err = cudaGetLastError();
      printf("block 2 before particles kernel %03d -------------------------------------\n",err);
-     
+     cudaPrintfInit();
      cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl,d_pl,Ny,Nz,hx,hy,hz,
                                      d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
-
+     cudaPrintfDisplay(stdout, true);
+     cudaPrintfEnd();
      cudaLayer *h_cl1,*h_pl1;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   copyLayerFromDeviceToHost(&h_cl1,d_cl);
      h_cl1 = (cudaLayer*)malloc(sizeof(cudaLayer));
      h_pl1 = (cudaLayer*)malloc(sizeof(cudaLayer));
      cudaMemcpy(h_cl1,d_cl,sizeof(cudaLayer),cudaMemcpyDeviceToHost);

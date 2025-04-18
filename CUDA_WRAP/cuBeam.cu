@@ -1,4 +1,4 @@
-#include "cuPrintf.cu"
+// #include "cuPrintf.cu"
 #include "../particles.h"
 #include "../cells.h"
 #include "../mesh.h"
@@ -137,7 +137,7 @@ __global__ void moveBeamKernel(beamParticle *beam_particles,double *d_beam_value
 	k1 = p->i_Z;
 //	if(i1 < 0) return; // a particle was deleted because of leaving subdomain
 
-	if(np < 10) cuPrintf("ilk %d %d %d \n",i1,l1,k1);
+// 	if(np < 10) cuPrintf("ilk %d %d %d \n",i1,l1,k1);
 	
 	//return;
 
@@ -546,7 +546,7 @@ __global__ void moveBeamKernel(beamParticle *beam_particles,double *d_beam_value
 #endif	       
 
 //               p->SetP(px,py,pz);
-           if(np < 10) cuPrintf("X,P %e %e %e %e %e %e \n",p->f_X,p->f_Y,p->f_Z,px,py,pz);
+//            if(np < 10) cuPrintf("X,P %e %e %e %e %e %e \n",p->f_X,p->f_Y,p->f_Z,px,py,pz);
 	   p->f_Px = px;
 	   p->f_Py = py;
 	   p->f_Pz = pz;
@@ -1659,18 +1659,18 @@ __global__ void getBeamFlyList(beamParticle *beam_particles,int Np_out,double x_
 	
 //	if(np >= *Np) return;
 	
-	cuPrintf("in beamKernel\n");
+// 	cuPrintf("in beamKernel\n");
 	//cuPrintf("grimDim.y %d blockDim.y %d sizeY %d ny %d nx %d np %d \n",gridDim.y,blockDim.y,sizeY,nx,ny,np);
         //return;
 	
-	cuPrintf("in beamflyList\n");
+// 	cuPrintf("in beamflyList\n");
 	//return;
 	
 	//curp = beam_particles;
 	size_fly_list_max = 0;
 	size_fly_list_min = 0;
 	
-	cuPrintf("xmin %e xmax %e  %d %d \n",x_min,x_max,size_fly_list_min,size_fly_list_max);
+// 	cuPrintf("xmin %e xmax %e  %d %d \n",x_min,x_max,size_fly_list_min,size_fly_list_max);
 	//return;
 	
 	for(np = 0;np < Np;np++)
@@ -1682,7 +1682,7 @@ __global__ void getBeamFlyList(beamParticle *beam_particles,int Np_out,double x_
 
 	    if((x < x_min) || (x > x_max))
 	    {
-	       cuPrintf("%d flies !!! xmin %e x %e xmax %e \n",np,x_min,x,x_max);
+// 	       cuPrintf("%d flies !!! xmin %e x %e xmax %e \n",np,x_min,x,x_max);
 	       
                if(x < x_min)
 	       {
@@ -1705,7 +1705,7 @@ __global__ void getBeamFlyList(beamParticle *beam_particles,int Np_out,double x_
 	       Np--;
 	    }
 	}
-	cuPrintf("almost end \n");
+// 	cuPrintf("almost end \n");
 	
 	
 	size_fly[0] = Np;
@@ -1730,7 +1730,7 @@ int CUDA_WRAP_getFlyList(int *Np,double x_min,double x_max,beamParticle *fly_lis
     }
     
 
-    cudaPrintfInit();
+//     cudaPrintfInit();
     
     getBeamFlyList<<<dimGrid, dimBlock>>>(beam_particles,*Np,x_min,x_max,fly_list_min,fly_list_max,d_size);
     
@@ -1743,8 +1743,8 @@ int CUDA_WRAP_getFlyList(int *Np,double x_min,double x_max,beamParticle *fly_lis
     }
     exit(0);   
     
-    cudaPrintfDisplay(stdout, true);
-    cudaPrintfEnd();
+//     cudaPrintfDisplay(stdout, true);
+//     cudaPrintfEnd();
     
     cudaMemcpy(h_size,d_size,3*sizeof(int),cudaMemcpyDeviceToHost);
     
