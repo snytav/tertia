@@ -93,9 +93,10 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          int np;
          unsigned int j = nx,k = ny;
          
-         
+
+         printf("moveSplit111 \n");
 #ifdef PLASMA_MOVE_CUPRINTF         
-         cuPrintf("moveSplit \n");
+         cuPrintf("moveSplit222 \n");
 #endif         
 //         if(iLayer == 120 && iSplit == 1 && iFullStep == 0)return;
 

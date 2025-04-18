@@ -1934,7 +1934,7 @@ __device__ void cuDepositCurrentsInCell(int l_My,int l_Mz,int part_number,double
    Cell &cmp = GetCell(i,j-1,k+1);
    Cell &cpm = GetCell(i,j+1,k-1);   */
 #ifdef CUDA_WRAP_CUPRINTF_IN_OUT   
-   //cuPrintf("djy,djz %25.15e %25.15e %10.3e \n",djy,djz,djz-djy);
+//    cuPrintf("djy,djz %25.15e %25.15e %10.3e \n",djy,djz,djz-djy);
 #endif   
    x = 0.;
 
