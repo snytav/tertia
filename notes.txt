@@ -1,0 +1,5 @@
+// CUDA_WRAP_copy_particle_currents(Ny,Nz,0);
+ //  CUDA_WRAP_copy_particle_density(Ny,Nz,0);     // insert after moveKernel call wth Nx and along all layers
+
+ now add cuPrintf around cuMoveSplitParticles and understand printfs
+ 1st check that particles are really moved 
