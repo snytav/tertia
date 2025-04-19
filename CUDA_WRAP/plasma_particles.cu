@@ -13,6 +13,7 @@
 #include "cuLayers.h"
 #include <sys/time.h>
 #include "cuParticles.h"
+#include "beam_copy.h"
 
 
 double *h_plasma_values,*d_plasma_values;
@@ -886,6 +887,18 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
          CUDA_WRAP_copy_particle_currents(Mx,Ny,Nz,iLayer);
          CUDA_WRAP_copy_particle_density(Mx,Ny,Nz,iLayer,iLayer);
      }
+
+     static int copy_3D_matrices_1st = 1;
+     double *h_Rho3D,*h_Jx3D,*h_Jy3D,*h_Jz3D;
+     if(copy_3D_matrices_1st == 1)
+     {
+        h_Rho3D = (double*)malloc(sizeof(double)*Mx*Ny*Nz);
+        h_Jx3D  = (double*)malloc(sizeof(double)*Mx*Ny*Nz);
+        h_Jy3D  = (double*)malloc(sizeof(double)*Mx*Ny*Nz);
+        h_Jz3D  = (double*)malloc(sizeof(double)*Mx*Ny*Nz);
+
+     }
+
      //////////////////////////////////////////////////
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    copyLayerFromDeviceToHost(&h_cl1,d_cl);
      h_cl1 = (cudaLayer*)malloc(sizeof(cudaLayer));

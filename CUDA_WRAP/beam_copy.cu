@@ -16,6 +16,9 @@
 double *d_RhoBeam3D,*d_JxBeam3D,*d_Rho3D,*d_Jx3D,*d_Jy3D,*d_Jz3D,*d_JyBeam3D,*d_JzBeam3D;
 double *d_Ex3D,*d_Ey3D,*d_Ez3D,*d_Bx3D,*d_By3D,*d_Bz3D;
 
+double *h_Rho3D,*h_Jx3D,*h_Jy3D,*h_Jz3D;
+
+
 int CUDA_WRAP_3Dto2D(int iLayer,int Ny,int Nz,double *d_3d,double *d_2d)
 {
 //    double *h_copy = (double *)malloc(sizeof(double)*Ny*Nz);
