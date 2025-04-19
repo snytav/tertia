@@ -1854,7 +1854,7 @@ int CUDA_WRAP_move_particles(double*partSurfIn,
     moveKernel<<<dimGrid, dimBlock>>>(partSurfIn,partSurfOut,
                                       width, height, part_per_cell_max,Ny,Nz,i_fs,d_params,d_particleResult,buf,d_partRho,d_partJx,d_partJy,d_partJz,d_rEx); // ,hx,hy,hz,djx0,djy0,djz0,drho0);
     CUDA_DEBUG_printDdevice_matrix(Ny,Nz,d_partRho,"Rho begin move-2 "); 
-  //  moveKernel<<<dimGrid, dimBlock>>>(width, height, part_per_cell_max,Ny,Nz,i_fs,d_params,d_particleResult,d_partRho,d_partJx,d_partJy,d_partJz); // ,hx,hy,hz,djx0,djy0,djz0,drho0);
+//     moveKernel<<<dimGrid, dimBlock>>>(width, height, part_per_cell_max,Ny,Nz,i_fs,d_params,d_particleResult,d_partRho,d_partJx,d_partJy,d_partJz, ,hx,hy,hz,djx0,djy0,djz0,drho0);
     if(i_fs == 1) copyParticlesToInputSurface<<<dimGrid, dimBlock>>>(
        partSurfIn,partSurfOut,Ny*Nz);
     CUDA_DEBUG_printDdevice_matrix(Ny,Nz,d_partRho,"Rho begin move-3 "); 
@@ -1863,8 +1863,9 @@ int CUDA_WRAP_move_particles(double*partSurfIn,
 //    cudaPrintfDisplay(stdout, true);
  //   cudaPrintfEnd();
     
- //   CUDA_WRAP_copy_particle_currents(Ny,Nz);
- //   CUDA_WRAP_copy_particle_density(Ny,Nz);
+    //                              (int Nx,int Ny,int Nz,int iLayer)
+  // CUDA_WRAP_copy_particle_currents(Ny,Nz,0);
+ //  CUDA_WRAP_copy_particle_density(Ny,Nz,0);
     
  //   CUDA_WRAP_copy_particle_currents(Ny,Nz);
 //    cudaMemcpy(&t,d_t,sizeof(double),cudaMemcpyDeviceToHost);
@@ -1937,6 +1938,7 @@ __device__ void cuDepositCurrentsInCell(int l_My,int l_Mz,int part_number,double
 //    cuPrintf("djy,djz %25.15e %25.15e %10.3e \n",djy,djz,djz-djy);
 #endif   
    x = 0.;
+   printf("in cuDepositCurrentsInCell\n");
 
 //   double xs = x - 0.5;
    double ys = y - 0.5;
