@@ -16,6 +16,7 @@
 #include "CUDA_WRAP/plasma_particles.h"
 #include "CUDA_WRAP/diagnostic_print.h"
 #include "CUDA_WRAP/cuParticles.h"
+#include "CUDA_WRAP/cuDiagnose.h"
 
 #include "para.h"
 
@@ -103,6 +104,14 @@ void Mesh::MoveAllSplitLayers()
 //         CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,t->JxBeam,"JxBeam");
       }
    }  
+   double hx = 1.0,hz = 1.0;
+  // CUDA_WRAP_diagnose_host_layers(h_layers);
+   CUDA_WRAP_diagnose_host_layers(l_Mx,l_My,l_Mz,
+                                   GetControlDomain()->GetHx(),
+                                   GetControlDomain()->GetHy(),
+                                   GetControlDomain()->GetHz(),
+                                   h_layers,
+                                   GetControlDomain()->Step());
    
    //CUDA_WRAP_copyLayerParticles(h_layers[l_Mx],h_basic_layer);
   // CUDA_WR        AP_printLayerParticles(h_layers[l_Mx],"LAST");
