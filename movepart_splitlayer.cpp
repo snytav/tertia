@@ -104,14 +104,18 @@ void Mesh::MoveAllSplitLayers()
 //         CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,t->JxBeam,"JxBeam");
       }
    }  
-   double hx = 1.0,hz = 1.0;
+   double hx = GetControlDomain()->GetHx(),
+          hy = GetControlDomain()->GetHy(),
+          hz = GetControlDomain()->GetHx();
+
+
+   int nstep = this->domain()->p_Cntrl->GetNstep();
   // CUDA_WRAP_diagnose_host_layers(h_layers);
-   CUDA_WRAP_diagnose_host_layers(l_Mx,l_My,l_Mz,
-                                   GetControlDomain()->GetHx(),
-                                   GetControlDomain()->GetHy(),
-                                   GetControlDomain()->GetHz(),
-                                   h_layers,
-                                   GetControlDomain()->Step());
+
+//    CUDA_WRAP_diagnose_host_layers(l_Mx,l_My,l_Mz,
+//                                    hx,hy,hz,h_layers,nstep);
+    CUDA_WRAP_diagnose_host_layers(l_Mx,l_My,l_Mz,
+                                   hx,hy,hz,h_layers,nstep);
    
    //CUDA_WRAP_copyLayerParticles(h_layers[l_Mx],h_basic_layer);
   // CUDA_WR        AP_printLayerParticles(h_layers[l_Mx],"LAST");
