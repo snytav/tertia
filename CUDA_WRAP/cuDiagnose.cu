@@ -12,7 +12,10 @@ int copyFieldsFomLayersTo3D(cudaLayer **h_layers,int Nx,int Ny,int Nz,
       {
           for(int k = 0;k< Nz;k++)
           {
-              *Jx[i*Ny*Nz+j*Nz +k] = (*h_layers[i]).Jx[j*Nz +k];
+
+//               printf("i %5d j %4d k %5d i*Ny*Nz+j*Nz +k %5d j*Nz +k %5d \n",
+//                       i,    j,    k,    i*Ny*Nz+j*Nz +k,    j*Nz +k);
+              (*Jx)[i*Ny*Nz+k*Ny+j] = (*h_layers[i]).Jx[k*Ny +j];
           }
       }
   }
@@ -31,7 +34,7 @@ int CUDA_WRAP_diagnose_host_layers(int Nx,int Ny,int Nz,
 
    // printf("in writesection %d \n",GetRank());
 
-    h_ex  = (double *)malloc(sizeof(double)*Nx*Ny*Nz);
+    Jx  = (double *)malloc(sizeof(double)*Nx*Ny*Nz);
 
     copyFieldsFomLayersTo3D(h_layers,Nx,Ny,Nz,&Jx);
 
@@ -47,7 +50,7 @@ int CUDA_WRAP_diagnose_host_layers(int Nx,int Ny,int Nz,
           // Cell &ccc = p_CellArray[nccc];
 	   double t;
 	   int k = Nz/2;
-    	   fprintf(f," %e %e %15.5e \n",i*hx,j*hy,h_ex[i*Ny*Nz+k*Ny+j]);
+    	   fprintf(f," %e %e %15.5e \n",i*hx,j*hy,Jx[i*Ny*Nz+k*Ny+j]);
 
        }
    //    puts("=======================================================");
@@ -56,7 +59,7 @@ int CUDA_WRAP_diagnose_host_layers(int Nx,int Ny,int Nz,
 
     fclose(f);
 
-    free(h_ex);
+    free(Jx);
 
    // printf("end writesection %d \n",GetRank());
 
