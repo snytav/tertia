@@ -136,9 +136,9 @@ int CUDA_WRAP_allocLayerOnHost(cudaLayer **hl,int Ny,int Nz,int Np)
    beamParticle *p;
    //cudaMalloc((void**)&l,sizeof(cudaLayer));
    
-#ifdef CUDA_WRAP_FFTW_ALLOWED
+/*#ifdef CUDA_WRAP_FFTW_ALLOWED
    return 0;
-#endif   
+#endif*/
    
 #ifdef CUDA_WRAP_PARALLEL_DEBUG	     
    printf("in alloc layer Ny %d Nz %d Np %d =============================================================\n",Ny,Nz,Np);     
@@ -268,12 +268,20 @@ int CUDA_WRAP_copyLayerFrom3D(int iLayer,int Ny,int Nz,int Np,cudaLayer **h_cl)
 
      
    
-#ifdef CUDA_WRAP_FFTW_ALLOWED     
-     CUDA_WRAP_allocHostLayer(h_cl,Ny,Nz,Np);
-     return 0;
-#else
+// #ifdef CUDA_WRAP_FFTW_ALLOWED
+//      CUDA_WRAP_allocHostLayer(h_cl,Ny,Nz,Np);
+//      return 0;
+// #else
      CUDA_WRAP_allocLayerOnHost(h_cl,Ny,Nz,Np);     
-#endif    
+// #endif
+
+     for(int i = 0;i < Ny;i++)
+     {
+        for(int k = 0;k < Nz;k++)
+        {
+           printf("Jx i %5d k %5d k*Ny+i %10d %10.3e \n",i,k,k*Ny+i,(*h_cl)->Jy[k*Ny+i]);
+        }
+     }
     
      CUDA_WRAP_3Dto2D(iLayer,Ny,Nz,d_Rho3D,    (*h_cl)->Rho);
      CUDA_WRAP_3Dto2D(iLayer,Ny,Nz,d_Ex3D,     (*h_cl)->Ex);
