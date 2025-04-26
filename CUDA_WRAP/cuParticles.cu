@@ -1939,6 +1939,7 @@ __device__ void cuDepositCurrentsInCell(int l_My,int l_Mz,int part_number,double
 #endif   
    x = 0.;
    printf("in cuDepositCurrentsInCell\n");
+   return;
 
 //   double xs = x - 0.5;
    double ys = y - 0.5;
