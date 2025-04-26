@@ -96,43 +96,49 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          unsigned int j = nx,k = ny;
          
 
-         printf("moveSplit111 \n");
+         cuPrintf("moveSplit111 \n");
+	 
          
 #ifdef PLASMA_MOVE_CUPRINTF         
-         printf("moveSplit222 \n");
-	 
+         cuPrintf("moveSplit222 \n");
+
 #endif
-         printf("moveSplit223 \n");
+         //printf("moveSplit223 \n");
 	 
 //         if(iLayer == 120 && iSplit == 1 && iFullStep == 0)return;
 
 	 np = sizeY*nx + ny;
 	 
 #ifdef PLASMA_MOVE_CUPRINTF	 
-	 printf("nx %5d ny %5d np %5d Np %10d \n",nx,ny,np,Np);
-	 __syncthreads();
-	 return;
+	 cuPrintf("nx %5d ny %5d np %5d Np %10d \n",nx,ny,np,Np);
+	 //__syncthreads();
+	 
 #endif	 
 	
-	 if(np >= pl->Np) return;
+	 //if(np >= pl->Np) return;
 // #ifdef PLASMA_MOVE_CUPRINTF
-	 printf("after Np check Np %d \n",pl->Np);
+	// printf("after Np check Np %d \n",pl->Np);
 // #endif
 	 //return;
 	 p = pl->particles + np;
          j = p->i_Y;
-         printf("jread %d \n",j);
+         //printf("jread %d \n",j);
         // if(iLayer == 120 && iSplit == 1 && iFullStep == 0) return;
          //j = 0;
 // #ifdef PLASMA_MOVE_CUPRINTF
-         printf("first-j \n");
+         //printf("first-j \n");
 // #endif
          
          //return;
          k = p->i_Z;  
 //#ifdef PLASMA_VALUES_CUPRINTF         
-         printf("jjj np %d j %d k %d i %d %e %e %e\n",np,p->i_Y,p->i_Z,p->i_X,p->f_Px,p->f_Py,p->f_Pz);
-//#endif         
+         //if(nx == 0 && ny == 0) 
+	 //{
+	 cuPrintf("np %5d %d \n",np,nx);
+	 //}
+         //__syncthreads();
+	 return;
+	 //#endif         
          
          write_plasma_value(np,PLASMA_VALUES_NUMBER,0,d_p,(double)j);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,1,d_p,(double)k);
