@@ -14,10 +14,10 @@ int copyFieldsFomLayersTo3D(cudaLayer **h_layers,int Nx,int Ny,int Nz,
           {
 
               (*Jx)[i*Ny*Nz+k*Ny+j] = (*h_layers[i]).Jx[k*Ny +j];
-              printf("i %5d j %4d k %5d i*Ny*Nz+j*Nz +k %10.3e %5d j*Nz +k %5d  %10.3e\n",
-                      i,    j,    k,    i*Ny*Nz+j*Nz +k,  (*Jx)[i*Ny*Nz+k*Ny+j],
-                     j*Nz +k,(*h_layers[i]).Jx[k*Ny +j]
-                     );
+//              printf("i %5d j %4d k %5d i*Ny*Nz+j*Nz +k %10.3e %5d j*Nz +k %5d  %10.3e\n",
+//                      i,    j,    k,    i*Ny*Nz+j*Nz +k,  (*Jx)[i*Ny*Nz+k*Ny+j],
+//                     j*Nz +k,(*h_layers[i]).Jx[k*Ny +j]
+//	      );
 
           }
       }
