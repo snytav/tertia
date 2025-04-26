@@ -96,13 +96,13 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          unsigned int j = nx,k = ny;
          
 
-         //printf("moveSplit111 \n");
+         printf("moveSplit111 \n");
          
 #ifdef PLASMA_MOVE_CUPRINTF         
-         //printf("moveSplit222 \n");
+         printf("moveSplit222 \n");
 	 
 #endif
-         //printf("moveSplit223 \n");
+         printf("moveSplit223 \n");
 	 
 //         if(iLayer == 120 && iSplit == 1 && iFullStep == 0)return;
 
@@ -878,7 +878,7 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
      gettimeofday(&tv1,NULL);
      err = cudaGetLastError();
      printf("block 2 before particles kernel %03d -------------------------------------%10d \n",err,Np);
-     exit(0);
+     //exit(0);
      cudaPrintfInit();
      cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl,d_pl,Ny,Nz,hx,hy,hz,
                                      d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
