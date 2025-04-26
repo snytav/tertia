@@ -109,7 +109,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
 	 np = sizeY*nx + ny;
 	 
 #ifdef PLASMA_MOVE_CUPRINTF	 
-	 printf("np %d Np %d \n",np,Np);
+	 printf("nx %5d ny %5d np %5d Np %10d \n",nx,ny,np,Np);
 	 __syncthreads();
 	 return;
 #endif	 
