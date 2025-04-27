@@ -14,7 +14,7 @@
 #include <sys/time.h>
 #include "cuParticles.h"
 #include "beam_copy.h"
-
+//#include <stdio.h>
 
 double *h_plasma_values,*d_plasma_values;
 static int first_h_plasma_values = 1;
@@ -94,9 +94,11 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          beamParticle *p;
          int np;
          unsigned int j = nx,k = ny;
+	 char s[50];
          
 
-         cuPrintf("moveSplit111 \n");
+	 //sprintf(s,"%e",3.1415);
+         cuPrintf("moveSplit111 %d \n",3.1415);
 	 
          
 #ifdef PLASMA_MOVE_CUPRINTF         
