@@ -85,8 +85,10 @@ __device__ void copyParticle(beamParticle *dst,beamParticle *src)
 }
 
 
-__global__ void testKernel(double  val) {
-   cuPrintf("\tValue is:%e\n", val);
+__global__ void testKernel(double  val,int iLayer) {
+   //cuPrintf("val %e \n",3.1415);	
+   cuPrintf("\t  blockIdx.x %3d blockIdx.y %3d  threadIdx.x %3d threadIdx.y %3d   \n",blockIdx.x,blockIdx.y,
+		                                                                              threadIdx.x,threadIdx.y);
 }
 
 
@@ -893,10 +895,13 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
  //    cudaPrintfInit();
      gettimeofday(&tv1,NULL);
      err = cudaGetLastError();
-     printf("block 2 before particles kernel %03d -------------------------------------%10d \n",err,Np);
+     printf("block 2 before particles kernel %03d -------------------------------------%10d dimGrid %3d %3d %3d dimBlock  %3d %3d %3d  \n",err,Np,
+		                                                                         dimGrid.x,dimGrid.y,dimGrid.z,
+											 dimBlock.x,dimBlock.y,dimBlock.z
+											 );
      //exit(0);
      cudaPrintfInit();
-     testKernel<<<  dimGrid, dimBlock  >>>(5.0);
+     testKernel<<<  dimGrid, dimBlock  >>>(5.0,iLayer);
      //cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl,d_pl,Ny,Nz,hx,hy,hz,
      //                                d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
      cudaPrintfDisplay(stdout, true);
