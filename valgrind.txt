@@ -1,0 +1,24 @@
+ Invalid write of size 8
+==1333291==    at 0x116D08: CUDA_WRAP_write_beam_value(int, int, int, double*, double) (cuBeam.cu:75)
+==1333291==    by 0x150AFB: Mesh::MoveBeamParticles() (movebeam.cpp:115)
+==1333291==    by 0x1B60B2: Domain::Step() (step.cpp:63)
+==1333291==    by 0x1B6820: Domain::GroupSteps() (step.cpp:248)
+==1333291==    by 0x1B68F5: Domain::Run() (step.cpp:277)
+==1333291==    by 0x1BB578: main (vlpl3d.cpp:97)
+==1333291==  Address 0x2708d0 is not stack'd, malloc'd or (recently) free'd
+==1333291==
+==1333291==
+==1333291== Process terminating with default action of signal 11 (SIGSEGV)
+==1333291==  Access not within mapped region at address 0x2708D0
+==1333291==    at 0x116D08: CUDA_WRAP_write_beam_value(int, int, int, double*, double) (cuBeam.cu:75)
+==1333291==    by 0x150AFB: Mesh::MoveBeamParticles() (movebeam.cpp:115)
+==1333291==    by 0x1B60B2: Domain::Step() (step.cpp:63)
+==1333291==    by 0x1B6820: Domain::GroupSteps() (step.cpp:248)
+==1333291==    by 0x1B68F5: Domain::Run() (step.cpp:277)
+==1333291==    by 0x1BB578: main (vlpl3d.cpp:97)
+==1333291==  If you believe this happened as a result of a stack
+==1333291==  overflow in your program's main thread (unlikely but
+==1333291==  possible), you can try to increase the size of the
+==1333291==  main thread stack using the --main-stacksize= flag.
+==1333291==  The main thread stack size used in this run was 8388608.
+
