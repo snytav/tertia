@@ -894,7 +894,7 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
  //    cudaPrintfInit();
      gettimeofday(&tv1,NULL);
      err = cudaGetLastError();
-     printf("block 2 before particles kernel %03d -------------------------------------%10d \n",err,Np);
+     printf("block 2 before particles kernel err %03d -----------------------Np %10d iLayer %05d iSpli %3d \n",err,Np,iLayer,iSplit);
      //exit(0);
      cudaPrintfInit();
      testKernel<<<  dimGrid, dimBlock  >>>( iLayer,iSplit  );
