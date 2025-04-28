@@ -896,7 +896,7 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
      printf("block 2 before particles kernel %03d -------------------------------------%10d \n",err,Np);
      //exit(0);
      cudaPrintfInit();
-     testKernel<<<1,5>>>(5.0);
+     testKernel<<<  dimGrid, dimBlock  >>>(5.0);
      //cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl,d_pl,Ny,Nz,hx,hy,hz,
      //                                d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
      cudaPrintfDisplay(stdout, true);
