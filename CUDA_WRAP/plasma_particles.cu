@@ -85,6 +85,14 @@ __device__ void copyParticle(beamParticle *dst,beamParticle *src)
 }
 
 
+__global__ void testKernel(double  val) {
+   cuPrintf("\tValue is:%e\n", val);
+}
+
+
+
+
+
 __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLayer *cl,cudaLayer *pl,int Ny,int Nz,double hx,double hy,double hz,
                                      double *djx0,double *djy0,double *djz0,double *drho0,int iFullStep,double *d_p)
 {
@@ -98,7 +106,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          
 
 	 //sprintf(s,"%e",3.1415);
-         cuPrintf("moveSplit111 %d \n",3.1415);
+         cuPrintf("moveSplit111  \n",3.1415);
 	 
          
 #ifdef PLASMA_MOVE_CUPRINTF         
@@ -888,8 +896,9 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
      printf("block 2 before particles kernel %03d -------------------------------------%10d \n",err,Np);
      //exit(0);
      cudaPrintfInit();
-     cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl,d_pl,Ny,Nz,hx,hy,hz,
-                                     d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
+     testKernel<<<1,5>>>(5.0);
+     //cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl,d_pl,Ny,Nz,hx,hy,hz,
+     //                                d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
      cudaPrintfDisplay(stdout, true);
      cudaPrintfEnd();
      exit(0);
