@@ -114,8 +114,8 @@ void Mesh::MoveAllSplitLayers()
 
 //    CUDA_WRAP_diagnose_host_layers(l_Mx,l_My,l_Mz,
 //                                    hx,hy,hz,h_layers,nstep);
-    CUDA_WRAP_diagnose_host_layers(l_Mx,l_My,l_Mz,
-                                   hx,hy,hz,h_layers,nstep);
+    //CUDA_WRAP_diagnose_host_layers(l_Mx,l_My,l_Mz,
+      //                             hx,hy,hz,h_layers,nstep);
    
    //CUDA_WRAP_copyLayerParticles(h_layers[l_Mx],h_basic_layer);
   // CUDA_WR        AP_printLayerParticles(h_layers[l_Mx],"LAST");
