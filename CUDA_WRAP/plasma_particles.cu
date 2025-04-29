@@ -47,6 +47,7 @@ int create_h_plasma_particles(int Np)
     {
        first_h_plasma_values = 0;
        h_plasma_values = (double *)malloc(Np*PLASMA_VALUES_NUMBER*sizeof(double));
+       cudaMalloc(&d_plasma_values,Np*PLASMA_VALUES_NUMBER*sizeof(double));
     }
 
 }
@@ -308,10 +309,10 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          write_plasma_value(np,PLASMA_VALUES_NUMBER,23,d_p,appc);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,24,d_p,apcp);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,25,d_p,appp);
-         //write_plasma_value(np,PLASMA_VALUES_NUMBER,26,d_p,pl->Bx[npc]);
-         //write_plasma_value(np,PLASMA_VALUES_NUMBER,27,d_p,pl->Bx[npp]);
-         //write_plasma_value(np,PLASMA_VALUES_NUMBER,28,d_p,pl->Bx[ncp]);
-         //write_plasma_value(np,PLASMA_VALUES_NUMBER,29,d_p,pl->Bx[npp]);
+         write_plasma_value(np,PLASMA_VALUES_NUMBER,26,d_p,pl->Bx[npc]);
+         write_plasma_value(np,PLASMA_VALUES_NUMBER,27,d_p,pl->Bx[npp]);
+         write_plasma_value(np,PLASMA_VALUES_NUMBER,28,d_p,pl->Bx[ncp]);
+         write_plasma_value(np,PLASMA_VALUES_NUMBER,29,d_p,pl->Bx[npp]);
          
          //cuPrintf("after 29 \n");
          //if(iLayer == 120 && iSplit == 1 && iFullStep == 0)return;
@@ -750,7 +751,7 @@ void __device__ cuDepositCurrentsInCellSplit(
 int CUDA_WRAP_write_plasma_value(int i,int num_attr,int n,double t)
 {
 
-#ifdef CUDA_WRAP_CHECK_BEAM_VALUES_ALLOWED 
+#ifdef CUDA_WRAP_CHECK_BEAM_VALUES_ALLOWED
 
 //   create_h_plasma_particles(Np);
 
@@ -760,7 +761,7 @@ int CUDA_WRAP_write_plasma_value(int i,int num_attr,int n,double t)
 	
 	//cudaMemcpy((void**)d_p,num_attr*ppc_max*Ny*Nz*sizeof(double));
 	
-#endif	
+#endif
 	
 	return 0;
 }
