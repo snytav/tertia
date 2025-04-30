@@ -893,7 +893,7 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
                                      d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
      cudaPrintfDisplay(stdout, true);
      cudaPrintfEnd();
-     exit(0);
+//      exit(0);
      cudaLayer *h_cl1,*h_pl1;
      // paricle currents diagnostics
 
