@@ -2047,44 +2047,44 @@ __device__ void cuDepositCurrentsInCell(int l_My,int l_Mz,int part_number,double
    addToMatrix(d_partJy,djy*acmm,nx-1,ny-1);
    
    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,75,buf,djy*acmm,l_My*l_Mz);
-   //write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,95,buf,d_partJy[ncmm]);
+   write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,95,buf,d_partJy[ncmm],l_My*l_Mz);
 
 //   cmm.f_Jz += djz*acmm;
    d_partJz[ncmm] += djz*acmm; 
 
 //   cpm.f_Jx += djx*acpm;
 //   cpm.f_Jy += djy*acpm;
-   //write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,86,buf,d_partJy[ncpm]);
+   write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,86,buf,d_partJy[ncpm],l_My*l_Mz);
    
    //d_partJy[ncpm] += djy*acpm; 
    addToMatrix(d_partJy,djy*acpm,nx+1,ny-1);
    
    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,76,buf,djy*acpm,l_My*l_Mz);
-   //write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,96,buf,d_partJy[ncpm],l_My*l_Mz);
+   write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,96,buf,d_partJy[ncpm],l_My*l_Mz);
 
 //   cpm.f_Jz += djz*acpm;
    d_partJz[ncpm] += djz*acpm; 
 
 //   ccp.f_Jx += djx*accp;
 //   ccp.f_Jy += djy*accp;
-   //write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,87,buf,d_partJy[nccp],l_My*l_Mz);
+   write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,87,buf,d_partJy[nccp],l_My*l_Mz);
    //d_partJy[nccp] += djy*accp; 
    addToMatrix(d_partJy,djy*accp,nx,ny+1);
    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,77,buf,djy*accp,l_My*l_Mz);
-   //write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,97,buf,d_partJy[nccp],l_My*l_Mz);
+   write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,97,buf,d_partJy[nccp],l_My*l_Mz);
 
 //   ccp.f_Jz += djz*accp;
    d_partJz[nccp] += djz*accp; 
 
 //   cmp.f_Jx += djx*acmp;
 //   cmp.f_Jy += djy*acmp;
-   //write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,88,buf,d_partJy[ncmp],l_My*l_Mz);
+   write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,88,buf,d_partJy[ncmp],l_My*l_Mz);
    
    //d_partJy[ncmp] += djy*acmp; 
    addToMatrix(d_partJy,djy*acmp,nx-1,ny+1);
    
    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,78,buf,djy*acmp,l_My*l_Mz);
-   //write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,98,buf,d_partJy[ncmp],l_My*l_Mz);
+   write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,98,buf,d_partJy[ncmp],l_My*l_Mz);
 
    
 //   cmp.f_Jz += djz*acmp;
@@ -2092,13 +2092,13 @@ __device__ void cuDepositCurrentsInCell(int l_My,int l_Mz,int part_number,double
 
 //   cpp.f_Jx += djx*acpp;
    //cpp.f_Jy += djy*acpp;
-   //write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,89,buf,d_partJy[ncpp],l_My*l_Mz);
+   write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,89,buf,d_partJy[ncpp],l_My*l_Mz);
    
    //d_partJy[ncpp] += djy*acpp; 
    addToMatrix(d_partJy,djy*acpp,nx+1,ny+1);
    
    write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,79,buf,djy*acpp,l_My*l_Mz);
-   //write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,99,buf,d_partJy[ncpp]);
+   write_particle_value(l_My,nx,ny,CUDA_WRAP_CONTROL_VALUES,1,part_number,99,buf,d_partJy[ncpp],l_My*l_Mz);
 
    //cpp.f_Jz += djz*acpp;
    d_partJz[ncpp] += djz*acpp; 
