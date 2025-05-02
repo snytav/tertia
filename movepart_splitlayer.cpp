@@ -1541,8 +1541,16 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
 	      // printf("deposit np %d drho %e \n",np,drho);
 	       
 	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,96,ytmp);	    
-	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,97,ztmp);	       
-	       
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,97,ztmp);
+//                ccc.f_Jx += djx;
+//                ccc.f_Jy += djy;
+//                ccc.f_Jz += djz;
+//                ccc.f_Dens += drho;
+        CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,100,ccc.f_Jx);
+        CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,101,ccc.f_Jy);
+        CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,102,ccc.f_Jz);
+        CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,103,ccc.f_Dens);
+
             }
             /*
 /////////////////////////// particle pusher one cell ///////////////////////
