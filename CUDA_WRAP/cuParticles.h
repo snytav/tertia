@@ -6,7 +6,7 @@
 #define NUMBER_ATTRIBUTES                  10
 #define CUDA_WRAP_PARTICLE_START           6
 #define CUDA_WRAP_PARTICLE_START_INDEX     (sizeof(double)*CUDA_WRAP_PARTICLE_START* NUMBER_ATTRIBUTES)
-#define CUDA_WRAP_CONTROL_VALUES           170
+#define CUDA_WRAP_CONTROL_VALUES           PLASMA_VALUES_NUMBER
 #define PARTICLE_TOLERANCE                 1e-15
 #define DELTA_TOLERANCE                    1e-10
 
