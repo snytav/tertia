@@ -1536,7 +1536,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
                CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,91,(double)(ncc_check- (l_dMy + l_sizeY *  l_dMz + 2*l_dMy*ktmp)));
 	       //printf("rank %d b_deposit %3d %3d %3d y %e z %e rho %e \n ",GetRank(),iLayer,j,k,xtmp,ytmp,drho*part_step);
                DepositCurrentsInCellSplit(p, isort, itmp, jtmp, ktmp, Vx, Vy, Vz, xtmp, ytmp, ztmp, 
-                  djx*part_step, djy*part_step, djz*part_step, drho*part_step);
+                  djx*part_step, djy*part_step, djz*part_step, drho*part_step,np);
 	       
 	      // printf("deposit np %d drho %e \n",np,drho);
 	       
@@ -1616,7 +1616,7 @@ void Mesh::DepositCurrentsInCellSplit(
                                  int i, int j, int k, 
                                  double Vx, double Vy, double Vz, 
                                  double x, double y, double z, 
-                                 double djx, double djy, double djz, double drho)
+                                 double djx, double djy, double djz, double drho,int np)
 {
    long ncc = GetNyz(j,  k);
 
@@ -1680,6 +1680,8 @@ void Mesh::DepositCurrentsInCellSplit(
    ccc.f_Jy += djy;
    ccc.f_Jz += djz;
    ccc.f_Dens += drho;
+
+   CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,111,ccc.f_Jx);
 
 /*
    ccc.f_Jx += djx*accc;

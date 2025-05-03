@@ -740,10 +740,14 @@ void __device__ cuDepositCurrentsInCellSplit(
    write_plasma_value(np,PLASMA_VALUES_NUMBER,91,d_p,(double)ncc);  
 
 
+   write_plasma_value(np,PLASMA_VALUES_NUMBER,111,d_p,cl->Jx[ncc]);
    cuda_atomicAddP(&(cl->Jy[ncc]),djy);
+   write_plasma_value(np,PLASMA_VALUES_NUMBER,112,d_p,cl->Jy[ncc]);
    cuda_atomicAddP(&(cl->Jz[ncc]),djz);
+   write_plasma_value(np,PLASMA_VALUES_NUMBER,113,d_p,cl->Jz[ncc]);
 //   cuPrintf("rho before %e \n",cl->Rho[ncc]);
    cuda_atomicAddP(&(cl->Rho[ncc]), drho);
+   write_plasma_value(np,PLASMA_VALUES_NUMBER,114,d_p,cl->Rho[ncc]);
 //    += drho;
 //   cuPrintf("rho after %e \n",cl->Rho[ncc]);
 }

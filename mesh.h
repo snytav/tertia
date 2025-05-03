@@ -305,7 +305,7 @@ public:
                       int i, int j, int k, 
                       double Vx, double Vy, double Vz, 
                       double x, double y, double z, 
-                      double djx, double djy, double djz, double drho);
+                      double djx, double djy, double djz, double drho,int np);
 
    void DepositRhoInCell(   Particle *p, int isort,
                       int i, int j, int k, 
