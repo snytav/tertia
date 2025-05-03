@@ -1682,7 +1682,9 @@ void Mesh::DepositCurrentsInCellSplit(
    ccc.f_Dens += drho;
 
    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,111,ccc.f_Jx);
-
+   CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,112,ccc.f_Jy);
+   CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,113,ccc.f_Jz);
+   CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,114,ccc.f_Dens);
 /*
    ccc.f_Jx += djx*accc;
    ccc.f_Jy += djy*accc;
