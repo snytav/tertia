@@ -23,7 +23,7 @@ int CUDA_WRAP_alloc_beam_values(int Np,int num_attr,double **h_p,double **d_p)
 	return err;
 }
 
-double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,int blocksize_x,int blocksize_y,char *fname)
+double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,int blocksize_x,int blocksize_y,char *fname,char *beam_or_plasma)
 {
         int cell_number,wrong_particles = 0;
 	double    *h_copy,frac_err,delta = 0.0,*wrong_array,*delta_array;
@@ -38,7 +38,7 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 //        int width = Ny*Nz; 
 //        double *h_data_in;
 	
-	puts("BEGIN  BEAM-RELATED VALUES sCHECK =============================================================================");
+	printf("BEGIN  %s-RELATED VALUES sCHECK =============================================================================",beam_or_plasma);
 	
 	//part_per_cell_max = findMaxNumberOfParticlesPerCell(mesh,i_layer,Ny,Nz,p_CellArray);
 	h_copy   = (double*) malloc(num_attr*Np*sizeof(double));
@@ -149,7 +149,7 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	last_delta = max_delta;
 */	
         if(wrong_flag == 1) printf("\nONE OR MORE VALUES ARE WRONG !!!!!!!!!!!!!!!!!!!!!!!!!\n");
-	printf("BEAM-RELATED CHECK OK %.4f wrong %.4f delta %15.5e =================================================\n",
+	printf("%s-RELATED CHECK OK %.4f wrong %.4f delta %15.5e =================================================\n",beam_or_plasma,
 	       1.0-frac_err,frac_err,max_delta);
 	fclose(f);
 	

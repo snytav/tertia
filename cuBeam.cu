@@ -789,7 +789,8 @@ int CUDA_WRAP_beam_move(int Np,int Nx,int Ny,int Nz,double hx,double hy,double h
     //exit(0);
     
 #ifdef CUDA_WRAP_CHECK_BEAM_VALUES_ALLOWED    
-    CUDA_WRAP_check_beam_values(Np,BEAM_VALUES_NUMBER,h_beam_values,d_beam_values,dimBlock.x*dimGrid.x,dimBlock.y*dimGrid.y,"beamValues.dat");
+    CUDA_WRAP_check_beam_values(Np,BEAM_VALUES_NUMBER,h_beam_values,d_beam_values,dimBlock.x*dimGrid.x,dimBlock.y*dimGrid.y,
+                                "beamValues.dat","BEAM");
 #endif
 }
 

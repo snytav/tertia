@@ -787,7 +787,7 @@ __device__ int write_plasma_value(int i,int num_attr,int n,double *d_p,double t)
 
 double CUDA_WRAP_check_plasma_values(int Np,int num_attr,int blocksize_x,int blocksize_y)
 {
-     return CUDA_WRAP_check_beam_values(Np,num_attr,h_plasma_values,d_plasma_values,blocksize_x,blocksize_y,"plasmaCheck.dat");
+     return CUDA_WRAP_check_beam_values(Np,num_attr,h_plasma_values,d_plasma_values,blocksize_x,blocksize_y,"plasmaCheck.dat","PLASNA");
 }
 
 
