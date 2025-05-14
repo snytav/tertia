@@ -1,5 +1,6 @@
 1. copy and draw Jx,y,z (atributes 111-113)
 1alternative. a. look where particles get their field (the one which is checked and is thought to be correct)
+                    field taken from some "pl" (plasma_particles.cu 277)
               b. get the field at the same place
               c. the same with current
               d. correct  the density (later)
