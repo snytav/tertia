@@ -5,7 +5,7 @@
 
 int CUDA_WRAP_beam_prepare(int Nx,int Ny,int Nz,Mesh *mesh,Cell *p_CellArray);
 
-int CUDA_WRAP_beam_move(int Np,int Nx,int Ny,int Nz,double hx,double hy,double hz,double ts);
+int CUDA_WRAP_beam_move(int Np,int Nx,int Ny,int Nz,double hx,double hy,double hz,double ts,int nstep);
 
 int CUDA_WRAP_compareBeamCurrents(Mesh *mesh,int Nx,int Ny,int Nz,Cell *p_CellArray);
 
