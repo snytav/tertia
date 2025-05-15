@@ -29,7 +29,10 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	double    *h_copy,frac_err,delta = 0.0,*wrong_array,*delta_array;
 	int wrong_flag = 0;
 	
-	FILE *f;
+	FILE *f,f_out;
+	char name_out[100];
+
+	sprintf(name_out,"%s_nstep_%010d.dat",beam_or_plasma,nstep);)
 	
 	f = fopen(fname,"wt");
 	
