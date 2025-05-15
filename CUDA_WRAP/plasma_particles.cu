@@ -789,9 +789,9 @@ __device__ int write_plasma_value(int i,int num_attr,int n,double *d_p,double t)
 	return 0;
 }
 
-double CUDA_WRAP_check_plasma_values(int Np,int num_attr,int blocksize_x,int blocksize_y)
+double CUDA_WRAP_check_plasma_values(int Np,int num_attr,int blocksize_x,int blocksize_y,int nstep)
 {
-     return CUDA_WRAP_check_beam_values(Np,num_attr,h_plasma_values,d_plasma_values,blocksize_x,blocksize_y,"plasmaCheck.dat","PLASNA");
+     return CUDA_WRAP_check_beam_values(Np,num_attr,h_plasma_values,d_plasma_values,blocksize_x,blocksize_y,"plasmaCheck.dat","PLASMA",nstep);
 }
 
 
@@ -827,7 +827,7 @@ void copyLayerFromDeviceToHost(cudaLayer **h_l,cudaLayer *d_l)
 
 
 void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,int Mx,int Ny,int Nz,double hx,double hy,double hz,
-                                     double *djx0,double *djy0,double *djz0,double *drho0,int nsorts,int iFullStep)
+                                     double *djx0,double *djy0,double *djz0,double *drho0,int nsorts,int iFullStep,int nstep)
 {
 
 #ifdef CUDA_WRAP_FFTW_ALLOWED
@@ -953,7 +953,8 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
      }
                                      
 #ifdef CUDA_WRAP_CHECK_PLASMA_VALUES_ALLOWED
-     CUDA_WRAP_check_plasma_values(Np,PLASMA_VALUES_NUMBER,dimBlock.x*dimGrid.x,dimBlock.y*dimGrid.y);
+// we want to go here to get clear with simulation time
+     CUDA_WRAP_check_plasma_values(Np,PLASMA_VALUES_NUMBER,dimBlock.x*dimGrid.x,dimBlock.y*dimGrid.y,nstep);
 #endif
 //     CUDA_WRAP_print_plasma_values(Np,PLASMA_VALUES_NUMBER,"end");
      gettimeofday(&tf2,NULL);

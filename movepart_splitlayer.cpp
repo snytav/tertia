@@ -1597,9 +1597,9 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
    }
    //printf("deposit np %d \n",np);
 #endif
-
+   int nstep = this->domain()->p_Cntrl->GetNstep();
    cuMoveSplitParticles(iLayer,iSplit,h_cl,h_pl,l_Mx,l_My,l_Mz,hx,hy,hz,
-                                     djx0,djy0,djz0,drho0,nsorts,iFullStep);
+                                     djx0,djy0,djz0,drho0,nsorts,iFullStep,nstep);
 #ifdef CUDA_WRAP_PARTICLE_HOST_COMPUTATIONS
    delete[] djx0;
    delete[] djy0;

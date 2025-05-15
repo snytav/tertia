@@ -739,7 +739,7 @@ int makeFieldArray(int Nx,int Ny,int Nz,int *w,int *h,double **h_data_in,double 
 
 
 
-int CUDA_WRAP_beam_move(int Np,int Nx,int Ny,int Nz,double hx,double hy,double hz,double ts)
+int CUDA_WRAP_beam_move(int Np,int Nx,int Ny,int Nz,double hx,double hy,double hz,double ts,int nstep)
 {
     beamCurrents bc;
     
@@ -800,7 +800,7 @@ int CUDA_WRAP_beam_move(int Np,int Nx,int Ny,int Nz,double hx,double hy,double h
        h_beam_values = (double*)malloc(Np*BEAM_VALUES_NUMBER*sizeof(double));
     }
     CUDA_WRAP_check_beam_values(Np,BEAM_VALUES_NUMBER,h_beam_values,d_beam_values,dimBlock.x*dimGrid.x,dimBlock.y*dimGrid.y,
-                                "beamValues.dat","BEAM");
+                                "beamValues.dat","BEAM",nstep);
 #endif
 }
 

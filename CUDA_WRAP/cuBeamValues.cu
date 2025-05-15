@@ -23,7 +23,7 @@ int CUDA_WRAP_alloc_beam_values(int Np,int num_attr,double **h_p,double **d_p)
 	return err;
 }
 
-double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,int blocksize_x,int blocksize_y,char *fname,char *beam_or_plasma)
+double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,int blocksize_x,int blocksize_y,char *fname,char *beam_or_plasma,int nstep)
 {
         int cell_number,wrong_particles = 0;
 	double    *h_copy,frac_err,delta = 0.0,*wrong_array,*delta_array;
