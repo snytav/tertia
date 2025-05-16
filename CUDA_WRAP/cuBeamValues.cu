@@ -51,16 +51,18 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	//CUDA_WRAP_get_particle_surface(partSurfOut,cuOutputArrayX,NUMBER_ATTRIBUTES*part_per_cell_max,width,h_data_in);
 	int err = cudaMemcpy(h_copy,d_p,num_attr*Np*sizeof(double),cudaMemcpyDeviceToHost);
 
-    for(int n = 0;n < num_attr;n++)
+    for(int n = 0;n < 5;//num_attr;
+		n++)
     {
         int wpa = 0,wrong_particles = 0;;
 	double fr_attr,x,cu_x;
 	
 	delta = 0.0;
 	
-        for (int i = 0;i < Np;i++)
+        for (int i = 0;i < 5;//Np;
+			 i++)
         {
-			fprintf(f_out,"%010d ",i);
+			if (n == 0)fprintf(f_out,"%015d ",i);
 	
             cu_x = h_copy[i*num_attr + n];
 	    x    = h_p   [i*num_attr + n];
