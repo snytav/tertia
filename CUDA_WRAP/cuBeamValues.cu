@@ -50,7 +50,12 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	//GET PARTICLE DATA FROM SURFACE
 	//CUDA_WRAP_get_particle_surface(partSurfOut,cuOutputArrayX,NUMBER_ATTRIBUTES*part_per_cell_max,width,h_data_in);
 	int err = cudaMemcpy(h_copy,d_p,num_attr*Np*sizeof(double),cudaMemcpyDeviceToHost);
-
+    int Np1 = 5;
+	for (int i = 0;i < Np1;i++)
+	{
+	    fprintf(f_out,"%15d ",i);
+	}
+	fprintf(f_out,"\n");
     for(int n = 0;n < 5;//num_attr;
 		n++)
     {
@@ -59,13 +64,12 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	
 	delta = 0.0;
 	
-        for (int i = 0;i < 5;//Np;
-			 i++)
+
+		for (int i = 0;i < Np1;i++)
         {
-			if (n == 0)fprintf(f_out,"%015d ",i);
 	
             cu_x = h_copy[i*num_attr + n];
-	    x    = h_p   [i*num_attr + n];
+     	    x    = h_p   [i*num_attr + n];
 			  
 //#ifdef CUDA_WRAP_BEAM_VALUES_DETAILS
 			  if((fabs(x-cu_x) > BEAM_TOLERANCE)  
@@ -75,8 +79,9 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 			//   if(i < 50) 
 			   {
 			       fprintf(f,"%5d %5d %25.15e/%25.15e delta %15.5e \n",n,i,x,cu_x,fabs(cu_x - x));
-				   fprintf(f_out,"%15.5e ",cu_x);
+
 			   }
+			   fprintf(f_out,"%15.5e ",cu_x);
 			 // }
 //#endif			
                           if(delta < fabs(cu_x - x)) delta = fabs(cu_x - x); 
