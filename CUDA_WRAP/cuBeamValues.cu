@@ -29,12 +29,13 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	double    *h_copy,frac_err,delta = 0.0,*wrong_array,*delta_array;
 	int wrong_flag = 0;
 	
-	FILE *f,f_out;
+	FILE *f,*f_out;
 	char name_out[100];
 
-	sprintf(name_out,"%s_nstep_%010d.dat",beam_or_plasma,nstep);)
+	sprintf(name_out,"%s_nstep_%010d.dat",beam_or_plasma,nstep);
 	
 	f = fopen(fname,"wt");
+	f_out = fopen(name_out,"wt");
 	
 	wrong_array = (double *)malloc(num_attr*sizeof(double));
 	delta_array = (double *)malloc(num_attr*sizeof(double));
@@ -59,6 +60,7 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	
         for (int i = 0;i < Np;i++)
         {
+			fprintf(f_out,"%010d ",i);
 	
             cu_x = h_copy[i*num_attr + n];
 	    x    = h_p   [i*num_attr + n];
@@ -71,6 +73,7 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 			//   if(i < 50) 
 			   {
 			       fprintf(f,"%5d %5d %25.15e/%25.15e delta %15.5e \n",n,i,x,cu_x,fabs(cu_x - x));
+				   fprintf(f_out,"%15.5e ",cu_x);
 			   }
 			 // }
 //#endif			
@@ -87,6 +90,7 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 #ifdef CUDA_WRAP_PARTICLE_VALUES_DETAILS	     
 #endif	     
         }
+        fprintf(f_out,"\n");
         fr_attr = (double)wpa/(Np);
         fprintf(f,"value %3d OK %7.2f wrong %7.2f delta %15.5e wpa %10d Np %10d CORRECT %10d \n",n,1.0 - fr_attr,fr_attr,delta,wpa,Np,Np - wpa);
 	printf("\n value %3d OK %7.2f wrong %7.2f delta %15.5e wpa %10d Np %10d CORRECT %10d \n",n,1.0 - fr_attr,fr_attr,delta,wpa,Np,Np - wpa);
@@ -101,7 +105,7 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	free(h_copy);
 	
 	frac_err = (double)wrong_particles/(Np*num_attr);
-	
+	fclose(f_out);
 	
 	
 /*	FILE *wf,*df;
