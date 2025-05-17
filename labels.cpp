@@ -5,8 +5,8 @@ string getLabel(int n)
 {
 	string labels[115];
 
-	labels[0] = "(double";
-	labels[1] = "(double";
+	labels[0] = "j";
+	labels[1] = "k";
 	labels[2] = "weight";
 	labels[3] = "xp";
 	labels[4] = "yp";
@@ -28,9 +28,9 @@ string getLabel(int n)
 	labels[19] = "eyp";
 	labels[20] = "ezp";
 	labels[21] = "bxp";
-	labels[22] = "accc";
-	labels[23] = "appc";
-	labels[24] = "apcp";
+// 	labels[22] = "accc";
+// 	labels[23] = "appc";
+// 	labels[24] = "apcp";
 	labels[25] = "appp";
 	labels[26] = "pl->Bx[npc]";
 	labels[27] = "pl->Bx[npp]";
@@ -47,7 +47,7 @@ string getLabel(int n)
 	labels[38] = "ex";
 	labels[39] = "ey";
 	labels[40] = "ez";
-	labels[22] = "bx";
+	labels[22] = "bx";   // 22 - 24 doubled
 	labels[23] = "by";
 	labels[24] = "bz";
 	labels[41] = "ex";
@@ -80,8 +80,8 @@ string getLabel(int n)
 	labels[68] = "dz";
 	labels[69] = "dy";
 	labels[70] = "dz";
-	labels[71] = "(int";
-	labels[72] = "(int";
+	labels[71] = "j_jump";
+	labels[72] = "k_jump";
 	labels[73] = "ytmp";
 	labels[74] = "ztmp";
 	labels[75] = "step";
@@ -94,8 +94,8 @@ string getLabel(int n)
 	labels[82] = "ztmp";
 	labels[83] = "ytmp";
 	labels[84] = "ztmp";
-	labels[85] = "(double";
-	labels[86] = "(double";
+	labels[85] = "j_jump";
+	labels[86] = "k_jump";
 	labels[94] = "ytmp";
 	labels[95] = "ztmp";
 	labels[96] = "ytmp";
@@ -107,7 +107,8 @@ string getLabel(int n)
 	labels[88] = "djy";
 	labels[89] = "djz";
 	labels[90] = "drho";
-	labels[91] = "(double";
+	labels[91] = "l_dMz + 2*l_dMy*ktmp";  // hereon
+	//numbering is wrong
 	labels[111] = "cl->Jx[ncc]";
 	labels[112] = "cl->Jy[ncc]";
 	labels[113] = "cl->Jz[ncc]";
