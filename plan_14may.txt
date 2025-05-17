@@ -8,6 +8,11 @@
 1a. copy 3D
 2b. draw along XY
 
+3.
+a. 1st step to CPU field solving at movefieldshydrolinlayersplit.cpp:394:
+b. next step same file at 1343, 
+c. and open all the controls there !!!
+
 
 
 

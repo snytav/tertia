@@ -290,7 +290,8 @@ void Mesh::MoveBeamParticles()
     	       CUDA_WRAP_write_beam_value(total_np,BEAM_VALUES_NUMBER,62,h_beam_values,ez);	       
     	       CUDA_WRAP_write_beam_value(total_np,BEAM_VALUES_NUMBER,63,h_beam_values,bx);	       
     	       CUDA_WRAP_write_beam_value(total_np,BEAM_VALUES_NUMBER,64,h_beam_values,by);	       
-    	       CUDA_WRAP_write_beam_value(total_np,BEAM_VALUES_NUMBER,65,h_beam_values,bz);	       
+    	       CUDA_WRAP_write_beam_value(total_np,BEAM_VALUES_NUMBER,65,h_beam_values,bz);
+               printf("%15.5e %15.5e %15.5e %15.5e %15.5e %15.5e\n",x,y,z,ex,ey,ez);
 		  
 
 //               ex = ey = ez = bx = by = bz = 0.;

@@ -176,7 +176,7 @@ void Mesh::MoveFieldsLayer(int iIn, int iInitStep, double part)
 
          rBy[n] = cp.f_By;
          rBz[n] = cp.f_Bz;
-/*
+
          rRho[n] = (c.f_Dens + c.f_RhoBeam + cp.f_Dens + cp.f_RhoBeam)/2.;
          rJx[n] = (cp.f_Jx + cp.f_JxBeam + c.f_Jx + c.f_JxBeam)/2.;
          rJy[n] = (cp.f_Jy + cp.f_JyBeam + c.f_Jy + c.f_JyBeam)/2.;
@@ -184,7 +184,7 @@ void Mesh::MoveFieldsLayer(int iIn, int iInitStep, double part)
          rJxDx[n] = (cp.f_Jx + cp.f_JxBeam - c.f_Jx - c.f_JxBeam)/hx;
          rJyDx[n] = (cp.f_Jy + cp.f_JyBeam - c.f_Jy - c.f_JyBeam)/hx;
          rJzDx[n] = (cp.f_Jz + cp.f_JzBeam - c.f_Jz - c.f_JzBeam)/hx;
-*/
+
          rRho[n] = c.f_RhoBeam;
          rJx[n] = c.f_JxBeam;
          rJy[n] = c.f_JyBeam;
