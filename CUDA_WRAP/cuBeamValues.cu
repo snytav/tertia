@@ -1,5 +1,9 @@
 #include "../run_control.h"
 #include <stdio.h>
+#include "labels.h"
+
+#include <string>
+using namespace std;
 
 int CUDA_WRAP_alloc_beam_values(int Np,int num_attr,double **h_p,double **d_p)
 {
@@ -51,6 +55,8 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	//CUDA_WRAP_get_particle_surface(partSurfOut,cuOutputArrayX,NUMBER_ATTRIBUTES*part_per_cell_max,width,h_data_in);
 	int err = cudaMemcpy(h_copy,d_p,num_attr*Np*sizeof(double),cudaMemcpyDeviceToHost);
     int Np1 = 5;
+	string s = "";
+	fprintf(f_out,"%15s ",s.c_str());
 	for (int i = 0;i < Np1;i++)
 	{
 	    fprintf(f_out,"%15d ",i);
@@ -64,7 +70,11 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	
 	delta = 0.0;
 	
-
+	    if(n < 115)
+	    {
+	       string name_attr = getLabel(n); 
+           fprintf(f_out,"%15s ",name_attr.c_str());
+        }
 		for (int i = 0;i < Np1;i++)
         {
 	
