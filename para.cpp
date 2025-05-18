@@ -254,7 +254,7 @@ int UnpackLayer(cudaLayer *d_l,double *lp,int Ny,int Nz,int Np)
 #endif    
 //    exit(0); 
 #ifndef CUDA_WRAP_FFTW_ALLOWED    
-    CUDA_WRAP_copyToLayerOnDevice(*d_l,h_l);
+    CUDA_WRAP_copyToLayerOnDevice(d_l,h_l);
 #else
     d_l->Ex = h_l->Ex;
     d_l->Ey = h_l->Ey;

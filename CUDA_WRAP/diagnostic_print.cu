@@ -55,13 +55,13 @@ int CUDA_DEBUG_printDhost_matrix(int n1,int n2,double *d,char *legend)
 
 int CUDA_DEBUG_printDdevice_matrix(int n1,int n2,double *d,char *legend)
 {
-#ifdef CUDA_WRAP_FFTW_ALLOWED
-     return 0;
-#endif     
-  
-#ifndef CUDA_WRAP_PRINT_D_MATRIX
-    return 0;
-#endif
+// #ifdef CUDA_WRAP_FFTW_ALLOWED
+//      return 0;
+// #endif
+//
+// #ifndef CUDA_WRAP_PRINT_D_MATRIX
+//     return 0;
+// #endif
     int err = cudaGetLastError();
     double *h;
     

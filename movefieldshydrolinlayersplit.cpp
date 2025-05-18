@@ -736,7 +736,7 @@ CUDA_WRAP_copyArraysDevice(l_My*l_Mz,d_rEx,d_rEy,d_rEz,d_rJx,d_rJy,d_rJz,d_rJxBe
 #endif     
    
    
-  // CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,d_fft_of_JxBeam,"beam copied");
+  CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,d_fft_of_JxBeam,"beam copied");
 
 #ifdef CUDA_WRAP_FFTW_ALLOWED       
    fftw_execute(planR2R_Rho);
@@ -1319,13 +1319,13 @@ double Mesh::IterateFieldsHydroLinLayerSplit(int iLayer,int iSplit,int N_iter)
    CUDA_WRAP_copyArraysDeviceIterate(l_My,l_Mz,d_rJx,d_rJy,d_rJz,d_rJxBeam,d_rRhoBeam,d_rRho); 
 #endif   
    
-/*   CUDA_DEBUG_printDdevice_matrixCentre(l_My,l_Mz,d_rJx,"a copy");
-   CUDA_DEBUG_printDdevice_matrixCentre(l_My,l_Mz,d_rJy,"a copy");
-   CUDA_DEBUG_printDdevice_matrixCentre(l_My,l_Mz,d_rJz,"a copy");
-   CUDA_DEBUG_printDdevice_matrixCentre(l_My,l_Mz,d_rJxBeam,"a copy");
-   CUDA_DEBUG_printDdevice_matrixCentre(l_My,l_Mz,d_rRhoBeam,"a copy");
-   CUDA_DEBUG_printDdevice_matrixCentre(l_My,l_Mz,d_rRho,"a copy");
-  */ 
+   CUDA_DEBUG_printDdevice_matrixCentre(l_My,l_Mz,d_rJx,"a copy");
+//    CUDA_DEBUG_printDdevice_matrixCentre(l_My,l_Mz,d_rJy,"a copy");
+//    CUDA_DEBUG_printDdevice_matrixCentre(l_My,l_Mz,d_rJz,"a copy");
+//    CUDA_DEBUG_printDdevice_matrixCentre(l_My,l_Mz,d_rJxBeam,"a copy");
+//    CUDA_DEBUG_printDdevice_matrixCentre(l_My,l_Mz,d_rRhoBeam,"a copy");
+//    CUDA_DEBUG_printDdevice_matrixCentre(l_My,l_Mz,d_rRho,"a copy");
+
    
    if(iLayer == 119)
    {

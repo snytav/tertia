@@ -13,6 +13,9 @@ a. 1st step to CPU field solving at movefieldshydrolinlayersplit.cpp:394:
 b. next step same file at 1343, 
 c. and open all the controls there !!!
 
+Sunday 18 May: CUDA_WRAP_verify_all_vectors_on_host fails - error 700 at verification
+
+
 
 
 
