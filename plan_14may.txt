@@ -15,6 +15,9 @@ c. and open all the controls there !!!
 
 Sunday 18 May: CUDA_WRAP_verify_all_vectors_on_host fails - error 700 at verification
 
+CUDA_WRAP_getLayerParticlesNumber gives wrong number of particles (0)
+same with countig particles in copy-layers (maybe just boundary layer)
+
 
 
 

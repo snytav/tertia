@@ -34,7 +34,7 @@ void Mesh::MoveAllSplitLayers()
 //#ifndef PARALLEL_ONLY
     gettimeofday(&tv1,NULL);
     //printf("begin moveAll %d \n",GetRank());
-   cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-A"); 
+//    cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-A");
    CUDA_WRAP_printBeamDensity3D(this,GetControlDomain()->p_Cntrl->GetNstep(),"RECEIVED-A");
    
    int NxSplit = GetNxSplit();
@@ -49,28 +49,28 @@ void Mesh::MoveAllSplitLayers()
    CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"I");
    
    
-        //cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 6"); 
+//         cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 6");
 
-   cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-B"); 
-      //printf("rank %d before recv layer -2 \n",GetRank());
-   //printf("MoveAll rank %d l_Mx %d \n",GetRank(),l_Mx);
-//   int err0 = cudaGetLastError();
+//    cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-B");
+      printf("rank %d before recv layer -2 \n",GetRank());
+   printf("MoveAll rank %d l_Mx %d \n",GetRank(),l_Mx);
+  int err0 = cudaGetLastError();
    cudaLayer *h_basic_layer,**h_layers = (cudaLayer**)malloc((l_Mx+1)*sizeof(cudaLayer*));
 //   int err01 = cudaGetLastError();   
    CUDA_WRAP_alloc3Dfields(l_Mx,l_My,l_Mz);
-//   int err02 = cudaGetLastError();
+  int err02 = cudaGetLastError();
    CUDA_WRAP_alloc3Dcurrents(l_Mx,l_My,l_Mz);
-//   int err03 = cudaGetLastError();   
+  int err03 = cudaGetLastError();
    CUDA_WRAP_copy3Dfields(this,p_CellArray,l_Mx,l_My,l_Mz);
-//   int err1 = cudaGetLastError();
+  int err1 = cudaGetLastError();
    SeedFrontParticles();
-      //printf("rank %d before recv layer -1 \n",GetRank());
+      printf("rank %d before recv layer -1 \n",GetRank());
 
    CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"II");
    
-//   int err1_5 = cudaGetLastError(); 
+  int err1_5 = cudaGetLastError();
    int Np = CUDA_WRAP_copyLayerToDevice(this,p_CellArray,l_Mx,l_My,l_Mz,&h_basic_layer);
-   //printf("rank %d Np %d \n",GetRank(),Np);
+   printf("rank %d Np %d \n",GetRank(),Np);
    CUDA_WRAP_printLayerParticles(h_basic_layer,"INIT");
    cuLayerPrintCentre(h_basic_layer,-1313,this,p_CellArray,"INIT");
 
