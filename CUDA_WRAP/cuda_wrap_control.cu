@@ -12,10 +12,12 @@ double times[NT];
 
 void CUDA_WRAP_emergency_exit(char *where)
 {
-   int err2 = cudaGetLastError();
+   cudaError_t err2 = cudaGetLastError();
    if (err2 != cudaSuccess)
    {
-       printf("ERROR %d AT %s **************************************************\n",err2,where);
+       printf("ERROR %d,%s  AT %s **************************************************\n",err2,
+              cudaGetErrorString(err2)
+              ,where);
        exit(0);
    }
   

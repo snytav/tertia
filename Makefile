@@ -10,7 +10,7 @@ obj =  mesh.o movepart.o movefields.o movieframe.o \
 		step.o synchrotron.o \
 		vlpl3d.o \
 		namelist.o buffers.o  para.o\
-		half_integer1D.o
+		half_integer1D.o labels.o
 
 
 
@@ -33,7 +33,7 @@ MPI_DIR=/usr/lib/x86_64-linux-gnu/openmpi/
 MPI_INCLUDE = -I$(MPI_DIR)/include
 
 
-CUDAFLAGS = -dc  -g
+CUDAFLAGS = -dc -G -g
 CUDA_INC = -I/usr/local/cuda/include  $(HDF5_INCLUDE) \
             $(MPI_INCLUDE)
 
