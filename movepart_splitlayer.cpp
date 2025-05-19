@@ -72,9 +72,9 @@ void Mesh::MoveAllSplitLayers()
    int Np = CUDA_WRAP_copyLayerToDevice(this,p_CellArray,l_Mx,l_My,l_Mz,&h_basic_layer);
    printf("rank %d Np %d \n",GetRank(),Np);
    CUDA_WRAP_printLayerParticles(h_basic_layer,"INIT");
-   cuLayerPrintCentre(h_basic_layer,-1313,this,p_CellArray,"INIT");
+//    cuLayerPrintCentre(h_basic_layer,-1313,this,p_CellArray,"INIT");
 
-   cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-C"); 
+//    cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-C");
    
    CUDA_WRAP_allocLayerOnHost(&h_C,l_My,l_Mz,Np);
    CUDA_WRAP_printLayerParticles(h_C,"INIT-C ");
@@ -604,8 +604,8 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 #ifndef CUDA_WRAP_FFTW_ALLOWED   
    getLayersPC(&h_C,&h_P);
 #endif   
-   cuLayerPrintCentre(h_P,-50,this,p_CellLayerP,"P before guess ");
-   cuLayerPrintCentre(h_C,-51,this,p_CellLayerC,"C before guess ");
+//    cuLayerPrintCentre(h_P,-50,this,p_CellLayerP,"P before guess ");
+//    cuLayerPrintCentre(h_C,-51,this,p_CellLayerC,"C before guess ");
    
    printf("before guess %d\n",GetRank());
    GuessFieldsHydroLinLayerSplit(iLayer,iSplit);

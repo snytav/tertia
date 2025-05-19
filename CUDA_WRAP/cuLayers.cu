@@ -636,7 +636,7 @@ int cuLayerPrintCentre(cudaLayer *h_cl,int iLayer,Mesh *mesh,Cell *p_CellArray,c
     
 //    CUDA_DEBUG_printDdevice_matrix(Ny,Nz,h_cl->Ey,"Ey");
 
-#ifndef CUDA_WRAP_FFTW_ALLOWED     
+// #ifndef CUDA_WRAP_FFTW_ALLOWED
     Ny = h_cl->Ny;
     Nz = h_cl->Nz;
     Np = h_cl->Np;
@@ -659,7 +659,7 @@ int cuLayerPrintCentre(cudaLayer *h_cl,int iLayer,Mesh *mesh,Cell *p_CellArray,c
     cudaMemcpy(&rhb0,h_cl->RhoBeam+Ny*Nz/2+Ny/2,sizeof(double),cudaMemcpyDeviceToHost);
     
     //int err = cudaMemcpy(&p,h_cl->particles,sizeof(beamParticle),cudaMemcpyDeviceToHost);
-#else
+// #else
     printf("IN CPU PART layer %d \n",iLayer);
     
     Ny = mesh->GetMy() + 1;
@@ -708,7 +708,7 @@ int cuLayerPrintCentre(cudaLayer *h_cl,int iLayer,Mesh *mesh,Cell *p_CellArray,c
        p.f_Pz = p_host->f_Pz;
     }
     
-#endif    
+// #endif
     
     printf("rank %d Layer %3d %s============================================================================================================================\n",
 	   GetRank(),iLayer,where);
