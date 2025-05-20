@@ -594,9 +594,14 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
    double g_time = 0.0,p_time = 0.0,i_time = 0.0;
    struct timeval tg1,tg2,tp1,tp2,ti1,ti2,t1,t2;
    cudaLayer *h_C,*h_P;
-   printf("in ");
+   printf("in MoveSplitLayer");
    //printf("rank %d in move \n",GetRank());
 //   if(GetRank() == 0 && (iSplit == 1)) exit(0);
+
+   if (iLayer == (l_Mx-1))
+   {
+      CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"in_MoveSplitLayer");
+   }
    
    gettimeofday(&t1,NULL);
    gettimeofday(&tg1,NULL);

@@ -268,6 +268,7 @@ int Domain::Run(void)
   SetXSize(&l_Xsize,f_Xlength);
   int nstep = this->GetCntrl()->GetNstep();
   CUDA_WRAP_printBeamParticles(this->GetMesh(),nstep,"Run-begin");
+  CUDA_WRAP_printPlasmaParticles(this->GetMesh(),nstep,"Run-begin");
 //   CUDA_WRAP_check_beam_values(Np,BEAM_VALUES_NUMBER,h_beam_values,d_beam_values,dimBlock.x*dimGrid.x,dimBlock.y*dimGrid.y,
 //                                 "beamValues.dat","BEAM",nstep);
   

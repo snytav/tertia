@@ -72,5 +72,8 @@ int cuLayerPrintCentre(cudaLayer *h_cl,int iLayer,Mesh *mesh,Cell *p_CellArray,c
 
 int CUDA_WRAP_printBeamDensity3D(Mesh *p_M,int step,char *where);
 
-int CUDA_WRAP_printBeamParticles(Mesh *p_M,int step,char *where);    
+int CUDA_WRAP_printBeamParticles(Mesh *p_M,int step,char *where);
+
+int CUDA_WRAP_printPlasmaParticles(Mesh *p_M,int step,char *where);
+
 #endif

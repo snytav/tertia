@@ -19,6 +19,17 @@ CUDA_WRAP_getLayerParticlesNumber gives wrong number of particles (0)
 same with countig particles in copy-layers (maybe just boundary layer)
 
 
+AAA. to make particle list use:
+CUDA_WRAP_printLayerParticles(h_pl,"after 1");
+     CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host after 1"); 
+from 
+movepart_splitlayer.cpp 699
+rewrite CUDA_WRAP_printParticleListFromHost
+a) everything to file
+b) remove 10 particle restriction, add 25.15
+c) set to the beginnning
+
+
 
 
 
