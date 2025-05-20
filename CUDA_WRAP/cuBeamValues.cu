@@ -33,13 +33,16 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	double    *h_copy,frac_err,delta = 0.0,*wrong_array,*delta_array;
 	int wrong_flag = 0;
 	
-	FILE *f,*f_out;
+	FILE *f,*f_out,*f_dump;
 	char name_out[100];
+	char name_dump[100];
 
 	sprintf(name_out,"%s_nstep_%010d.dat",beam_or_plasma,nstep);
+	sprintf(name_dump,"VLPL_CPU_values_%s_nstep_%010d.dat",beam_or_plasma,nstep);
 	
 	f = fopen(fname,"wt");
 	f_out = fopen(name_out,"wt");
+	f_dump = fopen(name_out,"wt");
 	
 	wrong_array = (double *)malloc(num_attr*sizeof(double));
 	delta_array = (double *)malloc(num_attr*sizeof(double));
@@ -90,6 +93,7 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 			       fprintf(f,"%5d %5d %25.15e/%25.15e delta %15.5e \n",n,i,x,cu_x,fabs(cu_x - x));
 
 			   }
+			   fprintf(f_dump,"%25.15e",x);
 			   fprintf(f_out,"%15.5e ",cu_x);
 			 // }
 //#endif			
@@ -107,6 +111,7 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 #endif	     
         }
         fprintf(f_out,"\n");
+		fprintf(f_dump,"\n");
         fr_attr = (double)wpa/(Np);
         fprintf(f,"value %3d OK %7.2f wrong %7.2f delta %15.5e wpa %10d Np %10d CORRECT %10d \n",n,1.0 - fr_attr,fr_attr,delta,wpa,Np,Np - wpa);
 	printf("\n value %3d OK %7.2f wrong %7.2f delta %15.5e wpa %10d Np %10d CORRECT %10d \n",n,1.0 - fr_attr,fr_attr,delta,wpa,Np,Np - wpa);

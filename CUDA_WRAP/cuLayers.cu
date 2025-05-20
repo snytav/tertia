@@ -786,7 +786,7 @@ int CUDA_WRAP_printBeamParticles(Mesh *p_M,int step,char *where)
 	    int num = 0;
 	    while(p)
 	    {
-	       fprintf(f,"%3d %3d %3d %d %10.3e %10.3e %10.3e %10.3e %10.3e %10.3e %10.3e %10.3e\n",i,j,k,num,p->f_X,p->f_Y,p->f_Z,p->f_Px,p->f_Pz,p->f_Pz,p->f_Weight,p->f_Q2m);
+	       fprintf(f,"%3d %3d %3d %d %25.15e %25.15e %25.15e %25.15e %25.15e %25.15e %25.15e %25.15e\n",i,j,k,num,p->f_X,p->f_Y,p->f_Z,p->f_Px,p->f_Pz,p->f_Pz,p->f_Weight,p->f_Q2m);
 	       
 	       p = p->p_Next;
 	       num++;
