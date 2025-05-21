@@ -1417,16 +1417,17 @@ int CUDA_WRAP_printParticleListFromHost(Mesh *mesh,Cell *p_CellArray,int iLayer,
    char name[100];
    FILE *f;
 
-   sprintf(name, "plasmaParticleListFromHost_at%s,_nstep_%05d.dat",where,nstep);
+   sprintf(name, "plasmaParticleListFromHost_at_%s_Layer_%3d_nstep_%05d.dat",where,iLayer,nstep);
 
    if((f = fopen(name,"wt")) == NULL) return 1;
    
    int err = cudaGetLastError();
       
-   for (int k=0; k<Nz; k++)
+   for (int j=0; j<Ny; j++)
    {
-      for (int j=0; j<Ny; j++)
+      for (int k=0; k<Nz; k++)
       {
+          np = 0;
               //long ncc = mesh->GetN(iLayer, j,k);
 	      long ncc = mesh->GetNyz(j,  k);
               Cell &ccc = p_CellArray[ncc];
@@ -1437,7 +1438,10 @@ int CUDA_WRAP_printParticleListFromHost(Mesh *mesh,Cell *p_CellArray,int iLayer,
 	      {
 
 
-		  fprintf(f,"%s %3d %25.15e %25.15e %25.15e %25.15e %25.15e %25.15e\n",where,np,p->f_X,p->f_Y,p->f_Z,p->f_Px,p->f_Py,p->f_Pz);
+		  fprintf(f,"%5d %5d %3d %2d %10.3e %25.15e %25.15e %25.15e %25.15e %25.15e %25.15e\n",
+                  j,k,
+                  np,p->GetSort(),p->f_Q2m,
+                  p->f_X,p->f_Y,p->f_Z,p->f_Px,p->f_Py,p->f_Pz);
 		  p = p->p_Next;
 		  
 	      }

@@ -29,11 +29,6 @@ rewrite CUDA_WRAP_printParticleListFromHost
 c) set to the beginnning
 
 
-in CUDA_WRAP_printParticleListFromHost
-1) remove where from strings
-2) set cell and layer number 
-3) add _ before where in file name
-
 
 
 
