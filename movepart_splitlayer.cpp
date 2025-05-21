@@ -609,8 +609,8 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 #ifndef CUDA_WRAP_FFTW_ALLOWED   
    getLayersPC(&h_C,&h_P);
 #endif   
-   cuLayerPrintCentre(h_P,-50,this,p_CellLayerP,"P before guess ");
-   cuLayerPrintCentre(h_C,-51,this,p_CellLayerC,"C before guess ");
+//    cuLayerPrintCentre(h_P,-50,this,p_CellLayerP,"P before guess ");
+//    cuLayerPrintCentre(h_C,-51,this,p_CellLayerC,"C before guess ");
    
    printf("before guess %d\n",GetRank());
    GuessFieldsHydroLinLayerSplit(iLayer,iSplit);
