@@ -1405,7 +1405,7 @@ int CUDA_WRAP_allocLayer(cudaLayer **dl,int Ny,int Nz,int Np)
 }
 
 
-int CUDA_WRAP_printParticleListFromHost(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,int Nz,char *where)
+int CUDA_WRAP_printParticleListFromHost(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,int Nz,char *where,int nstep)
 { 
 #ifndef CUDA_WRAP_PRINT_10_PARTICLES
    return 1;
@@ -1414,6 +1414,12 @@ int CUDA_WRAP_printParticleListFromHost(Mesh *mesh,Cell *p_CellArray,int iLayer,
    double *Ex,*Ey,*Ez,*Bx,*By,*Bz,*Jx,*Jy,*Jz,*Rho;
    beamParticle *bp;
    int np = 0;
+   char name[100];
+   FILE *f;
+
+   sprintf(name, "plasmaParticleListFromHost_at%s,_nstep_%05d.dat",where,nstep);
+
+   if((f = fopen(name,"wt")) == NULL) return 1;
    
    int err = cudaGetLastError();
       
@@ -1429,15 +1435,17 @@ int CUDA_WRAP_printParticleListFromHost(Mesh *mesh,Cell *p_CellArray,int iLayer,
 		
 	      for(;p;np++)
 	      {
-  		  if(np == 10) return 0;
 
-		  printf("%s %3d %25.15e %25.15e %25.15e %e %e %e\n",where,np,p->f_X,p->f_Y,p->f_Z,p->f_Px,p->f_Py,p->f_Pz);
+
+		  fprintf(f,"%s %3d %25.15e %25.15e %25.15e %25.15e %25.15e %25.15e\n",where,np,p->f_X,p->f_Y,p->f_Z,p->f_Px,p->f_Py,p->f_Pz);
 		  p = p->p_Next;
 		  
 	      }
 	      
       }
    }
+   fclose(f);
+
    return 0;
 }
 

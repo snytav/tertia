@@ -211,7 +211,7 @@ void Mesh::MoveAllSplitLayers()
       //printf("rank %d init loop\n",GetRank());
 //      if(GetRank() == 0) exit(0);
       
-      CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"INIT host");
+      CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"INIT host",this->GetControlDomain()->p_Cntrl->GetNstep());
 //      //printf("rank %d after printlist\n",GetRank());
 //      if(GetRank() == 0) exit(0);
 
@@ -310,7 +310,7 @@ void Mesh::MoveAllSplitLayers()
          //printf("rank %d after basic \n",GetRank());
 //         if(GetRank() == 0) exit(0);
 
-	 CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"basic");
+	 CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"basic",this->GetControlDomain()->p_Cntrl->GetNstep());
          cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 3");
 	 
 	 //CUDA_WRAP_copyLayerDeviceToDevice(l_My,l_Mz,Np,h_right,h_layers[iLayer+1]);
@@ -379,7 +379,7 @@ void Mesh::MoveAllSplitLayers()
 
 
          CUDA_WRAP_printLayerParticles(h_P,"P0");
-	 CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host P0");
+	 CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host P0",this->GetControlDomain()->p_Cntrl->GetNstep());
 	 CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_C,h_P);
          //printf("rank %d right before move \n",GetRank());
          cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 5");
@@ -434,7 +434,7 @@ void Mesh::MoveAllSplitLayers()
          //printf("rank %d after move \n",GetRank());
 
 	  CUDA_WRAP_printLayerParticles(h_P,"after");
-	  CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host after");
+	  CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host after",this->GetControlDomain()->p_Cntrl->GetNstep());
         // if(iLayer<= 118) CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_C->Ex,"ex:after move");
 
          //printf("rank %d after move \n",GetRank());
@@ -600,7 +600,7 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 
    if (iLayer == (l_Mx-1))
    {
-      CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"in_MoveSplitLayer");
+      CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"in_MoveSplitLayer",this->GetControlDomain()->p_Cntrl->GetNstep());
    }
    
    gettimeofday(&t1,NULL);
@@ -672,7 +672,7 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
       }
       getLayersPC(&h_cl,&h_pl);
      CUDA_WRAP_printLayerParticles(h_pl,"before 1");
-     CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host before 1");
+     CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host before 1",this->GetControlDomain()->p_Cntrl->GetNstep());
      
      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
      if(iLayer<= 118 )
@@ -692,7 +692,7 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
       gettimeofday(&tp2,NULL);
       p_time += (tp2.tv_sec - tp1.tv_sec)+(tp2.tv_usec - tp1.tv_usec)*1e-6;
      CUDA_WRAP_printLayerParticles(h_pl,"after 1");
-     CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host after 1");      
+     CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host after 1",this->GetControlDomain()->p_Cntrl->GetNstep());
        CUDA_WRAP_printLayerParticles(h_pl,"no");
       //getLayersPC(&h_cl,&h_pl);
 #ifndef CUDA_WRAP_FFTW_ALLOWED       

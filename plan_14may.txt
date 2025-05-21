@@ -25,8 +25,7 @@ CUDA_WRAP_printLayerParticles(h_pl,"after 1");
 from 
 movepart_splitlayer.cpp 699
 rewrite CUDA_WRAP_printParticleListFromHost
-a) everything to file
-b) remove 10 particle restriction, add 25.15
+ CUDA_WRAP_printParticleListFromHosta) everything to file
 c) set to the beginnning
 
 

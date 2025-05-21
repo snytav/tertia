@@ -17,7 +17,7 @@ int CUDA_WRAP_copyLayerToDevice(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,i
 
 double cuda_atomicAdd(double *address, double val);
 
-int CUDA_WRAP_printParticleListFromHost(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,int Nz,char *where);
+int CUDA_WRAP_printParticleListFromHost(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,int Nz,char *where,int nstep);
 
 int CUDA_WRAP_writeMatrixFromDevice(int Ny,int Nz,double hy,double hz,double *d_m,int iLayer,char *name);
 
