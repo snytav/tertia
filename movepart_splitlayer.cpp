@@ -617,9 +617,9 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
    printf("after guess %d\n",GetRank());
    //cuLayerPrintCentre(h_C,iLayer,this,p_CellArray);
    
-   cuLayerPrintCentre(h_P,-52,this,p_CellLayerP,"P after guess ");
-   cuLayerPrintCentre(h_C,-53,this,p_CellLayerC,"C after guess ");
-
+//    cuLayerPrintCentre(h_P,-52,this,p_CellLayerP,"P after guess ");
+//    cuLayerPrintCentre(h_C,-53,this,p_CellLayerC,"C after guess ");
+//
 
    gettimeofday(&tg2,NULL);
    g_time = (tg2.tv_sec - tg1.tv_sec)+(tg2.tv_usec - tg1.tv_usec)*1e-6;
