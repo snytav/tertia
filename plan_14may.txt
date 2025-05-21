@@ -32,4 +32,5 @@ c) set to the beginnning
 
  get plasma particles from MoveParticlesLayer, movepart_layer.cpp, 135.
 
+ plasma push probably commented out at step.cpp 129
 
