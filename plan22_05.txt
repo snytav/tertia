@@ -1,1 +1,3 @@
 set writing plasma particles after MoveParticleLayerSplit call at movepart_split_layer.cpp 687
+
+in Domain::Domain print each eletron and Ion Specie - a quest for ions!!!

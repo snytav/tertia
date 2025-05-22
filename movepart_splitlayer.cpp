@@ -685,6 +685,7 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 //         cuLayerPrintCentre(h_C,-41,this,p_CellLayerC,"C before  MoveParticlesLayerSplit");
 
       MoveParticlesLayerSplit(iLayer, iSplit,iFullStep, part);
+
 //         cuLayerPrintCentre(h_P,-42,this,p_CellLayerP,"P after MoveParticlesLayerSplit");
 //         cuLayerPrintCentre(h_C,-43,this,p_CellLayerC,"C after MoveParticlesLayerSplit");
       
@@ -1037,6 +1038,10 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
             Vx = px / gammap;
             maxVx = max(maxVx,fabs(Vx));
             double q2m = p->f_Q2m;
+            if(q2m > 0)
+            {
+               int qq = 0;
+            }
 
             double Vxp = Vx;
             double Vyp = py/gammap;
