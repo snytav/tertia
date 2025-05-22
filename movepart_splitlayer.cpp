@@ -685,8 +685,8 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 //         cuLayerPrintCentre(h_C,-41,this,p_CellLayerC,"C before  MoveParticlesLayerSplit");
 
       MoveParticlesLayerSplit(iLayer, iSplit,iFullStep, part);
-        cuLayerPrintCentre(h_P,-42,this,p_CellLayerP,"P after MoveParticlesLayerSplit");
-        cuLayerPrintCentre(h_C,-43,this,p_CellLayerC,"C after MoveParticlesLayerSplit");
+//         cuLayerPrintCentre(h_P,-42,this,p_CellLayerP,"P after MoveParticlesLayerSplit");
+//         cuLayerPrintCentre(h_C,-43,this,p_CellLayerC,"C after MoveParticlesLayerSplit");
       
         //printf("rank %d iteration %d begins after particles \n",GetRank(),iter);
       gettimeofday(&tp2,NULL);
@@ -711,8 +711,8 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
       gettimeofday(&ti1,NULL);
       //printf("rank %d iteration %d before iterate\n ",GetRank(),iter);
       
-      cuLayerPrintCentre(h_P,-1000,this,p_CellLayerP,"P before Iterate");
-      cuLayerPrintCentre(h_C,-1001,this,p_CellLayerC,"C before Iterate");
+//       cuLayerPrintCentre(h_P,-1000,this,p_CellLayerP,"P before Iterate");
+//       cuLayerPrintCentre(h_C,-1001,this,p_CellLayerC,"C before Iterate");
 
      // printf("before iterate1 %d\n",GetRank());
       IterateFieldsHydroLinLayerSplit(iLayer,iSplit,iter);
