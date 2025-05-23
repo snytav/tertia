@@ -97,6 +97,8 @@ void Mesh::MakeIt(void)
 //---------------------------- Mesh::SeedFrontParticles --------------------
 void Mesh::SeedFrontParticles()
 {
+   int qq = 0;
+
    for (int k=0; k< l_Mz; k++) {
       for (int j=0; j<l_My; j++) {
          int i = l_Mx;
