@@ -458,7 +458,7 @@ void Mesh::GuessFieldsHydroLinLayerSplit(int iLayer,int iSplit)
                                     d_fft_of_JxBeamP,d_fft_of_JyBeamP,d_fft_of_JzBeamP,d_fft_of_RhoBeamP, // 25
 			            d_rEx,d_rEy,d_rEz,d_rJx,d_rJy,d_rJz,d_rRho                		       ); // 
 */
-//#ifdef CUDA_WRAP_VERIFICATION_ALLOWED   
+#ifdef CUDA_WRAP_VERIFICATION_ALLOWED
    CUDA_WRAP_verify_all_vectors_on_host(ny*nz,"verification in the beginning",DETAILS,
                                         fft_of_RhoP,d_fft_of_RhoP, "RhoP ",   // 1
                                         fft_of_Rho, d_fft_of_Rho, "Rho ",   // 2
@@ -482,7 +482,7 @@ void Mesh::GuessFieldsHydroLinLayerSplit(int iLayer,int iSplit)
 					fft_of_JxBeamP,d_fft_of_JxBeamP,"JxBeamP ", //20
 					fft_of_RhoBeamP,d_fft_of_RhoBeamP,"RhoBeamP " //21
 				       );
-//#endif   
+#endif
 
    double sumEx, sumEy, sumEz;
    double sumBx, sumBy, sumBz;

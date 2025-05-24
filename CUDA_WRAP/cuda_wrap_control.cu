@@ -32,6 +32,9 @@ int CUDA_WRAP_compare_device_array(int n,double *h_m,double *d_m,double *frac_id
    h_copy = (double *) malloc(sizeof(double)*n);
 
    cudaMemcpy(h_copy,d_m,n*sizeof(double),cudaMemcpyDeviceToHost);
+
+   cudaError_t err2 = cudaGetLastError();
+
    CUDA_WRAP_emergency_exit(where);
    
    for(int i = 0;i < n;i++)

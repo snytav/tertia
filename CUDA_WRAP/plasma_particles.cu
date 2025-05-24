@@ -900,6 +900,8 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
 //      exit(0);
      cudaLayer *h_cl1,*h_pl1;
      // paricle currents diagnostics
+     cudaError_t err00 = cudaGetLastError();
+     printf("block 2 err00 after particles kernel %03d --------------------------------------\n",err00);
 
      for(int iLayer = 0;iLayer < Mx;iLayer++)
      {
@@ -919,11 +921,19 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
      }
 
      //////////////////////////////////////////////////
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   copyLayerFromDeviceToHost(&h_cl1,d_cl);
+     cudaError_t err11 = cudaGetLastError();
+     printf("block 2 err11 after particles kernel %03d --------------------------------------\n",err11);
+     copyLayerFromDeviceToHost(&h_cl1,d_cl);
+     cudaError_t err12 = cudaGetLastError();
+     printf("block 2 err12 after particles kernel %03d --------------------------------------\n",err12);
      h_cl1 = (cudaLayer*)malloc(sizeof(cudaLayer));
      h_pl1 = (cudaLayer*)malloc(sizeof(cudaLayer));
      cudaMemcpy(h_cl1,d_cl,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
+     cudaError_t err13 = cudaGetLastError();
+     printf("block 2 err13 after particles kernel %03d --------------------------------------\n",err13);
      cudaMemcpy(h_pl1,d_pl,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
+     cudaError_t err14 = cudaGetLastError();
+     printf("block 2 err14  after particles kernel %03d --------------------------------------\n",err14);
 
      cudaDeviceSynchronize();
      err = cudaGetLastError();
