@@ -89,7 +89,7 @@ __device__ void copyParticle(beamParticle *dst,beamParticle *src)
 __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLayer *cl,cudaLayer *pl,int Ny,int Nz,double hx,double hy,double hz,
                                      double *djx0,double *djy0,double *djz0,double *drho0,int iFullStep,double *d_p)
 {
-         unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x;
+ /*        unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x;
          unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y;
          unsigned int sizeY = gridDim.y*blockDim.y;
          beamParticle *p;
@@ -198,6 +198,8 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          double pzp = pz;
          double gammap = sqrt(1. + px*px + py*py + pz*pz);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,11,d_p,gammap);
+         */
+
  /*
          double Vx = px / gammap;
 //         maxVx = max(maxVx,fabs(Vx));
