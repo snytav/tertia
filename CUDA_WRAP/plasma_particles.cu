@@ -89,7 +89,7 @@ __device__ void copyParticle(beamParticle *dst,beamParticle *src)
 __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLayer *cl,cudaLayer *pl,int Ny,int Nz,double hx,double hy,double hz,
                                      double *djx0,double *djy0,double *djz0,double *drho0,int iFullStep,double *d_p)
 {
-         unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x; 
+/*         unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x;
          unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y;
          unsigned int sizeY = gridDim.y*blockDim.y;
          beamParticle *p;
@@ -394,7 +394,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
             q2m *= iZ;
             weight *= iZ;
          }
-*/
+
          ex *= q2m*hx/2.;
          ey *= q2m*hx/2.;
          ez *= q2m*hx/2.;
@@ -642,7 +642,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
             DepositCurrentsInCell(p, isort, itmp, jtmp, ktmp, Vx, Vy, Vz, xtmp, ytmp, ztmp, 
                djx, djy, djz, drho);
 /////////////////////// end of one cell pusher ///////////////////
-*/
+
             if (iFullStep) {
                xtmp = 0.;
                //p->SetP(px,py,pz);
@@ -667,7 +667,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
                Cell &cnew = p_CellLayerC[nnew];
                p->p_Next = cnew.p_Particles;
                cnew.p_Particles = p;
-               pcc.p_Particles = p_next; */
+               pcc.p_Particles = p_next;
                int num_per_cell = Np/(Ny*Nz);
                int cell_num    = np/num_per_cell;
                int num_in_cell = np - cell_num*num_per_cell;
@@ -684,7 +684,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
             }
 //            p = p_next;
               write_plasma_value(np,PLASMA_VALUES_NUMBER,99,d_p,(double)np);
-
+*/
 }
 
 
