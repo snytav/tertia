@@ -198,7 +198,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          double pzp = pz;
          double gammap = sqrt(1. + px*px + py*py + pz*pz);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,11,d_p,gammap);
-         
+ /*
          double Vx = px / gammap;
 //         maxVx = max(maxVx,fabs(Vx));
          double q2m = p->f_Q2m;
@@ -231,7 +231,9 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          double zm = y_est - z_est;
          write_plasma_value(np,PLASMA_VALUES_NUMBER,16,d_p,ym);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,17,d_p,zm);
-/*
+
+         */
+         /*
          if (ym + yp != 0.) 
          {
                double dummy = 0.;
