@@ -833,8 +833,8 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
 #ifdef CUDA_WRAP_FFTW_ALLOWED
     // return;
 #endif
-     int err = cudaGetLastError();
-     printf("cuMoveSplitParticles begin %d \n",err);
+     int err_init = cudaGetLastError();
+     printf("cuMoveSplitParticles begin %d \n",err_init);
 
      int Np = h_pl->Np;
      static cudaLayer *d_cl,*d_pl;
