@@ -231,7 +231,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          double zm = y_est - z_est;
          write_plasma_value(np,PLASMA_VALUES_NUMBER,16,d_p,ym);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,17,d_p,zm);
-
+/*
          if (ym + yp != 0.) 
          {
                double dummy = 0.;
@@ -265,7 +265,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          double exm, eym, ezm;
          double bxm, bym, bzm;
 
-
+*/
          /*
 
          double bx=0.;
