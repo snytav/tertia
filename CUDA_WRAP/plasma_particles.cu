@@ -89,7 +89,7 @@ __device__ void copyParticle(beamParticle *dst,beamParticle *src)
 __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLayer *cl,cudaLayer *pl,int Ny,int Nz,double hx,double hy,double hz,
                                      double *djx0,double *djy0,double *djz0,double *drho0,int iFullStep,double *d_p)
 {
-/*         unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x;
+         unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x;
          unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y;
          unsigned int sizeY = gridDim.y*blockDim.y;
          beamParticle *p;
@@ -264,6 +264,9 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          double bxp, byp, bzp;
          double exm, eym, ezm;
          double bxm, bym, bzm;
+
+
+         /*
 
          double bx=0.;
          double by=0.;
