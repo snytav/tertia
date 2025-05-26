@@ -693,7 +693,7 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
       gettimeofday(&tp2,NULL);
       p_time += (tp2.tv_sec - tp1.tv_sec)+(tp2.tv_usec - tp1.tv_usec)*1e-6;
      CUDA_WRAP_printLayerParticles(h_pl,"after 1");
-     CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host after 1",this->GetControlDomain()->p_Cntrl->GetNstep());
+     CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host_after_1",this->GetControlDomain()->p_Cntrl->GetNstep());
        CUDA_WRAP_printLayerParticles(h_pl,"no");
       //getLayersPC(&h_cl,&h_pl);
 #ifndef CUDA_WRAP_FFTW_ALLOWED       
