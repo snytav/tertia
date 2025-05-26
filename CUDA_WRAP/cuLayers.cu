@@ -165,6 +165,7 @@ int CUDA_WRAP_allocLayerOnHost(cudaLayer **hl,int Ny,int Nz,int Np)
    if(err != cudaSuccess) printf("alloc layer error Jz %d \n",err);
    err = cudaMalloc(&d_Rho,sizeof(double)*Ny*Nz);
    if(err != cudaSuccess) printf("alloc layer error Rho %d \n",err);
+   printf("CUDA_WRAP_allocLayerOnHost d_Rho %p \n",d_Rho);
    
    cudaMemset(d_Ex,0,sizeof(double)*Ny*Nz);
    cudaMemset(d_Ey,0,sizeof(double)*Ny*Nz);
@@ -200,6 +201,7 @@ int CUDA_WRAP_allocLayerOnHost(cudaLayer **hl,int Ny,int Nz,int Np)
    h_l->Jy = d_Jy; 
    h_l->Jz = d_Jz;
    h_l->Rho = d_Rho;
+   printf("CUDA_WRAP_allocLayerOnHost  h_l->Rho %p \n ",h_l->Rho);
    h_l->particles = p;
    CUDA_WRAP_printLayerParticles(h_l,"IN ALLOC");
    
@@ -283,6 +285,7 @@ int CUDA_WRAP_copyLayerFrom3D(int iLayer,int Ny,int Nz,int Np,cudaLayer **h_cl)
 // #endif
      printf("h_cl %p\n",h_cl);
      printf("h_cl->Jy %p \n ",(*h_cl)->Jy);
+     printf("h_cl->Rho %p \n ",(*h_cl)->Rho);
      printf("h_cl->Jy[0] %e \n ",(*h_cl)->Jy[0]);
 
     // exit(0);

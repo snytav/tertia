@@ -93,6 +93,8 @@ void Mesh::MoveAllSplitLayers()
 #endif
       
       int seq_iLayer = (l_Mx - 1)*GetRank() + iLayer;
+       CUDA_WRAP_allocLayerOnHost(&h_layers[iLayer],l_My,l_Mz,Np);
+       printf("h_layers[iLayer]->Rho %p \n ",(h_layers[iLayer])->Rho);
       CUDA_WRAP_copyLayerFrom3D(iLayer,l_My,l_Mz,Np,&h_layers[iLayer]); 
       cudaLayer *t = h_layers[iLayer];
   // printf("h_layers[l_Mx]-B %d %d %d \n",h_layers[l_Mx]->Ny,h_layers[l_Mx]->Nz,h_layers[l_Mx]->Np);
