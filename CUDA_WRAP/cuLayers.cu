@@ -278,7 +278,7 @@ int CUDA_WRAP_copyLayerFrom3D(int iLayer,int Ny,int Nz,int Np,cudaLayer **h_cl)
     //exit(0); 
    
 // #ifdef CUDA_WRAP_FFTW_ALLOWED
-    CUDA_WRAP_allocHostLayer(h_cl,Ny,Nz,Np);
+//    CUDA_WRAP_allocHostLayer(h_cl,Ny,Nz,Np);
 //      return 0;
 // #else
 //     CUDA_WRAP_allocLayerOnHost(h_cl,Ny,Nz,Np);     

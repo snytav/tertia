@@ -973,7 +973,7 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
                                      
 #ifdef CUDA_WRAP_CHECK_PLASMA_VALUES_ALLOWED
 // we want to go here to get clear with simulation time
-     CUDA_WRAP_check_plasma_values(Np,PLASMA_VALUES_NUMBER,dimBlock.x*dimGrid.x,dimBlock.y*dimGrid.y,nstep);
+//      CUDA_WRAP_check_plasma_values(Np,PLASMA_VALUES_NUMBER,dimBlock.x*dimGrid.x,dimBlock.y*dimGrid.y,nstep);
 #endif
 //     CUDA_WRAP_print_plasma_values(Np,PLASMA_VALUES_NUMBER,"end");
      gettimeofday(&tf2,NULL);
