@@ -1,5 +1,4 @@
-// CUDA_WRAP_copy_particle_currents(Ny,Nz,0);
- //  CUDA_WRAP_copy_particle_density(Ny,Nz,0);     // insert after moveKernel call wth Nx and along all layers
+   error 700 at after 1 already
 
- now add cuPrintf around cuMoveSplitParticles and understand printfs
- 1st check that particles are really moved 
+
+   26/05 h_cl->Rho wrong in cuLayers.cu 301 
