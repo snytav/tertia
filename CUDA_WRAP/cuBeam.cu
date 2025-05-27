@@ -1043,22 +1043,31 @@ int CUDA_WRAP_beam_prepare(int Nx,int Ny,int Nz,Mesh *mesh,Cell *p_CellArray)
     {
        printf("beam prepare error jx  beam %d \n",err);
        exit(0);
-
-   }
+    }
 
     err = CUDA_WRAP_alloc3DArray(Nx,Ny,Nz,&d_JyBeam3D);
-    //if(err != cudaSuccess) 
-   // printf("beam prepare error jy  beam %d \n",err);
+    if(err != cudaSuccess)
+    {
+       printf("beam prepare error jy  beam %d \n",err);
+       exit(0);
+    }
 
     err = CUDA_WRAP_alloc3DArray(Nx,Ny,Nz,&d_JzBeam3D);
-    //if(err != cudaSuccess) 
-   // printf("beam prepare error jz  beam %d \n",err);
+    if(err != cudaSuccess)
+    {
+       printf("beam prepare error jz  beam %d \n",err);
+       exit(0);
+    }
     
     err = CUDA_WRAP_alloc3Dfields(Nx,Ny,Nz);
-  //  printf("beam prepare alloc3D error %d \n",err);
+    if(err != cudaSuccess)
+    {
+        printf("beam prepare alloc3D error %d \n",err);
+        exit(0);
+    }
 
     
-//    makeFieldArray(Nx,Ny,Nz,&width,&height,&h_data_in,d_ex,d_ey,d_ez,d_hx,d_hy,d_hz);
+// makeFieldArray(Nx,Ny,Nz,&width,&height,&h_data_in,d_ex,d_ey,d_ez,d_hx,d_hy,d_hz);
 //    makeParticleArray(Nx,Ny,Nz,&width_p,&height_p,&h_data_in_part,ax,ay,az,apx,apy,apz);
     
     //CUDA_WRAP_create_Beam_particle_surface(beam_surface,beam_array,width_p,height_p,h_data_in_part);
