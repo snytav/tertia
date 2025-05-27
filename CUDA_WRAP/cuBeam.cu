@@ -1032,12 +1032,19 @@ int CUDA_WRAP_beam_prepare(int Nx,int Ny,int Nz,Mesh *mesh,Cell *p_CellArray)
    // printf("beam prepare error beam values %d \n",err);
     
     err = CUDA_WRAP_alloc3DArray(Nx,Ny,Nz,&d_RhoBeam3D);
-    //if(err != cudaSuccess) 
-   // printf("beam prepare error rho beam %d \n",err);
+    if(err != cudaSuccess)
+    {
+       printf("beam prepare error rho beam %d \n",err);
+       exit(0);
+    }
 
     err = CUDA_WRAP_alloc3DArray(Nx,Ny,Nz,&d_JxBeam3D);
-    //if(err != cudaSuccess) 
-    //printf("beam prepare error jx  beam %d \n",err);
+    if(err != cudaSuccess)
+    {
+       printf("beam prepare error jx  beam %d \n",err);
+       exit(0);
+
+   }
 
     err = CUDA_WRAP_alloc3DArray(Nx,Ny,Nz,&d_JyBeam3D);
     //if(err != cudaSuccess) 
