@@ -286,20 +286,9 @@ int CUDA_WRAP_copyLayerFrom3D(int iLayer,int Ny,int Nz,int Np,cudaLayer **h_cl)
      printf("h_cl %p\n",h_cl);
      printf("h_cl->Jy %p \n ",(*h_cl)->Jy);
      printf("h_cl->Rho %p \n ",(*h_cl)->Rho);
-     printf("h_cl->Jy[0] %e \n ",(*h_cl)->Jy[0]);
 
-    // exit(0);
 
-     for(int i = 0;i < Ny;i++)
-     {
-        for(int k = 0;k < Nz;k++)
-        {
-//           printf("Jx i %5d k %5d k*Ny+i %10d %10.3e \n",i,k,k*Ny+i,  (*h_cl)->Jx[k*Ny+i]  );
-           double t  = (*h_cl)->Jy[k*Ny+i];
-        }
-     }
-     printf("after output\n");
-//     exit(0);
+
     
      CUDA_WRAP_3Dto2D(iLayer,Ny,Nz,d_Rho3D,    (*h_cl)->Rho);
      CUDA_WRAP_3Dto2D(iLayer,Ny,Nz,d_Ex3D,     (*h_cl)->Ex);
