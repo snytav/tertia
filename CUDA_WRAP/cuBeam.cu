@@ -65,7 +65,7 @@ int CUDA_WRAP_create_Beam_particle_surface(double*surf,double *surf_array,int wi
 
         return 0;
 }
-
+//       
 int CUDA_WRAP_write_beam_value(int i,int num_attr,int n,double *h_p,double t)
 {
 #ifdef CUDA_WRAP_CHECK_BEAM_VALUES_ALLOWED 	
