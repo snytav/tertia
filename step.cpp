@@ -45,23 +45,22 @@ int Domain::Step(void)
    if(beamPrepareFirstCall == 1)
    {
       puts("before beam prepare");
-#ifndef CUDA_WRAP_FFTW_ALLOWED      
       CUDA_WRAP_beam_prepare(l_Xsize,l_Ysize,l_Zsize,p_M,p_M->p_CellArray);
-#endif      
+
       Np = getBeamNp();
-      printf("rank %d after prepare Np %d \n",GetRank(),Np);
+      printf("rank %d after prepare Np %d %з d_RhoBeam3D %p\n",GetRank(),Np,d_RhoBeam3D);
       beamPrepareFirstCall = 0;
    }
-   
+   //exit(0);  
 #ifndef PARALLEL_ONLY   
 ///////////////////////////////////////////////////////////////////   
    struct timeval tv1,tv2,tvc1,tvc2;
       
    CUDA_WRAP_printBeamParticles(p_M,p_Cntrl->l_Nstep,"AfterMove");
- //  puts("BEFORE BEAM");
+   puts("BEFORE BEAM");
 #ifdef CUDA_WRAP_COMPUTE_BEAM_ON_HOST   
    p_M->MoveBeamParticles();
- //  puts("AFTER BEAM");
+   puts("AFTER BEAM");
 #endif
 
    CUDA_WRAP_printBeamDensity3D(p_M,p_Cntrl->l_Nstep,"AfterMove");
@@ -84,22 +83,24 @@ int Domain::Step(void)
 
 
 
-#ifndef PARALLEL_ONLY
+//#ifndef PARALLEL_ONLY
    
    CUDA_WRAP_compareBeamCurrents(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray);
+   printf("after  CUDA_WRAP_compareBeamCurrents  \n");
    
-#ifdef COPY_BEAM_FROM_HOST
+//#ifdef COPY_BEAM_FROM_HOST
    CUDA_WRAP_copyBeamToArray(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray,&d_RhoBeam3D,&d_JxBeam3D);
-#endif   
+//#endif   
+   puts("  CUDA_WRAP_copyBeamToArray  ");
+   exit(0); 
    
    
-   
-///////////////////////////////////////////////////////////////////   
+//////////////////////////////////////////////////////////////////t(0);   
    
 //   p_M->ClearFields();
  //  Exchange(SPACK_JB);
 //   Exchange(SPACK_PB);
-#endif  
+//#endif  
 
    CUDA_WRAP_diagnose(    l_Xsize,    l_Ysize,    l_Zsize,p_M->Hx(),p_M->Hy(),p_Cntrl->l_Nstep,p_M,p_M->p_CellArray);
    printf("long after sending particles rank %d \n",GetRank());

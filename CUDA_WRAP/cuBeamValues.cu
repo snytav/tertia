@@ -21,7 +21,9 @@ int CUDA_WRAP_alloc_beam_values(int Np,int num_attr,double **h_p,double **d_p)
 	
 	memset(*h_p,0,num_attr*Np*sizeof(double));
 
-	printf("end alloc values error\n");
+	int err1 = cudaGetLastError();
+
+	printf("end alloc values error %d\n",err1);
 #endif
 	
 	return err;

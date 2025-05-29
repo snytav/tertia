@@ -1021,21 +1021,29 @@ int CUDA_WRAP_beam_prepare(int Nx,int Ny,int Nz,Mesh *mesh,Cell *p_CellArray)
     double *ax,*ay,*az,*apx,*apy,*apz;
     int Np;
     
-   // printf("IN BEAM PREPARE rank %d \n", GetRank());
+    printf("IN BEAM PREPARE rank %d \n", GetRank());
     Np = CUDA_WRAP_getNumberOfBeamParticles(mesh,p_CellArray,Nx,Ny,Nz);
 
-   // printf("BEFORE COPY 3D PARTICLES rank %d Np %d \n", GetRank(),Np);
+    printf("BEFORE COPY 3D PARTICLES rank %d Np %d \n", GetRank(),Np);
     Np = CUDA_WRAP_copy3Dparticles(mesh,p_CellArray,Np,Nx,Ny,Nz);
-    //printf("rank %d after copy particles Np %d \n",GetRank(),Np);
+    printf("rank %d after copy particles Np %d \n",GetRank(),Np);
     int err = CUDA_WRAP_alloc_beam_values(Np,BEAM_VALUES_NUMBER,&h_beam_values,&d_beam_values);
-    //if(err != cudaSuccess) 
-   // printf("beam prepare error beam values %d \n",err);
-    
-    err = CUDA_WRAP_alloc3DArray(Nx,Ny,Nz,&d_RhoBeam3D);
+    if(err != cudaSuccess) 
+    {
+       printf("beam prepare error beam values %d \n",err);
+    }
+   
+    //printf("1083  d_RhoBeam3D %p \n", d_RhoBeam3D );  
+err = CUDA_WRAP_alloc3DArray(Nx,Ny,Nz,&d_RhoBeam3D);
     if(err != cudaSuccess)
     {
        printf("beam prepare error rho beam %d \n",err);
        exit(0);
+    }
+    else
+    {
+       printf("beam-prepare d_RhoBeam3D %p \n ", d_RhoBeam3D  );
+       //exit(0);       
     }
 
     err = CUDA_WRAP_alloc3DArray(Nx,Ny,Nz,&d_JxBeam3D);
