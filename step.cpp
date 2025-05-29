@@ -92,7 +92,7 @@ int Domain::Step(void)
    CUDA_WRAP_copyBeamToArray(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray,&d_RhoBeam3D,&d_JxBeam3D);
 //#endif   
    puts("  CUDA_WRAP_copyBeamToArray  ");
-   exit(0); 
+   //exit(0); 
    
    
 //////////////////////////////////////////////////////////////////t(0);   
