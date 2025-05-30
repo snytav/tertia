@@ -1483,9 +1483,7 @@ int CUDA_WRAP_copyLayerToDevice(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,i
    beamParticle *bp;
    int np = 0;
    
-#ifdef CUDA_WRAP_FFTW_ALLOWED
-   return 0;
-#endif      
+
    
    int err = cudaGetLastError();
    printf("in copyLayerToDevice begin err %d \n",err);

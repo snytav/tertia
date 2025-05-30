@@ -211,7 +211,7 @@ int CUDA_WRAP_allocLayerOnHost(cudaLayer **hl,int Ny,int Nz,int Np)
    bp_test.f_Y = -1313.0;
    printf("%e %e %e %e %e %e %e\n ",bp_test.f_X,bp_test.f_Y,bp_test.f_Z,bp_test.f_Px,bp_test.f_Py,bp_test.f_Pz);
    
-   cudaMemcpy(h_l->particles,&bp_test,16,cudaMemcpyHostToDevice);
+   cudaMemcpy(h_l->particles,&bp_test,Np*sizeof(beamParticle)  ,cudaMemcpyHostToDevice);
    CUDA_WRAP_printLayerParticles(h_l,"IN TEST");
    /////////////////////////
    

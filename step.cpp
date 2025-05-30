@@ -92,7 +92,7 @@ int Domain::Step(void)
    CUDA_WRAP_copyBeamToArray(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray,&d_RhoBeam3D,&d_JxBeam3D);
 //#endif   
    puts("  CUDA_WRAP_copyBeamToArray  ");
-   //exit(0); 
+  // exit(0); 
    
    
 //////////////////////////////////////////////////////////////////t(0);   
@@ -111,7 +111,6 @@ int Domain::Step(void)
     if(GetRank() == 1) CUDA_DEBUG_print3DmatrixLayer(d_Ey3D,l_Xsize/2,l_Ysize,l_Zsize,"after allLayer");
 
    printf("rank %d after AllLayers \n",GetRank());   
-   //exit(0);
   // ParallelExit();
    
    printf(" field %e beam %e \n",(tv2.tv_sec-tv1.tv_sec)+1e-6*(tv2.tv_usec-tv1.tv_usec),(tvc2.tv_sec-tvc1.tv_sec)+1e-6*(tvc2.tv_usec-tvc1.tv_usec));

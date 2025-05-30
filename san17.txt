@@ -1,0 +1,521 @@
+========= COMPUTE-SANITIZER
+Usage: v3d <ini-file> 
+Default name: v.ini will be used 
+0
+xUpperParallelLimit 120 rank 0 
+Mesh is prepared on PE 0
+Pulses created on PE 0
+Fields exchanged 0
+in domain rank 0 
+Movie file created .//mov0.dat
+Poynting file created .//poynting.dat
+========= Program hit cudaErrorInvalidValue (error 1) due to "invalid argument" on CUDA API call to cudaMemcpy.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x419b65]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaMemcpy [0x706ef]
+=========                in /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+=========     Host Frame:CUDA_WRAP_allocLayerOnHost(cudaLayer**, int, int, int) in CUDA_WRAP/cuLayers.cu:214 [0x154fa]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Mesh::MoveAllSplitLayers() in /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:80 [0x85c7d]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Step() in /home/snytav/tp1/TERTIA/step.cpp:108 [0xb1c3e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::GroupSteps() in /home/snytav/tp1/TERTIA/step.cpp:248 [0xb2144]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Run() in /home/snytav/tp1/TERTIA/step.cpp:282 [0xb2276]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:main in /home/snytav/tp1/TERTIA/vlpl3d.cpp:97 [0xb6f1c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:__libc_start_call_main in ../sysdeps/nptl/libc_start_call_main.h:58 [0x29d8f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:__libc_start_main in ../csu/libc-start.c:392 [0x29e3f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0x7304]
+=========                in /home/snytav/tp1/TERTIA/./test
+========= 
+========= Program hit cudaErrorInvalidValue (error 1) due to "invalid argument" on CUDA API call to cudaGetLastError.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x419b65]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaGetLastError [0x4dd26]
+=========                in /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+=========     Host Frame:CUDA_WRAP_allocLayerOnHost(cudaLayer**, int, int, int) in CUDA_WRAP/cuLayers.cu:147 [0x14cdc]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Mesh::MoveAllSplitLayers() in /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:82 [0x85cbf]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Step() in /home/snytav/tp1/TERTIA/step.cpp:108 [0xb1c3e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::GroupSteps() in /home/snytav/tp1/TERTIA/step.cpp:248 [0xb2144]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Run() in /home/snytav/tp1/TERTIA/step.cpp:282 [0xb2276]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:main in /home/snytav/tp1/TERTIA/vlpl3d.cpp:97 [0xb6f1c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:__libc_start_call_main in ../sysdeps/nptl/libc_start_call_main.h:58 [0x29d8f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:__libc_start_main in ../csu/libc-start.c:392 [0x29e3f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0x7304]
+=========                in /home/snytav/tp1/TERTIA/./test
+========= 
+========= Program hit cudaErrorInvalidValue (error 1) due to "invalid argument" on CUDA API call to cudaMemcpy.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x419b65]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaMemcpy [0x706ef]
+=========                in /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+=========     Host Frame:CUDA_WRAP_allocLayerOnHost(cudaLayer**, int, int, int) in CUDA_WRAP/cuLayers.cu:214 [0x154fa]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Mesh::MoveAllSplitLayers() in /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:82 [0x85cbf]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Step() in /home/snytav/tp1/TERTIA/step.cpp:108 [0xb1c3e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::GroupSteps() in /home/snytav/tp1/TERTIA/step.cpp:248 [0xb2144]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Run() in /home/snytav/tp1/TERTIA/step.cpp:282 [0xb2276]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:main in /home/snytav/tp1/TERTIA/vlpl3d.cpp:97 [0xb6f1c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:__libc_start_call_main in ../sysdeps/nptl/libc_start_call_main.h:58 [0x29d8f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:__libc_start_main in ../csu/libc-start.c:392 [0x29e3f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0x7304]
+=========                in /home/snytav/tp1/TERTIA/./test
+========= 
+========= Program hit cudaErrorInvalidValue (error 1) due to "invalid argument" on CUDA API call to cudaGetLastError.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x419b65]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaGetLastError [0x4dd26]
+=========                in /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+=========     Host Frame:CUDA_WRAP_getLayerParticlesNumber(Mesh*, Cell*, int, int, int, char*) in CUDA_WRAP/paraCPUlayers.cu:327 [0x9692a]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Mesh::MoveAllSplitLayers() in /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:85 [0x85d34]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Step() in /home/snytav/tp1/TERTIA/step.cpp:108 [0xb1c3e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::GroupSteps() in /home/snytav/tp1/TERTIA/step.cpp:248 [0xb2144]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Run() in /home/snytav/tp1/TERTIA/step.cpp:282 [0xb2276]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:main in /home/snytav/tp1/TERTIA/vlpl3d.cpp:97 [0xb6f1c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:__libc_start_call_main in ../sysdeps/nptl/libc_start_call_main.h:58 [0x29d8f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:__libc_start_main in ../csu/libc-start.c:392 [0x29e3f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0x7304]
+=========                in /home/snytav/tp1/TERTIA/./test
+========= 
+========= Program hit cudaErrorInvalidValue (error 1) due to "invalid argument" on CUDA API call to cudaMemcpy.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x419b65]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaMemcpy [0x706ef]
+=========                in /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+=========     Host Frame:CUDA_WRAP_allocLayerOnHost(cudaLayer**, int, int, int) in CUDA_WRAP/cuLayers.cu:214 [0x154fa]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Mesh::MoveAllSplitLayers() in /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:98 [0x85e18]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Step() in /home/snytav/tp1/TERTIA/step.cpp:108 [0xb1c3e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::GroupSteps() in /home/snytav/tp1/TERTIA/step.cpp:248 [0xb2144]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Run() in /home/snytav/tp1/TERTIA/step.cpp:282 [0xb2276]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:main in /home/snytav/tp1/TERTIA/vlpl3d.cpp:97 [0xb6f1c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:__libc_start_call_main in ../sysdeps/nptl/libc_start_call_main.h:58 [0x29d8f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:__libc_start_main in ../csu/libc-start.c:392 [0x29e3f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0x7304]
+=========                in /home/snytav/tp1/TERTIA/./test
+========= 
+========= Program hit cudaErrorInvalidValue (error 1) due to "invalid argument" on CUDA API call to cudaMemcpy.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x419b65]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaMemcpy [0x706ef]
+=========                in /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+=========     Host Frame:CUDA_WRAP_3Dto2D(int, int, int, double*, double*) in CUDA_WRAP/beam_copy.cu:26 [0x967c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:CUDA_WRAP_copyLayerFrom3D(int, int, int, int, cudaLayer**) in CUDA_WRAP/cuLayers.cu:293 [0x158cb]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Mesh::MoveAllSplitLayers() in /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:100 [0x85e95]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Step() in /home/snytav/tp1/TERTIA/step.cpp:108 [0xb1c3e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::GroupSteps() in /home/snytav/tp1/TERTIA/step.cpp:248 [0xb2144]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Run() in /home/snytav/tp1/TERTIA/step.cpp:282 [0xb2276]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:main in /home/snytav/tp1/TERTIA/vlpl3d.cpp:97 [0xb6f1c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:__libc_start_call_main in ../sysdeps/nptl/libc_start_call_main.h:58 [0x29d8f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:__libc_start_main in ../csu/libc-start.c:392 [0x29e3f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0x7304]
+=========                in /home/snytav/tp1/TERTIA/./test
+========= 
+========= Program hit cudaErrorInvalidValue (error 1) due to "invalid argument" on CUDA API call to cudaMemcpy.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x419b65]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaMemcpy [0x706ef]
+=========                in /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+=========     Host Frame:CUDA_WRAP_3Dto2D(int, int, int, double*, double*) in CUDA_WRAP/beam_copy.cu:26 [0x967c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:CUDA_WRAP_copyLayerFrom3D(int, int, int, int, cudaLayer**) in CUDA_WRAP/cuLayers.cu:294 [0x158ef]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Mesh::MoveAllSplitLayers() in /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:100 [0x85e95]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Step() in /home/snytav/tp1/TERTIA/step.cpp:108 [0xb1c3e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::GroupSteps() in /home/snytav/tp1/TERTIA/step.cpp:248 [0xb2144]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Run() in /home/snytav/tp1/TERTIA/step.cpp:282 [0xb2276]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:main in /home/snytav/tp1/TERTIA/vlpl3d.cpp:97 [0xb6f1c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:__libc_start_call_main in ../sysdeps/nptl/libc_start_call_main.h:58 [0x29d8f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:__libc_start_main in ../csu/libc-start.c:392 [0x29e3f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0x7304]
+=========                in /home/snytav/tp1/TERTIA/./test
+========= 
+========= Program hit cudaErrorInvalidValue (error 1) due to "invalid argument" on CUDA API call to cudaMemcpy.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x419b65]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaMemcpy [0x706ef]
+=========                in /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+=========     Host Frame:CUDA_WRAP_3Dto2D(int, int, int, double*, double*) in CUDA_WRAP/beam_copy.cu:26 [0x967c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:CUDA_WRAP_copyLayerFrom3D(int, int, int, int, cudaLayer**) in CUDA_WRAP/cuLayers.cu:295 [0x15914]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Mesh::MoveAllSplitLayers() in /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:100 [0x85e95]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Step() in /home/snytav/tp1/TERTIA/step.cpp:108 [0xb1c3e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::GroupSteps() in /home/snytav/tp1/TERTIA/step.cpp:248 [0xb2144]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Run() in /home/snytav/tp1/TERTIA/step.cpp:282 [0xb2276]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:main in /home/snytav/tp1/TERTIA/vlpl3d.cpp:97 [0xb6f1c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:__libc_start_call_main in ../sysdeps/nptl/libc_start_call_main.h:58 [0x29d8f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:__libc_start_main in ../csu/libc-start.c:392 [0x29e3f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0x7304]
+=========                in /home/snytav/tp1/TERTIA/./test
+========= 
+========= Program hit cudaErrorInvalidValue (error 1) due to "invalid argument" on CUDA API call to cudaMemcpy.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x419b65]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaMemcpy [0x706ef]
+=========                in /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+=========     Host Frame:CUDA_WRAP_3Dto2D(int, int, int, double*, double*) in CUDA_WRAP/beam_copy.cu:26 [0x967c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:CUDA_WRAP_copyLayerFrom3D(int, int, int, int, cudaLayer**) in CUDA_WRAP/cuLayers.cu:296 [0x15939]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Mesh::MoveAllSplitLayers() in /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:100 [0x85e95]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Step() in /home/snytav/tp1/TERTIA/step.cpp:108 [0xb1c3e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::GroupSteps() in /home/snytav/tp1/TERTIA/step.cpp:248 [0xb2144]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Run() in /home/snytav/tp1/TERTIA/step.cpp:282 [0xb2276]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:main in /home/snytav/tp1/TERTIA/vlpl3d.cpp:97 [0xb6f1c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:__libc_start_call_main in ../sysdeps/nptl/libc_start_call_main.h:58 [0x29d8f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:__libc_start_main in ../csu/libc-start.c:392 [0x29e3f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0x7304]
+=========                in /home/snytav/tp1/TERTIA/./test
+========= 
+========= Program hit cudaErrorInvalidValue (error 1) due to "invalid argument" on CUDA API call to cudaMemcpy.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x419b65]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaMemcpy [0x706ef]
+=========                in /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+=========     Host Frame:CUDA_WRAP_3Dto2D(int, int, int, double*, double*) in CUDA_WRAP/beam_copy.cu:26 [0x967c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:CUDA_WRAP_copyLayerFrom3D(int, int, int, int, cudaLayer**) in CUDA_WRAP/cuLayers.cu:297 [0x1595e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Mesh::MoveAllSplitLayers() in /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:100 [0x85e95]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Step() in /home/snytav/tp1/TERTIA/step.cpp:108 [0xb1c3e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::GroupSteps() in /home/snytav/tp1/TERTIA/step.cpp:248 [0xb2144]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Run() in /home/snytav/tp1/TERTIA/step.cpp:282 [0xb2276]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:main in /home/snytav/tp1/TERTIA/vlpl3d.cpp:97 [0xb6f1c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:__libc_start_call_main in ../sysdeps/nptl/libc_start_call_main.h:58 [0x29d8f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:__libc_start_main in ../csu/libc-start.c:392 [0x29e3f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0x7304]
+=========                in /home/snytav/tp1/TERTIA/./test
+========= 
+========= Program hit cudaErrorInvalidValue (error 1) due to "invalid argument" on CUDA API call to cudaMemcpy.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x419b65]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaMemcpy [0x706ef]
+=========                in /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+=========     Host Frame:CUDA_WRAP_3Dto2D(int, int, int, double*, double*) in CUDA_WRAP/beam_copy.cu:26 [0x967c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:CUDA_WRAP_copyLayerFrom3D(int, int, int, int, cudaLayer**) in CUDA_WRAP/cuLayers.cu:298 [0x15983]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Mesh::MoveAllSplitLayers() in /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:100 [0x85e95]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Step() in /home/snytav/tp1/TERTIA/step.cpp:108 [0xb1c3e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::GroupSteps() in /home/snytav/tp1/TERTIA/step.cpp:248 [0xb2144]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Run() in /home/snytav/tp1/TERTIA/step.cpp:282 [0xb2276]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:main in /home/snytav/tp1/TERTIA/vlpl3d.cpp:97 [0xb6f1c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:__libc_start_call_main in ../sysdeps/nptl/libc_start_call_main.h:58 [0x29d8f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:__libc_start_main in ../csu/libc-start.c:392 [0x29e3f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0x7304]
+=========                in /home/snytav/tp1/TERTIA/./test
+========= 
+========= Program hit cudaErrorInvalidValue (error 1) due to "invalid argument" on CUDA API call to cudaMemcpy.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x419b65]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaMemcpy [0x706ef]
+=========                in /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+=========     Host Frame:CUDA_WRAP_3Dto2D(int, int, int, double*, double*) in CUDA_WRAP/beam_copy.cu:26 [0x967c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:CUDA_WRAP_copyLayerFrom3D(int, int, int, int, cudaLayer**) in CUDA_WRAP/cuLayers.cu:299 [0x159a8]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Mesh::MoveAllSplitLayers() in /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:100 [0x85e95]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Step() in /home/snytav/tp1/TERTIA/step.cpp:108 [0xb1c3e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::GroupSteps() in /home/snytav/tp1/TERTIA/step.cpp:248 [0xb2144]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Run() in /home/snytav/tp1/TERTIA/step.cpp:282 [0xb2276]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:main in /home/snytav/tp1/TERTIA/vlpl3d.cpp:97 [0xb6f1c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:__libc_start_call_main in ../sysdeps/nptl/libc_start_call_main.h:58 [0x29d8f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:__libc_start_main in ../csu/libc-start.c:392 [0x29e3f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0x7304]
+=========                in /home/snytav/tp1/TERTIA/./test
+========= 
+========= Program hit cudaErrorInvalidValue (error 1) due to "invalid argument" on CUDA API call to cudaMemcpy.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x419b65]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaMemcpy [0x706ef]
+=========                in /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+=========     Host Frame:CUDA_WRAP_3Dto2D(int, int, int, double*, double*) in CUDA_WRAP/beam_copy.cu:26 [0x967c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:CUDA_WRAP_copyLayerFrom3D(int, int, int, int, cudaLayer**) in CUDA_WRAP/cuLayers.cu:300 [0x159cd]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Mesh::MoveAllSplitLayers() in /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:100 [0x85e95]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Step() in /home/snytav/tp1/TERTIA/step.cpp:108 [0xb1c3e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::GroupSteps() in /home/snytav/tp1/TERTIA/step.cpp:248 [0xb2144]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Run() in /home/snytav/tp1/TERTIA/step.cpp:282 [0xb2276]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:main in /home/snytav/tp1/TERTIA/vlpl3d.cpp:97 [0xb6f1c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:__libc_start_call_main in ../sysdeps/nptl/libc_start_call_main.h:58 [0x29d8f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:__libc_start_main in ../csu/libc-start.c:392 [0x29e3f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0x7304]
+=========                in /home/snytav/tp1/TERTIA/./test
+========= 
+========= Program hit cudaErrorInvalidValue (error 1) due to "invalid argument" on CUDA API call to cudaMemcpy.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x419b65]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaMemcpy [0x706ef]
+=========                in /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+=========     Host Frame:CUDA_WRAP_3Dto2D(int, int, int, double*, double*) in CUDA_WRAP/beam_copy.cu:26 [0x967c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:CUDA_WRAP_copyLayerFrom3D(int, int, int, int, cudaLayer**) in CUDA_WRAP/cuLayers.cu:301 [0x159f2]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Mesh::MoveAllSplitLayers() in /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:100 [0x85e95]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Step() in /home/snytav/tp1/TERTIA/step.cpp:108 [0xb1c3e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::GroupSteps() in /home/snytav/tp1/TERTIA/step.cpp:248 [0xb2144]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Run() in /home/snytav/tp1/TERTIA/step.cpp:282 [0xb2276]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:main in /home/snytav/tp1/TERTIA/vlpl3d.cpp:97 [0xb6f1c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:__libc_start_call_main in ../sysdeps/nptl/libc_start_call_main.h:58 [0x29d8f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:__libc_start_main in ../csu/libc-start.c:392 [0x29e3f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0x7304]
+=========                in /home/snytav/tp1/TERTIA/./test
+========= 
+========= Program hit cudaErrorInvalidValue (error 1) due to "invalid argument" on CUDA API call to cudaMemcpy.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x419b65]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaMemcpy [0x706ef]
+=========                in /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+=========     Host Frame:CUDA_WRAP_3Dto2D(int, int, int, double*, double*) in CUDA_WRAP/beam_copy.cu:26 [0x967c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:CUDA_WRAP_copyLayerFrom3D(int, int, int, int, cudaLayer**) in CUDA_WRAP/cuLayers.cu:302 [0x15a17]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Mesh::MoveAllSplitLayers() in /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:100 [0x85e95]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Step() in /home/snytav/tp1/TERTIA/step.cpp:108 [0xb1c3e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::GroupSteps() in /home/snytav/tp1/TERTIA/step.cpp:248 [0xb2144]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Run() in /home/snytav/tp1/TERTIA/step.cpp:282 [0xb2276]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:main in /home/snytav/tp1/TERTIA/vlpl3d.cpp:97 [0xb6f1c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:__libc_start_call_main in ../sysdeps/nptl/libc_start_call_main.h:58 [0x29d8f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:__libc_start_main in ../csu/libc-start.c:392 [0x29e3f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0x7304]
+=========                in /home/snytav/tp1/TERTIA/./test
+========= 
+========= Program hit cudaErrorInvalidValue (error 1) due to "invalid argument" on CUDA API call to cudaMemcpy.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x419b65]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaMemcpy [0x706ef]
+=========                in /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+=========     Host Frame:CUDA_WRAP_3Dto2D(int, int, int, double*, double*) in CUDA_WRAP/beam_copy.cu:26 [0x967c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:CUDA_WRAP_copyLayerFrom3D(int, int, int, int, cudaLayer**) in CUDA_WRAP/cuLayers.cu:303 [0x15a3c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Mesh::MoveAllSplitLayers() in /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:100 [0x85e95]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Step() in /home/snytav/tp1/TERTIA/step.cpp:108 [0xb1c3e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::GroupSteps() in /home/snytav/tp1/TERTIA/step.cpp:248 [0xb2144]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Run() in /home/snytav/tp1/TERTIA/step.cpp:282 [0xb2276]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:main in /home/snytav/tp1/TERTIA/vlpl3d.cpp:97 [0xb6f1c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:__libc_start_call_main in ../sysdeps/nptl/libc_start_call_main.h:58 [0x29d8f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:__libc_start_main in ../csu/libc-start.c:392 [0x29e3f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0x7304]
+=========                in /home/snytav/tp1/TERTIA/./test
+========= 
+========= Program hit cudaErrorInvalidValue (error 1) due to "invalid argument" on CUDA API call to cudaMemcpy.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x419b65]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaMemcpy [0x706ef]
+=========                in /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+=========     Host Frame:CUDA_WRAP_3Dto2D(int, int, int, double*, double*) in CUDA_WRAP/beam_copy.cu:26 [0x967c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:CUDA_WRAP_copyLayerFrom3D(int, int, int, int, cudaLayer**) in CUDA_WRAP/cuLayers.cu:304 [0x15a61]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Mesh::MoveAllSplitLayers() in /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:100 [0x85e95]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Step() in /home/snytav/tp1/TERTIA/step.cpp:108 [0xb1c3e]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::GroupSteps() in /home/snytav/tp1/TERTIA/step.cpp:248 [0xb2144]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:Domain::Run() in /home/snytav/tp1/TERTIA/step.cpp:282 [0xb2276]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:main in /home/snytav/tp1/TERTIA/vlpl3d.cpp:97 [0xb6f1c]
+=========                in /home/snytav/tp1/TERTIA/./test
+=========     Host Frame:__libc_start_call_main in ../sysdeps/nptl/libc_start_call_main.h:58 [0x29d8f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:__libc_start_main in ../csu/libc-start.c:392 [0x29e3f]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0x7304]
+=========                in /home/snytav/tp1/TERTIA/./test
+========= 
+begin group step 0 
+be dia 0 
+before step 0 itmp 0 rank 0 p_Cntrl->i_Ndiagnose 1 iters 1 
+begin step rank 0 
+before beam prepare
+IN BEAM PREPARE rank 0 
+BEFORE COPY 3D PARTICLES rank 0 Np 19190 
+rank 0 errors copy 0 malloc 0 cuda_total_np 19190 Np 19190 
+rank 0 after copy particles Np 19190 
+in alloc values
+alloc values error 0 
+end alloc values error 0
+beam-prepare d_RhoBeam3D 0x7a06bda00000 
+ alloc3D error ey 0 
+alloc3D error ez 0 
+alloc3D error bx 0 
+rank 0 return beam_prepare Np 19190 
+rank 0 after prepare Np 0 %з d_RhoBeam3D 0x7a06bda00000
+BEFORE BEAM
+Total number of particles on host 19190 
+AFTER BEAM
+before beam move
+after beam move
+before sending particles rank 0 
+after sending particles rank 0 
+after  CUDA_WRAP_compareBeamCurrents  
+  CUDA_WRAP_copyBeamToArray  
+long after sending particles rank 0 
+in MoveAllSplitLayers 
+ before set 121 
+after set 121 
+in getLayerParticles begin err 0 
+Layer 121 AT I np 0 
+rank 0 before recv layer -2 
+MoveAll rank 0 l_Mx 121 
+alloc3D error ey 0 
+alloc3D error ez 0 
+alloc3D error bx 0 
+rank 0 before recv layer -1 
+in getLayerParticles begin err 0 
+Layer 121 AT II np 40960 
+rank 0 Np 0 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7a06bde48000 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7a06bde48000 
+ -9.990000e+02 -1.313000e+03 2.121996e-314 6.628959e-310 0.000000e+00 3.162020e-322 6.952931e-310
+ CUDA_WRAP_allocLayerOnHost d_Rho 0x7a06bdea8000 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7a06bdea8000 
+ -9.990000e+02 -1.313000e+03 2.121996e-314 6.628959e-310 0.000000e+00 3.162020e-322 6.952931e-310
+ in getLayerParticles begin err 1 
+Layer 121 AT III np 40960 
+before copy loop 121 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7a06bdf08000 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7a06bdf08000 
+ -9.990000e+02 -1.313000e+03 1.358077e-312 6.628959e-310 5.978194e-322 4.940656e-324 6.952931e-310
+ h_layers[iLayer]->Rho 0x7a06bdf08000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x5fde35eaae88
+h_cl->Jy 0x7a06bdef8000 
+ h_cl->Rho 0x7a06bdf08000 
+ h_layers[l_Mx]-B 64 64 0 
+========= ERROR SUMMARY: 17 errors
