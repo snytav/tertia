@@ -7,10 +7,10 @@
 
 #include <sys/time.h>
 
-#include "CUDA_WRAP/cuBeam.h"
-#include "CUDA_WRAP/beam_copy.h"
-#include "CUDA_WRAP/diagnostic_print.h"
-#include "CUDA_WRAP/cuLayers.h"
+//#include "CUDA_WRAP/cuBeam.h"
+//#include "CUDA_WRAP/beam_copy.h"
+//#include "CUDA_WRAP/diagnostic_print.h"
+//#include "CUDA_WRAP/cuLayers.h"
 
 #include "para.h"
 
@@ -45,10 +45,10 @@ int Domain::Step(void)
    if(beamPrepareFirstCall == 1)
    {
       puts("before beam prepare");
-      CUDA_WRAP_beam_prepare(l_Xsize,l_Ysize,l_Zsize,p_M,p_M->p_CellArray);
+//      CUDA_WRAP_beam_prepare(l_Xsize,l_Ysize,l_Zsize,p_M,p_M->p_CellArray);
 
       Np = getBeamNp();
-      printf("rank %d after prepare Np %d %з d_RhoBeam3D %p\n",GetRank(),Np,d_RhoBeam3D);
+//      printf("rank %d after prepare Np %d %з d_RhoBeam3D %p\n",GetRank(),Np,d_RhoBeam3D);
       beamPrepareFirstCall = 0;
    }
    //exit(0);  
@@ -56,14 +56,14 @@ int Domain::Step(void)
 ///////////////////////////////////////////////////////////////////   
    struct timeval tv1,tv2,tvc1,tvc2;
       
-   CUDA_WRAP_printBeamParticles(p_M,p_Cntrl->l_Nstep,"AfterMove");
+//   CUDA_WRAP_printBeamParticles(p_M,p_Cntrl->l_Nstep,"AfterMove");
    puts("BEFORE BEAM");
-#ifdef CUDA_WRAP_COMPUTE_BEAM_ON_HOST   
-   p_M->MoveBeamParticles();
-   puts("AFTER BEAM");
-#endif
+//#ifdef CUDA_WRAP_COMPUTE_BEAM_ON_HOST
+//   p_M->MoveBeamParticles();
+//   puts("AFTER BEAM");
+//#endif
 
-   CUDA_WRAP_printBeamDensity3D(p_M,p_Cntrl->l_Nstep,"AfterMove");
+//   CUDA_WRAP_printBeamDensity3D(p_M,p_Cntrl->l_Nstep,"AfterMove");
       
    //puts("AFTER BEAM");
    
@@ -71,7 +71,7 @@ int Domain::Step(void)
  //  CUDA_WRAP_compare3DFields(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray);
    gettimeofday(&tvc1,NULL);   
    printf("before beam move\n");
-   CUDA_WRAP_beam_move(Np,l_Xsize,l_Ysize,l_Zsize,p_M->Hx(),p_M->Hy(),p_M->Hz(),p_M->Ts(),p_Cntrl->l_Nstep);
+//   CUDA_WRAP_beam_move(Np,l_Xsize,l_Ysize,l_Zsize,p_M->Hx(),p_M->Hy(),p_M->Hz(),p_M->Ts(),p_Cntrl->l_Nstep);
    printf("after beam move\n");
    gettimeofday(&tvc2,NULL);   
 #endif
@@ -85,11 +85,11 @@ int Domain::Step(void)
 
 //#ifndef PARALLEL_ONLY
    
-   CUDA_WRAP_compareBeamCurrents(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray);
+//   CUDA_WRAP_compareBeamCurrents(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray);
    printf("after  CUDA_WRAP_compareBeamCurrents  \n");
    
 //#ifdef COPY_BEAM_FROM_HOST
-   CUDA_WRAP_copyBeamToArray(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray,&d_RhoBeam3D,&d_JxBeam3D);
+//   CUDA_WRAP_copyBeamToArray(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray,&d_RhoBeam3D,&d_JxBeam3D);
 //#endif   
    puts("  CUDA_WRAP_copyBeamToArray  ");
    //exit(0); 
@@ -102,13 +102,13 @@ int Domain::Step(void)
 //   Exchange(SPACK_PB);
 //#endif  
 
-   CUDA_WRAP_diagnose(    l_Xsize,    l_Ysize,    l_Zsize,p_M->Hx(),p_M->Hy(),p_Cntrl->l_Nstep,p_M,p_M->p_CellArray);
+//   CUDA_WRAP_diagnose(    l_Xsize,    l_Ysize,    l_Zsize,p_M->Hx(),p_M->Hy(),p_Cntrl->l_Nstep,p_M,p_M->p_CellArray);
    printf("long after sending particles rank %d \n",GetRank());
    gettimeofday(&tv1,NULL);
    p_M->MoveAllSplitLayers();
    gettimeofday(&tv2,NULL);
     printf("size in step %d %d %d \n",l_Xsize/2,l_Ysize,l_Zsize); 
-    if(GetRank() == 1) CUDA_DEBUG_print3DmatrixLayer(d_Ey3D,l_Xsize/2,l_Ysize,l_Zsize,"after allLayer");
+//    if(GetRank() == 1) CUDA_DEBUG_print3DmatrixLayer(d_Ey3D,l_Xsize/2,l_Ysize,l_Zsize,"after allLayer");
 
    printf("rank %d after AllLayers \n",GetRank());   
    //exit(0);
@@ -118,7 +118,7 @@ int Domain::Step(void)
    
  
    
-  CUDA_WRAP_diagnose(l_Xsize,l_Ysize,l_Zsize,p_M->Hx(),p_M->Hy(),p_Cntrl->l_Nstep,p_M,p_M->p_CellArray);
+//  CUDA_WRAP_diagnose(l_Xsize,l_Ysize,l_Zsize,p_M->Hx(),p_M->Hy(),p_Cntrl->l_Nstep,p_M,p_M->p_CellArray);
 
    printf("rank %d after diagnose \n",GetRank());   
    
@@ -132,7 +132,7 @@ int Domain::Step(void)
    printf(" field %e beam %e \n",(tv2.tv_sec-tv1.tv_sec)+1e-6*(tv2.tv_usec-tv1.tv_usec),(tvc2.tv_sec-tvc1.tv_sec)+1e-6*(tvc2.tv_usec-tvc1.tv_usec));
 
 //nt CUDA_WRAP_diagnose(int l_Xsize,int l_Ysize,int l_Zsize,double hx, double hy,int step,Mesh *mesh,Cell *p_CellArray);
-   CUDA_WRAP_diagnose(    l_Xsize,    l_Ysize,    l_Zsize,p_M->Hx(),p_M->Hy(),p_Cntrl->l_Nstep,p_M,p_M->p_CellArray);
+//   CUDA_WRAP_diagnose(    l_Xsize,    l_Ysize,    l_Zsize,p_M->Hx(),p_M->Hy(),p_Cntrl->l_Nstep,p_M,p_M->p_CellArray);
    //exit(0);
     /*
 
@@ -268,8 +268,8 @@ int Domain::Run(void)
 #endif  
   SetXSize(&l_Xsize,f_Xlength);
   int nstep = this->GetCntrl()->GetNstep();
-  CUDA_WRAP_printBeamParticles(this->GetMesh(),nstep,"Run-begin");
-  CUDA_WRAP_printPlasmaParticles(this->GetMesh(),nstep,"Run-begin");
+//  CUDA_WRAP_printBeamParticles(this->GetMesh(),nstep,"Run-begin");
+//  CUDA_WRAP_printPlasmaParticles(this->GetMesh(),nstep,"Run-begin");
 //   CUDA_WRAP_check_beam_values(Np,BEAM_VALUES_NUMBER,h_beam_values,d_beam_values,dimBlock.x*dimGrid.x,dimBlock.y*dimGrid.y,
 //                                 "beamValues.dat","BEAM",nstep);
   

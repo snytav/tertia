@@ -8,7 +8,7 @@
 #include "vlpl3d.h"
 
 #include "para.h"
-#include "CUDA_WRAP/plasma_particles.h"
+//#include "CUDA_WRAP/plasma_particles.h"
 
 //TODO
 //

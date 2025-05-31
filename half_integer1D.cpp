@@ -186,7 +186,7 @@ int fourierHalfInteger1D(int n,double *f,double *f_im,double *res_re,double *res
     fourierOnePi1Dcomplex(n,trans_re,trans_im,shift_re,shift_im);
     
     AlgebraicPhaseShift(n,omega,shift_re,shift_im,res_re,res_im);
-    CUDA_WRAP_vectorZ_mult_vector_from_host(n,n,omega,shift_re,shift_im,cuda_re,cuda_im);
+//    CUDA_WRAP_vectorZ_mult_vector_from_host(n,n,omega,shift_re,shift_im,cuda_re,cuda_im);
     for(int i = 0; i < n ;i++)
     {
         printf("pre-fin %d %25.15e %25.15e CUDA %25.15e %25.15e \n",i,res_re[i],res_im[i],cuda_re[i],cuda_im[i]);
