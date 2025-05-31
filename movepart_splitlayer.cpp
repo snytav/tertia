@@ -450,28 +450,28 @@ void Mesh::MoveAllSplitLayers()
             }
          }
 #endif         
-         if(iLayer<= 118) 
-         {
-            CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_C,h_P);
-         }
+//         if(iLayer<= 118)
+//         {
+//            CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_C,h_P);
+//         }
 //         CUDA_WRAP_copyLayerDeviceToDevice(l_My,l_Mz,Np,h_P,h_C);
-         if(iLayer<= 118) 
-         {
-            CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_C,h_P);
-         }	 
-	 CUDA_WRAP_printLayerParticles(h_P,"C");
-#ifndef CUDA_WRAP_FFTW_ALLOWED		 
-	 CUDA_WRAP_copyLayerParticles(h_P,h_C);
- 
-	 CUDA_WRAP_printLayerParticles(h_P,"P");
-	 CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host P");
-	 
-	 if(iLayer<= 118)
-	 {
-	   CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_C->Ex,"C_ex:");
-	   CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_P->Ex,"P_ex:");
-	 }
-#endif		 
+//         if(iLayer<= 118)
+//         {
+//            CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_C,h_P);
+//         }
+//	 CUDA_WRAP_printLayerParticles(h_P,"C");
+//#ifndef CUDA_WRAP_FFTW_ALLOWED
+//	 CUDA_WRAP_copyLayerParticles(h_P,h_C);
+//
+//	 CUDA_WRAP_printLayerParticles(h_P,"P");
+//	 CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host P");
+//
+//	 if(iLayer<= 118)
+//	 {
+//	   CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_C->Ex,"C_ex:");
+//	   CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_P->Ex,"P_ex:");
+//	 }
+//#endif
 	 gettimeofday(&tvs2,NULL);
         /* printf("rank %d split %e 15 %e 12 %e\n",GetRank(),
                                     (tvs2.tv_sec - tvs1.tv_sec)+1e-6*(tvs2.tv_usec - tvs1.tv_usec),(tvs15.tv_sec - tvs1.tv_sec)+1e-6*(tvs15.tv_usec - tvs1.tv_usec),
@@ -548,16 +548,16 @@ void Mesh::MoveAllSplitLayers()
    }
    cout << " maxVx = " << maxVx ;
 //#endif
-      printf("after loop particle %e \n",host_send_layer->particles[0].f_Y);
+//      printf("after loop particle %e \n",host_send_layer->particles[0].f_Y);
    
    //printf("before send Layer %d ********************************************************************************** \n",GetRank());
   // if(GetRank() == 1) exit(0);
-   CUDA_WRAP_printLayerParticles(h_layers[1],"before send layer");
+//   CUDA_WRAP_printLayerParticles(h_layers[1],"before send layer");
    
-   
-#ifndef CPU_COMPUTING
-   host_send_layer = h_layers[1]; 
-#endif
+//
+//#ifndef CPU_COMPUTING
+//   host_send_layer = h_layers[1];
+//#endif
    
    
  //  printf("before send 1st particle %e \n",host_send_layer->particles[0].f_Y);
