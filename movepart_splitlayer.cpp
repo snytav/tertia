@@ -1,4 +1,4 @@
-#include "CUDA_WRAP/beam_copy.h"
+// #include "CUDA_WRAP/beam_copy.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
@@ -8,15 +8,15 @@
 #include <sys/time.h>
 #include "run_control.h"
 
-#include "CUDA_WRAP/cuBeam.h"
-#include "CUDA_WRAP/cuLayers.h"
-#include "CUDA_WRAP/paraLayers.h"
-#include "CUDA_WRAP/paraCPUlayers.h"
-
-#include "CUDA_WRAP/plasma_particles.h"
-#include "CUDA_WRAP/diagnostic_print.h"
-#include "CUDA_WRAP/cuParticles.h"
-#include "CUDA_WRAP/cuDiagnose.h"
+// #include "CUDA_WRAP/cuBeam.h"
+// #include "CUDA_WRAP/cuLayers.h"
+// #include "CUDA_WRAP/paraLayers.h"
+// #include "CUDA_WRAP/paraCPUlayers.h"
+//
+// #include "CUDA_WRAP/plasma_particles.h"
+// #include "CUDA_WRAP/diagnostic_print.h"
+// #include "CUDA_WRAP/cuParticles.h"
+// #include "CUDA_WRAP/cuDiagnose.h"
 
 #include "para.h"
 
@@ -25,9 +25,9 @@ static double maxVx;
 //---Mesh:: ---------------------------------------------->
 void Mesh::MoveAllSplitLayers() 
 {
-    cudaLayer *h_P,*h_C,*h_left,*h_right;
+//    cudaLayer *h_P,*h_C,*h_left,*h_right;
     struct timeval tv1,tv2,tvl1,tvl2,tvs1,tvs2,tvs15,tvs12,tv15;
-    cudaLayer *host_send_layer,*h_cl,*h_pl;
+//    cudaLayer *host_send_layer,*h_cl,*h_pl;
 
     printf("in MoveAllSplitLayers \n ");
 
@@ -35,7 +35,7 @@ void Mesh::MoveAllSplitLayers()
     gettimeofday(&tv1,NULL);
     //printf("begin moveAll %d \n",GetRank());
 //    cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-A");
-   CUDA_WRAP_printBeamDensity3D(this,GetControlDomain()->p_Cntrl->GetNstep(),"RECEIVED-A");
+//   CUDA_WRAP_printBeamDensity3D(this,GetControlDomain()->p_Cntrl->GetNstep(),"RECEIVED-A");
    
    int NxSplit = GetNxSplit();
    for (long n=0; n<l_sizeXYZ; n++) {
@@ -46,7 +46,7 @@ void Mesh::MoveAllSplitLayers()
    printf("before set %d \n",l_Mx);
    //Set_l_Mx(&l_Mx);
    printf("after set %d \n",l_Mx);
-   CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"I");
+//   CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"I");
    
    
 //         cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 6");
@@ -54,35 +54,35 @@ void Mesh::MoveAllSplitLayers()
 //    cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-B");
       printf("rank %d before recv layer -2 \n",GetRank());
    printf("MoveAll rank %d l_Mx %d \n",GetRank(),l_Mx);
-  int err0 = cudaGetLastError();
-   cudaLayer *h_basic_layer,**h_layers = (cudaLayer**)malloc((l_Mx+1)*sizeof(cudaLayer*));
+//  int err0 = cudaGetLastError();
+//   cudaLayer *h_basic_layer,**h_layers = (cudaLayer**)malloc((l_Mx+1)*sizeof(cudaLayer*));
 //   int err01 = cudaGetLastError();   
-   CUDA_WRAP_alloc3Dfields(l_Mx,l_My,l_Mz);
-  int err02 = cudaGetLastError();
-   CUDA_WRAP_alloc3Dcurrents(l_Mx,l_My,l_Mz);
-  int err03 = cudaGetLastError();
-   CUDA_WRAP_copy3Dfields(this,p_CellArray,l_Mx,l_My,l_Mz);
-  int err1 = cudaGetLastError();
+//   CUDA_WRAP_alloc3Dfields(l_Mx,l_My,l_Mz);
+//  int err02 = cudaGetLastError();
+//   CUDA_WRAP_alloc3Dcurrents(l_Mx,l_My,l_Mz);
+//  int err03 = cudaGetLastError();
+//   CUDA_WRAP_copy3Dfields(this,p_CellArray,l_Mx,l_My,l_Mz);
+//  int err1 = cudaGetLastError();
    SeedFrontParticles();
       printf("rank %d before recv layer -1 \n",GetRank());
 
-   CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"II");
+//   CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"II");
    
-  int err1_5 = cudaGetLastError();
-   int Np = CUDA_WRAP_copyLayerToDevice(this,p_CellArray,l_Mx,l_My,l_Mz,&h_basic_layer);
-   printf("rank %d Np %d \n",GetRank(),Np);
-   CUDA_WRAP_printLayerParticles(h_basic_layer,"INIT");
+//  int err1_5 = cudaGetLastError();
+//   int Np = CUDA_WRAP_copyLayerToDevice(this,p_CellArray,l_Mx,l_My,l_Mz,&h_basic_layer);
+//   printf("rank %d Np %d \n",GetRank(),Np);
+//   CUDA_WRAP_printLayerParticles(h_basic_layer,"INIT");
 //    cuLayerPrintCentre(h_basic_layer,-1313,this,p_CellArray,"INIT");
 
 //    cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-C");
    
-   CUDA_WRAP_allocLayerOnHost(&h_C,l_My,l_Mz,Np);
-   CUDA_WRAP_printLayerParticles(h_C,"INIT-C ");
-   CUDA_WRAP_allocLayerOnHost(&h_P,l_My,l_Mz,Np);
-       cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 5"); 
-
-   CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"III");
-   cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-D");     
+//   CUDA_WRAP_allocLayerOnHost(&h_C,l_My,l_Mz,Np);
+//   CUDA_WRAP_printLayerParticles(h_C,"INIT-C ");
+//   CUDA_WRAP_allocLayerOnHost(&h_P,l_My,l_Mz,Np);
+//       cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 5");
+//
+//   CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"III");
+//   cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-D");
 //   int err2 = cudaGetLastError();
    maxVx = 0.;
    printf("before copy loop %d \n",l_Mx);
@@ -93,10 +93,10 @@ void Mesh::MoveAllSplitLayers()
 #endif
       
       int seq_iLayer = (l_Mx - 1)*GetRank() + iLayer;
-       CUDA_WRAP_allocLayerOnHost(&h_layers[iLayer],l_My,l_Mz,Np);
-       printf("h_layers[iLayer]->Rho %p \n ",(h_layers[iLayer])->Rho);
-      CUDA_WRAP_copyLayerFrom3D(iLayer,l_My,l_Mz,Np,&h_layers[iLayer]); 
-      cudaLayer *t = h_layers[iLayer];
+//       CUDA_WRAP_allocLayerOnHost(&h_layers[iLayer],l_My,l_Mz,Np);
+//       printf("h_layers[iLayer]->Rho %p \n ",(h_layers[iLayer])->Rho);
+//      CUDA_WRAP_copyLayerFrom3D(iLayer,l_My,l_Mz,Np,&h_layers[iLayer]);
+//      cudaLayer *t = h_layers[iLayer];
   // printf("h_layers[l_Mx]-B %d %d %d \n",h_layers[l_Mx]->Ny,h_layers[l_Mx]->Nz,h_layers[l_Mx]->Np);
    //exit(0);
       
@@ -123,67 +123,67 @@ void Mesh::MoveAllSplitLayers()
   // CUDA_WR        AP_printLayerParticles(h_layers[l_Mx],"LAST");
 //#endif   
    //printf("rank %d before recv layer l_Mx %d  Ny %d  Nz %d Np %d \n ",GetRank(),l_Mx,(h_layers[l_Mx])->Ny,(h_layers[l_Mx])->Nz,(h_layers[l_Mx])->Np);
-   cudaLayer *recv_layer;
-   cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 4");
+//   cudaLayer *recv_layer;
+//   cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 4");
    
-   cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-0"); 
+//   cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-0");
    
-   CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"IV");
-   printf("h_layers[l_Mx]-A %d %d %d \n",h_layers[l_Mx]->Ny,h_layers[l_Mx]->Nz,h_layers[l_Mx]->Np);
+//   CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"IV");
+//   printf("h_layers[l_Mx]-A %d %d %d \n",h_layers[l_Mx]->Ny,h_layers[l_Mx]->Nz,h_layers[l_Mx]->Np);
 //#ifdef CPU_COMPUTING
-   CUDA_WRAP_createNewLayer(&recv_layer,h_layers[l_Mx]); 
+//   CUDA_WRAP_createNewLayer(&recv_layer,h_layers[l_Mx]);
 //#else
 //   recv_layer = (cudaLayer *)malloc(sizeof(cudaLayer));
 //#endif
-   CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"before recevied rank");
+//   CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"before recevied rank");
   // printf("before received rank %d \n",GetRank());
-   cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-1"); 
+//   cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-1");
    
-   ReceiveLayer(recv_layer,l_My,l_Mz,Np);
-     cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 3"); 
-   
-  cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-2"); 
-   //printf("Layer RECEIVED from above rank %d  ===================================================== \n",GetRank());
-   cuLayerPrintCentre(h_layers[l_Mx],l_Mx,this,p_CellArray,"before received");
+//   ReceiveLayer(recv_layer,l_My,l_Mz,Np);
+//     cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 3");
+//
+//  cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-2");
+//   //printf("Layer RECEIVED from above rank %d  ===================================================== \n",GetRank());
+//   cuLayerPrintCentre(h_layers[l_Mx],l_Mx,this,p_CellArray,"before received");
    //CUDA_WRAP_printLayerParticles(h_layers[l_Mx],"RECEIVED");
    //printf("END RECEIVED from above rank %d =======================================================\n",GetRank());
    
    //printf("rank %d after recv layer l_Mx %d  Ny %d  Nz %d Np %d \n ",GetRank(),l_Mx,(h_layers[l_Mx])->Ny,(h_layers[l_Mx])->Nz,(h_layers[l_Mx])->Np);
-   cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED"); 
+//   cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED");
    if(GetRank() < GetSize() - 1)
    {
-#ifdef CUDA_WRAP_FFTW_ALLOWED	    
-       CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"before recevied");
-
-       CUDA_WRAP_setLayerToMesh(this,p_CellArray,l_Mx,l_My,l_Mz,recv_layer,1);
-       printf("in getLayerParticles before err \n");
-       CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"after recevied");
-       printf("in getLayerParticles after err \n");
-      cuLayerPrintCentre(h_P,-1,this,p_CellLayerP,"INIT host-P4");
-       
-       
-#else       
-//      CUDA_WRAP_copyLayerDeviceToDevice(l_My,l_Mz,Np,h_layers[l_Mx],h_basic_layer);
-      CUDA_WRAP_copyLayerParticles(h_basic_layer,h_layers[l_Mx]);
-      CUDA_WRAP_printLayerParticles(h_basic_layer,"copied to basic");
-#endif      
+//#ifdef CUDA_WRAP_FFTW_ALLOWED
+//       CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"before recevied");
+//
+//       CUDA_WRAP_setLayerToMesh(this,p_CellArray,l_Mx,l_My,l_Mz,recv_layer,1);
+//       printf("in getLayerParticles before err \n");
+//       CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"after recevied");
+//       printf("in getLayerParticles after err \n");
+//      cuLayerPrintCentre(h_P,-1,this,p_CellLayerP,"INIT host-P4");
+//
+//
+//#else
+////      CUDA_WRAP_copyLayerDeviceToDevice(l_My,l_Mz,Np,h_layers[l_Mx],h_basic_layer);
+//      CUDA_WRAP_copyLayerParticles(h_basic_layer,h_layers[l_Mx]);
+//      CUDA_WRAP_printLayerParticles(h_basic_layer,"copied to basic");
+//#endif
    }
    //printf("finished recv Layer %d \n",GetRank());
 
    
 //   if(GetRank() == 0) exit(0);
-     cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 2");
-      cuLayerPrintCentre(h_P,-1,this,p_CellLayerP,"INIT host-P3");
-     
-        cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"host-P3"); 
-#ifndef PARALLEL_ONLY
+//     cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 2");
+//      cuLayerPrintCentre(h_P,-1,this,p_CellLayerP,"INIT host-P3");
+//
+//        cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"host-P3");
+//#ifndef PARALLEL_ONLY
  //  printf("before main loop %d rank %d\n",l_Mx,GetRank());
    
    for (int iLayer=l_Mx-1; iLayer>-1; iLayer--) {
        gettimeofday(&tvl1,NULL); 
      
 //      CUDA_WRAP_copyLayerFrom3D(iLayer,l_My,l_Mz,Np,&h_layers[iLayer]); 
-#ifdef CUDA_WRAP_FFTW_ALLOWED	      
+//#ifdef CUDA_WRAP_FFTW_ALLOWED
       for (int k=-l_dMz; k<l_Mz+l_dMz-1; k++) {
          for (int j=-l_dMy; j<l_My+l_dMy-1; j++) {
             long np = GetN(iLayer+1,j,k);
@@ -202,40 +202,40 @@ void Mesh::MoveAllSplitLayers()
 	    
          }
       }
-#endif
-     cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"assign"); 
-
-     CUDA_WRAP_printBeamDensity3D(this,GetControlDomain()->p_Cntrl->GetNstep(),"Assign");
-     
-     cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"before 1"); 
-     cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 1"); 
-     cuLayerPrintCentre(h_P,-1,this,p_CellLayerP,"INIT host-P2");
+//#endif
+//     cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"assign");
+//
+//     CUDA_WRAP_printBeamDensity3D(this,GetControlDomain()->p_Cntrl->GetNstep(),"Assign");
+//
+//     cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"before 1");
+//     cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 1");
+//     cuLayerPrintCentre(h_P,-1,this,p_CellLayerP,"INIT host-P2");
       //printf("rank %d init loop\n",GetRank());
 //      if(GetRank() == 0) exit(0);
       
-      CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"INIT host",this->GetControlDomain()->p_Cntrl->GetNstep());
+//      CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"INIT host",this->GetControlDomain()->p_Cntrl->GetNstep());
 //      //printf("rank %d after printlist\n",GetRank());
 //      if(GetRank() == 0) exit(0);
 
-      cuLayerPrintCentre(h_P,-1,this,p_CellLayerP,"INIT host-P1");
+//      cuLayerPrintCentre(h_P,-1,this,p_CellLayerP,"INIT host-P1");
 
-      CUDA_WRAP_copyLayerDeviceToDevice(l_My,l_Mz,Np,h_P,h_layers[iLayer+1]);
-      cuLayerPrintCentre(h_layers[iLayer+1],iLayer+1,this,p_CellArray,"INIT host");
-      cuLayerPrintCentre(h_P,-1,this,p_CellLayerP,"INIT host");
-      cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-INIT host");
-      CUDA_WRAP_printLayerParticles(h_P,"afgter copy to P");
-     cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"afgter copy to P"); 
+//      CUDA_WRAP_copyLayerDeviceToDevice(l_My,l_Mz,Np,h_P,h_layers[iLayer+1]);
+//      cuLayerPrintCentre(h_layers[iLayer+1],iLayer+1,this,p_CellArray,"INIT host");
+//      cuLayerPrintCentre(h_P,-1,this,p_CellLayerP,"INIT host");
+//      cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-INIT host");
+//      CUDA_WRAP_printLayerParticles(h_P,"afgter copy to P");
+//     cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"afgter copy to P");
 
       
-      getLayersPC(&h_cl,&h_pl);
-      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_C,h_P);
-      
+//      getLayersPC(&h_cl,&h_pl);
+//      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_C,h_P);
+//
       gettimeofday(&tv15,NULL);
       //printf("rank %d before split\n",GetRank());
 //      if(GetRank() == 0) exit(0);
       
-      cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before loop");
-      cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"before loop"); 
+//      cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before loop");
+//      cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"before loop");
      
       for (int iSplit=0; iSplit<NxSplit; iSplit++) {
 	 gettimeofday(&tvs1,NULL); 
@@ -261,24 +261,24 @@ void Mesh::MoveAllSplitLayers()
 	 
 	// CUDA_WRAP_allocLayerOnHost(&h_left,l_My,l_Mz,Np);
 	// CUDA_WRAP_allocLayerOnHost(&h_right,l_My,l_Mz,Np);
-         cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 1");
-#ifndef CUDA_WRAP_FFTW_ALLOWED
-	 if(iLayer<= 118 )
-	 {
-	    CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_P->Ex,"R");
-	 }
-	 //CUDA_WRAP_copyLayerDeviceToDevice(l_My,l_Mz,Np,h_left,h_layers[iLayer]);
-	 h_left  = h_layers[iLayer];
-	 h_right = h_layers[iLayer+1];
-#endif	 
+//         cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 1");
+//#ifndef CUDA_WRAP_FFTW_ALLOWED
+//	 if(iLayer<= 118 )
+//	 {
+//	    CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_P->Ex,"R");
+//	 }
+//	 //CUDA_WRAP_copyLayerDeviceToDevice(l_My,l_Mz,Np,h_left,h_layers[iLayer]);
+//	 h_left  = h_layers[iLayer];
+//	 h_right = h_layers[iLayer+1];
+//#endif
 	 //CUDA_WRAP_copyLayerParticles(h_right,h_layers[iLayer+1]);
          //CUDA_WRAP_printLayerParticles(h_layers[l_Mx],"right");
 
          //printf("rank %d before basic \n",GetRank());
 //         if(GetRank() == 0) exit(0);
-         cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 2");
+//         cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 2");
 	 
-	 cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"loop 2"); 
+//	 cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"loop 2");
 	 
 	 if((iLayer == l_Mx-1) && (iSplit == 0))
 	 {  
@@ -288,7 +288,7 @@ void Mesh::MoveAllSplitLayers()
             CUDA_WRAP_printLayerParticles(h_P,"P");	 
 #endif	    
 	 }
-         CUDA_WRAP_printLayerParticles(h_P,"after copy from basic ");
+//         CUDA_WRAP_printLayerParticles(h_P,"after copy from basic ");
 
 #ifdef CUDA_WRAP_FFTW_ALLOWED	 
          for (int k=-l_dMz; k<l_Mz+l_dMz-1; k++) {
@@ -307,38 +307,38 @@ void Mesh::MoveAllSplitLayers()
             }
          }
 #endif  	 
-	 cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"афтер цопы"); 
+//	 cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"афтер цопы");
 	 //cuLayerPrintCentre(h_layers[iLayer],iLayer);
          //printf("rank %d after basic \n",GetRank());
 //         if(GetRank() == 0) exit(0);
 
-	 CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"basic",this->GetControlDomain()->p_Cntrl->GetNstep());
-         cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 3");
+//	 CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"basic",this->GetControlDomain()->p_Cntrl->GetNstep());
+//         cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 3");
 	 
 	 //CUDA_WRAP_copyLayerDeviceToDevice(l_My,l_Mz,Np,h_right,h_layers[iLayer+1]);
-#ifndef CUDA_WRAP_FFTW_ALLOWED	 
-	 if(iLayer<= 118) CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_left->JxBeam,"R");
+//#ifndef CUDA_WRAP_FFTW_ALLOWED
+//	 if(iLayer<= 118) CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_left->JxBeam,"R");
 	 
 	 
-	 if(iLayer == 118 && iSplit >= 0)
-	 {
-	     CUDA_WRAP_check_hidden_currents3D(this,p_CellArray,iLayer,l_My,l_Mz,h_left->JxBeam,"JxBeam");
-	     CUDA_WRAP_check_hidden_currents3D(this,p_CellArray,iLayer+1,l_My,l_Mz,h_right->JxBeam,"JxBeam");
-	 }
+//	 if(iLayer == 118 && iSplit >= 0)
+//	 {
+//	     CUDA_WRAP_check_hidden_currents3D(this,p_CellArray,iLayer,l_My,l_Mz,h_left->JxBeam,"JxBeam");
+//	     CUDA_WRAP_check_hidden_currents3D(this,p_CellArray,iLayer+1,l_My,l_Mz,h_right->JxBeam,"JxBeam");
+//	 }
 	
 	 
-	 CUDA_WRAP_interpolateLayers(iSplit,NxSplit,l_My,l_Mz,h_C,h_P,h_left,h_right);
-	 if(iLayer<= 118) CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_C->JxBeam,"C");
+//	 CUDA_WRAP_interpolateLayers(iSplit,NxSplit,l_My,l_Mz,h_C,h_P,h_left,h_right);
+//	 if(iLayer<= 118) CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_C->JxBeam,"C");
 //	 int err_int = cudaGetLastError();
 	 double *t;
 	 //cudaMalloc((void **)&t,l_My*l_Mz*sizeof(double));
 	 //int errc = cudaMemcpy(t,h_P->JxBeam,l_My*l_Mz*sizeof(double),cudaMemcpyDeviceToDevice);
-	 setLayersPC(h_C,h_P);
+//	 setLayersPC(h_C,h_P);
 #endif	 
 	 
 	  gettimeofday(&tvs12,NULL); 
-         cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 3");
-	 cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"loop 3"); 
+//         cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 3");
+//	 cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"loop 3");
 	  
          //printf("rank %d after setLayers \n",GetRank());
 //         if(GetRank() == 0) exit(0);
@@ -532,22 +532,22 @@ void Mesh::MoveAllSplitLayers()
 
       cuLayerPrintCentre(h_layers[iLayer],iLayer,this,p_CellArray,"layer particles");
 
-#ifndef CUDA_WRAP_FFTW_ALLOWED      
-      if(iLayer<= 118) 
-      {
-        CUDA_WRAP_check_hidden_currents3D(this,p_CellArray,iLayer,l_My,l_Mz,h_P->JxBeam,"JxBeam");
-	CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_layers[iLayer]->Ex,"3D:");
-	CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_C,h_P);
-      }
-      
-      if(GetRank() == 1) CUDA_DEBUG_print3DmatrixLayer(d_Ey3D,iLayer,l_My,l_Mz,"after Layer118");
-#endif      
+//#ifndef CUDA_WRAP_FFTW_ALLOWED
+//      if(iLayer<= 118)
+//      {
+//        CUDA_WRAP_check_hidden_currents3D(this,p_CellArray,iLayer,l_My,l_Mz,h_P->JxBeam,"JxBeam");
+//	CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_layers[iLayer]->Ex,"3D:");
+//	CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_C,h_P);
+//      }
+//
+//      if(GetRank() == 1) CUDA_DEBUG_print3DmatrixLayer(d_Ey3D,iLayer,l_My,l_Mz,"after Layer118");
+//#endif
       
       gettimeofday(&tvl2,NULL);
       //printf("rank %d loop %e \n",GetRank(),(tvl2.tv_sec - tvl1.tv_sec)+1e-6*(tvl2.tv_usec - tvl1.tv_usec));
    }
    cout << " maxVx = " << maxVx ;
-#endif   
+//#endif
       printf("after loop particle %e \n",host_send_layer->particles[0].f_Y);
    
    //printf("before send Layer %d ********************************************************************************** \n",GetRank());
@@ -562,13 +562,13 @@ void Mesh::MoveAllSplitLayers()
    
  //  printf("before send 1st particle %e \n",host_send_layer->particles[0].f_Y);
    
-   Np = CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,1,l_My,l_Mz,"before sendLayer");
+//   Np = CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,1,l_My,l_Mz,"before sendLayer");
    //printf("before send layer Np %d \n",Np);
 
-   if(GetRank() > 0) SendLayer(host_send_layer,l_My,l_Mz,host_send_layer->Np);
-   cuLayerPrintCentre(h_layers[1],1,this,p_CellArray,"after sendLayer");
+//   if(GetRank() > 0) SendLayer(host_send_layer,l_My,l_Mz,host_send_layer->Np);
+//   cuLayerPrintCentre(h_layers[1],1,this,p_CellArray,"after sendLayer");
    
-   if(GetRank() == 1) CUDA_DEBUG_print3DmatrixLayer(d_Ey3D,l_Mx/2,l_My,l_Mz,"after sendLayer");
+//   if(GetRank() == 1) CUDA_DEBUG_print3DmatrixLayer(d_Ey3D,l_Mx/2,l_My,l_Mz,"after sendLayer");
 
    //printf("after send Layer %d *********************************************************************************** \n",GetRank());
    
@@ -592,25 +592,25 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
    double maxRho = 0.;
    double minRho = 0.;
    double totalJy, totalJz;
-   cudaLayer *h_cl,*h_pl;
+//   cudaLayer *h_cl,*h_pl;
    double g_time = 0.0,p_time = 0.0,i_time = 0.0;
    struct timeval tg1,tg2,tp1,tp2,ti1,ti2,t1,t2;
-   cudaLayer *h_C,*h_P;
+//   cudaLayer *h_C,*h_P;
    printf("in MoveSplitLayer");
    //printf("rank %d in move \n",GetRank());
 //   if(GetRank() == 0 && (iSplit == 1)) exit(0);
 
-   if (iLayer == (l_Mx-1))
-   {
-      CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"in_MoveSplitLayer",this->GetControlDomain()->p_Cntrl->GetNstep());
-   }
+//   if (iLayer == (l_Mx-1))
+//   {
+//      CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"in_MoveSplitLayer",this->GetControlDomain()->p_Cntrl->GetNstep());
+//   }
    
    gettimeofday(&t1,NULL);
    gettimeofday(&tg1,NULL);
 
-#ifndef CUDA_WRAP_FFTW_ALLOWED   
-   getLayersPC(&h_C,&h_P);
-#endif   
+//#ifndef CUDA_WRAP_FFTW_ALLOWED
+//   getLayersPC(&h_C,&h_P);
+//#endif
 //    cuLayerPrintCentre(h_P,-50,this,p_CellLayerP,"P before guess ");
 //    cuLayerPrintCentre(h_C,-51,this,p_CellLayerC,"C before guess ");
    
@@ -628,8 +628,8 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
          //printf("rank %d guess \n",GetRank());
 //   if(GetRank() == 0 && (iSplit == 1)) exit(0);
    
-    getLayersPC(&h_cl,&h_pl);
-   CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
+//    getLayersPC(&h_cl,&h_pl);
+//   CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
 //#ifdef CUDA_WRAP_FFTW_ALLOWED     
    ExchangeFieldsSplit(iLayer);
    
@@ -663,7 +663,7 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 //#ifdef CUDA_WRAP_FFTW_ALLOWED        
       ClearCurrentsSplit();
 //#endif      
-      CUDA_WRAP_clearCurrents(l_My,l_Mz,1);
+//      CUDA_WRAP_clearCurrents(l_My,l_Mz,1);
 //#ifdef CUDA_WRAP_FFTW_ALLOWED        
       ClearRhoSplit();
 //#endif      
@@ -672,11 +672,11 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
       {
 	int zz = 0;
       }
-      getLayersPC(&h_cl,&h_pl);
-     CUDA_WRAP_printLayerParticles(h_pl,"before 1");
-     CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host before 1",this->GetControlDomain()->p_Cntrl->GetNstep());
+//      getLayersPC(&h_cl,&h_pl);
+//     CUDA_WRAP_printLayerParticles(h_pl,"before 1");
+//     CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host before 1",this->GetControlDomain()->p_Cntrl->GetNstep());
      
-     CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
+//     CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
      if(iLayer<= 118 )
      {
 //      CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_pl->Ex,"before move");
@@ -694,9 +694,9 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
         //printf("rank %d iteration %d begins after particles \n",GetRank(),iter);
       gettimeofday(&tp2,NULL);
       p_time += (tp2.tv_sec - tp1.tv_sec)+(tp2.tv_usec - tp1.tv_usec)*1e-6;
-     CUDA_WRAP_printLayerParticles(h_pl,"after 1");
-     CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host_after_1",this->GetControlDomain()->p_Cntrl->GetNstep());
-       CUDA_WRAP_printLayerParticles(h_pl,"no");
+//     CUDA_WRAP_printLayerParticles(h_pl,"after 1");
+//     CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host_after_1",this->GetControlDomain()->p_Cntrl->GetNstep());
+//       CUDA_WRAP_printLayerParticles(h_pl,"no");
       //getLayersPC(&h_cl,&h_pl);
 #ifndef CUDA_WRAP_FFTW_ALLOWED       
       CUDA_WRAP_check_hidden_currents(this,iLayer,l_My,l_Mz,p_CellLayerC,h_cl->Jx,"Jx");
@@ -723,8 +723,8 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
      // printf("after  iterate1 %d\n",GetRank()); 
       //cuLayerPrintCentre(h_C,iLayer,this,p_CellArray);
       
-      cuLayerPrintCentre(h_P,-1002,this,p_CellLayerP,"P after Iterate");
-      cuLayerPrintCentre(h_C,-1003,this,p_CellLayerC,"C after Iterate");
+//      cuLayerPrintCentre(h_P,-1002,this,p_CellLayerP,"P after Iterate");
+//      cuLayerPrintCentre(h_C,-1003,this,p_CellLayerC,"C after Iterate");
 
       //printf("rank %d iteration %d after iterate\n ",GetRank(),iter);
        gettimeofday(&ti2,NULL);
@@ -790,13 +790,13 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
  //  printf("after  iterate %d\n",GetRank());
    //cuLayerPrintCentre(h_C,iLayer,this,p_CellArray);
    
-   cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"after  iterate %d\n");
-   gettimeofday(&ti2,NULL);
-   i_time += (ti2.tv_sec - ti1.tv_sec)+(ti2.tv_usec - ti1.tv_usec)*1e-6;
-   if(iLayer<= 118)
-   {
-      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
-   }  
+//   cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"after  iterate %d\n");
+//   gettimeofday(&ti2,NULL);
+//   i_time += (ti2.tv_sec - ti1.tv_sec)+(ti2.tv_usec - ti1.tv_usec)*1e-6;
+//   if(iLayer<= 118)
+//   {
+//      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
+//   }
 //#ifdef CUDA_WRAP_FFTW_ALLOWED     
    ExchangeFieldsSplit(iLayer);
 //#endif   
@@ -865,23 +865,23 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
    double hx = HxSplit()*part;
    double hy = Hy();
    double hz = Hz();
-   cudaLayer *d_cl,*d_pl,*h_cl,*h_pl;
+//   cudaLayer *d_cl,*d_pl,*h_cl,*h_pl;
    
    
 #ifndef CUDA_WRAP_FFTW_ALLOWED   
    getLayersPC(&h_cl,&h_pl);
 #endif   
  //  CUDA_WRAP_printLayerParticles(h_pl,"IN particle");
-   if((iLayer<= 118))  
-   {
-      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
-   }
+//   if((iLayer<= 118))
+//   {
+//      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
+//   }
    
-#ifndef CUDA_WRAP_FFTW_ALLOWED 
-   int Np = particlesPrepareAtLayer(this,p_CellLayerP,p_CellLayerC,iLayer,l_My,l_Mz,h_pl->Np);   
-#endif   
-   h_cl = (cudaLayer *)malloc(sizeof(cudaLayer));
-   h_pl = (cudaLayer *)malloc(sizeof(cudaLayer));
+//#ifndef CUDA_WRAP_FFTW_ALLOWED
+//   int Np = particlesPrepareAtLayer(this,p_CellLayerP,p_CellLayerC,iLayer,l_My,l_Mz,h_pl->Np);
+//#endif
+//   h_cl = (cudaLayer *)malloc(sizeof(cudaLayer));
+//   h_pl = (cudaLayer *)malloc(sizeof(cudaLayer));
  //  cudaMemcpy(h_cl,d_pl,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
  //  CUDA_WRAP_print_layer(d_pl,Np,"layerFormed",l_My,l_Mz);
    int nsorts = domain()->GetNsorts();
@@ -1000,18 +1000,18 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
             if (j==l_My/3 && k==l_Mz/3 && i==l_Mx/2) {
                double check1=0;
             };
-            create_h_plasma_particles(this->getLayerParticles(iLayer));
-            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,0,(double)j);  
-            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,1,(double)k);  
+//            create_h_plasma_particles(this->getLayerParticles(iLayer));
+//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,0,(double)j);
+//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,1,(double)k);
             l_Processed++;
             double weight = p->f_Weight;
             double xp  = p->f_X;
             double yp  = p->f_Y;
             double zp  = p->f_Z;
-            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,2,weight);  
-            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,3,xp);  
-            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,4,yp);  
-            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,5,zp);  
+//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,2,weight);
+//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,3,xp);
+//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,4,yp);
+//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,5,zp);
 
             double x = xp;
             double y = yp;
@@ -1028,14 +1028,14 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
             double px = p->f_Px;
             double py = p->f_Py;
             double pz = p->f_Pz;
-            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,6,px);  
-            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,7,py);  
-            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,8,pz);  
+//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,6,px);
+//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,7,py);
+//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,8,pz);
             double pxp = px;
             double pyp = py;
             double pzp = pz;
             double gammap = sqrt(1. + px*px + py*py + pz*pz);
-            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,9,gammap);  
+//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,9,gammap);
 
             Vx = px / gammap;
             maxVx = max(maxVx,fabs(Vx));
@@ -1048,9 +1048,9 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
             double Vxp = Vx;
             double Vyp = py/gammap;
             double Vzp = pz/gammap;
-            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,9,Vxp);  
-            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,10,Vyp);  
-            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,11,Vzp);  
+//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,9,Vxp);
+//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,10,Vyp);
+//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,11,Vzp);
 	    
 
             double y_est = j + yp + Vyp/(1.-Vxp)*hx/hy;
@@ -1603,10 +1603,10 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
    //   cout << "We have " << totalNe << " electrons \n";
 //   cout << "Max Vx = " << maxVx << endl;
    
-   if((iLayer<= 118)) 
-   {
-      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
-   }
+//   if((iLayer<= 118))
+//   {
+//      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
+//   }
    //printf("deposit np %d \n",np);
 #endif
    int nstep = this->domain()->p_Cntrl->GetNstep();
@@ -1693,10 +1693,10 @@ void Mesh::DepositCurrentsInCellSplit(
    ccc.f_Jz += djz;
    ccc.f_Dens += drho;
 
-   CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,111,ccc.f_Jx);
-   CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,112,ccc.f_Jy);
-   CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,113,ccc.f_Jz);
-   CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,114,ccc.f_Dens);
+//   CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,111,ccc.f_Jx);
+//   CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,112,ccc.f_Jy);
+//   CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,113,ccc.f_Jz);
+//   CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,114,ccc.f_Dens);
 /*
    ccc.f_Jx += djx*accc;
    ccc.f_Jy += djy*accc;

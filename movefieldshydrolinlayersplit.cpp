@@ -18,24 +18,24 @@ using namespace std;
 
 #include "run_control.h"
 
-#include "CUDA_WRAP/half_integer2D.h"
-#include "CUDA_WRAP/variables.h"
-#include "CUDA_WRAP/cuda_wrap_vector_list.h"
-#include "CUDA_WRAP/linearized.h"
-#include "CUDA_WRAP/cuda_wrap_control.h"
-#include "CUDA_WRAP/normalization.h"
-#include "CUDA_WRAP/fourierInit.h"
-#include "CUDA_WRAP/mult.h"
-#include "CUDA_WRAP/turn.h"
-#include "CUDA_WRAP/cuParticles.h"
-#include "CUDA_WRAP/diagnostic_print.h"
-#include "run_control.h"
-#include "CUDA_WRAP/beam_copy.h"
-#include "CUDA_WRAP/cuLayers.h"
-#include "CUDA_WRAP/paraCPUlayers.h"
+// #include "CUDA_WRAP/half_integer2D.h"
+// #include "CUDA_WRAP/variables.h"
+// #include "CUDA_WRAP/cuda_wrap_vector_list.h"
+// #include "CUDA_WRAP/linearized.h"
+// #include "CUDA_WRAP/cuda_wrap_control.h"
+// #include "CUDA_WRAP/normalization.h"
+// #include "CUDA_WRAP/fourierInit.h"
+// // #include "CUDA_WRAP/mult.h"
+// #include "CUDA_WRAP/turn.h"
+// #include "CUDA_WRAP/cuParticles.h"
+// #include "CUDA_WRAP/diagnostic_print.h"
+// #include "run_control.h"
+// #include "CUDA_WRAP/beam_copy.h"
+// #include "CUDA_WRAP/cuLayers.h"
+// #include "CUDA_WRAP/paraCPUlayers.h"
 
-#include "CUDA_WRAP/copy_hydro.h"
-#include "CUDA_WRAP/profile.h"
+// #include "CUDA_WRAP/copy_hydro.h"
+// #include "CUDA_WRAP/profile.h"
 
 #include "para.h"
 
@@ -90,17 +90,17 @@ int CUDA_WRAP_COPY_INIT(int ny,int nz)
 {
   
   
-   CUDA_WRAP_copy_all_real_vectors_to_device(ny*nz,rEx,rEy,rEz,rBx,rBy,rBz,rJx,rJy,rJz,rRhoBeam,rJxBeam,
-					           d_rEx,d_rEy,d_rEz,d_rBx,d_rBy,d_rBz,d_rJx,d_rJy,d_rJz,d_rRhoBeam,d_rJxBeam); // 16 
-   CUDA_WRAP_copy_all_vectors_to_device(ny*nz,fft_of_RhoP, fft_of_Rho, fft_of_JxP, fft_of_Jx,
-                                        fft_of_JyP,fft_of_Jy,fft_of_JzP,fft_of_Jz,
-					fft_of_Ex,fft_of_Ey,fft_of_Ez,fft_of_Bx,
-					fft_of_By,fft_of_Bz,fft_of_JxBeam,fft_of_RhoBeam,rRho,
-                                        ///////////////////////////
-                                        d_fft_of_RhoP,d_fft_of_Rho,d_fft_of_JxP,d_fft_of_Jx,  // 4
-                                        d_fft_of_JyP, d_fft_of_Jy, d_fft_of_JzP, d_fft_of_Jz,  // 8
-                                        d_fft_of_Ex,d_fft_of_Ey,d_fft_of_Ez,d_fft_of_Bx,       // 12
-                                        d_fft_of_By,d_fft_of_Bz,d_fft_of_JxBeam,d_fft_of_RhoBeam,d_rRho); // 16
+//    CUDA_WRAP_copy_all_real_vectors_to_device(ny*nz,rEx,rEy,rEz,rBx,rBy,rBz,rJx,rJy,rJz,rRhoBeam,rJxBeam,
+// 					           d_rEx,d_rEy,d_rEz,d_rBx,d_rBy,d_rBz,d_rJx,d_rJy,d_rJz,d_rRhoBeam,d_rJxBeam); // 16
+//    CUDA_WRAP_copy_all_vectors_to_device(ny*nz,fft_of_RhoP, fft_of_Rho, fft_of_JxP, fft_of_Jx,
+//                                         fft_of_JyP,fft_of_Jy,fft_of_JzP,fft_of_Jz,
+// 					fft_of_Ex,fft_of_Ey,fft_of_Ez,fft_of_Bx,
+// 					fft_of_By,fft_of_Bz,fft_of_JxBeam,fft_of_RhoBeam,rRho,
+//                                         ///////////////////////////
+//                                         d_fft_of_RhoP,d_fft_of_Rho,d_fft_of_JxP,d_fft_of_Jx,  // 4
+//                                         d_fft_of_JyP, d_fft_of_Jy, d_fft_of_JzP, d_fft_of_Jz,  // 8
+//                                         d_fft_of_Ex,d_fft_of_Ey,d_fft_of_Ez,d_fft_of_Bx,       // 12
+//                                         d_fft_of_By,d_fft_of_Bz,d_fft_of_JxBeam,d_fft_of_RhoBeam,d_rRho); // 16
    return 0;
 }
 
@@ -151,47 +151,47 @@ int CUDA_WRAP_CHECK(
 #endif    
 //    int err0 = cudaGetLastError();
     
-    details_flag = CHECK_DETAILS;
+//     details_flag = CHECK_DETAILS;
     
-    err_fft = CUDA_WRAP_verify_all_vectors_on_host(ny*nz,where,details_flag,
-                                        fft_of_RhoP,d_fft_of_RhoP, "RhoP ",   // 1
-                                        fft_of_Rho, d_fft_of_Rho, "Rho ",   // 2
-                                        fft_of_JxP, d_fft_of_JxP, "JxP ",   // 3
-                                        fft_of_Jx, d_fft_of_Jx,   "Jx  ",   // 4
-                                        fft_of_JyP,d_fft_of_JyP,  "JyP ",   // 5
-                                        fft_of_Jy, d_fft_of_Jy,   "Jy  ",   // 6
-                                        fft_of_JzP,d_fft_of_JzP,  "JzP ",   // 7
-                                        fft_of_Jz, d_fft_of_Jz,   "Jz  ",   // 8
-                                        fft_of_Ex, d_fft_of_Ex,   "Ex  ",   // 9
-                                        fft_of_Ey, d_fft_of_Ey,   "Ey  ",   // 10
-                                        fft_of_Ez,d_fft_of_Ez,    "Ez  ",   // 11    
-					fft_of_Bx, d_fft_of_Bx,   "Bx  ",    // 12
-					fft_of_By, d_fft_of_By,   "By  ",   // 13
-                                        fft_of_Bz, d_fft_of_Bz,   "Bz  ",    // 14
-                                        fft_of_JxBeam,d_fft_of_JxBeam,   "JxBeam ", // 15
-                                        fft_of_RhoBeam,d_fft_of_RhoBeam,  "RhoBeam ",// 16
-                                        fft_of_ExP,d_fft_of_ExP,  "ExP ",   // 17
-                                        fft_of_EyP,d_fft_of_EyP,  "EyP ",   // 18
-                                        fft_of_EzP,d_fft_of_EzP,  "EzP ",   // 19
-					fft_of_JxBeamP,d_fft_of_JxBeamP,"JxBeamP ", //20
-					fft_of_RhoBeamP,d_fft_of_RhoBeamP,"RhoBeamP " //21
-	                                );
+//     err_fft = CUDA_WRAP_verify_all_vectors_on_host(ny*nz,where,details_flag,
+//                                         fft_of_RhoP,d_fft_of_RhoP, "RhoP ",   // 1
+//                                         fft_of_Rho, d_fft_of_Rho, "Rho ",   // 2
+//                                         fft_of_JxP, d_fft_of_JxP, "JxP ",   // 3
+//                                         fft_of_Jx, d_fft_of_Jx,   "Jx  ",   // 4
+//                                         fft_of_JyP,d_fft_of_JyP,  "JyP ",   // 5
+//                                         fft_of_Jy, d_fft_of_Jy,   "Jy  ",   // 6
+//                                         fft_of_JzP,d_fft_of_JzP,  "JzP ",   // 7
+//                                         fft_of_Jz, d_fft_of_Jz,   "Jz  ",   // 8
+//                                         fft_of_Ex, d_fft_of_Ex,   "Ex  ",   // 9
+//                                         fft_of_Ey, d_fft_of_Ey,   "Ey  ",   // 10
+//                                         fft_of_Ez,d_fft_of_Ez,    "Ez  ",   // 11
+// 					fft_of_Bx, d_fft_of_Bx,   "Bx  ",    // 12
+// 					fft_of_By, d_fft_of_By,   "By  ",   // 13
+//                                         fft_of_Bz, d_fft_of_Bz,   "Bz  ",    // 14
+//                                         fft_of_JxBeam,d_fft_of_JxBeam,   "JxBeam ", // 15
+//                                         fft_of_RhoBeam,d_fft_of_RhoBeam,  "RhoBeam ",// 16
+//                                         fft_of_ExP,d_fft_of_ExP,  "ExP ",   // 17
+//                                         fft_of_EyP,d_fft_of_EyP,  "EyP ",   // 18
+//                                         fft_of_EzP,d_fft_of_EzP,  "EzP ",   // 19
+// 					fft_of_JxBeamP,d_fft_of_JxBeamP,"JxBeamP ", //20
+// 					fft_of_RhoBeamP,d_fft_of_RhoBeamP,"RhoBeamP " //21
+// 	                                );
 					
 //    int err1 = cudaGetLastError();
-    err = CUDA_WRAP_verify_all_vectors_on_hostReal(ny*nz,where,details_flag,
-                                        rJx,     d_rJx,       "rJx ",    // 1
-                                        rRho,    d_rRho,      "rRho ",   // 2
-                                        rJy,     d_rJy,       "rJy  ",   // 3
-                                        rJz,     d_rJz,       "rJz  ",   // 4
-                                        rEx,     d_rEx,       "rEx  ",   // 5
-                                        rEy,     d_rEy,       "rEy  ",   // 6
-                                        rEz,     d_rEz,       "rEz  ",   // 7    
-					rBx,     d_rBx,       "rBx  ",   // 8
-					rBy,     d_rBy,       "rBy  ",   // 9
-                                        rBz,     d_rBz,       "rBz  ",   // 10
-                                        rJxBeam, d_rJxBeam,   "rJxBeam ", // 11
-                                        rRhoBeam,d_rRhoBeam,  "rRhoBeam " // 12
-                                       );  
+//     err = CUDA_WRAP_verify_all_vectors_on_hostReal(ny*nz,where,details_flag,
+//                                         rJx,     d_rJx,       "rJx ",    // 1
+//                                         rRho,    d_rRho,      "rRho ",   // 2
+//                                         rJy,     d_rJy,       "rJy  ",   // 3
+//                                         rJz,     d_rJz,       "rJz  ",   // 4
+//                                         rEx,     d_rEx,       "rEx  ",   // 5
+//                                         rEy,     d_rEy,       "rEy  ",   // 6
+//                                         rEz,     d_rEz,       "rEz  ",   // 7
+// 					rBx,     d_rBx,       "rBx  ",   // 8
+// 					rBy,     d_rBy,       "rBy  ",   // 9
+//                                         rBz,     d_rBz,       "rBz  ",   // 10
+//                                         rJxBeam, d_rJxBeam,   "rJxBeam ", // 11
+//                                         rRhoBeam,d_rRhoBeam,  "rRhoBeam " // 12
+//                                        );
 //   int err2 = cudaGetLastError(); 
    err_hidden = 1.0; //CUDA_WRAP_getArraysToCompare(where,mesh,i_layer,ny,nz,p_CellArray);
    
@@ -206,20 +206,20 @@ int CUDA_WRAP_CHECK(
    return 0; 
 }
 
-void printSummary(char *where,int iLayer)
-{
-     //puts("pp1");
-     printf("%20s %d == wrong values %10.4f max delta %15.5e for value %5d fourier %10.4f ordinary %10.4f hidden %10.4f =================================\n",
-	                      where,iLayer,last_wrong,last_delta,last_max_delta_value,last_fourier,last_ordinary,last_hidden);
-     
-     //puts("pp");
-     if(last_delta > DELTA_TOLERANCE)
-     {
-       //  puts("qq");
-         printf("LAYER %d delta %e too big, EXITING\n",iLayer,last_delta); 
-         exit(0);
-     }
-}
+// void printSummary(char *where,int iLayer)
+// {
+//      //puts("pp1");
+//      printf("%20s %d == wrong values %10.4f max delta %15.5e for value %5d fourier %10.4f ordinary %10.4f hidden %10.4f =================================\n",
+// 	                      where,iLayer,last_wrong,last_delta,last_max_delta_value,last_fourier,last_ordinary,last_hidden);
+//
+//      //puts("pp");
+//      if(last_delta > DELTA_TOLERANCE)
+//      {
+//        //  puts("qq");
+//          printf("LAYER %d delta %e too big, EXITING\n",iLayer,last_delta);
+//          exit(0);
+//      }
+// }
 
 
 //--- Mesh:: ----------------------.
@@ -325,44 +325,44 @@ void Mesh::GuessFieldsHydroLinLayerSplit(int iLayer,int iSplit)
 
 //      int err04 = cudaGetLastError();
       
-      CUDA_WRAP_device_alloc(ny*nz,&d_fft_of_RhoP,&d_fft_of_Rho,&d_fft_of_JxP,&d_fft_of_Jx, // 4
-                                &d_fft_of_JyP, &d_fft_of_Jy,&d_fft_of_JzP, &d_fft_of_Jz, // 8
-                                &d_fft_of_Ex, &d_fft_of_Ey,&d_fft_of_Ez,&d_fft_of_Bx,    // 12
-                                &d_fft_of_By,&d_fft_of_Bz,&d_fft_of_JxBeam,&d_fft_of_RhoBeam,  //16
-			                                     &d_rRho,
-                                &d_fft_of_ExP, &d_fft_of_EyP,&d_fft_of_EzP,
-			        &d_fft_of_BxP, &d_fft_of_ByP,&d_fft_of_BzP,
-			        &d_fft_of_JxBeamP,&d_fft_of_RhoBeamP);
+//       CUDA_WRAP_device_alloc(ny*nz,&d_fft_of_RhoP,&d_fft_of_Rho,&d_fft_of_JxP,&d_fft_of_Jx, // 4
+//                                 &d_fft_of_JyP, &d_fft_of_Jy,&d_fft_of_JzP, &d_fft_of_Jz, // 8
+//                                 &d_fft_of_Ex, &d_fft_of_Ey,&d_fft_of_Ez,&d_fft_of_Bx,    // 12
+//                                 &d_fft_of_By,&d_fft_of_Bz,&d_fft_of_JxBeam,&d_fft_of_RhoBeam,  //16
+// 			                                     &d_rRho,
+//                                 &d_fft_of_ExP, &d_fft_of_EyP,&d_fft_of_EzP,
+// 			        &d_fft_of_BxP, &d_fft_of_ByP,&d_fft_of_BzP,
+// 			        &d_fft_of_JxBeamP,&d_fft_of_RhoBeamP);
 			     							     
 //      int err1 = cudaGetLastError();
       
-      CUDA_WRAP_device_real_alloc(ny*nz,&d_rEx,&d_rEy,&d_rEz,&d_rBx,&d_rBy,&d_rBz,&d_rJx,&d_rJy,&d_rJz,&d_rRhoBeam,&d_rJxBeam);
+//       CUDA_WRAP_device_real_alloc(ny*nz,&d_rEx,&d_rEy,&d_rEz,&d_rBx,&d_rBy,&d_rBz,&d_rJx,&d_rJy,&d_rJz,&d_rRhoBeam,&d_rJxBeam);
       
-#ifdef  CUDA_WRAP_VERIFICATION00_ALLOWED         
-       CUDA_WRAP_verify_all_vectors_on_host(ny*nz,"verification0000000000000000000000000",DETAILS,
-                                        fft_of_RhoP,d_fft_of_RhoP, "RhoP ",   // 1
-                                        fft_of_Rho, d_fft_of_Rho, "Rho ",   // 2
-                                        fft_of_JxP, d_fft_of_JxP, "JxP ",   // 3
-                                        fft_of_Jx, d_fft_of_Jx,   "Jx  ",   // 4
-                                        fft_of_JyP,d_fft_of_JxP,  "JxP ",   // 5
-                                        fft_of_Jy, d_fft_of_Jy,   "Jy  ",   // 6
-                                        fft_of_JzP,d_fft_of_JzP,  "JzP ",   // 7
-                                        fft_of_Jz, d_fft_of_Jz,   "Jz  ",   // 8
-                                        fft_of_Ex, d_fft_of_Ex,   "Ex  ",   // 9
-                                        fft_of_Ey, d_fft_of_Ey,   "Ey  ",   // 10
-                                        fft_of_Ez,d_fft_of_Ez,    "Ez  ",   // 11    
-					fft_of_Bx, d_fft_of_Bx,   "Bx  ",    // 12
-					fft_of_By, d_fft_of_By,   "By  ",   // 13
-                                        fft_of_Bz, d_fft_of_Bz,   "Bz  ",    // 14
-                                        fft_of_JxBeam,d_fft_of_JxBeam,   "JxBeam ", // 15
-                                        fft_of_RhoBeam,d_fft_of_RhoBeam,  "RhoBeam ",// 16
-                                        fft_of_ExP,d_fft_of_ExP,  "ExP ",   // 17
-                                        fft_of_EyP,d_fft_of_EyP,  "EyP ",   // 18
-                                        fft_of_EzP,d_fft_of_EzP,  "EzP ",   // 19
-					fft_of_JxBeamP,d_fft_of_JxBeamP,"JxBeamP ", //20
-					fft_of_RhoBeamP,d_fft_of_RhoBeamP,"RhoBeamP " //21					
-                                       );
-#endif       
+//#ifdef  CUDA_WRAP_VERIFICATION00_ALLOWED
+//       CUDA_WRAP_verify_all_vectors_on_host(ny*nz,"verification0000000000000000000000000",DETAILS,
+//                                        fft_of_RhoP,d_fft_of_RhoP, "RhoP ",   // 1
+//                                        fft_of_Rho, d_fft_of_Rho, "Rho ",   // 2
+//                                        fft_of_JxP, d_fft_of_JxP, "JxP ",   // 3
+//                                        fft_of_Jx, d_fft_of_Jx,   "Jx  ",   // 4
+//                                        fft_of_JyP,d_fft_of_JxP,  "JxP ",   // 5
+//                                        fft_of_Jy, d_fft_of_Jy,   "Jy  ",   // 6
+//                                        fft_of_JzP,d_fft_of_JzP,  "JzP ",   // 7
+//                                        fft_of_Jz, d_fft_of_Jz,   "Jz  ",   // 8
+//                                        fft_of_Ex, d_fft_of_Ex,   "Ex  ",   // 9
+//                                        fft_of_Ey, d_fft_of_Ey,   "Ey  ",   // 10
+//                                        fft_of_Ez,d_fft_of_Ez,    "Ez  ",   // 11
+//					fft_of_Bx, d_fft_of_Bx,   "Bx  ",    // 12
+//					fft_of_By, d_fft_of_By,   "By  ",   // 13
+//                                        fft_of_Bz, d_fft_of_Bz,   "Bz  ",    // 14
+//                                        fft_of_JxBeam,d_fft_of_JxBeam,   "JxBeam ", // 15
+//                                        fft_of_RhoBeam,d_fft_of_RhoBeam,  "RhoBeam ",// 16
+//                                        fft_of_ExP,d_fft_of_ExP,  "ExP ",   // 17
+//                                        fft_of_EyP,d_fft_of_EyP,  "EyP ",   // 18
+//                                        fft_of_EzP,d_fft_of_EzP,  "EzP ",   // 19
+//					fft_of_JxBeamP,d_fft_of_JxBeamP,"JxBeamP ", //20
+//					fft_of_RhoBeamP,d_fft_of_RhoBeamP,"RhoBeamP " //21
+//                                       );
+//#endif
        
 //       int err2 = cudaGetLastError();
 #ifndef CUDA_WRAP_FFTW_ALLOWED  
@@ -373,9 +373,9 @@ void Mesh::GuessFieldsHydroLinLayerSplit(int iLayer,int iSplit)
 #endif 
       
      // CUDA_WRAP_COPY_INIT(ny,nz);
-#ifdef COPY_BEAM_FROM_HOST
-      CUDA_WRAP_copyBeamToArray(this,l_Mx,l_My,l_Mz,p_CellArray,&d_RhoBeam3D,&d_JxBeam3D);
-#endif      
+//#ifdef COPY_BEAM_FROM_HOST
+//      CUDA_WRAP_copyBeamToArray(this,l_Mx,l_My,l_Mz,p_CellArray,&d_RhoBeam3D,&d_JxBeam3D);
+//#endif
       //CUDA_WRAP_3Dto2D(iLayer-1,l_My,l_Mz,d_JxBeam3D,d_rJxBeam);
       //CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,d_rJxBeam,"Jx0");
      
@@ -458,31 +458,31 @@ void Mesh::GuessFieldsHydroLinLayerSplit(int iLayer,int iSplit)
                                     d_fft_of_JxBeamP,d_fft_of_JyBeamP,d_fft_of_JzBeamP,d_fft_of_RhoBeamP, // 25
 			            d_rEx,d_rEy,d_rEz,d_rJx,d_rJy,d_rJz,d_rRho                		       ); // 
 */
-#ifdef CUDA_WRAP_VERIFICATION_ALLOWED
-   CUDA_WRAP_verify_all_vectors_on_host(ny*nz,"verification in the beginning",DETAILS,
-                                        fft_of_RhoP,d_fft_of_RhoP, "RhoP ",   // 1
-                                        fft_of_Rho, d_fft_of_Rho, "Rho ",   // 2
-                                        fft_of_JxP, d_fft_of_JxP, "JxP ",   // 3
-                                        fft_of_Jx, d_fft_of_Jx,   "Jx  ",   // 4
-                                        fft_of_JyP,d_fft_of_JxP,  "JxP ",   // 5
-                                        fft_of_Jy, d_fft_of_Jy,   "Jy  ",   // 6
-                                        fft_of_JzP,d_fft_of_JzP,  "JzP ",   // 7
-                                        fft_of_Jz, d_fft_of_Jz,   "Jz  ",   // 8
-                                        fft_of_Ex, d_fft_of_Ex,   "Ex  ",   // 9
-                                        fft_of_Ey, d_fft_of_Ey,   "Ey  ",   // 10
-                                        fft_of_Ez,d_fft_of_Ez,    "Ez  ",   // 11    
-					fft_of_Bx, d_fft_of_Bx,   "Bx  ",    // 12
-					fft_of_By, d_fft_of_By,   "By  ",   // 13
-                                        fft_of_Bz, d_fft_of_Bz,   "Bz  ",    // 14
-                                        fft_of_JxBeam,d_fft_of_JxBeam,   "JxBeam ", // 15
-                                        fft_of_RhoBeam,d_fft_of_RhoBeam,  "RhoBeam ",// 16
-                                        fft_of_ExP,d_fft_of_ExP,  "ExP ",   // 17
-                                        fft_of_EyP,d_fft_of_EyP,  "EyP ",   // 18
-                                        fft_of_EzP,d_fft_of_EzP,  "EzP ",   // 19
-					fft_of_JxBeamP,d_fft_of_JxBeamP,"JxBeamP ", //20
-					fft_of_RhoBeamP,d_fft_of_RhoBeamP,"RhoBeamP " //21
-				       );
-#endif
+//#ifdef CUDA_WRAP_VERIFICATION_ALLOWED
+//   CUDA_WRAP_verify_all_vectors_on_host(ny*nz,"verification in the beginning",DETAILS,
+//                                        fft_of_RhoP,d_fft_of_RhoP, "RhoP ",   // 1
+//                                        fft_of_Rho, d_fft_of_Rho, "Rho ",   // 2
+//                                        fft_of_JxP, d_fft_of_JxP, "JxP ",   // 3
+//                                        fft_of_Jx, d_fft_of_Jx,   "Jx  ",   // 4
+//                                        fft_of_JyP,d_fft_of_JxP,  "JxP ",   // 5
+//                                        fft_of_Jy, d_fft_of_Jy,   "Jy  ",   // 6
+//                                        fft_of_JzP,d_fft_of_JzP,  "JzP ",   // 7
+//                                        fft_of_Jz, d_fft_of_Jz,   "Jz  ",   // 8
+//                                        fft_of_Ex, d_fft_of_Ex,   "Ex  ",   // 9
+//                                        fft_of_Ey, d_fft_of_Ey,   "Ey  ",   // 10
+//                                        fft_of_Ez,d_fft_of_Ez,    "Ez  ",   // 11
+//					fft_of_Bx, d_fft_of_Bx,   "Bx  ",    // 12
+//					fft_of_By, d_fft_of_By,   "By  ",   // 13
+//                                        fft_of_Bz, d_fft_of_Bz,   "Bz  ",    // 14
+//                                        fft_of_JxBeam,d_fft_of_JxBeam,   "JxBeam ", // 15
+//                                        fft_of_RhoBeam,d_fft_of_RhoBeam,  "RhoBeam ",// 16
+//                                        fft_of_ExP,d_fft_of_ExP,  "ExP ",   // 17
+//                                        fft_of_EyP,d_fft_of_EyP,  "EyP ",   // 18
+//                                        fft_of_EzP,d_fft_of_EzP,  "EzP ",   // 19
+//					fft_of_JxBeamP,d_fft_of_JxBeamP,"JxBeamP ", //20
+//					fft_of_RhoBeamP,d_fft_of_RhoBeamP,"RhoBeamP " //21
+//				       );
+//#endif
 
    double sumEx, sumEy, sumEz;
    double sumBx, sumBy, sumBz;
@@ -549,17 +549,17 @@ void Mesh::GuessFieldsHydroLinLayerSplit(int iLayer,int iSplit)
    }*/
    
 
-      if((GetRank() < GetSize() - 1) && (iLayer == l_Mx -1) && (iSplit == 0))
-      {
-	 puts("calling CUDA_WRAP_setBeamFFT");
-	 CUDA_WRAP_setBeamFFT(fft_of_JxBeam,fft_of_RhoBeam,l_My*l_Mz);
-      }
+//      if((GetRank() < GetSize() - 1) && (iLayer == l_Mx -1) && (iSplit == 0))
+//      {
+//	 puts("calling CUDA_WRAP_setBeamFFT");
+//	 CUDA_WRAP_setBeamFFT(fft_of_JxBeam,fft_of_RhoBeam,l_My*l_Mz);
+//      }
       for (int n=0; n<ncomplex; n++) {
           fft_of_RhoBeamP[n] = fft_of_RhoBeam[n];
           fft_of_JxBeamP[n]  = fft_of_JxBeam[n];
-#ifdef CUDA_WRAP_LOOP_PARALLEL_DEBUG	  
-          printf("toP %5d %15.5e %15.5e %15.5e %15.5e \n ",n,fft_of_RhoBeamP[n],fft_of_RhoBeam[n],fft_of_JxBeamP[n],fft_of_JxBeam[n]);
-#endif	  
+//#ifdef CUDA_WRAP_LOOP_PARALLEL_DEBUG
+//          printf("toP %5d %15.5e %15.5e %15.5e %15.5e \n ",n,fft_of_RhoBeamP[n],fft_of_RhoBeam[n],fft_of_JxBeamP[n],fft_of_JxBeam[n]);
+//#endif
       }
       
    
@@ -633,22 +633,22 @@ void Mesh::GuessFieldsHydroLinLayerSplit(int iLayer,int iSplit)
 
 //CUDA_WRAP_copyArraysHost(l_My*l_Mz,rEx,rEy,rEz,rJx,rJy,rJz,rJxBeam,rRhoBeam,rRho,
 //			              d_rEx,d_rEy,d_rEz,d_rJx,d_rJy,d_rJz,d_rJxBeam,d_rRhoBeam,d_rRho);
-#ifdef CUDA_WRAP_CHECK_IN_OUT  
-   CUDA_WRAP_CHECK(ny,nz,"mid copy layer values",DETAILS,this,iLayer,p_CellArray);
-#endif 
-CUDA_WRAP_copyArraysDevice(l_My*l_Mz,d_rEx,d_rEy,d_rEz,d_rJx,d_rJy,d_rJz,d_rJxBeam,d_rRhoBeam,d_rRho);
+//#ifdef CUDA_WRAP_CHECK_IN_OUT
+//   CUDA_WRAP_CHECK(ny,nz,"mid copy layer values",DETAILS,this,iLayer,p_CellArray);
+//#endif
+//CUDA_WRAP_copyArraysDevice(l_My*l_Mz,d_rEx,d_rEy,d_rEz,d_rJx,d_rJy,d_rJz,d_rJxBeam,d_rRhoBeam,d_rRho);
 
 
-#ifdef CUDA_WRAP_CHECK_IN_OUT  
-   CUDA_WRAP_CHECK(ny,nz,"after copy layer values",DETAILS,this,iLayer,p_CellArray);
-#endif  
+//#ifdef CUDA_WRAP_CHECK_IN_OUT
+//   CUDA_WRAP_CHECK(ny,nz,"after copy layer values",DETAILS,this,iLayer,p_CellArray);
+//#endif
    
-   if(iLayer == 119)
-   {
-      cudaLayer *h_cl,*h_pl;
-      getLayersPC(&h_cl,&h_pl);
-      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);   
-   }   
+//   if(iLayer == 119)
+//   {
+//      cudaLayer *h_cl,*h_pl;
+//      getLayersPC(&h_cl,&h_pl);
+//      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
+//   }
    
  //  CUDA_WRAP_setCurrentsToZero(l_My,l_Mz,d_rJx,d_rJy,d_rJz);
    //CUDA_WRAP_restoreLayerCurrents(iLayer+1,l_Mx,l_My,l_Mz,d_rRho,d_rEx,d_rEy,d_rEz);
@@ -713,32 +713,32 @@ CUDA_WRAP_copyArraysDevice(l_My*l_Mz,d_rEx,d_rEy,d_rEz,d_rJx,d_rJy,d_rJz,d_rJxBe
 //   CUDA_WRAP_fourierHalfInteger2D_fromDevice(int n1,int n2,double *m,double* fres,int flagFFTW_dir1,int flagFFTW_dir2);
    struct timeval tvc1,tvc2,tv1,tv2;
    gettimeofday(&tvc1,NULL);
-   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rRhoBeam,d_rRhoBeam,d_fft_of_RhoBeam,FFTW_REDFT11,FFTW_REDFT11,iLayer);
+//   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rRhoBeam,d_rRhoBeam,d_fft_of_RhoBeam,FFTW_REDFT11,FFTW_REDFT11,iLayer);
    gettimeofday(&tvc2,NULL);
-   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rJxBeam,d_rJxBeam,d_fft_of_JxBeam,FFTW_REDFT11,FFTW_REDFT11,iLayer);
+//   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rJxBeam,d_rJxBeam,d_fft_of_JxBeam,FFTW_REDFT11,FFTW_REDFT11,iLayer);
 
-#ifdef CUDA_WRAP_FFTW_ALLOWED   
-   gettimeofday(&tv1,NULL);
-   fftw_execute(planR2R_RhoBeam);
-   fftw_execute(planR2R_JxBeam);
-   gettimeofday(&tv2,NULL);
-#endif   
-
-#ifdef CUDA_WRAP_CHECK_ALL     
-      CUDA_WRAP_CHECK(ny,nz,"after 1st fourier",DETAILS,this,iLayer,p_CellArray); 
-#endif   
+//#ifdef CUDA_WRAP_FFTW_ALLOWED
+//   gettimeofday(&tv1,NULL);
+//   fftw_execute(planR2R_RhoBeam);
+//   fftw_execute(planR2R_JxBeam);
+//   gettimeofday(&tv2,NULL);
+//#endif
+//
+//#ifdef CUDA_WRAP_CHECK_ALL
+//      CUDA_WRAP_CHECK(ny,nz,"after 1st fourier",DETAILS,this,iLayer,p_CellArray);
+//#endif
    
     
 //   //printf("FFTime fftw %e cuda %e \n",tv2.tv_sec - tv1.tv_sec + 1e-6*(tv2.tv_usec - tv1.tv_usec),tvc2.tv_sec - tvc1.tv_sec + 1e-6*(tvc2.tv_usec - tvc1.tv_usec));
 
-#ifdef CUDA_WRAP_CHECK_IN_OUT  
-   CUDA_WRAP_CHECK(ny,nz,"after copy BeamP ",DETAILS,this,iLayer,p_CellArray);
-#endif     
+//#ifdef CUDA_WRAP_CHECK_IN_OUT
+//   CUDA_WRAP_CHECK(ny,nz,"after copy BeamP ",DETAILS,this,iLayer,p_CellArray);
+//#endif
    
    
-  CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,d_fft_of_JxBeam,"beam copied");
+//  CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,d_fft_of_JxBeam,"beam copied");
 
-#ifdef CUDA_WRAP_FFTW_ALLOWED       
+//#ifdef CUDA_WRAP_FFTW_ALLOWED
    fftw_execute(planR2R_Rho);
    fftw_execute(planR2R_Ex);
    fftw_execute(planR2R_Ey);
@@ -746,29 +746,29 @@ CUDA_WRAP_copyArraysDevice(l_My*l_Mz,d_rEx,d_rEy,d_rEz,d_rJx,d_rJy,d_rJz,d_rJxBe
    fftw_execute(planR2R_Jx);
    fftw_execute(planR2R_Jy);
    fftw_execute(planR2R_Jz);
-#endif   
+//#endif
    gettimeofday(&tv[4],NULL);
    printf("before Fourier block block 3=============================================\n");
-   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rRho,d_rRho,d_fft_of_Rho,FFTW_REDFT11,FFTW_REDFT11,iLayer);
+//   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rRho,d_rRho,d_fft_of_Rho,FFTW_REDFT11,FFTW_REDFT11,iLayer);
    
    
-   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rEx,d_rEx,d_fft_of_Ex,FFTW_REDFT11,FFTW_REDFT11,iLayer);
-   
-   
-   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rEy,d_rEy,d_fft_of_Ey,FFTW_REDFT11,FFTW_RODFT11,iLayer);
-   
-   
-   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rEz,d_rEz,d_fft_of_Ez,FFTW_RODFT11,FFTW_REDFT11,iLayer);
-   
-   
-   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rJx,d_rJx,d_fft_of_Jx,FFTW_REDFT11,FFTW_REDFT11,iLayer);
-   
-   
-   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rJy,d_rJy,d_fft_of_Jy,FFTW_REDFT11,FFTW_RODFT11,iLayer);
-   
-   
-   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rEx,d_rJz,d_fft_of_Jz,FFTW_RODFT11,FFTW_REDFT11,iLayer);
-   gettimeofday(&tv[5],NULL);
+//   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rEx,d_rEx,d_fft_of_Ex,FFTW_REDFT11,FFTW_REDFT11,iLayer);
+//
+//
+//   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rEy,d_rEy,d_fft_of_Ey,FFTW_REDFT11,FFTW_RODFT11,iLayer);
+//
+//
+//   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rEz,d_rEz,d_fft_of_Ez,FFTW_RODFT11,FFTW_REDFT11,iLayer);
+//
+//
+//   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rJx,d_rJx,d_fft_of_Jx,FFTW_REDFT11,FFTW_REDFT11,iLayer);
+//
+//
+//   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rJy,d_rJy,d_fft_of_Jy,FFTW_REDFT11,FFTW_RODFT11,iLayer);
+//
+//
+//   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rEx,d_rJz,d_fft_of_Jz,FFTW_RODFT11,FFTW_REDFT11,iLayer);
+//   gettimeofday(&tv[5],NULL);
    printf("end    Fourier block block 3=============================================\n");
    
 
@@ -914,40 +914,40 @@ CUDA_WRAP_copyArraysDevice(l_My*l_Mz,d_rEx,d_rEy,d_rEz,d_rJx,d_rJy,d_rJz,d_rJxBe
 
 //   if(iLayer == 471)
 //   {
-      timeBegin(1);  
-      CUDA_WRAP_linearized_loop(ny,nz,hx,dens,Zlength,Ylength,
-                                d_fft_of_Rho,
-                                d_fft_of_RhoP,
-                                d_fft_of_JxP,
-                                d_fft_of_JyP,
-                                d_fft_of_JzP,
-                                d_fft_of_Ex,
-                                d_fft_of_Ey,
-                                d_fft_of_Ez,
-                                d_fft_of_ExP,
-                                d_fft_of_EyP,
-                                d_fft_of_EzP,
-                                d_fft_of_Jx,
-                                d_fft_of_Jy,
-                                d_fft_of_Jz,
-                                d_fft_of_Bx,
-                                d_fft_of_By,
-                                d_fft_of_Bz,
-                                d_fft_of_JxBeam,
-                                d_fft_of_RhoBeam,
-                                d_fft_of_JxBeamP,
-                                d_fft_of_RhoBeamP);
-      timeEnd(1);
+//      timeBegin(1);
+//      CUDA_WRAP_linearized_loop(ny,nz,hx,dens,Zlength,Ylength,
+//                                d_fft_of_Rho,
+//                                d_fft_of_RhoP,
+//                                d_fft_of_JxP,
+//                                d_fft_of_JyP,
+//                                d_fft_of_JzP,
+//                                d_fft_of_Ex,
+//                                d_fft_of_Ey,
+//                                d_fft_of_Ez,
+//                                d_fft_of_ExP,
+//                                d_fft_of_EyP,
+//                                d_fft_of_EzP,
+//                                d_fft_of_Jx,
+//                                d_fft_of_Jy,
+//                                d_fft_of_Jz,
+//                                d_fft_of_Bx,
+//                                d_fft_of_By,
+//                                d_fft_of_Bz,
+//                                d_fft_of_JxBeam,
+//                                d_fft_of_RhoBeam,
+//                                d_fft_of_JxBeamP,
+//                                d_fft_of_RhoBeamP);
+//      timeEnd(1);
    //   puts("out lin list");
 //   }
 
-#ifdef CUDA_WRAP_CHECK_ALL      
-   CUDA_WRAP_CHECK(ny,nz,"after lin loop",DETAILS,this,iLayer,p_CellArray);
-#endif   
-   gettimeofday(&tv[7],NULL);
+//#ifdef CUDA_WRAP_CHECK_ALL
+//   CUDA_WRAP_CHECK(ny,nz,"after lin loop",DETAILS,this,iLayer,p_CellArray);
+//#endif
+//   gettimeofday(&tv[7],NULL);
 
    //------------------------ transform to configuration space E, B ----------------------------
-#ifdef CUDA_WRAP_FFTW_ALLOWED
+//#ifdef CUDA_WRAP_FFTW_ALLOWED
    for (int n=0; n<ncomplex; n++) carray[n] = fft_of_Rho[n];
    fftw_execute(planR2Rb_Rho);
    for (int n=0; n<ncomplex; n++) carray[n] = fft_of_Ex[n];
@@ -970,34 +970,34 @@ CUDA_WRAP_copyArraysDevice(l_My*l_Mz,d_rEx,d_rEy,d_rEz,d_rJx,d_rJy,d_rJz,d_rJxBe
    fftw_execute(planR2Rb_By);
    for (int n=0; n<ncomplex; n++) carray[n] = fft_of_Bz[n];
    fftw_execute(planR2Rb_Bz);
-#endif   
-   gettimeofday(&tv[8],NULL);
+//#endif
+//   gettimeofday(&tv[8],NULL);
    
-#ifdef CUDA_WRAP_CHECK_ALL   
-   CUDA_WRAP_CHECK(ny,nz,"inverse Fourier",DETAILS,this,iLayer,p_CellArray);
-#endif
+//#ifdef CUDA_WRAP_CHECK_ALL
+//   CUDA_WRAP_CHECK(ny,nz,"inverse Fourier",DETAILS,this,iLayer,p_CellArray);
+//#endif
    //printf("inverse fourier rank %d \n",GetRank());    
      
-   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Rho,d_fft_of_Rho,d_rRho,FFTW_REDFT11,FFTW_REDFT11,iLayer); 
-   
-   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Ex,d_fft_of_Ex,d_rEx,FFTW_REDFT11,FFTW_REDFT11,iLayer);
-   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Ey,d_fft_of_Ey,d_rEy,FFTW_REDFT11,FFTW_RODFT11,iLayer);
-   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Ez,d_fft_of_Ez,d_rEz,FFTW_RODFT11,FFTW_REDFT11,iLayer);
-   
-   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Bx,d_fft_of_Bx,d_rBx,FFTW_RODFT11,FFTW_RODFT11,iLayer);
-   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_By,d_fft_of_By,d_rBy,FFTW_RODFT11,FFTW_REDFT11,iLayer);
-   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Bz,d_fft_of_Bz,d_rBz,FFTW_REDFT11,FFTW_RODFT11,iLayer);
-   
-   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Jx,d_fft_of_Jx,d_rJx,FFTW_REDFT11,FFTW_REDFT11,iLayer);
-   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Jy,d_fft_of_Jy,d_rJy,FFTW_REDFT11,FFTW_RODFT11,iLayer);
-   gettimeofday(&tv[9],NULL);
-   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Jz,d_fft_of_Jz,d_rJz,FFTW_RODFT11,FFTW_REDFT11,iLayer);
-   
-   
-#ifdef CUDA_WRAP_CHECK_ALL   
-   CUDA_WRAP_CHECK(ny,nz,"after inverse fourier",DETAILS,this,iLayer,p_CellArray);
-#endif   
-   gettimeofday(&tv[10],NULL);
+//   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Rho,d_fft_of_Rho,d_rRho,FFTW_REDFT11,FFTW_REDFT11,iLayer);
+//
+//   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Ex,d_fft_of_Ex,d_rEx,FFTW_REDFT11,FFTW_REDFT11,iLayer);
+//   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Ey,d_fft_of_Ey,d_rEy,FFTW_REDFT11,FFTW_RODFT11,iLayer);
+//   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Ez,d_fft_of_Ez,d_rEz,FFTW_RODFT11,FFTW_REDFT11,iLayer);
+//
+//   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Bx,d_fft_of_Bx,d_rBx,FFTW_RODFT11,FFTW_RODFT11,iLayer);
+//   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_By,d_fft_of_By,d_rBy,FFTW_RODFT11,FFTW_REDFT11,iLayer);
+//   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Bz,d_fft_of_Bz,d_rBz,FFTW_REDFT11,FFTW_RODFT11,iLayer);
+//
+//   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Jx,d_fft_of_Jx,d_rJx,FFTW_REDFT11,FFTW_REDFT11,iLayer);
+//   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Jy,d_fft_of_Jy,d_rJy,FFTW_REDFT11,FFTW_RODFT11,iLayer);
+//   gettimeofday(&tv[9],NULL);
+//   CUDA_WRAP_fourierHalfInteger2D(ny,nz,fft_of_Jz,d_fft_of_Jz,d_rJz,FFTW_RODFT11,FFTW_REDFT11,iLayer);
+//
+//
+//#ifdef CUDA_WRAP_CHECK_ALL
+//   CUDA_WRAP_CHECK(ny,nz,"after inverse fourier",DETAILS,this,iLayer,p_CellArray);
+//#endif
+//   gettimeofday(&tv[10],NULL);
 
    sumEx = sumEy = sumEz = 0.;
    sumBx = sumBy = sumBz = 0.;
@@ -1071,9 +1071,9 @@ CUDA_WRAP_copyArraysDevice(l_My*l_Mz,d_rEx,d_rEy,d_rEz,d_rJx,d_rJy,d_rJz,d_rJxBe
 #endif
 //#endif
    
-   timeBegin(4);
-   normalizationLoop(ny,nz,d_rEx,d_rEy,d_rEz,d_rBx,d_rBy,d_rBz,d_rJx,d_rJy,d_rJz,d_rRho);
-   timeEnd(4);
+//   timeBegin(4);
+//   normalizationLoop(ny,nz,d_rEx,d_rEy,d_rEz,d_rBx,d_rBy,d_rBz,d_rJx,d_rJy,d_rJz,d_rRho);
+//   timeEnd(4);
    
  //  CUDA_WRAP_copyLayerCurrents(iLayer,l_Mx,l_My,l_Mz,d_rRho,d_rEx,d_rEy,d_rEz);
  //  CUDA_WRAP_copyLayerFields(iLayer,l_Mx,l_My,l_Mz,d_rEx,d_rEy,d_rEz,d_rBx,d_rBy,d_rBz);
@@ -1082,19 +1082,19 @@ CUDA_WRAP_copyArraysDevice(l_My*l_Mz,d_rEx,d_rEy,d_rEz,d_rJx,d_rJy,d_rJz,d_rJxBe
 #ifdef CUDA_WRAP_CHECK_ALL   
    CUDA_WRAP_CHECK(ny,nz,"after norm loop",DETAILS,this,iLayer,p_CellArray);
 #endif 
-   if(iLayer == 119) CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,d_rEx,"R");
-    cudaLayer *h_cl,*h_pl;
-   getLayersPC(&h_cl,&h_pl);
-   if(iLayer == 119)
-   {
-      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);   
-   }   
-   CUDA_WRAP_storeArraysToDevice(l_My,l_Mz,d_rEx,d_rEy,d_rEz,d_rBx,d_rBy,d_rBz,d_rJx,d_rJy,d_rJz,d_rRho);
-  
-   if(iLayer == 119)
-   {
-      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);   
-   }
+//   if(iLayer == 119) CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,d_rEx,"R");
+//    cudaLayer *h_cl,*h_pl;
+//   getLayersPC(&h_cl,&h_pl);
+//   if(iLayer == 119)
+//   {
+//      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
+//   }
+//   CUDA_WRAP_storeArraysToDevice(l_My,l_Mz,d_rEx,d_rEy,d_rEz,d_rBx,d_rBy,d_rBz,d_rJx,d_rJy,d_rJz,d_rRho);
+//
+//   if(iLayer == 119)
+//   {
+//      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
+//   }
 
 
 //   cout << "Guess: maxEx =" << maxEx <<"maxEy =" << maxEy <<"maxEz =" << maxEz << endl;
@@ -1152,7 +1152,7 @@ CUDA_WRAP_copyArraysDevice(l_My*l_Mz,d_rEx,d_rEy,d_rEz,d_rJx,d_rJy,d_rJz,d_rJxBe
  //  CUDA_WRAP_output_host_matrix(l_My,l_Mz,"EY",iLayer,rEy);
    
 //#ifdef CUDA_WRAP_CHECK_IN_OUT   
-   CUDA_WRAP_CHECK(ny,nz,"end",DETAILS,this,iLayer,p_CellArray);
+//   CUDA_WRAP_CHECK(ny,nz,"end",DETAILS,this,iLayer,p_CellArray);
 //#endif
       for (int n=0; n<ncomplex; n++) {
           //fft_of_RhoBeamP[n] = fft_of_RhoBeam[n];
@@ -1241,11 +1241,11 @@ double Mesh::IterateFieldsHydroLinLayerSplit(int iLayer,int iSplit,int N_iter)
    double maxJx, maxJy, maxJz, difJx, difJy, difJz;
    maxJx = maxJy = maxJz = difJx = difJy = difJz = 1e-15;
    
-#ifdef CUDA_WRAP_CHECK_ALL      
-   CUDA_WRAP_CHECK(l_My,l_Mz,"Iterate before copy",DETAILS,this,iLayer,p_CellArray);
-#endif      
+//#ifdef CUDA_WRAP_CHECK_ALL
+//   CUDA_WRAP_CHECK(l_My,l_Mz,"Iterate before copy",DETAILS,this,iLayer,p_CellArray);
+//#endif
    
-#ifdef CUDA_WRAP_FFTW_ALLOWED   
+//#ifdef CUDA_WRAP_FFTW_ALLOWED
    i = iLayer;
    if (i == 154) {
       double check;
@@ -1308,18 +1308,18 @@ double Mesh::IterateFieldsHydroLinLayerSplit(int iLayer,int iSplit,int N_iter)
          }
       }
    }
-#endif   
+//#endif
 //   CUDA_WRAP_copyArraysHost(l_My*l_Mz,rEx,rEy,rEz,rJx,rJy,rJz,rJxBeam,rRhoBeam,rRho,
 //			              d_rEx,d_rEy,d_rEz,d_rJx,d_rJy,d_rJz,d_rJxBeam,d_rRhoBeam,d_rRho);
-#ifdef CUDA_WRAP_CHECK_ALL      
-   CUDA_WRAP_CHECK(l_My,l_Mz,"Iterate mid copy",DETAILS,this,iLayer,p_CellArray);
-#endif 
+//#ifdef CUDA_WRAP_CHECK_ALL
+//   CUDA_WRAP_CHECK(l_My,l_Mz,"Iterate mid copy",DETAILS,this,iLayer,p_CellArray);
+//#endif
    
-#ifndef CUDA_WRAP_FFTW_ALLOWED   
-   CUDA_WRAP_copyArraysDeviceIterate(l_My,l_Mz,d_rJx,d_rJy,d_rJz,d_rJxBeam,d_rRhoBeam,d_rRho); 
-#endif   
+//#ifndef CUDA_WRAP_FFTW_ALLOWED
+//   CUDA_WRAP_copyArraysDeviceIterate(l_My,l_Mz,d_rJx,d_rJy,d_rJz,d_rJxBeam,d_rRhoBeam,d_rRho);
+//#endif
    
-   CUDA_DEBUG_printDdevice_matrixCentre(l_My,l_Mz,d_rJx,"a copy");
+//   CUDA_DEBUG_printDdevice_matrixCentre(l_My,l_Mz,d_rJx,"a copy");
 //    CUDA_DEBUG_printDdevice_matrixCentre(l_My,l_Mz,d_rJy,"a copy");
 //    CUDA_DEBUG_printDdevice_matrixCentre(l_My,l_Mz,d_rJz,"a copy");
 //    CUDA_DEBUG_printDdevice_matrixCentre(l_My,l_Mz,d_rJxBeam,"a copy");
@@ -1340,18 +1340,18 @@ double Mesh::IterateFieldsHydroLinLayerSplit(int iLayer,int iSplit,int N_iter)
       double check = 0.;
    };
 
-   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rJx,d_rJx,d_fft_of_Jx,FFTW_REDFT11,FFTW_REDFT11,iLayer);
-   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rJy,d_rJy,d_fft_of_Jy,FFTW_REDFT11,FFTW_RODFT11,iLayer);
-   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rEx,d_rJz,d_fft_of_Jz,FFTW_RODFT11,FFTW_REDFT11,iLayer);
+//   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rJx,d_rJx,d_fft_of_Jx,FFTW_REDFT11,FFTW_REDFT11,iLayer);
+//   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rJy,d_rJy,d_fft_of_Jy,FFTW_REDFT11,FFTW_RODFT11,iLayer);
+//   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,rEx,d_rJz,d_fft_of_Jz,FFTW_RODFT11,FFTW_REDFT11,iLayer);
 
-#ifdef CUDA_WRAP_FFTW_ALLOWED   
+//#ifdef CUDA_WRAP_FFTW_ALLOWED
    fftw_execute(planR2R_Jx);
    fftw_execute(planR2R_Jy);
    fftw_execute(planR2R_Jz);
-#endif   
-#ifdef CUDA_WRAP_CHECK_ALL      
-   CUDA_WRAP_CHECK(l_My,l_Mz,"Iterate after first fourier",DETAILS,this,iLayer,p_CellArray);
-#endif      
+//#endif
+//#ifdef CUDA_WRAP_CHECK_ALL
+//   CUDA_WRAP_CHECK(l_My,l_Mz,"Iterate after first fourier",DETAILS,this,iLayer,p_CellArray);
+//#endif
 
    //------------------------ linearized E, B ----------------------------
    sumEx = sumEy = sumEz = 0.;
@@ -1375,7 +1375,7 @@ double Mesh::IterateFieldsHydroLinLayerSplit(int iLayer,int iSplit,int N_iter)
    CUDA_WRAP_CHECK(l_My,l_Mz,"Iterate before lin loop",DETAILS,this,iLayer,p_CellArray);
 #endif      
 
-#ifdef CUDA_WRAP_FFTW_ALLOWED      
+//#ifdef CUDA_WRAP_FFTW_ALLOWED
    for (k=0; k<nz; k++)
    {
       for (j=0; j<ny; j++)
@@ -1480,35 +1480,35 @@ double Mesh::IterateFieldsHydroLinLayerSplit(int iLayer,int iSplit,int N_iter)
 
       }
    }
-#endif
+//#endif
 
-   CUDA_WRAP_linearizedIterateloop(l_My,l_Mz,hx,dens,Zlength,Ylength,
-                              d_fft_of_Rho,
-                              d_fft_of_RhoP,
-                              d_fft_of_JxP,
-                              d_fft_of_JyP,
-                              d_fft_of_JzP,
-                              d_fft_of_Ex,
-                              d_fft_of_Ey,
-                              d_fft_of_Ez,
-                              d_fft_of_EyP,
-                              d_fft_of_EzP,
-                              d_fft_of_Jx,
-                              d_fft_of_Jy,
-                              d_fft_of_Jz,
-                              d_fft_of_Bx,
-                              d_fft_of_By,
-                              d_fft_of_Bz,
-                              d_fft_of_JxBeam,
-                              d_fft_of_RhoBeam,
-                              d_fft_of_JxBeamP,
-                              d_fft_of_RhoBeamP);
-#ifdef CUDA_WRAP_CHECK_ALL      
-   CUDA_WRAP_CHECK(l_My,l_Mz,"Iterate after lin loop",DETAILS,this,iLayer,p_CellArray);
-#endif      
+//   CUDA_WRAP_linearizedIterateloop(l_My,l_Mz,hx,dens,Zlength,Ylength,
+//                              d_fft_of_Rho,
+//                              d_fft_of_RhoP,
+//                              d_fft_of_JxP,
+//                              d_fft_of_JyP,
+//                              d_fft_of_JzP,
+//                              d_fft_of_Ex,
+//                              d_fft_of_Ey,
+//                              d_fft_of_Ez,
+//                              d_fft_of_EyP,
+//                              d_fft_of_EzP,
+//                              d_fft_of_Jx,
+//                              d_fft_of_Jy,
+//                              d_fft_of_Jz,
+//                              d_fft_of_Bx,
+//                              d_fft_of_By,
+//                              d_fft_of_Bz,
+//                              d_fft_of_JxBeam,
+//                              d_fft_of_RhoBeam,
+//                              d_fft_of_JxBeamP,
+//                              d_fft_of_RhoBeamP);
+//#ifdef CUDA_WRAP_CHECK_ALL
+//   CUDA_WRAP_CHECK(l_My,l_Mz,"Iterate after lin loop",DETAILS,this,iLayer,p_CellArray);
+//#endif
    
 
-   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,fft_of_Rho,d_fft_of_Rho,d_rRho,FFTW_REDFT11,FFTW_REDFT11,iLayer); 
+/*//    CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,fft_of_Rho,d_fft_of_Rho,d_rRho,FFTW_REDFT11,FFTW_REDFT11,iLayer);
    
    CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,fft_of_Ex,d_fft_of_Ex,d_rEx,FFTW_REDFT11,FFTW_REDFT11,iLayer);
    CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,fft_of_Ey,d_fft_of_Ey,d_rEy,FFTW_REDFT11,FFTW_RODFT11,iLayer);
@@ -1516,7 +1516,7 @@ double Mesh::IterateFieldsHydroLinLayerSplit(int iLayer,int iSplit,int N_iter)
    
    CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,fft_of_Bx,d_fft_of_Bx,d_rBx,FFTW_RODFT11,FFTW_RODFT11,iLayer);
    CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,fft_of_By,d_fft_of_By,d_rBy,FFTW_RODFT11,FFTW_REDFT11,iLayer);
-   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,fft_of_Bz,d_fft_of_Bz,d_rBz,FFTW_REDFT11,FFTW_RODFT11,iLayer);   
+   CUDA_WRAP_fourierHalfInteger2D(l_My,l_Mz,fft_of_Bz,d_fft_of_Bz,d_rBz,FFTW_REDFT11,FFTW_RODFT11,iLayer);  */
    
    //------------------------ transform to configuration space E, B ----------------------------
 #ifdef CUDA_WRAP_FFTW_ALLOWED
@@ -1610,12 +1610,12 @@ double Mesh::IterateFieldsHydroLinLayerSplit(int iLayer,int iSplit,int N_iter)
    {
      int z = 0;  
    }
-   normalizationIterateLoop(l_My,l_Mz,d_rRho,d_rEx,d_rEy,d_rEz,d_rBx,d_rBy,d_rBz);
-#ifdef CUDA_WRAP_CHECK_ALL      
-   CUDA_WRAP_CHECK(l_My,l_Mz,"Iterate after norm loop",DETAILS,this,iLayer,p_CellArray);
-#endif      
+//    normalizationIterateLoop(l_My,l_Mz,d_rRho,d_rEx,d_rEy,d_rEz,d_rBx,d_rBy,d_rBz);
+// #ifdef CUDA_WRAP_CHECK_ALL
+//    CUDA_WRAP_CHECK(l_My,l_Mz,"Iterate after norm loop",DETAILS,this,iLayer,p_CellArray);
+// #endif
    
-   CUDA_WRAP_storeArraysToDeviceC(l_My,l_Mz,d_rEx,d_rEy,d_rEz,d_rBx,d_rBy,d_rBz,d_rRho);
+//    CUDA_WRAP_storeArraysToDeviceC(l_My,l_Mz,d_rEx,d_rEy,d_rEz,d_rBx,d_rBy,d_rBz,d_rRho);
 //   cout << "Iterate: maxEx =" << maxEx <<"maxEy =" << maxEy <<"maxEz =" << maxEz << endl;
 
    if (maxEx > 1e-5 || maxEy > 1e-5 || maxEz > 1e-5 || maxBx > 1e-5 || maxBy > 1e-5 || maxBz > 1e-5) {
