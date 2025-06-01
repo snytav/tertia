@@ -1,14 +1,14 @@
 #ifndef CUDA_DEBUG_DIAGNOSTIC_PRINT_H
 #define CUDA_DEBUG_DIAGNOSTIC_PRINT_H
 
-#include <cublas_v2.h>
-#include <cuda.h>
-#include "cutil.h"
+//#include <cublas_v2.h>
+//#include <cuda.h>
+//#include "cutil.h"
 //include <cublas.h>
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-#include <driver_types.h>
+//#include <driver_types.h>
 #include <sys/time.h>
 
 #include "1d_batch.h"

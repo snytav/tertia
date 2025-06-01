@@ -7,15 +7,15 @@
 #define PARTICLE_NUMBER_TAG 13135
 
 
-#include "CUDA_WRAP/cuCell.h"
+// #include "CUDA_WRAP/cuCell.h"
 
 int SendBeamParticles(int *Np);
 int SendBeamParticlesUp(int *Np);
 int SendBeamParticlesDown(int *Np);
 
-int SendLayer(cudaLayer *d_l,int Ny,int Nz,int Np);
-
-int ReceiveLayer(cudaLayer *h_l,int Ny,int Nz,int Np);
+// int SendLayer(cudaLayer *d_l,int Ny,int Nz,int Np);
+//
+// int ReceiveLayer(cudaLayer *h_l,int Ny,int Nz,int Np);
 
 int ParallelInit(int argc,char *argv[]);
 

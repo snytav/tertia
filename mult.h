@@ -1,14 +1,14 @@
 #ifndef CUDA_WRAP_MULT_H
 #define CUDA_WRAP_MULT_H
 
-#include <cublas_v2.h>
-#include <cuda.h>
-#include "cutil.h"
+//#include <cublas_v2.h>
+//#include <cuda.h>
+//#include "cutil.h"
 //include <cublas.h>
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-#include <driver_types.h>
+//#include <driver_types.h>
 #include <sys/time.h>
 
 #include "diagnostic_print.h"
