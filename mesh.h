@@ -84,7 +84,7 @@ public:
    Particle* UnHook(Particle* p, Cell &c);
    
    Domain *GetControlDomain(){return domain();}
-   int ControlPoint(char *where){return 0;}
+   int ControlPoint(char *where);//{return 0;}
 
    double Hx(void)
    {

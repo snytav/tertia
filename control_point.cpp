@@ -1,8 +1,9 @@
 #include "mesh.h"
 
 
-int ControlPoint(Mesh *M,char *where)
+int Mesh::ControlPoint(char *where)
 {
+/*	
     int j,k,nstep  = M->GetControlDomain()->GetCntrl()->GetNstep();
     char fname[100];
     FILE *f;
@@ -107,6 +108,6 @@ int ControlPoint(Mesh *M,char *where)
       }
    }
    fclose(f);
-
+*/
     return 0;
 }
