@@ -17,6 +17,8 @@
 // #include "CUDA_WRAP/diagnostic_print.h"
 // #include "CUDA_WRAP/cuParticles.h"
 // #include "CUDA_WRAP/cuDiagnose.h"
+#include "control_point.h"
+
 
 #include "para.h"
 
@@ -687,6 +689,7 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 //         cuLayerPrintCentre(h_C,-41,this,p_CellLayerC,"C before  MoveParticlesLayerSplit");
 
       MoveParticlesLayerSplit(iLayer, iSplit,iFullStep, part);
+
 
 //         cuLayerPrintCentre(h_P,-42,this,p_CellLayerP,"P after MoveParticlesLayerSplit");
 //         cuLayerPrintCentre(h_C,-43,this,p_CellLayerC,"C after MoveParticlesLayerSplit");
