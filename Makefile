@@ -10,7 +10,7 @@ obj =  mesh.o movepart.o movefields.o movieframe.o \
 		step.o synchrotron.o \
 		vlpl3d.o \
 		namelist.o buffers.o  para.o\
-		half_integer1D.o labels.o
+		half_integer1D.o labels.o control_point.o
 
 
 

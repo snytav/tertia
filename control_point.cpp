@@ -1,4 +1,6 @@
+#include "cell3d.h"
 #include "mesh.h"
+
 
 
 int Mesh::ControlPoint(char *where)
