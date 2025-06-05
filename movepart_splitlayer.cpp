@@ -1599,8 +1599,11 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
             if (j==l_My/3 && k==l_Mz/3 && i==l_Mx/2) {
                double check1=0;
             };
+            int q1 = 0;
          }
+         int q2 = 0;
       }
+      int q3 = 0;
    }
    long totalNe = domain()->GetSpecie(0)->GetNp();
    //   cout << "We have " << totalNe << " electrons \n";

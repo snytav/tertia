@@ -7,6 +7,7 @@ int Mesh::ControlPoint(char *where)
 {
 	
     int j,k,nstep  = GetControlDomain()->GetCntrl()->GetNstep();
+     int n = 0;
     char fname[100];
     FILE *f;
     int l_Mz = GetMz(),
@@ -48,7 +49,7 @@ int Mesh::ControlPoint(char *where)
          Cell &pmp = p_CellLayerP[nmp];
          Cell &ppm = p_CellLayerP[npm];
          double djx = 0., djy = 0., djz = 0.;
-         int n = 0;
+
 
          p = pcc.p_Particles;
 
@@ -103,8 +104,13 @@ int Mesh::ControlPoint(char *where)
                     px,
                     py,
                     pz);
+            p = p_next;
          }
+
+         int q1 = 0;
+
       }
+      int q2 = 0;
    }
    fclose(f);
 
