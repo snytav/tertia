@@ -689,7 +689,7 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 //         cuLayerPrintCentre(h_C,-41,this,p_CellLayerC,"C before  MoveParticlesLayerSplit");
 
       MoveParticlesLayerSplit(iLayer, iSplit,iFullStep, part);
-      ControlPoint("qq");
+      ControlPoint("MoveParticlesLayerSplit");
 
 //         cuLayerPrintCentre(h_P,-42,this,p_CellLayerP,"P after MoveParticlesLayerSplit");
 //         cuLayerPrintCentre(h_C,-43,this,p_CellLayerC,"C after MoveParticlesLayerSplit");

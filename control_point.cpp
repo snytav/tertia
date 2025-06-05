@@ -5,16 +5,13 @@
 
 int Mesh::ControlPoint(char *where)
 {
-/*	
-    int j,k,nstep  = M->GetControlDomain()->GetCntrl()->GetNstep();
+	
+    int j,k,nstep  = GetControlDomain()->GetCntrl()->GetNstep();
     char fname[100];
     FILE *f;
-    int l_Mz = M->GetMz(),
-        l_My = M->GetMy(),
-        l_Mx = M->GetMx();
-
-    Cell *p_CelLayerP = M->get_p_CellLayerP();
-
+    int l_Mz = GetMz(),
+        l_My = GetMy(),
+        l_Mx = GetMx();
 
 
     sprintf(fname,"particles_%s_%010d.dat",where,nstep);
@@ -29,7 +26,7 @@ int Mesh::ControlPoint(char *where)
 
 //          i=iLayer;
 //          int ip = i+1;
-         long ncc = M->GetNyz(j,  k);
+         long ncc = GetNyz(j,  k);
 
          long npc = ncc + 1;
          long ncp = ncc + l_sizeY;
@@ -110,6 +107,6 @@ int Mesh::ControlPoint(char *where)
       }
    }
    fclose(f);
-*/
+
     return 0;
 }
