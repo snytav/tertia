@@ -1,4 +1,9 @@
-int CUDA_WRAP_printBeamDensity3D(Mesh *p_M,int step,char *where)
+#include "cell3d.h"
+#include "mesh.h"
+
+
+
+int printBeamDensity3D(Mesh *p_M,char *where)
 {
 #ifdef CUDA_WRAP_BEAM_3D_DENSITY_PRINT
     char fname[100];
@@ -31,7 +36,7 @@ int CUDA_WRAP_printBeamDensity3D(Mesh *p_M,int step,char *where)
    return 0;
 }
 
-int CUDA_WRAP_printBeamParticles(Mesh *p_M,int step,char *where)
+int printBeamParticles(Mesh *p_M,char *where)
 {
 #ifdef CUDA_WRAP_BEAM_PARTICLES_PRINT
     char fname[100];
