@@ -8,16 +8,18 @@ int Mesh::ControlPoint(char *where)
 	
     int j,k,nstep  = GetControlDomain()->GetCntrl()->GetNstep();
      int n = 0;
-    char fname[100];
-    FILE *f;
+    char fname[100],field_name[100];
+    FILE *f,*f_field;
     int l_Mz = GetMz(),
         l_My = GetMy(),
         l_Mx = GetMx();
 
 
     sprintf(fname,"particles_%s_%010d.dat",where,nstep);
+    sprintf(field_name,"fields_%s_%010d.dat",where,nstep);
 
     if ((f = fopen(fname,"wt")) == NULL) return 1;
+    if ((f_field = fopen(field_name,"wt")) == NULL) return 1;
 
 
     for (k=0; k<l_Mz; k++)
@@ -49,6 +51,20 @@ int Mesh::ControlPoint(char *where)
          Cell &pmp = p_CellLayerP[nmp];
          Cell &ppm = p_CellLayerP[npm];
          double djx = 0., djy = 0., djz = 0.;
+
+         fprintf(f_field,"j %10d k %10d Ex %25.15e Ey %25.15e Ez %25.15e Bx %25.15e By %25.15e Bz %25.15e  Jx %25.15e Jy %25.15e Jz %25.15e \n",
+                          j,k,
+                          pcc.f_Ex,
+                          pcc.f_Ey,
+                          pcc.f_Ez,
+                          pcc.f_Bx,
+                          pcc.f_By,
+                          pcc.f_Bz,
+                          pcc.f_Jx,
+                          pcc.f_Jy,
+                          pcc.f_Jz);
+
+
 
 
          p = pcc.p_Particles;
@@ -112,6 +128,7 @@ int Mesh::ControlPoint(char *where)
       }
       int q2 = 0;
    }
+   fclose(f_field);
    fclose(f);
 
     return 0;
