@@ -5,14 +5,16 @@
 
 int printBeamDensity3D(Mesh *p_M,char *where)
 {
-#ifdef CUDA_WRAP_BEAM_3D_DENSITY_PRINT
+// #ifdef CUDA_WRAP_BEAM_3D_DENSITY_PRINT
     char fname[100];
     FILE *f;
     long Mx,My,Mz,dMx,dMy,dMz;
 
     p_M->GetSizes(Mx,My,Mz,dMx,dMy,dMz);
 
-    sprintf(fname,"beam_%s_%03d_rank%03d.dat",where,step,GetRank());
+    int nstep = p_M->GetControlDomain()->GetCntrl()->GetNstep();
+
+    sprintf(fname,"beam_%s_%03d.dat",where,nstep);
 
     f = fopen(fname,"wt");
 
@@ -31,21 +33,23 @@ int printBeamDensity3D(Mesh *p_M,char *where)
       }
     }
     fclose(f);
-#endif
+// #endif
 
    return 0;
 }
 
 int printBeamParticles(Mesh *p_M,char *where)
 {
-#ifdef CUDA_WRAP_BEAM_PARTICLES_PRINT
+// #ifdef CUDA_WRAP_BEAM_PARTICLES_PRINT
     char fname[100];
     FILE *f;
     long Mx,My,Mz,dMx,dMy,dMz;
 
+    int nstep = p_M->GetControlDomain()->GetCntrl()->GetNstep();
+
     p_M->GetSizes(Mx,My,Mz,dMx,dMy,dMz);
 
-    sprintf(fname,"beamParticles_%s_%03d_rank%03d.dat",where,step,GetRank());
+    sprintf(fname,"beamParticles_%s_%03d.dat",where,nstep);
 
     f = fopen(fname,"wt");
 
@@ -73,7 +77,7 @@ int printBeamParticles(Mesh *p_M,char *where)
       }
     }
     fclose(f);
-#endif
+// #endif
 
 
    return 0;
