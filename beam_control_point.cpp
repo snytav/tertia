@@ -14,7 +14,7 @@ int printBeamDensity3D(Mesh *p_M,char *where)
 
     int nstep = p_M->GetControlDomain()->GetCntrl()->GetNstep();
 
-    sprintf(fname,"beam_%s_%03d.dat",where,nstep);
+    sprintf(fname,"beam_%s_%010d.dat",where,nstep);
 
     f = fopen(fname,"wt");
 
@@ -49,7 +49,7 @@ int printBeamParticles(Mesh *p_M,char *where)
 
     p_M->GetSizes(Mx,My,Mz,dMx,dMy,dMz);
 
-    sprintf(fname,"beamParticles_%s_%03d.dat",where,nstep);
+    sprintf(fname,"beamParticles_%s_%010d.dat",where,nstep);
 
     f = fopen(fname,"wt");
 
