@@ -2,8 +2,8 @@
 
 #include "mesh.h"
 
-int plasmaControlPoint(Mesh *M,Cell *p_CellLayerP,char *where);
+int plasmaControlPoint(Mesh *M,Cell *p_CellLayerP,const char *where);
 
-ControlPoint(Mesh *M,char *where);
+int ControlPoint(Mesh *M,const char *where);
 
 #endif

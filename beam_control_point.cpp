@@ -3,7 +3,7 @@
 
 
 
-int printBeamDensity3D(Mesh *p_M,char *where)
+int printBeamDensity3D(Mesh *p_M,const char *where)
 {
 // #ifdef CUDA_WRAP_BEAM_3D_DENSITY_PRINT
     char fname[100];
@@ -52,7 +52,7 @@ int printBeamDensity3D(Mesh *p_M,char *where)
    return 0;
 }
 
-int printBeamParticles(Mesh *p_M,char *where)
+int printBeamParticles(Mesh *p_M,const char *where)
 {
 // #ifdef CUDA_WRAP_BEAM_PARTICLES_PRINT
     char fname[100];

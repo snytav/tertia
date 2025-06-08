@@ -691,7 +691,8 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
       MoveParticlesLayerSplit(iLayer, iSplit,iFullStep, part);
       printBeamDensity3D(this,"MoveParticlesLayerSplit");
       printBeamParticles(this,"MoveParticlesLayerSplit");
-      plasmaControlPoint(this,p_CellLayerP,"MoveParticlesLayerSplit_Player");
+      string where = "MoveParticlesLayerSplit_Player";
+      plasmaControlPoint(this,p_CellLayerP,where.c_str());
 
 //         cuLayerPrintCentre(h_P,-42,this,p_CellLayerP,"P after MoveParticlesLayerSplit");
 //         cuLayerPrintCentre(h_C,-43,this,p_CellLayerC,"C after MoveParticlesLayerSplit");

@@ -338,6 +338,9 @@ public:
    int SaveCadrMovie2(FILE* fmovie);
    int Save_Movie_Frame_H5(int ichunk);
 
+   Cell * Get_p_CellLayerP(){return p_CellLayerP;}
+   Cell * Get_p_CellLayerC(){return p_CellLayerC;}
+
    long Save(int isave);
    long Load(int isave);
    int SaveFieldSequential(double* fdata, hid_t file, char* SetName);

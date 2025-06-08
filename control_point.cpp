@@ -1,9 +1,10 @@
 #include "cell3d.h"
 #include "mesh.h"
+#include "beam_control_point.h"
 
 
 
-int plasmaControlPoint(Mesh *M,Cell *p_CellLayerP,char *where)
+int plasmaControlPoint(Mesh *M,Cell *p_CellLayerP,const char *where)
 {
 	
     int j,k,nstep  = M->GetControlDomain()->GetCntrl()->GetNstep();
@@ -140,10 +141,16 @@ int plasmaControlPoint(Mesh *M,Cell *p_CellLayerP,char *where)
 }
 
 
-ControlPoint(Mesh *M,char *where)
+int ControlPoint(Mesh *M,const char *where)
 {
    printBeamDensity3D(M,where);
    printBeamParticles(M,where);
-   plasmaControlPoint(M,p_CellLayerP,"MoveParticlesLayerSplit_Player");
+   string name = where;
+   name = name + "_Player";
+
+   Cell * p_CellLayerP = M->Get_p_CellLayerP();
+
+   plasmaControlPoint(M,p_CellLayerP,name.c_str());
+
 
 }
