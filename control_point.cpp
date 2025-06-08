@@ -3,7 +3,7 @@
 
 
 
-int ControlPoint(Mesh *M,Cell *p_CellLayerP,char *where)
+int plasmaControlPoint(Mesh *M,Cell *p_CellLayerP,char *where)
 {
 	
     int j,k,nstep  = M->GetControlDomain()->GetCntrl()->GetNstep();
@@ -137,4 +137,13 @@ int ControlPoint(Mesh *M,Cell *p_CellLayerP,char *where)
    fclose(f);
 
     return 0;
+}
+
+
+ControlPoint(Mesh *M,char *where)
+{
+   printBeamDensity3D(M,where);
+   printBeamParticles(M,where);
+   plasmaControlPoint(M,p_CellLayerP,"MoveParticlesLayerSplit_Player");
+
 }
