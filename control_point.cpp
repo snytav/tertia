@@ -3,16 +3,17 @@
 
 
 
-int Mesh::ControlPoint(char *where)
+int ControlPoint(Mesh *M,Cell *p_CellLayerP,char *where)
 {
 	
-    int j,k,nstep  = GetControlDomain()->GetCntrl()->GetNstep();
+    int j,k,nstep  = M->GetControlDomain()->GetCntrl()->GetNstep();
      int n = 0;
     char fname[100],field_name[100];
     FILE *f,*f_field;
-    int l_Mz = GetMz(),
-        l_My = GetMy(),
-        l_Mx = GetMx();
+    int l_Mz = M->GetMz(),
+        l_My = M->GetMy(),
+        l_Mx = M->GetMx();
+   int l_Processed;
 
 
     sprintf(fname,"particles_%s_%010d.dat",where,nstep);
@@ -29,16 +30,16 @@ int Mesh::ControlPoint(char *where)
 
 //          i=iLayer;
 //          int ip = i+1;
-         long ncc = GetNyz(j,  k);
+         long ncc = M->GetNyz(j,  k);
 
          long npc = ncc + 1;
-         long ncp = ncc + l_sizeY;
+         long ncp = ncc + l_My;
          long npp = ncp + 1;
          long nmc = ncc - 1;
-         long ncm = ncc - l_sizeY;
+         long ncm = ncc - l_My;
          long nmm = ncm - 1;
          long nmp = ncp - 1;
-         long npm = npc - l_sizeY;
+         long npm = npc - l_My;
 
          Particle *p = NULL;
          Cell &pcc = p_CellLayerP[ncc];
@@ -54,25 +55,26 @@ int Mesh::ControlPoint(char *where)
 
          fprintf(f_field,"j %10d k %10d Ex %25.15e Ey %25.15e Ez %25.15e Bx %25.15e By %25.15e Bz %25.15e  Jx %25.15e Jy %25.15e Jz %25.15e \n",
                           j,k,
-                          pcc.f_Ex,
-                          pcc.f_Ey,
-                          pcc.f_Ez,
-                          pcc.f_Bx,
-                          pcc.f_By,
-                          pcc.f_Bz,
-                          pcc.f_Jx,
-                          pcc.f_Jy,
-                          pcc.f_Jz);
+                          pcc.GetEx(),
+                          pcc.GetEy(),
+                          pcc.GetEz(),
+                          pcc.GetBx(),
+                          pcc.GetBy(),
+                          pcc.GetBz(),
+                          pcc.GetJx(),
+                          pcc.GetJy(),
+                          pcc.GetEz()
+                 );
 
 
 
 
-         p = pcc.p_Particles;
+         p = pcc.GetParticles();   //p_Particles;
 
          if (p==NULL)
             continue;
 
-         p_PrevPart = NULL;
+         Particle *p_PrevPart = NULL;
          int n_loc = 0;
          while(p)
          {
@@ -104,9 +106,9 @@ int Mesh::ControlPoint(char *where)
 
             if (xp<0||xp>1 || yp<0||yp>1 || zp<0||zp>1)
             {
-               domain()->out_Flog << "Wrong MoveParticles: x="
+               M->GetControlDomain()->out_Flog << "Wrong MoveParticles: x="
                   << xp << " y=" << yp << " z=" << zp << "\n";
-               domain()->out_Flog.flush();
+               M->GetControlDomain()->out_Flog.flush();
                exit(-212);
             }
 

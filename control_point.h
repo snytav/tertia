@@ -1,5 +1,7 @@
 #ifndef CONTROL_POINT_H
 
-int ControlPoint(Mesh *M,char *where);
+#include "mesh.h"
+
+int ControlPoint(Mesh *M,Cell *p_CellLayerP,char *where);
 
 #endif
