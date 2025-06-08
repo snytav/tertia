@@ -22,9 +22,9 @@ int Mesh::ControlPoint(char *where)
     if ((f_field = fopen(field_name,"wt")) == NULL) return 1;
 
 
-    for (k=0; k<l_Mz; k++)
+    for (k=0; k< l_Mz; k++)
    {
-      for (j=0; j<l_My; j++)
+      for (j=0; j< l_My; j++)
       {
 
 //          i=iLayer;
@@ -73,6 +73,7 @@ int Mesh::ControlPoint(char *where)
             continue;
 
          p_PrevPart = NULL;
+         int n_loc = 0;
          while(p)
          {
             Particle *p_next = p->p_Next;
@@ -112,7 +113,9 @@ int Mesh::ControlPoint(char *where)
             double px = p->f_Px;
             double py = p->f_Py;
             double pz = p->f_Pz;
-            fprintf(f, "%10d %25.15e %25.15e %25.15e %25.15e %25.15e %25.15e",
+            fprintf(f, "j %10d k %10d n_loc %05d n %10d %25.15e %25.15e %25.15e %25.15e %25.15e %25.15e\n",
+                    j,k,
+                    n_loc++,
                     n++,
                     x,
                     y,
