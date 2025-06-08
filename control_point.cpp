@@ -131,7 +131,7 @@ int Mesh::ControlPoint(char *where)
       }
       int q2 = 0;
    }
-   fclose(f_field);
+   fclose(f_field); ///
    fclose(f);
 
     return 0;
