@@ -15,6 +15,7 @@
 #include "para.h"
 
 #include "run_control.h"
+#include "control_point.h"
 
 int beamPrepareFirstCall = 1;
 int Np = 0;
@@ -59,7 +60,9 @@ int Domain::Step(void)
 //   CUDA_WRAP_printBeamParticles(p_M,p_Cntrl->l_Nstep,"AfterMove");
    puts("BEFORE BEAM");
 //#ifdef CUDA_WRAP_COMPUTE_BEAM_ON_HOST
-//   p_M->MoveBeamParticles();
+  ControlPoint(p_M,"b_MoveBeamParticles");
+  p_M->MoveBeamParticles();
+  ControlPoint(p_M,"a_MoveBeamParticles");
 //   puts("AFTER BEAM");
 //#endif
 
