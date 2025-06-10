@@ -155,7 +155,7 @@ int ControlPoint(Mesh *M,const char *where)
    name = where;
    name = name + "_Сlayer";
 
-   Cell * p_CellLayerС = M->Get_p_CellLayerС();
+   Cell * p_CellLayerС = M->Get_p_CellLayerC();
 
    plasmaControlPoint(M,p_CellLayerС,name.c_str());
 
