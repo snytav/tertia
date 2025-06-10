@@ -8,6 +8,7 @@
 #include "vlpl3d.h"
 
 #include "para.h"
+#include "control_point.h"
 //#include "CUDA_WRAP/plasma_particles.h"
 
 //TODO
@@ -92,6 +93,7 @@ infile = "v.ini";
 
 
 //printf("PARA init rank %d l_Mx %d \n",GetRank(),l_Mx);
+ControlPoint(domain->GetMesh(),"domain->Run");
 
 #ifdef NO_X_ACCESS
     domain->Run();
