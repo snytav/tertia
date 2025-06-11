@@ -9,7 +9,7 @@ obj =  mesh.o movepart.o movefields.o movieframe.o \
 		particles.o partition.o plasma.o pulse.o \
 		step.o synchrotron.o \
 		vlpl3d.o \
-		namelist.o buffers.o  para.o\
+		namelist.o buffers.o  para.o write_value.o  \
 		half_integer1D.o labels.o control_point.o beam_control_point.o
 
 

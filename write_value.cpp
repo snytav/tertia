@@ -1,9 +1,11 @@
 #define PLASMA_VALUES_NUMBER 200
 #define MAX_PLASMA_PARTICLES 50000
 
+#include <stdlib.h>
+
 double *h_plasma_values;
 
-int CUDA_WRAP_write_plasma_value(int i,int num_attr,int n,double t)
+int CUDA_WRAP_write_plasma_value(int i,int j,int Ny,int num_attr,int n,double t)
 {
 	static int first = 1;
     int cell_number = i*Ny + j;
