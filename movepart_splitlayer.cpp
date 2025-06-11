@@ -7,6 +7,7 @@
 #include "vlpl3d.h"
 #include <sys/time.h>
 #include "run_control.h"
+#include "write_value.h"
 
 // #include "CUDA_WRAP/cuBeam.h"
 // #include "CUDA_WRAP/cuLayers.h"
@@ -1008,7 +1009,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
                double check1=0;
             };
 //            create_h_plasma_particles(this->getLayerParticles(iLayer));
-//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,0,(double)j);
+           CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,0,(double)j);
 //            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,1,(double)k);
             l_Processed++;
             double weight = p->f_Weight;
