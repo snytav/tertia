@@ -1010,16 +1010,16 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
             };
 //            create_h_plasma_particles(this->getLayerParticles(iLayer));
            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,0,(double)j);
-//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,1,(double)k);
+           CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,1,(double)k);
             l_Processed++;
             double weight = p->f_Weight;
             double xp  = p->f_X;
             double yp  = p->f_Y;
             double zp  = p->f_Z;
-//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,2,weight);
-//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,3,xp);
-//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,4,yp);
-//            CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,5,zp);
+           CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,2,weight);
+           CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,3,xp);
+           CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,4,yp);
+           CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,5,zp);
 
             double x = xp;
             double y = yp;
