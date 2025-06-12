@@ -1303,13 +1303,13 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
             by = 0.5*(byp+bym);
             bz = 0.5*(bzp+bzm);
 	    
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,38,ex);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,39,ey);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,40,ez);
-//
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,22,bx);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,23,by);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,24,bz);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,38,ex);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,39,ey);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,40,ez);
+
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,22,bx);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,23,by);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,24,bz);
 	    
             double ex1 = ex;
             double ey1 = ey;
@@ -1332,9 +1332,9 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
             ex *= q2m*hx/2.;
             ey *= q2m*hx/2.;
             ez *= q2m*hx/2.;
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,41,ex);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,42,ey);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,43,ez);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,41,ex);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,42,ey);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,43,ez);
 /*
             px += 2*ex;
             py += 2*ey;
