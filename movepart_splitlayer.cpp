@@ -1445,13 +1445,13 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
 	    
             double dy = Vy*hx/hy;
             double dz = Vz*hx/hz;
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,67,dy);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,68,dz);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,67,dy);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,68,dz);
 
 	    dy = dy/(1.-Vx);
             dz = dz/(1.-Vx);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,69,dy);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,70,dz);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,69,dy);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,70,dz);
 
             double partdx = 0.;
             double step = 1.;
@@ -1466,14 +1466,14 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
 
             int j_jump = j;
             int k_jump = k;
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,71,(double)j_jump);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,72,(double)k_jump);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,71,(double)j_jump);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,72,(double)k_jump);
 	    
             xtmp = 0;
             ytmp = yp;
             ztmp = zp;
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,73,ytmp);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,74,ztmp);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,73,ytmp);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,74,ztmp);
 	    
             if (fabs(dy)>1. || fabs(dz)>1.) {
                if (fabs(dy) > fabs(dz)) {
@@ -1482,13 +1482,13 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
                   step = partdx = fabs(dz);
                };
             }
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,75,step);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,75,step);
             
 
             if (partdx < 1.) {
                partdx = step = 1.;
             }
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,76,partdx);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,76,partdx);
             
 
             while (partdx>0.) {
