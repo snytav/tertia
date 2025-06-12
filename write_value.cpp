@@ -1,6 +1,9 @@
 #include "write_value.h"
 
 #include <stdlib.h>
+#include<stdio.h>
+
+
 
 double *h_plasma_values;
 
@@ -19,4 +22,22 @@ int CUDA_WRAP_write_plasma_value(int i,int num_attr,int n,double t)
 
 
 	return 0;
+}
+
+
+int CUDA_WRAP_save_all_plasma_values(Mesh *m)
+{
+    FILE *f;
+    char fname[100];
+    int nstep  = m->GetControlDomain()->GetCntrl()->GetNstep();
+
+
+    sprintf(fname,"plasma_values_%010d.bin",nstep);
+
+
+    if((f = fopen(fname,"wb")) == NULL) return 1;
+
+    fwrite(h_plasma_values,sizeof(double),PLASMA_VALUES_NUMBER*MAX_PLASMA_PARTICLES,f);
+
+    return 0;
 }
