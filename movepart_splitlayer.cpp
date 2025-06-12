@@ -1391,9 +1391,9 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
             px += ex/(1.-Vx) + px_new;
             py += ey/(1.-Vx) + py_new;
             pz += ez/(1.-Vx) + pz_new;
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,53,px);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,54,py);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,55,pz);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,53,px);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,54,py);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,55,pz);
 /*
             px += ex + px_new;
             py += ey + py_new;
