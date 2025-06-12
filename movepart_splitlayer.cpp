@@ -1438,10 +1438,10 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
             djy *= 1./(1.-Vx);
             djz *= 1./(1.-Vx);
             drho *= 1./(1.-Vx);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,63,djx);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,64,djy);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,65,djz);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,66,drho);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,63,djx);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,64,djy);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,65,djz);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,66,drho);
 	    
             double dy = Vy*hx/hy;
             double dz = Vz*hx/hz;
