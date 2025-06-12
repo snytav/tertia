@@ -1195,7 +1195,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
 	    
 
             eyp = pcc.f_Ey;
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,19,eyp);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,19,eyp);
 //            eyp = apcc*pcc.f_Ey + appc*ppc.f_Ey + apcp*pcp.f_Ey + appp*ppp.f_Ey;
 
             ezp = pcc.f_Ez;
