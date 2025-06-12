@@ -1500,22 +1500,22 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
                   partdx = 0.;
                }
                xtmp = 0.;
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,77,partdx);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,78,part_step);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,77,partdx);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,78,part_step);
 	       
 
                ytmp += dy*part_step + j_jump;
                ztmp += dz*part_step + k_jump;
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,79,ytmp);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,80,ztmp);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,79,ytmp);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,80,ztmp);
 	       
 
                while (ytmp > l_My) ytmp -= l_My;
                while (ytmp < 0) ytmp += l_My;
                while (ztmp > l_Mz) ztmp -= l_Mz;
                while (ztmp < 0) ztmp += l_Mz;
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,81,ytmp);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,82,ztmp);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,81,ytmp);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,82,ztmp);
 					 
 
                int j_jump = ytmp;
@@ -1525,17 +1525,17 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
                if (ytmp < 0. || ytmp > 1. || ztmp < 0. || ztmp > 1.) {
                   double checkpoint21 = 0.;
                };
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,83,ytmp);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,84,ztmp);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,83,ytmp);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,84,ztmp);
                xtmp = 0;
 
                int itmp = iLayer;
                int jtmp = j_jump;
                int ktmp = k_jump;
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,85,(double)j_jump);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,86,(double)k_jump);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,94,ytmp);
-//	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,95,ztmp);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,85,(double)j_jump);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,86,(double)k_jump);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,94,ytmp);
+	    CUDA_WRAP_write_plasma_value(np,PLASMA_VALUES_NUMBER,95,ztmp);
 	    
                int ntmp = GetN(itmp,jtmp,ktmp);
 
