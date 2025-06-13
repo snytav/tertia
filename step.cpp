@@ -15,6 +15,7 @@
 #include "para.h"
 
 #include "run_control.h"
+#include "control_point.h"
 
 int beamPrepareFirstCall = 1;
 int Np = 0;
