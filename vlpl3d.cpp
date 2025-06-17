@@ -9,6 +9,7 @@
 
 #include "para.h"
 #include "control_point.h"
+#include "write_value.h"
 //#include "CUDA_WRAP/plasma_particles.h"
 
 //TODO
@@ -92,6 +93,7 @@ infile = "v.ini";
 #endif
 
 
+CUDA_WRAP_write_plasma_value(0,0,13.0);
 //printf("PARA init rank %d l_Mx %d \n",GetRank(),l_Mx);
 ControlPoint(domain->GetMesh(),"domain->Run");
 

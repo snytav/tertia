@@ -691,8 +691,8 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 
       ControlPoint(this,"_before_MoveParticlesLayerSplit");
       MoveParticlesLayerSplit(iLayer, iSplit,iFullStep, part);
-      CUDA_WRAP_save_all_plasma_values(this);
-      ControlPoint(this,"MoveParticlesLayerSplit");
+//       CUDA_WRAP_save_all_plasma_values(this,"_before_MoveParticlesLayerSplit");
+      ControlPoint(this,"after_MoveParticlesLayerSplit");
 //       printBeamDensity3D(this,"MoveParticlesLayerSplit");
 //       printBeamParticles(this,"MoveParticlesLayerSplit");
 //       string where = "MoveParticlesLayerSplit_Player";

@@ -1,6 +1,7 @@
 #include "cell3d.h"
 #include "mesh.h"
 #include "beam_control_point.h"
+#include "write_value.h"
 
 
 
@@ -158,6 +159,8 @@ int ControlPoint(Mesh *M,const char *where)
    Cell * p_CellLayerС = M->Get_p_CellLayerC();
 
    plasmaControlPoint(M,p_CellLayerС,name.c_str());
+
+   CUDA_WRAP_save_all_plasma_values(M,where);
 
 
 }
