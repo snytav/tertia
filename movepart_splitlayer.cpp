@@ -1045,7 +1045,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
             double pyp = py;
             double pzp = pz;
             double gammap = sqrt(1. + px*px + py*py + pz*pz);
-           CUDA_WRAP_write_plasma_value(np,9,gammap);
+           CUDA_WRAP_write_plasma_value(np,115,gammap);
 
             Vx = px / gammap;
             maxVx = max(maxVx,fabs(Vx));

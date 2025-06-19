@@ -49,9 +49,9 @@ int CUDA_WRAP_save_all_plasma_values(Mesh *m,const char *where)
 
     fclose(f);
 
-    for(int n = 0;n < PLASMA_VALUES_NUMBER;n++)
+    for(int i = 0;i < MAX_PLASMA_PARTICLES;i++)
     {
-        for(int i = 0;i < MAX_PLASMA_PARTICLES;i++)
+        for(int n = 0;n < PLASMA_VALUES_NUMBER;n++)
         {
             fprintf(f_txt,"%10d %10d %25.15e \n",i,n,h_plasma_values[i*PLASMA_VALUES_NUMBER + n]);
         }
