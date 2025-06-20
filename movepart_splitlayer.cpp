@@ -912,7 +912,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
       dens += spec->Density(xco,yco,zco)*spec->GetQ2M();
    };
 
-/*
+
    for (k=0; k<l_Mz; k++)
    {
       for (j=0; j<l_My; j++)
@@ -936,8 +936,8 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
       }
    }
 
-   return;
-*/
+//   return;
+
 #endif
 
 
@@ -1092,8 +1092,8 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
 
             j_est = j;
             k_est = k;
-*/
-/*
+
+
             long nccc = npcc - 1;
             long ncpc = nppc - 1;
             long nccp = npcp - 1;
@@ -1136,7 +1136,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
             double acpc = myp*mzc;
             double accp = myc*mzp;
             double acpp = myp*mzp;
-/*
+
             double ys = yp - 0.5;
             double zs = zp - 0.5;  
 
@@ -1176,7 +1176,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
             double acmc = mym*mzc;
             double accm = myc*mzm;
             double acmm = mym*mzm;
-*/
+
             double ex, ey, ez;
             double exp, eyp, ezp;
             double bxp, byp, bzp;
@@ -1189,7 +1189,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
 
             exp = pcc.f_Ex;
 	    CUDA_WRAP_write_plasma_value(np,18,exp);
-//            exp = apcc*pcc.f_Ex + appc*ppc.f_Ex + apcp*pcp.f_Ex + appp*ppp.f_Ex;
+           exp = apcc*pcc.f_Ex + appc*ppc.f_Ex + apcp*pcp.f_Ex + appp*ppp.f_Ex;
 	    if(np == 14253)
 	    {
 	       int i14 = 0;
@@ -1198,30 +1198,30 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
 
             eyp = pcc.f_Ey;
 	    CUDA_WRAP_write_plasma_value(np,19,eyp);
-//            eyp = apcc*pcc.f_Ey + appc*ppc.f_Ey + apcp*pcp.f_Ey + appp*ppp.f_Ey;
+           eyp = apcc*pcc.f_Ey + appc*ppc.f_Ey + apcp*pcp.f_Ey + appp*ppp.f_Ey;
 
             ezp = pcc.f_Ez;
 	    CUDA_WRAP_write_plasma_value(np,20,ezp);
-//            ezp = apcc*pcc.f_Ez + appc*ppc.f_Ez + apcp*pcp.f_Ez + appp*ppp.f_Ez;
+           ezp = apcc*pcc.f_Ez + appc*ppc.f_Ez + apcp*pcp.f_Ez + appp*ppp.f_Ez;
 
             bxp = pcc.f_Bx;
-//            bxp = apcc*pcc.f_Bx + appc*ppc.f_Bx + apcp*pcp.f_Bx + appp*ppp.f_Bx;
-//            CUDA_WRAP_write_plasma_value(np,21,bxp);
-//            CUDA_WRAP_write_plasma_value(np,22,accc);
-//            CUDA_WRAP_write_plasma_value(np,23,appc);
-//            CUDA_WRAP_write_plasma_value(np,24,apcp);
-//            CUDA_WRAP_write_plasma_value(np,25,appp);
-//            CUDA_WRAP_write_plasma_value(np,26,pcc.f_Bx);
-//            CUDA_WRAP_write_plasma_value(np,27,ppc.f_Bx);
-//            CUDA_WRAP_write_plasma_value(np,28,pcp.f_Bx);
-//            CUDA_WRAP_write_plasma_value(np,29,ppp.f_Bx);
+           bxp = apcc*pcc.f_Bx + appc*ppc.f_Bx + apcp*pcp.f_Bx + appp*ppp.f_Bx;
+           CUDA_WRAP_write_plasma_value(np,21,bxp);
+           CUDA_WRAP_write_plasma_value(np,22,accc);
+           CUDA_WRAP_write_plasma_value(np,23,appc);
+           CUDA_WRAP_write_plasma_value(np,24,apcp);
+           CUDA_WRAP_write_plasma_value(np,25,appp);
+           CUDA_WRAP_write_plasma_value(np,26,pcc.f_Bx);
+           CUDA_WRAP_write_plasma_value(np,27,ppc.f_Bx);
+           CUDA_WRAP_write_plasma_value(np,28,pcp.f_Bx);
+           CUDA_WRAP_write_plasma_value(np,29,ppp.f_Bx);
             byp = pcc.f_By;
 	    CUDA_WRAP_write_plasma_value(np,30,byp);
-//            byp = apcc*pcc.f_By + appc*ppc.f_By + apcp*pcp.f_By + appp*ppp.f_By;
+           byp = apcc*pcc.f_By + appc*ppc.f_By + apcp*pcp.f_By + appp*ppp.f_By;
 
             bzp = pcc.f_Bz;
 	    CUDA_WRAP_write_plasma_value(np,31,bzp);
-//            bzp = apcc*pcc.f_Bz + appc*ppc.f_Bz + apcp*pcp.f_Bz + appp*ppp.f_Bz;
+           bzp = apcc*pcc.f_Bz + appc*ppc.f_Bz + apcp*pcp.f_Bz + appp*ppp.f_Bz;
 
             exm = ccc.f_Ex;
 	    CUDA_WRAP_write_plasma_value(np,32,exm);
