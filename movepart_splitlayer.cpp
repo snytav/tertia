@@ -1143,34 +1143,34 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
             double yms = ym - 0.5;
             double zms = zm - 0.5;  
 
-            double ayc = 1.-ys*ys;
+            ayc = 1.-ys*ys;
             double aym = 0.5*(-ys + ys*ys);
-            double ayp = 0.5*( ys + ys*ys);
-            double azc = 1.-zs*zs;
+            ayp = 0.5*( ys + ys*ys);
+            azc = 1.-zs*zs;
             double azm = 0.5*(-zs + zs*zs);
-            double azp = 0.5*( zs + zs*zs);
+            azp = 0.5*( zs + zs*zs);
 
-            double myc = 1.-yms*yms;
+            myc = 1.-yms*yms;
             double mym = 0.5*(-yms + yms*yms);
-            double myp = 0.5*( yms + yms*yms);
-            double mzc = 1.-zms*zms;
+            myp = 0.5*( yms + yms*yms);
+            mzc = 1.-zms*zms;
             double mzm = 0.5*(-zms + zms*zms);
-            double mzp = 0.5*( zms + zms*zms);
+            mzp = 0.5*( zms + zms*zms);
 
-            double apcc = ayc*azc;
-            double appc = ayp*azc;
-            double apcp = ayc*azp;
-            double appp = ayp*azp;
+            apcc = ayc*azc;
+            appc = ayp*azc;
+            apcp = ayc*azp;
+            appp = ayp*azp;
             double appm = ayp*azm;
             double apmp = aym*azp;
             double apmc = aym*azc;
             double apcm = ayc*azm;
             double apmm = aym*azm;
 
-            double accc = myc*mzc;
-            double acpc = myp*mzc;
-            double accp = myc*mzp;
-            double acpp = myp*mzp;
+            accc = myc*mzc;
+            acpc = myp*mzc;
+            accp = myc*mzp;
+            acpp = myp*mzp;
             double acpm = myp*mzm;
             double acmp = mym*mzp;
             double acmc = mym*mzc;
