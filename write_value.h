@@ -9,6 +9,6 @@
 
 int CUDA_WRAP_write_plasma_value(int i,int n,double t);
 
-int CUDA_WRAP_save_all_plasma_values(Mesh *m,const char *where);
+int CUDA_WRAP_save_all_plasma_values(Mesh *m,int iSplit,const char *where);
 
 #endif

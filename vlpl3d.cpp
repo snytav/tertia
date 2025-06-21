@@ -95,7 +95,7 @@ infile = "v.ini";
 
 CUDA_WRAP_write_plasma_value(0,0,13.0);
 //printf("PARA init rank %d l_Mx %d \n",GetRank(),l_Mx);
-ControlPoint(domain->GetMesh(),"domain->Run");
+ControlPoint(domain->GetMesh(),0,"domain->Run");
 
 #ifdef NO_X_ACCESS
     domain->Run();

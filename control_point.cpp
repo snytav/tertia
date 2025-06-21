@@ -5,7 +5,7 @@
 
 
 
-int plasmaControlPoint(Mesh *M,Cell *p_CellLayerP,const char *where)
+int plasmaControlPoint(Mesh *M,int iSplit,Cell *p_CellLayerP,const char *where)
 {
 	
     int j,k,nstep  = M->GetControlDomain()->GetCntrl()->GetNstep();
@@ -18,8 +18,8 @@ int plasmaControlPoint(Mesh *M,Cell *p_CellLayerP,const char *where)
    int l_Processed;
 
 
-    sprintf(fname,"particles_%s_%010d.dat",where,nstep);
-    sprintf(field_name,"fields_%s_%010d.dat",where,nstep);
+    sprintf(fname,"particles_%s_%010d_%05d.dat",where,nstep,iSplit);
+    sprintf(field_name,"fields_%s_%010d_%05d.dat",where,nstep,iSplit);
 
     if ((f = fopen(fname,"wt")) == NULL) return 1;
     if ((f_field = fopen(field_name,"wt")) == NULL) return 1;
@@ -142,7 +142,7 @@ int plasmaControlPoint(Mesh *M,Cell *p_CellLayerP,const char *where)
 }
 
 
-int ControlPoint(Mesh *M,const char *where)
+int ControlPoint(Mesh *M,int iSplit,const char *where)
 {
    printBeamDensity3D(M,where);
    printBeamParticles(M,where);
@@ -151,16 +151,16 @@ int ControlPoint(Mesh *M,const char *where)
 
    Cell * p_CellLayerP = M->Get_p_CellLayerP();
 
-   plasmaControlPoint(M,p_CellLayerP,name.c_str());
+   plasmaControlPoint(M,iSplit,p_CellLayerP,name.c_str());
 
    name = where;
    name = name + "_Сlayer";
 
    Cell * p_CellLayerС = M->Get_p_CellLayerC();
 
-   plasmaControlPoint(M,p_CellLayerС,name.c_str());
+   plasmaControlPoint(M,iSplit,p_CellLayerС,name.c_str());
 
-   CUDA_WRAP_save_all_plasma_values(M,where);
+   CUDA_WRAP_save_all_plasma_values(M,iSplit,where);
 
 
 }
