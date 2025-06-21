@@ -37,7 +37,7 @@ int CUDA_WRAP_save_all_plasma_values(Mesh *m,int iSplit,const char *where)
 
     if((f = fopen(fname,"wb")) == NULL) return 1;
 
-    sprintf(fname,"plasma_values_%s_%010d.dat",where,nstep);
+    sprintf(fname,"plasma_values_%s_%010d_%05d.dat",where,nstep,iSplit);
 
 
     if((f_txt = fopen(fname,"wt")) == NULL) return 1;
