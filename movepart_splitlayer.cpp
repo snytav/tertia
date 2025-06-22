@@ -691,6 +691,8 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 
       ControlPoint(this,iSplit,"_before_MoveParticlesLayerSplit");
       MoveParticlesLayerSplit(iLayer, iSplit,iFullStep, part);
+      int nstep = this->GetControlDomain()->GetCntrl()->GetNstep();
+      printf("step %10d iSplit %3d +++++++++++++++++++++++++++++++++++++\n",nstep,iSplit);
 //       CUDA_WRAP_save_all_plasma_values(this,"_before_MoveParticlesLayerSplit");
       ControlPoint(this,iSplit,"after_MoveParticlesLayerSplit");
 //       printBeamDensity3D(this,"MoveParticlesLayerSplit");
@@ -752,7 +754,7 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 #endif    
    
    part = 1.;
-   iFullStep = 1;
+   iFullStep = 0;
    
 #ifndef CUDA_WRAP_FFTW_ALLOWED    
    CUDA_WRAP_printLayerParticles(h_pl,"before 2");

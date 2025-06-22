@@ -245,8 +245,8 @@ int Domain::GroupSteps(void)
   //	out_Flog << "Domain::GroupStep point is past of Diagnose() \n";
 
   for (i=0; i<(p_Cntrl->i_Ndiagnose); i++) {
-    printf("before step %d itmp %d rank %d p_Cntrl->i_Ndiagnose %d iters %d \n",i,itmp,GetRank(),p_Cntrl->i_Ndiagnose,
-                                                                        p_Cntrl->i_Ndiagnose+GetRank());
+    printf("step ---------------------%d \n",i);//itmp,GetRank(),p_Cntrl->i_Ndiagnose);
+//                                                                         p_Cntrl->i_Ndiagnose+GetRank());
     itmp = Step();
     
    // if (itmp) return itmp;
