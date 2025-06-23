@@ -200,61 +200,23 @@ int Domain::Step(void)
 int Domain::GroupSteps(void)
 {
    printf("begin group step %d \n",GetRank());
-  /*
-#ifdef V_MPI
-  if (p_BufferMPI) {
-    out_Flog << "detaching Buffer of size " << l_BufferMPIsize << endl;
-    out_Flog.flush();
-    MPI_Buffer_detach(p_BufferMPI, &l_BufferMPIsize);
-    delete[] p_BufferMPI;
-  }
-  l_BufferMPIsize = 100000000 + MPI_BSEND_OVERHEAD;
-  p_BufferMPI = new char[l_BufferMPIsize];
-  out_Flog << "attaching Buffer of size " << l_BufferMPIsize << endl;
-  out_Flog.flush();
-  int err_buf_att = MPI_Buffer_attach(p_BufferMPI, l_BufferMPIsize);
-  switch (err_buf_att)
-    {
-    case MPI_SUCCESS:
-      out_Flog << "Buffer of size " << l_BufferMPIsize << " attached" << endl;
-      out_Flog.flush();
-      // No error
-      break;
-    case MPI_ERR_BUFFER:
-      cerr << "Invalid buffer pointer. Usually a null buffer where one is not valid. err_buf_att = " << err_buf_att << endl;
-      exit(1);
-      break;
-    case MPI_ERR_INTERN:
-      cerr << "An internal error has been detected. This is fatal. Please send a bug report to mpi-bugs@mcs.anl.gov. err_buf_att = " << err_buf_att << endl;
-      exit(1);
-      break;
-    default:
-      cerr << "Unknown error. Domain::BroadCast MPI_Buffer_attach. err_buf_att = " << err_buf_att << endl;				
-      exit(1);
-    };
-#endif
- */
+
   int itmp = 0;
   int i = 0;
 
-  //	out_Flog << "Domain::GroupStep point is before of Diagnose() \n";
+
   printf("be dia %d \n",GetRank());
   
- // Diagnose();
-
-  //	out_Flog << "Domain::GroupStep point is past of Diagnose() \n";
 
   for (i=0; i<(p_Cntrl->i_Ndiagnose); i++) {
-    printf("step ---------------------%d \n",i);//itmp,GetRank(),p_Cntrl->i_Ndiagnose);
-//                                                                         p_Cntrl->i_Ndiagnose+GetRank());
+    printf("step ---------------------%d \n",i);
     itmp = Step();
     
-   // if (itmp) return itmp;
+
     printf("after step %d itmp %d Ndia %d rank %d \n",i,itmp,p_Cntrl->i_Ndiagnose,GetRank());
   }
   printf("rank %d end group step %d \n",GetRank(),itmp);
-//  ParallelExit();
-  
+
   
   
   return 1;
@@ -281,8 +243,8 @@ int Domain::Run(void)
       printf("before Group %d Xlen %d \n",GetRank(),f_Xlength);
 #endif      
        
-      if (itmp = GroupSteps())
-	break;
+      itmp = GroupSteps();
+
       printf("in RUN %d itmp %d \n",GetRank(),itmp); 
       
     }
