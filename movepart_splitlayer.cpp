@@ -28,18 +28,9 @@ static double maxVx;
 //---Mesh:: ---------------------------------------------->
 void Mesh::MoveAllSplitLayers() 
 {
-//    cudaLayer *h_P,*h_C,*h_left,*h_right;
     struct timeval tv1,tv2,tvl1,tvl2,tvs1,tvs2,tvs15,tvs12,tv15;
-//    cudaLayer *host_send_layer,*h_cl,*h_pl;
-
     printf("in MoveAllSplitLayers \n ");
 
-//#ifndef PARALLEL_ONLY
-    gettimeofday(&tv1,NULL);
-    //printf("begin moveAll %d \n",GetRank());
-//    cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-A");
-//   CUDA_WRAP_printBeamDensity3D(this,GetControlDomain()->p_Cntrl->GetNstep(),"RECEIVED-A");
-   
    int NxSplit = GetNxSplit();
    for (long n=0; n<l_sizeXYZ; n++) {
       for (int i=0; i<CURR_DIM; i++) {
@@ -47,67 +38,18 @@ void Mesh::MoveAllSplitLayers()
       }
    }
    printf("before set %d \n",l_Mx);
-   //Set_l_Mx(&l_Mx);
+
    printf("after set %d \n",l_Mx);
-//   CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"I");
-   
-   
-//         cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 6");
 
-//    cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-B");
-      printf("rank %d before recv layer -2 \n",GetRank());
    printf("MoveAll rank %d l_Mx %d \n",GetRank(),l_Mx);
-//  int err0 = cudaGetLastError();
-//   cudaLayer *h_basic_layer,**h_layers = (cudaLayer**)malloc((l_Mx+1)*sizeof(cudaLayer*));
-//   int err01 = cudaGetLastError();   
-//   CUDA_WRAP_alloc3Dfields(l_Mx,l_My,l_Mz);
-//  int err02 = cudaGetLastError();
-//   CUDA_WRAP_alloc3Dcurrents(l_Mx,l_My,l_Mz);
-//  int err03 = cudaGetLastError();
-//   CUDA_WRAP_copy3Dfields(this,p_CellArray,l_Mx,l_My,l_Mz);
-//  int err1 = cudaGetLastError();
    SeedFrontParticles();
-      printf("rank %d before recv layer -1 \n",GetRank());
 
-//   CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"II");
-   
-//  int err1_5 = cudaGetLastError();
-//   int Np = CUDA_WRAP_copyLayerToDevice(this,p_CellArray,l_Mx,l_My,l_Mz,&h_basic_layer);
-//   printf("rank %d Np %d \n",GetRank(),Np);
-//   CUDA_WRAP_printLayerParticles(h_basic_layer,"INIT");
-//    cuLayerPrintCentre(h_basic_layer,-1313,this,p_CellArray,"INIT");
-
-//    cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-C");
-   
-//   CUDA_WRAP_allocLayerOnHost(&h_C,l_My,l_Mz,Np);
-//   CUDA_WRAP_printLayerParticles(h_C,"INIT-C ");
-//   CUDA_WRAP_allocLayerOnHost(&h_P,l_My,l_Mz,Np);
-//       cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 5");
-//
-//   CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"III");
-//   cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-D");
-//   int err2 = cudaGetLastError();
    maxVx = 0.;
    printf("before copy loop %d \n",l_Mx);
    for (int iLayer=l_Mx; iLayer>-1; iLayer--) 
    {
-#ifdef  CUDA_WRAP_PARALLEL_DEBUG   
-      printf("Layer begin copy %d *********************************************************************************************************** \n",iLayer); 
-#endif
-      
       int seq_iLayer = (l_Mx - 1)*GetRank() + iLayer;
-//       CUDA_WRAP_allocLayerOnHost(&h_layers[iLayer],l_My,l_Mz,Np);
-//       printf("h_layers[iLayer]->Rho %p \n ",(h_layers[iLayer])->Rho);
-//      CUDA_WRAP_copyLayerFrom3D(iLayer,l_My,l_Mz,Np,&h_layers[iLayer]);
-//      cudaLayer *t = h_layers[iLayer];
-  // printf("h_layers[l_Mx]-B %d %d %d \n",h_layers[l_Mx]->Ny,h_layers[l_Mx]->Nz,h_layers[l_Mx]->Np);
-   //exit(0);
       
-      if(GetRank() == 1)
-      {
-//         //printf("Layer %d seq %d ===========================================================================================================",iLayer,seq_iLayer); 
-//         CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,t->JxBeam,"JxBeam");
-      }
    }  
    double hx = GetControlDomain()->GetHx(),
           hy = GetControlDomain()->GetHy(),
@@ -115,78 +57,10 @@ void Mesh::MoveAllSplitLayers()
 
 
    int nstep = this->domain()->p_Cntrl->GetNstep();
-  // CUDA_WRAP_diagnose_host_layers(h_layers);
-
-//    CUDA_WRAP_diagnose_host_layers(l_Mx,l_My,l_Mz,
-//                                    hx,hy,hz,h_layers,nstep);
-//    CUDA_WRAP_diagnose_host_layers(l_Mx,l_My,l_Mz,
-  //                                 hx,hy,hz,h_layers,nstep);
-   
-   //CUDA_WRAP_copyLayerParticles(h_layers[l_Mx],h_basic_layer);
-  // CUDA_WR        AP_printLayerParticles(h_layers[l_Mx],"LAST");
-//#endif   
-   //printf("rank %d before recv layer l_Mx %d  Ny %d  Nz %d Np %d \n ",GetRank(),l_Mx,(h_layers[l_Mx])->Ny,(h_layers[l_Mx])->Nz,(h_layers[l_Mx])->Np);
-//   cudaLayer *recv_layer;
-//   cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 4");
-   
-//   cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-0");
-   
-//   CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"IV");
-//   printf("h_layers[l_Mx]-A %d %d %d \n",h_layers[l_Mx]->Ny,h_layers[l_Mx]->Nz,h_layers[l_Mx]->Np);
-//#ifdef CPU_COMPUTING
-//   CUDA_WRAP_createNewLayer(&recv_layer,h_layers[l_Mx]);
-//#else
-//   recv_layer = (cudaLayer *)malloc(sizeof(cudaLayer));
-//#endif
-//   CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"before recevied rank");
-  // printf("before received rank %d \n",GetRank());
-//   cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-1");
-   
-//   ReceiveLayer(recv_layer,l_My,l_Mz,Np);
-//     cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 3");
-//
-//  cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-2");
-//   //printf("Layer RECEIVED from above rank %d  ===================================================== \n",GetRank());
-//   cuLayerPrintCentre(h_layers[l_Mx],l_Mx,this,p_CellArray,"before received");
-   //CUDA_WRAP_printLayerParticles(h_layers[l_Mx],"RECEIVED");
-   //printf("END RECEIVED from above rank %d =======================================================\n",GetRank());
-   
-   //printf("rank %d after recv layer l_Mx %d  Ny %d  Nz %d Np %d \n ",GetRank(),l_Mx,(h_layers[l_Mx])->Ny,(h_layers[l_Mx])->Nz,(h_layers[l_Mx])->Np);
-//   cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED");
-   if(GetRank() < GetSize() - 1)
-   {
-//#ifdef CUDA_WRAP_FFTW_ALLOWED
-//       CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"before recevied");
-//
-//       CUDA_WRAP_setLayerToMesh(this,p_CellArray,l_Mx,l_My,l_Mz,recv_layer,1);
-//       printf("in getLayerParticles before err \n");
-//       CUDA_WRAP_getLayerParticlesNumber(this,p_CellArray,l_Mx,l_My,l_Mz,"after recevied");
-//       printf("in getLayerParticles after err \n");
-//      cuLayerPrintCentre(h_P,-1,this,p_CellLayerP,"INIT host-P4");
-//
-//
-//#else
-////      CUDA_WRAP_copyLayerDeviceToDevice(l_My,l_Mz,Np,h_layers[l_Mx],h_basic_layer);
-//      CUDA_WRAP_copyLayerParticles(h_basic_layer,h_layers[l_Mx]);
-//      CUDA_WRAP_printLayerParticles(h_basic_layer,"copied to basic");
-//#endif
-   }
-   //printf("finished recv Layer %d \n",GetRank());
-
-   
-//   if(GetRank() == 0) exit(0);
-//     cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 2");
-//      cuLayerPrintCentre(h_P,-1,this,p_CellLayerP,"INIT host-P3");
-//
-//        cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"host-P3");
-//#ifndef PARALLEL_ONLY
- //  printf("before main loop %d rank %d\n",l_Mx,GetRank());
    
    for (int iLayer=l_Mx-1; iLayer>-1; iLayer--) {
        gettimeofday(&tvl1,NULL); 
      
-//      CUDA_WRAP_copyLayerFrom3D(iLayer,l_My,l_Mz,Np,&h_layers[iLayer]); 
-//#ifdef CUDA_WRAP_FFTW_ALLOWED
       for (int k=-l_dMz; k<l_Mz+l_dMz-1; k++) {
          for (int j=-l_dMy; j<l_My+l_dMy-1; j++) {
             long np = GetN(iLayer+1,j,k);
@@ -200,45 +74,9 @@ void Mesh::MoveAllSplitLayers()
 	    double *fds = ccc_p.GetFields();
 	    
 	    ccc_c.SetFields(fds);
-	    
-
-	    
          }
       }
-//#endif
-//     cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"assign");
-//
-//     CUDA_WRAP_printBeamDensity3D(this,GetControlDomain()->p_Cntrl->GetNstep(),"Assign");
-//
-//     cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"before 1");
-//     cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 1");
-//     cuLayerPrintCentre(h_P,-1,this,p_CellLayerP,"INIT host-P2");
-      //printf("rank %d init loop\n",GetRank());
-//      if(GetRank() == 0) exit(0);
       
-//      CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"INIT host",this->GetControlDomain()->p_Cntrl->GetNstep());
-//      //printf("rank %d after printlist\n",GetRank());
-//      if(GetRank() == 0) exit(0);
-
-//      cuLayerPrintCentre(h_P,-1,this,p_CellLayerP,"INIT host-P1");
-
-//      CUDA_WRAP_copyLayerDeviceToDevice(l_My,l_Mz,Np,h_P,h_layers[iLayer+1]);
-//      cuLayerPrintCentre(h_layers[iLayer+1],iLayer+1,this,p_CellArray,"INIT host");
-//      cuLayerPrintCentre(h_P,-1,this,p_CellLayerP,"INIT host");
-//      cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-INIT host");
-//      CUDA_WRAP_printLayerParticles(h_P,"afgter copy to P");
-//     cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"afgter copy to P");
-
-      
-//      getLayersPC(&h_cl,&h_pl);
-//      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_C,h_P);
-//
-      gettimeofday(&tv15,NULL);
-      //printf("rank %d before split\n",GetRank());
-//      if(GetRank() == 0) exit(0);
-      
-//      cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before loop");
-//      cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"before loop");
      
       for (int iSplit=0; iSplit<NxSplit; iSplit++) {
 	 gettimeofday(&tvs1,NULL); 
