@@ -844,6 +844,9 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
      printf("cuMoveSplitParticles begin %d \n",err_init);
 
      int Np = h_pl->Np;
+     printf("Np from h_pl %d \n",Np);
+     exit(0);
+
      static cudaLayer *d_cl,*d_pl;
      struct timeval tv1,tv2,tf1,tf2;
 
@@ -894,7 +897,7 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
      {
         int i120 = 0;
      }
-  //   CUDA_WRAP_print_plasma_values(Np,PLASMA_VALUES_NUMBER,"before");
+     CUDA_WRAP_print_plasma_values(Np,PLASMA_VALUES_NUMBER,"before");
      
  //    cudaPrintfInit();
      gettimeofday(&tv1,NULL);

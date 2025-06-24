@@ -623,18 +623,19 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 //    cuLayerPrintCentre(h_C,-53,this,p_CellLayerC,"C after guess ");
 //
 
-   gettimeofday(&tg2,NULL);
-   g_time = (tg2.tv_sec - tg1.tv_sec)+(tg2.tv_usec - tg1.tv_usec)*1e-6;
-         //printf("rank %d guess \n",GetRank());
+   //gettimeofday(&tg2,NULL);
+   //g_time = (tg2.tv_sec - tg1.tv_sec)+(tg2.tv_usec - tg1.tv_usec)*1e-6;
+   printf("rank %d guess \n",GetRank());
 //   if(GetRank() == 0 && (iSplit == 1)) exit(0);
    
     getLayersPC(&h_cl,&h_pl);
    CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
-//#ifdef CUDA_WRAP_FFTW_ALLOWED     
-   ExchangeFieldsSplit(iLayer);
+   printf("check all hidden fields \n");
+   //#ifdef CUDA_WRAP_FFTW_ALLOWED     
+   //ExchangeFieldsSplit(iLayer);
    
   // return;
-
+    
    i= iLayer;
    j = k = 0;
    n = GetNyz(  j,  k);
@@ -653,11 +654,11 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 //#endif   
    double frac_rude,frac_ideal;
    
- //printf("rank %d before iter loop \n",GetRank());
+   printf("rank %d before iter loop \n",GetRank());
 
    int niter = nIter();
    for (int iter=0; iter<niter; iter++) {
-            //printf("rank %d iteration %d begins \n",GetRank(),iter);
+       printf("rank %d iteration %d begins \n",GetRank(),iter);
 
       iFullStep = 0;
 //#ifdef CUDA_WRAP_FFTW_ALLOWED        
@@ -667,7 +668,7 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 //#ifdef CUDA_WRAP_FFTW_ALLOWED        
       ClearRhoSplit();
 //#endif      
-      
+      printf("113 \n");
       if(iLayer <= 118 )
       {
 	int zz = 0;
@@ -675,14 +676,14 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
       getLayersPC(&h_cl,&h_pl);
      CUDA_WRAP_printLayerParticles(h_pl,"before 1");
      CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host before 1",this->GetControlDomain()->p_Cntrl->GetNstep());
-     
+     printf(" print particle list host\n");
      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
      if(iLayer<= 118 )
      {
 //      CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_pl->Ex,"before move");
      }
-     gettimeofday(&tp1,NULL);
-        //printf("rank %d iteration %d begins particles \n",GetRank(),iter);
+     
+     printf("rank %d iteration %d begins particles \n",GetRank(),iter);
 //         cuLayerPrintCentre(h_P,-40,this,p_CellLayerP,"P before MoveParticlesLayerSplit");
 //         cuLayerPrintCentre(h_C,-41,this,p_CellLayerC,"C before  MoveParticlesLayerSplit");
 
@@ -691,13 +692,13 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 //         cuLayerPrintCentre(h_P,-42,this,p_CellLayerP,"P after MoveParticlesLayerSplit");
 //         cuLayerPrintCentre(h_C,-43,this,p_CellLayerC,"C after MoveParticlesLayerSplit");
       
-        //printf("rank %d iteration %d begins after particles \n",GetRank(),iter);
+     printf("rank %d iteration %d begins after particles \n",GetRank(),iter);
       gettimeofday(&tp2,NULL);
       p_time += (tp2.tv_sec - tp1.tv_sec)+(tp2.tv_usec - tp1.tv_usec)*1e-6;
      CUDA_WRAP_printLayerParticles(h_pl,"after 1");
      CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"host_after_1",this->GetControlDomain()->p_Cntrl->GetNstep());
        CUDA_WRAP_printLayerParticles(h_pl,"no");
-      //getLayersPC(&h_cl,&h_pl);
+      getLayersPC(&h_cl,&h_pl);
 #ifndef CUDA_WRAP_FFTW_ALLOWED       
       CUDA_WRAP_check_hidden_currents(this,iLayer,l_My,l_Mz,p_CellLayerC,h_cl->Jx,"Jx");
       CUDA_WRAP_check_hidden_currents(this,iLayer,l_My,l_Mz,p_CellLayerC,h_cl->Jy,"Jy");
@@ -711,22 +712,21 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 //#endif      
       //   ExchangeRho(iLayer);
 
-      gettimeofday(&ti1,NULL);
-      //printf("rank %d iteration %d before iterate\n ",GetRank(),iter);
+      printf("rank %d iteration %d before iterate\n ",GetRank(),iter);
       
 //       cuLayerPrintCentre(h_P,-1000,this,p_CellLayerP,"P before Iterate");
 //       cuLayerPrintCentre(h_C,-1001,this,p_CellLayerC,"C before Iterate");
 
-     // printf("before iterate1 %d\n",GetRank());
+     printf("before iterate1 %d\n",GetRank());
       IterateFieldsHydroLinLayerSplit(iLayer,iSplit,iter);
-         //printf("rank %d after iterate\n ",GetRank());
+     printf("rank %d after iterate\n ",GetRank());
      // printf("after  iterate1 %d\n",GetRank()); 
       //cuLayerPrintCentre(h_C,iLayer,this,p_CellArray);
       
       cuLayerPrintCentre(h_P,-1002,this,p_CellLayerP,"P after Iterate");
       cuLayerPrintCentre(h_C,-1003,this,p_CellLayerC,"C after Iterate");
 
-      //printf("rank %d iteration %d after iterate\n ",GetRank(),iter);
+      printf("rank %d iteration %d after iterate\n ",GetRank(),iter);
        gettimeofday(&ti2,NULL);
        i_time += (ti2.tv_sec - ti1.tv_sec)+(ti2.tv_usec - ti1.tv_usec)*1e-6;
 //#ifdef CUDA_WRAP_FFTW_ALLOWED         
@@ -955,6 +955,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
 
    for (k=0; k<l_Mz; k++)
    {
+      printf("particles k %d \n",k);	   
       for (j=0; j<l_My; j++)
       {
 	 
