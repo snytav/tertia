@@ -162,7 +162,7 @@ int CUDA_WRAP_copyLayerFields(int iLayer,int Nx,int Ny,int Nz,double *ex,double 
 int CUDA_WRAP_restoreLayerCurrents(int iLayer,int Nx,int Ny,int Nz,double *rho,double *jx,double *jy,double *jz)
 {
     CUDA_WRAP_3Dto2D(iLayer,Ny,Nz,d_Rho3D,rho); 
-    CUDA_WRAP_3Dto2D(iLayer,Ny,Nz,d_Jx3D,jx); 
+    CUDA_WRAP_3Dto2D(iLayer,Ny,Nz,d_Jx3D,jx);
     CUDA_WRAP_3Dto2D(iLayer,Ny,Nz,d_Jy3D,jy); 
     CUDA_WRAP_3Dto2D(iLayer,Ny,Nz,d_Jz3D,jz); 
     //CUDA_DEBUG_printDdevice_matrix(Ny,Nz,rho,"Rho restoring from 3D");  
