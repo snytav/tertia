@@ -845,7 +845,7 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
 
      int Np = h_pl->Np;
      printf("Np from h_pl %d \n",Np);
-     exit(0);
+     //exit(0);
 
      static cudaLayer *d_cl,*d_pl;
      struct timeval tv1,tv2,tf1,tf2;
@@ -854,13 +854,15 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
          int err = cudaGetLastError();
          printf("begin particles %d \n",err);
 #endif
-
+     
 #ifdef CUDA_WRAP_FFTW_ALLOWED
 //     return;
 #endif     
+     printf("Np from h_pl1 %d \n",Np);
+//     exit(0);
 
-     gettimeofday(&tf1,NULL);
- 
+
+
      dim3 dimBlock(16,16 ,1); 
     
      int gridSize = (int)(ceil(sqrt(Np))/16.0+1.0);
@@ -869,6 +871,9 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
     
      static double *d_djx0,*d_djy0,*d_djz0,*d_drho0;
      static int first = 1;
+
+     printf("Np from h_pl2 %d \n",Np);
+
      
      if(first == 1)
      {
@@ -891,7 +896,7 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
         first = 0;
      }
          err = cudaGetLastError();
-         printf("particles copy init %d \n",err);
+         printf("particles copy init %d %d\n",err,Np);
      
      if(iLayer <= 119 && iSplit >= 1) 
      {
@@ -900,10 +905,12 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
      CUDA_WRAP_print_plasma_values(Np,PLASMA_VALUES_NUMBER,"before");
      
  //    cudaPrintfInit();
-     gettimeofday(&tv1,NULL);
      err = cudaGetLastError();
      printf("block 2 before particles kernel %03d -------------------------------------%10d \n",err,Np);
-     //exit(0);
+      if (Np <= 0) 
+      {
+	exit(0);
+      }
 //      cudaPrintfInit();
      cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl,d_pl,Ny,Nz,hx,hy,hz,
                                      d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);

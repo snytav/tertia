@@ -882,7 +882,12 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
 #endif   
    h_cl = (cudaLayer *)malloc(sizeof(cudaLayer));
    h_pl = (cudaLayer *)malloc(sizeof(cudaLayer));
- //  cudaMemcpy(h_cl,d_pl,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
+   cudaMemcpy(h_cl,d_pl,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
+   printf("h_pl copied from device Np %d \n",h_pl->Np);
+   if(h_pl->Np <= 0)
+   {
+	   exit(0);
+   }
  //  CUDA_WRAP_print_layer(d_pl,Np,"layerFormed",l_My,l_Mz);
    int nsorts = domain()->GetNsorts();
 #ifdef CUDA_WRAP_PARTICLE_HOST_COMPUTATIONS
@@ -1611,6 +1616,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
    //printf("deposit np %d \n",np);
 #endif
    int nstep = this->domain()->p_Cntrl->GetNstep();
+   printf("before cuMoveSplitParticles h_pl->Np %d\n",h_pl->Np);
    cuMoveSplitParticles(iLayer,iSplit,h_cl,h_pl,l_Mx,l_My,l_Mz,hx,hy,hz,
                                      djx0,djy0,djz0,drho0,nsorts,iFullStep,nstep);
 #ifdef CUDA_WRAP_PARTICLE_HOST_COMPUTATIONS
