@@ -187,9 +187,9 @@ int CUDA_WRAP_allocLayerOnHost(cudaLayer **hl,int Ny,int Nz,int Np)
    cudaMemset(h_l->RhoBeam,0,sizeof(double)*Ny*Nz);
    
    err = cudaMalloc(&p,Np*sizeof(beamParticle));
-#ifdef  CUDA_WRAP_PARALLEL_DEBUG   
-   printf("alloc layer particles error %d size beamParticle %d\n",err,sizeof(beamParticle));
-#endif   
+//#ifdef  CUDA_WRAP_PARALLEL_DEBUG   
+   printf("alloc layer particles error %d size beamParticle %d p %p Np %d \n",err,sizeof(beamParticle),p,Np);
+//#endif   
 
    h_l->Ex = d_Ex; 
    h_l->Ey = d_Ey; 
@@ -201,8 +201,10 @@ int CUDA_WRAP_allocLayerOnHost(cudaLayer **hl,int Ny,int Nz,int Np)
    h_l->Jy = d_Jy; 
    h_l->Jz = d_Jz;
    h_l->Rho = d_Rho;
-   printf("CUDA_WRAP_allocLayerOnHost  h_l->Rho %p \n ",h_l->Rho);
+   printf("CUDA_WRAP_allocLayerOnHost  h_l->Rho %p    \n ",h_l->Rho);
+   //exit(0);
    h_l->particles = p;
+   printf(" h_l->particles %p  \n ", h_l->particles);
    CUDA_WRAP_printLayerParticles(h_l,"IN ALLOC");
    
    ////////////// TEST WRITE
@@ -210,9 +212,14 @@ int CUDA_WRAP_allocLayerOnHost(cudaLayer **hl,int Ny,int Nz,int Np)
    bp_test.f_X = -999.0;
    bp_test.f_Y = -1313.0;
    printf("%e %e %e %e %e %e %e\n ",bp_test.f_X,bp_test.f_Y,bp_test.f_Z,bp_test.f_Px,bp_test.f_Py,bp_test.f_Pz);
+
+   printf(" h_l->particles %p &bp_test  %p Np %d \n ",h_l->particles,&bp_test,Np);
+   //exit(0);
    
-   cudaMemcpy(h_l->particles,&bp_test,Np*sizeof(beamParticle)  ,cudaMemcpyHostToDevice);
+   cudaMemcpy(h_l->particles,&bp_test,sizeof(beamParticle)  ,cudaMemcpyHostToDevice);
+   printf("after test write\n");
    CUDA_WRAP_printLayerParticles(h_l,"IN TEST");
+   exit(0);
    /////////////////////////
    
    h_l->Ny = Ny;
