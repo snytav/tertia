@@ -339,6 +339,8 @@ void Mesh::MoveAllSplitLayers()
 	 double *t;
 	 //cudaMalloc((void **)&t,l_My*l_Mz*sizeof(double));
 	 //int errc = cudaMemcpy(t,h_P->JxBeam,l_My*l_Mz*sizeof(double),cudaMemcpyDeviceToDevice);
+	 printf("before call  to setLayersPC h_C %p h_P %p \n ",h_C,h_P);
+	 exit(0);
 	 setLayersPC(h_C,h_P);
 #endif	 
 	 
@@ -878,7 +880,9 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
 //#ifndef CUDA_WRAP_FFTW_ALLOWED   
    getLayersPC(&h_cl,&h_pl);
 //#endif   
- //  CUDA_WRAP_printLayerParticles(h_pl,"IN particle");
+   printf("h_pl %p \n",h_pl);
+   exit(0);
+ //  CUDA_WRAP_printLayerParticles(h_pl,"IN particle ");
    if((iLayer<= 118))  
    {
       CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
