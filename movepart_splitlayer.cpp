@@ -692,7 +692,7 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
      printf("rank %d iteration %d begins particles \n",GetRank(),iter);
 //         cuLayerPrintCentre(h_P,-40,this,p_CellLayerP,"P before MoveParticlesLayerSplit");
 //         cuLayerPrintCentre(h_C,-41,this,p_CellLayerC,"C before  MoveParticlesLayerSplit");
-      exit(0);
+      //exit(0);
       MoveParticlesLayerSplit(iLayer, iSplit,iFullStep, part);
 
 //         cuLayerPrintCentre(h_P,-42,this,p_CellLayerP,"P after MoveParticlesLayerSplit");
@@ -873,10 +873,11 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
    double hz = Hz();
    cudaLayer *d_cl,*d_pl,*h_cl,*h_pl;
    
-   
-#ifndef CUDA_WRAP_FFTW_ALLOWED   
+   printf("in :MoveParticlesLayerSplit  \n ");
+   //exit(0); 
+//#ifndef CUDA_WRAP_FFTW_ALLOWED   
    getLayersPC(&h_cl,&h_pl);
-#endif   
+//#endif   
  //  CUDA_WRAP_printLayerParticles(h_pl,"IN particle");
    if((iLayer<= 118))  
    {
@@ -884,7 +885,10 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
    }
    
 //#ifndef CUDA_WRAP_FFTW_ALLOWED 
-   int Np = particlesPrepareAtLayer(this,p_CellLayerP,p_CellLayerC,iLayer,l_My,l_Mz,h_pl->Np);   
+   printf("before  particlesPrepareAtLayer \n ");
+   int Np = particlesPrepareAtLayer(this,p_CellLayerP,p_CellLayerC,iLayer,l_My,l_Mz,h_pl->Np);  
+   printf("after  particlesPrepareAtLayer \n "); 
+   exit(0);
 //#endif   
    h_cl = (cudaLayer *)malloc(sizeof(cudaLayer));
    h_pl = (cudaLayer *)malloc(sizeof(cudaLayer));
