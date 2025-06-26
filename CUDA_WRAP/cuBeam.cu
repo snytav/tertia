@@ -1589,7 +1589,8 @@ int CUDA_WRAP_copyLayerToDevice(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,i
 #endif   
    //double *d_Ex,*d_Ey,*d_Ez,*d_Bx,*d_By,*d_Bz,*d_Jx,*d_Jy,*d_Jz,*d_Rho;
    cudaLayer *h_dl;// = (cudaLayer*)malloc(sizeof(cudaLayer));
-   
+  
+   printf("cuBeam 1593 \n"); 
    CUDA_WRAP_allocLayerOnHost(&h_dl,Ny,Nz,np);
    
 //   cudaMemcpy(h_dl,*dl,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
@@ -1609,9 +1610,10 @@ int CUDA_WRAP_copyLayerToDevice(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,i
    h_dl->Ny = Ny;
    h_dl->Nz = Nz;   
    int err4 = cudaGetLastError();
+   printf("before  CUDA_WRAP_printLayerParticles np %d  (h_dl->particles %p  \n",np,h_dl->particles );
 
    CUDA_WRAP_printLayerParticles(h_dl,"NOT-YET-FORMED");
-
+   printf("after   CUDA_WRAP_printLayerParticles \n  ");
    
    printf("in copyLayerToDevice particle copy err %d np %d\n",err4,np);
    
@@ -1621,7 +1623,7 @@ int CUDA_WRAP_copyLayerToDevice(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,i
    
    printf("error particle copy %d \n",errbc);
 
-//   exit(0);
+   exit(0);
    
    CUDA_WRAP_printLayerParticles(h_dl,"FORMED");
 
