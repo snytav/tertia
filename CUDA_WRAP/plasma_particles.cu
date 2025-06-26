@@ -55,8 +55,12 @@ int create_h_plasma_particles(int Np)
 int particlesPrepareAtLayer(Mesh *mesh,Cell *p_CellArrayP,Cell *p_CellArrayC,int iLayer,int Ny,int Nz,int Np)
 {
     static int prepareFirstCall = 1;
+    printf("in CUDA_WRAP/plasma_particles.cu Np %d\n ",Np);
+    exit(0);
+
 
     create_h_plasma_particles(Np);
+    printf("  create_h_plasma_particles(Np)   \n ");
 
 
     if(prepareFirstCall)
@@ -65,7 +69,7 @@ int particlesPrepareAtLayer(Mesh *mesh,Cell *p_CellArrayP,Cell *p_CellArrayC,int
         prepareFirstCall = 0;
     }
     
-    
+    printf("out CUDA_WRAP/plasma_particles.cu \n ");
     return 0;
 }
 

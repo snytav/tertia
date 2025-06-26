@@ -310,8 +310,8 @@ int CUDA_WRAP_copyLayerFrom3D(int iLayer,int Ny,int Nz,int Np,cudaLayer **h_cl)
      CUDA_WRAP_3Dto2D(iLayer,Ny,Nz,d_RhoBeam3D,(*h_cl)->RhoBeam);
      CUDA_WRAP_3Dto2D(iLayer,Ny,Nz,d_JxBeam3D, (*h_cl)->JxBeam);
      
-    //printf("copyLayer Ny %d Nz %d Np %d \n",(*h_cl)->Ny,(*h_cl)->Nz,(*h_cl)->Np);
-    
+    printf("copyLayer Ny %d Nz %d Np %d \n",(*h_cl)->Ny,(*h_cl)->Nz,(*h_cl)->Np);
+//    exit(0);
     return 0;
 }
 

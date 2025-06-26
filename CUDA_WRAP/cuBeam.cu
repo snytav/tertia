@@ -1623,7 +1623,7 @@ int CUDA_WRAP_copyLayerToDevice(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,i
    
    printf("error particle copy %d \n",errbc);
 
-   exit(0);
+  // exit(0);
    
    CUDA_WRAP_printLayerParticles(h_dl,"FORMED");
 
