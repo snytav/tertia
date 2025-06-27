@@ -174,7 +174,7 @@ void Mesh::MoveAllSplitLayers()
       CUDA_WRAP_printLayerParticles(h_basic_layer,"copied to basic");
 #endif      
    }
-   //printf("finished recv Layer %d \n",GetRank());
+   printf("finished recv Layer %d \n",GetRank());
 
    
 //   if(GetRank() == 0) exit(0);
@@ -216,8 +216,8 @@ void Mesh::MoveAllSplitLayers()
      cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"before 1"); 
      cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before 1"); 
      cuLayerPrintCentre(h_P,-1,this,p_CellLayerP,"INIT host-P2");
-      //printf("rank %d init loop\n",GetRank());
-//      if(GetRank() == 0) exit(0);
+     printf("rank %d init loop\n",GetRank());
+     //exit(0);
       
       CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"INIT host",this->GetControlDomain()->p_Cntrl->GetNstep());
 //      //printf("rank %d after printlist\n",GetRank());
@@ -237,8 +237,8 @@ void Mesh::MoveAllSplitLayers()
       CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_C,h_P);
       
       gettimeofday(&tv15,NULL);
-      //printf("rank %d before split\n",GetRank());
-//      if(GetRank() == 0) exit(0);
+      printf("rank %d before split\n",GetRank());
+//      exit(0);
       
       cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-before loop");
       cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"before loop"); 
@@ -268,7 +268,7 @@ void Mesh::MoveAllSplitLayers()
 	// CUDA_WRAP_allocLayerOnHost(&h_left,l_My,l_Mz,Np);
 	// CUDA_WRAP_allocLayerOnHost(&h_right,l_My,l_Mz,Np);
          cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 1");
-#ifndef CUDA_WRAP_FFTW_ALLOWED
+//#ifndef CUDA_WRAP_FFTW_ALLOWED
 	 if(iLayer<= 118 )
 	 {
 	    CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_P->Ex,"R");
@@ -276,7 +276,7 @@ void Mesh::MoveAllSplitLayers()
 	 //CUDA_WRAP_copyLayerDeviceToDevice(l_My,l_Mz,Np,h_left,h_layers[iLayer]);
 	 h_left  = h_layers[iLayer];
 	 h_right = h_layers[iLayer+1];
-#endif	 
+//#endif	 
 	 //CUDA_WRAP_copyLayerParticles(h_right,h_layers[iLayer+1]);
          //CUDA_WRAP_printLayerParticles(h_layers[l_Mx],"right");
 
@@ -285,6 +285,8 @@ void Mesh::MoveAllSplitLayers()
          cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 2");
 	 
 	 cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"loop 2"); 
+	 printf("Loop 2\n");
+	 //exit(0);
 	 
 	 if((iLayer == l_Mx-1) && (iSplit == 0))
 	 {  
@@ -322,7 +324,7 @@ void Mesh::MoveAllSplitLayers()
          cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 3");
 	 
 	 //CUDA_WRAP_copyLayerDeviceToDevice(l_My,l_Mz,Np,h_right,h_layers[iLayer+1]);
-#ifndef CUDA_WRAP_FFTW_ALLOWED	 
+//#ifndef CUDA_WRAP_FFTW_ALLOWED	 
 	 if(iLayer<= 118) CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_left->JxBeam,"R");
 	 
 	 
@@ -342,13 +344,14 @@ void Mesh::MoveAllSplitLayers()
 	 printf("before call  to setLayersPC h_C %p h_P %p \n ",h_C,h_P);
 	 exit(0);
 	 setLayersPC(h_C,h_P);
-#endif	 
+//#endif	 
 	 
 	  gettimeofday(&tvs12,NULL); 
          cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 3");
 	 cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"loop 3"); 
 	  
-         //printf("rank %d after setLayers \n",GetRank());
+         printf("rank %d after setLayers \n",GetRank());
+	 exit(0);
 //         if(GetRank() == 0) exit(0);
 	  
 #ifdef CUDA_WRAP_FFTW_ALLOWED	 
