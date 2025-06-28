@@ -627,9 +627,9 @@ int cuLayerPrintCentre(cudaLayer *h_cl,int iLayer,Mesh *mesh,Cell *p_CellArray,c
     beamParticle p;
     int err;
     
-#ifndef CUDA_WRAP_PRINT_CENTRE    
-    return 0;
-#endif
+//#ifndef CUDA_WRAP_PRINT_CENTRE    
+//    return 0;
+//#endif
 
     
     
@@ -639,6 +639,9 @@ int cuLayerPrintCentre(cudaLayer *h_cl,int iLayer,Mesh *mesh,Cell *p_CellArray,c
     Ny = h_cl->Ny;
     Nz = h_cl->Nz;
     Np = h_cl->Np;
+
+    printf("in  cuLayerPrintCentre %s %s \n ",where,"C-loop 3");
+    printf("Ny %d Nz %d Np %d \n",Ny,Nz,Np);
 
     
     cudaMemcpy(&ex0,h_cl->Ex+Ny*Nz/2+200,sizeof(double),cudaMemcpyDeviceToHost);
@@ -726,6 +729,11 @@ int cuLayerPrintCentre(cudaLayer *h_cl,int iLayer,Mesh *mesh,Cell *p_CellArray,c
 	}
     }
     printf("rank %d Layer %3d END==========================================================================================================================\n",GetRank(),iLayer);
+
+     if(!strcmp(where,"C-loop 3"  ))
+    {
+            exit(0);
+    }
     
     
     return 0;

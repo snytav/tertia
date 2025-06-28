@@ -341,12 +341,11 @@ void Mesh::MoveAllSplitLayers()
 	 double *t;
 	 //cudaMalloc((void **)&t,l_My*l_Mz*sizeof(double));
 	 //int errc = cudaMemcpy(t,h_P->JxBeam,l_My*l_Mz*sizeof(double),cudaMemcpyDeviceToDevice);
-	 printf("before call  to setLayersPC h_C %p h_P %p \n ",h_C,h_P);
+	 printf("before call  to setLayersPC h_C %p %d h_P %p %d \n ",h_C,h_C->Np,h_P,h_P->Np);
 	 exit(0);
 	 setLayersPC(h_C,h_P);
 //#endif	 
 	 
-	  gettimeofday(&tvs12,NULL); 
          cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 3");
 	 cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"loop 3"); 
 	  
