@@ -27,6 +27,40 @@ void getLayersPC(cudaLayer **c,cudaLayer **p)
     *p = tmpLayerP;
 }
 
+int copyLayerFromHostToDevice(cudaLayer **hl_dp,cudaLayer *hl_hp)
+{
+    *hl_dp = (cudaLayer *)malloc(sizeof(cudaLayer));
+
+    (*hl_dp)->Np = hl_hp->Np;
+    (*hl_dp)->Ny = hl_hp->Ny;
+    (*hl_dp)->Nz = hl_hp->Nz;
+    int size = sizeof(double)*hl_hp->Ny*hl_hp->Nz;
+    cudaMalloc(&((*hl_dp)->Ex),size);
+    cudaMalloc(&((*hl_dp)->Ey),size);
+    cudaMalloc(&((*hl_dp)->Ez),size);
+    cudaMemcpy((*hl_dp)->Ex,hl_hp->Ex,size,cudaMemcpyHostToDevice);
+    cudaMemcpy((*hl_dp)->Ey,hl_hp->Ey,size,cudaMemcpyHostToDevice);
+    cudaMemcpy((*hl_dp)->Ez,hl_hp->Ez,size,cudaMemcpyHostToDevice);
+    cudaMalloc(&((*hl_dp)->Bx),size);
+    cudaMalloc(&((*hl_dp)->By),size);
+    cudaMalloc(&((*hl_dp)->Bz),size);
+    cudaMemcpy((*hl_dp)->Bx,hl_hp->Bx,size,cudaMemcpyHostToDevice);
+    cudaMemcpy((*hl_dp)->By,hl_hp->By,size,cudaMemcpyHostToDevice);
+    cudaMemcpy((*hl_dp)->Bz,hl_hp->Bz,size,cudaMemcpyHostToDevice);
+    cudaMalloc(&((*hl_dp)->Jx),size);
+    cudaMalloc(&((*hl_dp)->Jy),size);
+    cudaMalloc(&((*hl_dp)->Jz),size);
+    cudaMemcpy((*hl_dp)->Jx,hl_hp->Jx,size,cudaMemcpyHostToDevice);
+    cudaMemcpy((*hl_dp)->Jy,hl_hp->Jy,size,cudaMemcpyHostToDevice);
+    cudaMemcpy((*hl_dp)->Jz,hl_hp->Jz,size,cudaMemcpyHostToDevice);
+
+    cudaMalloc(&((*hl_dp)->JxBeam),size);
+    cudaMalloc(&((*hl_dp)->Rho),size);
+    cudaMemcpy((*hl_dp)->JxBeam,hl_hp->JxBeam,size,cudaMemcpyHostToDevice);
+    cudaMemcpy((*hl_dp)->Jy,hl_hp->Jy,size,cudaMemcpyHostToDevice);
+    cudaMemcpy((*hl_dp)->Jz,hl_hp->Jz,size,cudaMemcpyHostToDevice);
+}
+
 
 int CUDA_WRAP_copyArraysDevice(
 int a_size,
@@ -730,12 +764,6 @@ int cuLayerPrintCentre(cudaLayer *h_cl,int iLayer,Mesh *mesh,Cell *p_CellArray,c
     }
     printf("rank %d Layer %3d END==========================================================================================================================\n",GetRank(),iLayer);
 
-     if(!strcmp(where,"C-loop 3"  ))
-    {
-            exit(0);
-    }
-    
-    
     return 0;
 }
 

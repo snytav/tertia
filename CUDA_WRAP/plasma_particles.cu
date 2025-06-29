@@ -56,7 +56,7 @@ int particlesPrepareAtLayer(Mesh *mesh,Cell *p_CellArrayP,Cell *p_CellArrayC,int
 {
     static int prepareFirstCall = 1;
     printf("in CUDA_WRAP/plasma_particles.cu Np %d\n ",Np);
-    exit(0);
+    //exit(0);
 
 
     create_h_plasma_particles(Np);

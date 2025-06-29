@@ -322,6 +322,7 @@ void Mesh::MoveAllSplitLayers()
 
 	 CUDA_WRAP_printParticleListFromHost(this,p_CellLayerP,l_Mx-1,l_My,l_Mz,"basic",this->GetControlDomain()->p_Cntrl->GetNstep());
          cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 3");
+	 cuLayerPrintCentre(h_P,-1,this,p_CellLayerP,"P-loop 3");
 	 
 	 //CUDA_WRAP_copyLayerDeviceToDevice(l_My,l_Mz,Np,h_right,h_layers[iLayer+1]);
 //#ifndef CUDA_WRAP_FFTW_ALLOWED	 
@@ -342,15 +343,15 @@ void Mesh::MoveAllSplitLayers()
 	 //cudaMalloc((void **)&t,l_My*l_Mz*sizeof(double));
 	 //int errc = cudaMemcpy(t,h_P->JxBeam,l_My*l_Mz*sizeof(double),cudaMemcpyDeviceToDevice);
 	 printf("before call  to setLayersPC h_C %p %d h_P %p %d \n ",h_C,h_C->Np,h_P,h_P->Np);
-	 exit(0);
+	// exit(0);
 	 setLayersPC(h_C,h_P);
 //#endif	 
 	 
-         cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 3");
+         cuLayerPrintCentre(h_C,-1,this,p_CellLayerC,"C-loop 33");
 	 cuLayerPrintCentre(h_C,iLayer,this,p_CellArray,"loop 3"); 
 	  
          printf("rank %d after setLayers \n",GetRank());
-	 exit(0);
+	 //exit(0);
 //         if(GetRank() == 0) exit(0);
 	  
 #ifdef CUDA_WRAP_FFTW_ALLOWED	 
@@ -883,7 +884,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
    getLayersPC(&h_cl,&h_pl);
 //#endif   
    printf("h_pl %p \n",h_pl);
-   exit(0);
+   //exit(0);
  //  CUDA_WRAP_printLayerParticles(h_pl,"IN particle ");
    if((iLayer<= 118))  
    {
@@ -894,7 +895,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
    printf("before  particlesPrepareAtLayer \n ");
    int Np = particlesPrepareAtLayer(this,p_CellLayerP,p_CellLayerC,iLayer,l_My,l_Mz,h_pl->Np);  
    printf("after  particlesPrepareAtLayer \n "); 
-   exit(0);
+   //exit(0);
 //#endif   
    h_cl = (cudaLayer *)malloc(sizeof(cudaLayer));
    h_pl = (cudaLayer *)malloc(sizeof(cudaLayer));
@@ -902,11 +903,11 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
    printf("h_cl copied from device h_cl->Np %d \n",h_cl->Np);
    if(h_cl->Np <= 0)
    {
-	   exit(0);
+//	   exit(0);
    }
    CUDA_WRAP_print_layer(d_pl,Np,"layerFormed",l_My,l_Mz);
    printf("after d_pl formed\n");
-   exit(0);
+ //  exit(0);
    int nsorts = domain()->GetNsorts();
 #ifdef CUDA_WRAP_PARTICLE_HOST_COMPUTATIONS
    i = iLayer;
