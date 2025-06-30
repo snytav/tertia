@@ -57,8 +57,15 @@ int copyLayerFromHostToDevice(cudaLayer **hl_dp,cudaLayer *hl_hp)
     cudaMalloc(&((*hl_dp)->JxBeam),size);
     cudaMalloc(&((*hl_dp)->Rho),size);
     cudaMemcpy((*hl_dp)->JxBeam,hl_hp->JxBeam,size,cudaMemcpyHostToDevice);
+    cudaMemcpy((*hl_dp)->Rho,hl_hp->Rho,size,cudaMemcpyHostToDevice);
     cudaMemcpy((*hl_dp)->Jy,hl_hp->Jy,size,cudaMemcpyHostToDevice);
     cudaMemcpy((*hl_dp)->Jz,hl_hp->Jz,size,cudaMemcpyHostToDevice);
+    cudaMalloc(&((*hl_dp)->RhoBeam),size);
+    cudaMemcpy((*hl_dp)->RhoBeam,hl_hp->RhoBeam,size,cudaMemcpyHostToDevice);
+
+    cudaMalloc(&((*hl_dp)->particles),hl_hp->Np*sizeof(Particle));
+    cudaMemcpy((*hl_dp)->RhoBeam,hl_hp->RhoBeam,size,cudaMemcpyHostToDevice);
+
 }
 
 
