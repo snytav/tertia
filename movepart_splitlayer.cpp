@@ -1,4 +1,5 @@
 #include "CUDA_WRAP/beam_copy.h"
+#include "CUDA_WRAP/copy_layer.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
@@ -733,8 +734,8 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
      printf("rank %d after iterate\n ",GetRank());
      // printf("after  iterate1 %d\n",GetRank()); 
       //cuLayerPrintCentre(h_C,iLayer,this,p_CellArray);
-      
 
+      CUDA_WRAP_copy_from_CellArray2Layer(this,p_CellArray,&h_pl);
       //copyLayerFromHostToDevice(&h_P,p_CellLayerP);
 
       cuLayerPrintCentre(h_P,-1002,this,p_CellLayerP,"P after Iterate");

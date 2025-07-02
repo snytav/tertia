@@ -71,7 +71,7 @@ int LayerAlloc(cudaLayer **cl,int Ny,int Nz, int Np)
     return 0;
 }
 
-int CUDA_WRAP_copy_from_CellArray2Layer(Mesh *mesh,Cell *p_CellArray,cudaLayer *cl)
+int CUDA_WRAP_copy_from_CellArray2Layer(Mesh *mesh,Cell *p_CellArray,cudaLayer **cl)
 {
    double *Ex,*Ey,*Ez,*Bx,*By,*Bz,*Jx,*Jy,*Jz,*Rho;
    beamParticle *bp;
@@ -87,7 +87,9 @@ int CUDA_WRAP_copy_from_CellArray2Layer(Mesh *mesh,Cell *p_CellArray,cudaLayer *
    Ny = mesh->GetMy();
    Nz = mesh->GetMz();
 
-   LayerAlloc(&cl,Ny,Nz,Np);
+   Np = CUDA_WRAP_get_particles_number(mesh,p_CellArray);
+
+   LayerAlloc(cl,Ny,Nz,Np);
 
 
    for (int k=0; k<Nz; k++)
