@@ -893,3 +893,59 @@ int CUDA_WRAP_printPlasmaParticles(Mesh *p_M,int step,char *where)
 
    return 0;
 }
+
+
+
+
+double CUDA_WRAP_print_plasma_values(int Np,int num_attr,char *where)
+{
+#ifndef CUDA_WRAP_PRINT_PLASMA_VALUES
+        return 0.0;
+#endif
+
+        int cell_number,wrong_particles = 0;
+	double    *h_copy,frac_err,delta = 0.0,*wrong_array,*delta_array;
+	int wrong_flag = 0;
+	char s[100];
+	FILE *f;
+
+	sprintf(s,"plasmaValues_%s.dat",where);
+	f = fopen(s,"wt");
+
+	wrong_array = (double *)malloc(num_attr*sizeof(double));
+	delta_array = (double *)malloc(num_attr*sizeof(double));
+//        int width = Ny*Nz;
+//        double *h_data_in;
+
+	puts("BEGIN  BEAM-RELATED VALUES sCHECK =============================================================================");
+
+	//part_per_cell_max = findMaxNumberOfParticlesPerCell(mesh,i_layer,Ny,Nz,p_CellArray);
+	h_copy   = (double*) malloc(num_attr*Np*sizeof(double));
+
+	//GET PARTICLE DATA FROM SURFACE
+	//CUDA_WRAP_get_particle_surface(partSurfOut,cuOutputArrayX,NUMBER_ATTRIBUTES*part_per_cell_max,width,h_data_in);
+	cudaMemcpy(h_copy,d_plasma_values,num_attr*Np*sizeof(double),cudaMemcpyDeviceToHost);
+
+    for(int n = 0;n < num_attr;n++)
+    {
+        int wpa = 0,wrong_particles = 0;;
+	double fr_attr,x,cu_x;
+
+	delta = 0.0;
+
+        for (int i = 0;i < 50;i++)
+        {
+
+            cu_x = h_copy[i*num_attr + n];
+
+            fprintf(f,"%5d %5d %25.15e \n",n,i,cu_x);
+	}
+    }
+
+	free(h_copy);
+	fclose(f);
+
+        return 0.0;
+}
+
+
