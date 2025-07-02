@@ -27,6 +27,15 @@ void getLayersPC(cudaLayer **c,cudaLayer **p)
     *p = tmpLayerP;
 }
 
+
+
+// typedef struct {
+//         double *Ex,*Ey,*Ez,*Bx,*By,*Bz,*Jx,*Jy,*Jz,*Rho,*RhoBeam,*JxBeam,*fftRhoBeamHydro,*fftJxBeamHydro;
+// 	beamParticle *particles;
+// 	int Np,Ny,Nz;
+// } cudaLayer;
+
+
 int copyLayerFromHostToDevice(cudaLayer **hl_dp,cudaLayer *hl_hp)
 {
     *hl_dp = (cudaLayer *)malloc(sizeof(cudaLayer));
@@ -62,9 +71,15 @@ int copyLayerFromHostToDevice(cudaLayer **hl_dp,cudaLayer *hl_hp)
     cudaMemcpy((*hl_dp)->Jz,hl_hp->Jz,size,cudaMemcpyHostToDevice);
     cudaMalloc(&((*hl_dp)->RhoBeam),size);
     cudaMemcpy((*hl_dp)->RhoBeam,hl_hp->RhoBeam,size,cudaMemcpyHostToDevice);
+    cudaMalloc(&((*hl_dp)->fftJxBeamHydro),size);
+    cudaMemcpy((*hl_dp)->fftJxBeamHydro,hl_hp->fftJxBeamHydro,size,cudaMemcpyHostToDevice);
+    cudaMalloc(&((*hl_dp)->fftRhoBeamHydro),size);
+    cudaMemcpy((*hl_dp)->fftRhoBeamHydro,hl_hp->fftJxBeamHydro,size,cudaMemcpyHostToDevice);
 
     cudaMalloc(&((*hl_dp)->particles),hl_hp->Np*sizeof(Particle));
-    cudaMemcpy((*hl_dp)->RhoBeam,hl_hp->RhoBeam,size,cudaMemcpyHostToDevice);
+    cudaMemcpy((*hl_dp)->RhoBeam,hl_hp->Np*sizeof(Particle),cudaMemcpyHostToDevice);
+
+    return 0;
 
 }
 

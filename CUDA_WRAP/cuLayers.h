@@ -7,6 +7,9 @@
 #include "../mesh.h"
 
 
+
+int copyLayerFromHostToDevice(cudaLayer **hl_dp,cudaLayer *hl_hp);
+
 void setLayersPC(cudaLayer *c,cudaLayer*p);
 
 void getLayersPC(cudaLayer **c,cudaLayer **p);
