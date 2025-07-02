@@ -735,7 +735,7 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
       //cuLayerPrintCentre(h_C,iLayer,this,p_CellArray);
       
 
-      copyLayerFromHostToDevice(&h_P,p_CellLayerP);
+      //copyLayerFromHostToDevice(&h_P,p_CellLayerP);
 
       cuLayerPrintCentre(h_P,-1002,this,p_CellLayerP,"P after Iterate");
       cuLayerPrintCentre(h_C,-1003,this,p_CellLayerC,"C after Iterate");
