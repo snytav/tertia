@@ -100,7 +100,8 @@ int CUDA_WRAP_copy_from_CellArray2Layer(Mesh *mesh,Cell *p_CellArray,cudaLayer *
           Cell &ccc = p_CellArray[ncc];
 
 	      Particle *p  = ccc.GetParticles();
-          //add copy arrays!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          add copy arrays!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          and particles   !!!!!!
 
 
 
