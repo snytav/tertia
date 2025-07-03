@@ -35,6 +35,23 @@ int CUDA_WRAP_get_particles_number(Mesh *mesh,Cell *p_CellArray)
 
 }
 
+int copyParticle(Particle *p1,Particle *p2)
+{
+   p1->f_Px     = p2->f_Px;
+   p1->f_Py     = p2->f_Py;
+   p1->f_Pz     = p2->f_Pz;
+   p1->f_Q2m    = p2->f_Q2m;
+   p1->f_Weight = p2->f_Weight;
+   p1->f_X      = p2->f_X;
+   p1->f_Y      = p2->f_Y;
+   p1->f_Z      = p2->f_Z;
+   p1->f_Pz     = p2->f_Pz;
+
+   p1->isort    = p2->isort;
+
+
+}
+
 int LayerAlloc(cudaLayer **cl,int Ny,int Nz, int Np)
 {
     *cl = (cudaLayer*)malloc(sizeof(cudaLayer));
@@ -43,7 +60,7 @@ int LayerAlloc(cudaLayer **cl,int Ny,int Nz, int Np)
     (*cl)->Nz = Nz;
     (*cl)->Ny = Ny;
     (*cl)->Np = Np;
-    (*cl)->particles = (beamParticle *)malloc(Np*sizeof(beamParticle));
+    (*cl)->particles = (Particle *)malloc(Np*sizeof(beamParticle));
 
     int size;
     (*cl)->Ex = (double *)malloc(size);
@@ -90,6 +107,7 @@ int CUDA_WRAP_copy_from_CellArray2Layer(Mesh *mesh,Cell *p_CellArray,cudaLayer *
    Np = CUDA_WRAP_get_particles_number(mesh,p_CellArray);
 
    LayerAlloc(cl,Ny,Nz,Np);
+   int np = 0;
 
 
    for (int k=0; k<Nz; k++)
@@ -100,7 +118,15 @@ int CUDA_WRAP_copy_from_CellArray2Layer(Mesh *mesh,Cell *p_CellArray,cudaLayer *
           Cell &ccc = p_CellArray[ncc];
 
 	      Particle *p  = ccc.GetParticles();
-          add copy arrays!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+          for(;p;np++)
+	      {
+		     p = p->p_Next;
+             copyParticle(&((*cl)->particles[np]),p);
+	      }
+
+         // add copy arrays!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
           and particles   !!!!!!
 
 
