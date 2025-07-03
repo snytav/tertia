@@ -20,6 +20,7 @@
 #include "CUDA_WRAP/cuDiagnose.h"
 
 #include "para.h"
+#include "control_point.h"
 
 static double maxVx;
 
@@ -699,7 +700,11 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 //         cuLayerPrintCentre(h_P,-40,this,p_CellLayerP,"P before MoveParticlesLayerSplit");
 //         cuLayerPrintCentre(h_C,-41,this,p_CellLayerC,"C before  MoveParticlesLayerSplit");
       //exit(0);
+      ControlPoint(this,"_before_MoveParticlesLayerSplit");
       MoveParticlesLayerSplit(iLayer, iSplit,iFullStep, part);
+      string where = "MoveParticlesLayerSplit_Player";
+      plasmaControlPoint(this,p_CellLayerP,where.c_str());
+
 
 //         cuLayerPrintCentre(h_P,-42,this,p_CellLayerP,"P after MoveParticlesLayerSplit");
 //         cuLayerPrintCentre(h_C,-43,this,p_CellLayerC,"C after MoveParticlesLayerSplit");
@@ -909,7 +914,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
    {
 //	   exit(0);
    }
-   CUDA_WRAP_print_layer(d_pl,Np,"layerFormed",l_My,l_Mz);
+//    CUDA_WRAP_print_ particles__before_MoveParticlesLayerSplit_Player_0000000001.datlayer(d_pl,Np,"layerFormed",l_My,l_Mz);
    printf("after d_pl formed\n");
  //  exit(0);
    int nsorts = domain()->GetNsorts();
