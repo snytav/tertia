@@ -189,7 +189,7 @@ int CUDA_WRAP_allocLayerOnHost(cudaLayer **hl,int Ny,int Nz,int Np)
 {
    double *d_Ex,*d_Ey,*d_Ez,*d_Bx,*d_By,*d_Bz,*d_Jx,*d_Jy,*d_Jz,*d_Rho;
    cudaLayer *l,*h_l = (cudaLayer*)malloc(sizeof(cudaLayer));
-   beamParticle *p;
+   Particle *p;
    //cudaMalloc((void**)&l,sizeof(cudaLayer));
    
 /*#ifdef CUDA_WRAP_FFTW_ALLOWED
@@ -317,7 +317,7 @@ int CUDA_WRAP_allocHostLayer(cudaLayer **h_l,int Ny,int Nz,int Np)
    printf("in alloc layer Jy %p \n", (*h_l)->Jy);
    (*h_l)->Jz = (double *)malloc(sizeof(double)*Ny*Nz);
    (*h_l)->Rho = (double *)malloc(sizeof(double)*Ny*Nz);
-   (*h_l)->particles = (beamParticle *)malloc(sizeof(double)*Np);
+   (*h_l)->particles = (Particle *)malloc(sizeof(double)*Np);
    (*h_l)->fftRhoBeamHydro = (double *)malloc(sizeof(double)*Ny*Nz);
    (*h_l)->fftJxBeamHydro  = (double *)malloc(sizeof(double)*Ny*Nz);
    CUDA_WRAP_printLayerParticles(*h_l,"IN ALLOC");

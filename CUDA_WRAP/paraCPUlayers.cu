@@ -20,7 +20,7 @@ int CUDA_WRAP_getLayerFromMesh(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,in
 { 
    double *Ex,*Ey,*Ez,*Bx,*By,*Bz,*Jx,*Jy,*Jz,*Rho;
    double *JxBeamP,*RhoBeamP;
-   beamParticle *bp;
+   Particle *bp;
    cudaLayer *h_dl;
    int np = 0;
    
@@ -67,7 +67,7 @@ int CUDA_WRAP_getLayerFromMesh(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,in
    
    CUDA_WRAP_getBeamFFT(JxBeamP,RhoBeamP,Ny*Nz);
    
-   bp = (beamParticle *)malloc(np*sizeof(beamParticle));
+   bp = (Particle *)malloc(np*sizeof(Particle));
    if(bp == NULL) puts("bp NULL");
    int err2 = cudaGetLastError();
    printf("in copyLayerToDevice alloc err %d np before list composition %d \n",err2,np);
@@ -95,7 +95,7 @@ int CUDA_WRAP_getLayerFromMesh(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,in
 		
 	      for(;p;np++)
 	      {
-		 beamParticle *pc = bp + np;
+		 Particle *pc = bp + np;
 		 pc->f_X      = p->f_X;
 		 pc->f_Y      = p->f_Y;
 		 pc->f_Z      = p->f_Z;
@@ -105,13 +105,13 @@ int CUDA_WRAP_getLayerFromMesh(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,in
 		 pc->f_Weight = p->f_Weight;
 		 pc->f_Q2m    = p->f_Q2m;
 		 //if(total_np < 16) printf("Pz %d %25.15e \n",total_np,p_cuda->f_Pz);
-		 pc->i_X      = iLayer;
+		 //pc->i_X      = iLayer;
 #ifdef  CUDA_WRAP_PARALLEL_DEBUG		 
 		 printf("i_X %d Layer %d \n",pc->i_X,iLayer);
 #endif		 
-		 pc->i_Y      = j;
+		 /*pc->i_Y      = j;
 		 pc->i_Z      = k;
-		 pc->isort    = p->GetSort(); 
+		 pc->isort    = p->GetSort()*/;
 #ifdef CUDA_WRAP_PARALLEL_DEBUG		 
 	 
 		 fprintf(f,"%10d %5d %5d %5d %10.3e %10.3e %10.3e %10.3e %10.3e %10.3e \n",np,pc->i_X,pc->i_Y,pc->i_Z,p->f_X,p->f_Y,p->f_Z,p->f_Px,p->f_Py,p->f_Pz);
@@ -222,7 +222,7 @@ int CUDA_WRAP_setLayerToMesh(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,int 
     
             for(int i = 0;i < host_layer->Np;i++)   
             {
-                 pc = host_layer->particles + i;
+                 //pc = host_layer->particles + i;
                  //int L      = pc->i_X;
                  int j      = pc->i_Y;
                  int k      = pc->i_Z;

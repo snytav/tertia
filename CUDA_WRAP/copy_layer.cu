@@ -47,7 +47,7 @@ int copyParticle(Particle *p1,Particle *p2)
    p1->f_Z      = p2->f_Z;
    p1->f_Pz     = p2->f_Pz;
 
-   p1->isort    = p2->isort;
+  // p1->isort    = p2->isort;
 
 
 }
@@ -126,8 +126,10 @@ int CUDA_WRAP_copy_from_CellArray2Layer(Mesh *mesh,Cell *p_CellArray,cudaLayer *
 	      }
 
          // add copy arrays!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+         (*cl)->Ex[ncc] = ccc.GetEx();
+         (*cl)->Ey[ncc] = ccc.GetEy();
+         (*cl)->Ez[ncc] = ccc.GetEz();
 
-          and particles   !!!!!!
 
 
 

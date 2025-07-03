@@ -44,7 +44,7 @@ int CUDA_WRAP_createNewLayer(cudaLayer **h_l,cudaLayer *h_d_l)//,int Ny,int Nz,i
     h_loc->fftRhoBeamHydro  = (double *)malloc(Ny*Nz*sizeof(double));
     h_loc->fftJxBeamHydro   = (double *)malloc(Ny*Nz*sizeof(double));
     h_loc->Rho =              (double *)malloc(Ny*Nz*sizeof(double));
-    h_loc->particles = (beamParticle *)malloc(Np*sizeof(beamParticle));
+    h_loc->particles = (Particle *)malloc(Np*sizeof(Particle));
     
     if( 
         (h_loc->Bz == NULL) ||
