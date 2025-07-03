@@ -701,6 +701,10 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 //         cuLayerPrintCentre(h_C,-41,this,p_CellLayerC,"C before  MoveParticlesLayerSplit");
       //exit(0);
       ControlPoint(this,"_before_MoveParticlesLayerSplit");
+      cudaLayer *h_pl;
+      CUDA_WRAP_copy_from_CellArray2Layer(this,
+                                      this->get_p_CellLayerP(),
+                                      &h_pl);
       MoveParticlesLayerSplit(iLayer, iSplit,iFullStep, part);
       string where = "MoveParticlesLayerSplit_Player";
       plasmaControlPoint(this,p_CellLayerP,where.c_str());
