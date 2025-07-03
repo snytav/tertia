@@ -11,6 +11,7 @@
 #include "CUDA_WRAP/beam_copy.h"
 #include "CUDA_WRAP/diagnostic_print.h"
 #include "CUDA_WRAP/cuLayers.h"
+#include "CUDA_WRAP/copy_layer.h"
 
 #include "para.h"
 
@@ -269,9 +270,9 @@ int Domain::Run(void)
   int nstep = this->GetCntrl()->GetNstep();
   CUDA_WRAP_printBeamParticles(this->GetMesh(),nstep,"Run-begin");
   CUDA_WRAP_printPlasmaParticles(this->GetMesh(),nstep,"Run-begin");
-  cudaLayer *h_cl;
+  cudaLayer *h_cl,*h_pl;
   CUDA_WRAP_copy_from_CellArray2Layer(this->GetMesh(),
-                                      this->GetMesh()->,
+                                      this->GetMesh()->get_p_CellLayerP(),
                                       &h_pl);
 
   //   CUDA_WRAP_check_beam_values(Np,BEAM_VALUES_NUMBER,h_beam_values,d_beam_values,dimBlock.x*dimGrid.x,dimBlock.y*dimGrid.y,

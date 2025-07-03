@@ -127,6 +127,9 @@ public:
       return domain()->HybridIncluded();
    };
 
+   Cell *get_p_CellLayerP(){return  p_CellLayerP;}
+   Cell *get_p_CellLayerC(){return  p_CellLayerC;}
+
    void InitPulse(Pulse*);
    void SetCellNumbers(void);
 
