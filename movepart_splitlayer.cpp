@@ -37,7 +37,7 @@ void Mesh::MoveAllSplitLayers()
     gettimeofday(&tv1,NULL);
     //printf("begin moveAll %d \n",GetRank());
 //    cuLayerPrintCentre(h_C,l_Mx-2,this,p_CellArray,"RECEIVED-A");
-   CUDA_WRAP_printBeamDensity3D(this,GetControlDomain()->p_Cntrl->GetNstep(),"RECEIVED-A");
+//    CUDA_WRAP_printBeamDensity3D(this,GetControlDomain()->p_Cntrl->GetNstep(),"RECEIVED-A");
    
    int NxSplit = GetNxSplit();
    for (long n=0; n<l_sizeXYZ; n++) {

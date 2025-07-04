@@ -46,7 +46,7 @@ int Domain::Step(void)
    if(beamPrepareFirstCall == 1)
    {
       puts("before beam prepare");
-      CUDA_WRAP_beam_prepare(l_Xsize,l_Ysize,l_Zsize,p_M,p_M->p_CellArray);
+//       CUDA_WRAP_beam_prepare(l_Xsize,l_Ysize,l_Zsize,p_M,p_M->p_CellArray);
 
       Np = getBeamNp();
       printf("rank %d after prepare Np %d %з d_RhoBeam3D %p\n",GetRank(),Np,d_RhoBeam3D);
@@ -86,11 +86,12 @@ int Domain::Step(void)
 
 //#ifndef PARALLEL_ONLY
    
-   CUDA_WRAP_compareBeamCurrents(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray);
+//       beam currents for GPU not allocated
+//    CUDA_WRAP_compareBeamCurrents(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray);
    printf("after  CUDA_WRAP_compareBeamCurrents  \n");
    
 //#ifdef COPY_BEAM_FROM_HOST
-   CUDA_WRAP_copyBeamToArray(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray,&d_RhoBeam3D,&d_JxBeam3D);
+//    CUDA_WRAP_copyBeamToArray(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray,&d_RhoBeam3D,&d_JxBeam3D);
 //#endif   
    puts("  CUDA_WRAP_copyBeamToArray  ");
   // exit(0); 
@@ -103,7 +104,7 @@ int Domain::Step(void)
 //   Exchange(SPACK_PB);
 //#endif  
 
-   CUDA_WRAP_diagnose(    l_Xsize,    l_Ysize,    l_Zsize,p_M->Hx(),p_M->Hy(),p_Cntrl->l_Nstep,p_M,p_M->p_CellArray);
+//    CUDA_WRAP_diagnose(    l_Xsize,    l_Ysize,    l_Zsize,p_M->Hx(),p_M->Hy(),p_Cntrl->l_Nstep,p_M,p_M->p_CellArray);
    printf("long after sending particles rank %d \n",GetRank());
    gettimeofday(&tv1,NULL);
    p_M->MoveAllSplitLayers();
