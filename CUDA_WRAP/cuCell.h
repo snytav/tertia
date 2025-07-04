@@ -1,6 +1,8 @@
 #ifndef CUDA_WRAP_CU_CELL_H
 #define CUDA_WRAP_CU_CELL_H
 
+#include "../particles.h"
+
 
 typedef struct {
         double f_Ex,f_Ey,f_Ez,f_Bx,f_By,f_Bz;
@@ -18,7 +20,7 @@ typedef struct {
 
 typedef struct {
         double *Ex,*Ey,*Ez,*Bx,*By,*Bz,*Jx,*Jy,*Jz,*Rho,*RhoBeam,*JxBeam,*fftRhoBeamHydro,*fftJxBeamHydro;
-	beamParticle *particles;
+	Particle *particles;
 	int Np,Ny,Nz;
 } cudaLayer;
 
