@@ -265,14 +265,21 @@ int Domain::GroupSteps(void)
 
 int Domain::Run(void)
 {
+   CUDA_MALLOC_TEST("in  Run"); 
+  	
 #ifdef CUDA_WRAP_HIGH_PARALLEL_DEBUG  
   printf("before Group %d Xlen %d \n",GetRank(),f_Xlength);
 #endif  
   SetXSize(&l_Xsize,f_Xlength);
   int nstep = this->GetCntrl()->GetNstep();
+  CUDA_MALLOC_TEST("before Run-begin");
   CUDA_WRAP_printBeamParticles(this->GetMesh(),nstep,"Run-begin");
+  CUDA_MALLOC_TEST("mid Run-begin");
+
   CUDA_WRAP_printPlasmaParticles(this->GetMesh(),nstep,"Run-begin");
   cudaLayer *h_cl,*h_pl;
+  CUDA_MALLOC_TEST("after Run-begin");
+
   CUDA_WRAP_copy_from_CellArray2Layer(this->GetMesh(),
                                       this->GetMesh()->get_p_CellLayerP(),
                                       &h_pl);
@@ -286,7 +293,7 @@ int Domain::Run(void)
 #ifdef CUDA_WRAP_HIGH_PARALLEL_DEBUG      
       printf("before Group %d Xlen %d \n",GetRank(),f_Xlength);
 #endif      
-       
+       CUDA_MALLOC_TEST("GroupSteps");
       if (itmp = GroupSteps())
 	break;
       printf("in RUN %d itmp %d \n",GetRank(),itmp); 
