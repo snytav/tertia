@@ -1090,6 +1090,14 @@ err = CUDA_WRAP_alloc3DArray(Nx,Ny,Nz,&d_RhoBeam3D);
     return Np;
 }
 
+int CUDA_MALLOC_TEST(char *where)
+{
+	double *x;
+	printf("CUDA MALLOC TEST at %s \n",where);
+	cudaMalloc((void **)&x,sizeof(double));
+	printf("CUDA MALLOC TEST at %s OK \n",where);
+}
+
 int CUDA_WRAP_compareBeamCurrents(Mesh *mesh,int Nx,int Ny,int Nz,Cell *p_CellArray)
 {
 #ifndef CUDA_WRAP_COMPARE_BEAM_CURRENTS_ALLOWED 
@@ -1107,7 +1115,10 @@ int CUDA_WRAP_compareBeamCurrents(Mesh *mesh,int Nx,int Ny,int Nz,Cell *p_CellAr
 
     int err = cudaGetLastError();
 
-    cudaMalloc((void **)&x,sizeof(double));
+    CUDA_MALLOC_TEST("in  CUDA_WRAP_compareBeamCurrents ");
+    exit(0);
+
+  //  cudaMalloc((void **)&x,sizeof(double));
 
     cudaMalloc(&d_RhoBeam3D,sizeof(double)*Nx*Ny*Nz);
 

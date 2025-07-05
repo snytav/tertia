@@ -247,6 +247,8 @@ int Domain::GroupSteps(void)
   for (i=0; i<(p_Cntrl->i_Ndiagnose); i++) {
     printf("before step %d itmp %d rank %d p_Cntrl->i_Ndiagnose %d iters %d \n",i,itmp,GetRank(),p_Cntrl->i_Ndiagnose,
                                                                         p_Cntrl->i_Ndiagnose+GetRank());
+    CUDA_MALLOC_TEST("step.cpp:250");
+    exit(0);
     itmp = Step();
     
    // if (itmp) return itmp;

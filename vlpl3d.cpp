@@ -9,6 +9,7 @@
 
 #include "para.h"
 #include "CUDA_WRAP/plasma_particles.h"
+#include "CUDA_WRAP/cuBeam.h"
 
 //TODO
 //
@@ -24,6 +25,10 @@ int main(int argc, char** argv)
   int rank = 0;
   int myid, numprocs;
   int  namelen;
+
+  CUDA_MALLOC_TEST("main begin");
+
+
 
 #ifdef V_MPI
   char processor_name[MPI_MAX_PROCESSOR_NAME];
@@ -94,6 +99,7 @@ infile = "v.ini";
 //printf("PARA init rank %d l_Mx %d \n",GetRank(),l_Mx);
 
 #ifdef NO_X_ACCESS
+     CUDA_MALLOC_TEST("before Run");
     domain->Run();
 #endif
   delete domain;

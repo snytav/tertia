@@ -3,6 +3,8 @@
 #include "cuCell.h"
 
 
+int CUDA_MALLOC_TEST(char *where);
+
 int CUDA_WRAP_beam_prepare(int Nx,int Ny,int Nz,Mesh *mesh,Cell *p_CellArray);
 
 int CUDA_WRAP_beam_move(int Np,int Nx,int Ny,int Nz,double hx,double hy,double hz,double ts,int nstep);
