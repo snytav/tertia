@@ -56,9 +56,8 @@ int Domain::Step(void)
 #ifndef PARALLEL_ONLY   
 ///////////////////////////////////////////////////////////////////   
    struct timeval tv1,tv2,tvc1,tvc2;
-
-   CUDA_MALLOC_TEST("before_AfterMove");    
-
+   CUDA_MALLOC_TEST("STEP:60");
+   exit(0);   
    CUDA_WRAP_printBeamParticles(p_M,p_Cntrl->l_Nstep,"AfterMove");
    puts("BEFORE BEAM");
 #ifdef CUDA_WRAP_COMPUTE_BEAM_ON_HOST   
@@ -88,7 +87,7 @@ int Domain::Step(void)
 
 //#ifndef PARALLEL_ONLY
    
-//       beam currents for GPU not allocated
+      //beam currents for GPU not allocated
    CUDA_WRAP_compareBeamCurrents(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray);
    printf("after  CUDA_WRAP_compareBeamCurrents  \n");
    
@@ -249,8 +248,6 @@ int Domain::GroupSteps(void)
   for (i=0; i<(p_Cntrl->i_Ndiagnose); i++) {
     printf("before step %d itmp %d rank %d p_Cntrl->i_Ndiagnose %d iters %d \n",i,itmp,GetRank(),p_Cntrl->i_Ndiagnose,
                                                                         p_Cntrl->i_Ndiagnose+GetRank());
-    CUDA_MALLOC_TEST("step.cpp:250");
-    exit(0);
     itmp = Step();
     
    // if (itmp) return itmp;

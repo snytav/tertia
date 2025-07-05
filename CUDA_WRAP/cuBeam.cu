@@ -24,8 +24,15 @@ beamParticle *beam_particles;
 double *h_beam_values,*d_beam_values;
 static int first_h_beam_values = 1;
 
+double *d_RhoBeam3D,*d_JxBeam3D;
 
-
+int CUDA_MALLOC_TEST(char *wh)
+{
+	double *x;
+	printf(" CUDA_MALLOC_TEST at %s  \n",wh);
+	cudaMalloc(&x,8);
+	printf(" CUDA_MALLOC_TEST at %s  OK \n",wh);
+}
 
 __device__ int get4Dposition(int Ny,int Nz,int Np,int i,int k,int l,int n)
 {
@@ -764,6 +771,11 @@ int CUDA_WRAP_beam_move(int Np,int Nx,int Ny,int Nz,double hx,double hy,double h
     bc.rho = d_RhoBeam3D;
     
     //cudaPrintfInit(); 
+    printf("before beam3D alloc \n");
+    exit(0);
+    cudaMalloc(&d_JxBeam3D,Nx*Ny*Nz*sizeof(double));
+    cudaMalloc(&d_RhoBeam3D,Nx*Ny*Nz*sizeof(double));
+
     cudaMemset(d_JxBeam3D, 0,Nx*Ny*Nz*sizeof(double));
     cudaMemset(d_RhoBeam3D,0,Nx*Ny*Nz*sizeof(double));
     
@@ -1090,14 +1102,6 @@ err = CUDA_WRAP_alloc3DArray(Nx,Ny,Nz,&d_RhoBeam3D);
     return Np;
 }
 
-int CUDA_MALLOC_TEST(char *where)
-{
-	double *x;
-	printf("CUDA MALLOC TEST at %s \n",where);
-	cudaMalloc((void **)&x,sizeof(double));
-	printf("CUDA MALLOC TEST at %s OK \n",where);
-}
-
 int CUDA_WRAP_compareBeamCurrents(Mesh *mesh,int Nx,int Ny,int Nz,Cell *p_CellArray)
 {
 #ifndef CUDA_WRAP_COMPARE_BEAM_CURRENTS_ALLOWED 
@@ -1105,22 +1109,14 @@ int CUDA_WRAP_compareBeamCurrents(Mesh *mesh,int Nx,int Ny,int Nz,Cell *p_CellAr
 #endif    
   
     double *h_rho_beam,*h_jx_beam,*h_jy_beam,*h_jz_beam;
-    double *x;
     FILE *f;
     
     h_jx_beam  = (double *)malloc(sizeof(double)*Nx*Ny*Nz);
 //    h_jy_beam  = (double *)malloc(sizeof(double)*Nx*Ny*Nz);
 //    h_jz_beam  = (double *)malloc(sizeof(double)*Nx*Ny*Nz);
     h_rho_beam = (double *)malloc(sizeof(double)*Nx*Ny*Nz);
-
-    int err = cudaGetLastError();
-
-    CUDA_MALLOC_TEST("in  CUDA_WRAP_compareBeamCurrents ");
-    exit(0);
-
-  //  cudaMalloc((void **)&x,sizeof(double));
-
-    cudaMalloc(&d_RhoBeam3D,sizeof(double)*Nx*Ny*Nz);
+    cudaMalloc(&d_JxBeam3D,Nx*Ny*Nz*sizeof(double));
+    cudaMalloc(&d_RhoBeam3D,Nx*Ny*Nz*sizeof(double));
 
     cudaMemcpy(h_rho_beam,d_RhoBeam3D,sizeof(double)*Nx*Ny*Nz,cudaMemcpyDeviceToHost);
     cudaMemcpy(h_jx_beam, d_JxBeam3D, sizeof(double)*Nx*Ny*Nz,cudaMemcpyDeviceToHost);
