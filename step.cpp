@@ -56,7 +56,9 @@ int Domain::Step(void)
 #ifndef PARALLEL_ONLY   
 ///////////////////////////////////////////////////////////////////   
    struct timeval tv1,tv2,tvc1,tvc2;
-      
+
+   CUDA_MALLOC_TEST("before_AfterMove");    
+
    CUDA_WRAP_printBeamParticles(p_M,p_Cntrl->l_Nstep,"AfterMove");
    puts("BEFORE BEAM");
 #ifdef CUDA_WRAP_COMPUTE_BEAM_ON_HOST   

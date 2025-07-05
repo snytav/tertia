@@ -1,0 +1,7 @@
+
+#14 0x00007ffff0c5740b in cudaMalloc () from /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+#15 0x00005555555673a0 in CUDA_MALLOC_TEST (where=0x55555561619a "step.cpp:250") at CUDA_WRAP/cuBeam.cu:1097
+#16 0x0000555555608ca4 in Domain::GroupSteps (this=0x555556616e50) at step.cpp:252
+#17 0x0000555555608dcf in Domain::Run (this=0x555556616e50) at step.cpp:293
+#18 0x000055555560dbb8 in main (argc=1, argv=0x7fffffffe2f8) at vlpl3d.cpp:103
+
