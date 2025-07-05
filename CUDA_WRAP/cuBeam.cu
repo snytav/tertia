@@ -1097,12 +1097,19 @@ int CUDA_WRAP_compareBeamCurrents(Mesh *mesh,int Nx,int Ny,int Nz,Cell *p_CellAr
 #endif    
   
     double *h_rho_beam,*h_jx_beam,*h_jy_beam,*h_jz_beam;
+    double *x;
     FILE *f;
     
     h_jx_beam  = (double *)malloc(sizeof(double)*Nx*Ny*Nz);
 //    h_jy_beam  = (double *)malloc(sizeof(double)*Nx*Ny*Nz);
 //    h_jz_beam  = (double *)malloc(sizeof(double)*Nx*Ny*Nz);
     h_rho_beam = (double *)malloc(sizeof(double)*Nx*Ny*Nz);
+
+    int err = cudaGetLastError();
+
+    cudaMalloc((void **)&x,sizeof(double));
+
+    cudaMalloc(&d_RhoBeam3D,sizeof(double)*Nx*Ny*Nz);
 
     cudaMemcpy(h_rho_beam,d_RhoBeam3D,sizeof(double)*Nx*Ny*Nz,cudaMemcpyDeviceToHost);
     cudaMemcpy(h_jx_beam, d_JxBeam3D, sizeof(double)*Nx*Ny*Nz,cudaMemcpyDeviceToHost);

@@ -87,7 +87,7 @@ int Domain::Step(void)
 //#ifndef PARALLEL_ONLY
    
 //       beam currents for GPU not allocated
-//    CUDA_WRAP_compareBeamCurrents(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray);
+   CUDA_WRAP_compareBeamCurrents(p_M,l_Xsize,l_Ysize,l_Zsize,p_M->p_CellArray);
    printf("after  CUDA_WRAP_compareBeamCurrents  \n");
    
 //#ifdef COPY_BEAM_FROM_HOST

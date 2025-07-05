@@ -342,8 +342,8 @@ void Mesh::MoveAllSplitLayers()
 	 if(iLayer<= 118) CUDA_DEBUG_printDdevice_matrix(l_My,l_Mz,h_C->JxBeam,"C");
 //	 int err_int = cudaGetLastError();
 	 double *t;
-	 //cudaMalloc((void **)&t,l_My*l_Mz*sizeof(double));
-	 //int errc = cudaMemcpy(t,h_P->JxBeam,l_My*l_Mz*sizeof(double),cudaMemcpyDeviceToDevice);
+// 	 cudaMalloc((void **)&t,l_My*l_Mz*sizeof(double));
+// 	 int errc = cudaMemcpy(t,h_P->JxBeam,l_My*l_Mz*sizeof(double),cudaMemcpyDeviceToDevice);
 	 printf("before call  to setLayersPC h_C %p %d h_P %p %d \n ",h_C,h_C->Np,h_P,h_P->Np);
 	// exit(0);
 	 setLayersPC(h_C,h_P);
