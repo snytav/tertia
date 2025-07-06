@@ -865,6 +865,11 @@ int CUDA_WRAP_printBeamParticles(Mesh *p_M,int step,char *where)
    return 0; 
 }
 
+int get2D_index(cudaLayer *cl,int i,int j)
+{
+	return cl->Ny*i + j;
+}
+
 int CUDA_WRAP_printPlasmaParticles(Mesh *p_M,int step,char *where)
 {
 #ifdef CUDA_WRAP_BEAM_PARTICLES_PRINT
@@ -892,6 +897,8 @@ int CUDA_WRAP_printPlasmaParticles(Mesh *p_M,int step,char *where)
 	       p = p->p_Next;
 	       num++;
 	    }
+
+	     
 
 /*	    Cell &ccc_c =  p_CellLayerC[nYZ];
 	    Cell &ccc_p =  p_CellLayerC[nYZ];
