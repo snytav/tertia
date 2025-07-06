@@ -1,6 +1,7 @@
 #include "../cell3d.h"
 #include "../mesh.h"
 #include "cuLayers.h"
+#include "cuBeam.h"
 
 int CUDA_WRAP_get_particles_number(Mesh *mesh,Cell *p_CellArray)
 {
@@ -60,7 +61,7 @@ int LayerAlloc(cudaLayer **cl,int Ny,int Nz, int Np)
     (*cl)->Nz = Nz;
     (*cl)->Ny = Ny;
     (*cl)->Np = Np;
-    (*cl)->particles = (Particle *)malloc(Np*sizeof(beamParticle));
+    (*cl)->particles = (Particle *)malloc(Np*sizeof(Particle));
 
     int size;
     (*cl)->Ex = (double *)malloc(size);
@@ -94,7 +95,7 @@ int CUDA_WRAP_copy_from_CellArray2Layer(Mesh *mesh,Cell *p_CellArray,cudaLayer *
    beamParticle *bp;
    cudaLayer *h_dl;
    int Ny,Nz,Np;
-
+   CUDA_MALLOC_TEST("Cell2Layer begin"); 
 
 
 
@@ -107,6 +108,7 @@ int CUDA_WRAP_copy_from_CellArray2Layer(Mesh *mesh,Cell *p_CellArray,cudaLayer *
    Np = CUDA_WRAP_get_particles_number(mesh,p_CellArray);
 
    LayerAlloc(cl,Ny,Nz,Np);
+   CUDA_MALLOC_TEST("LayerAlloc");
    int np = 0;
 
 
@@ -126,15 +128,16 @@ int CUDA_WRAP_copy_from_CellArray2Layer(Mesh *mesh,Cell *p_CellArray,cudaLayer *
 	      }
 
          // add copy arrays!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-         (*cl)->Ex[ncc] = ccc.GetEx();
-         (*cl)->Ey[ncc] = ccc.GetEy();
-         (*cl)->Ez[ncc] = ccc.GetEz();
+         //(*cl)->Ex[ncc] = ccc.GetEx();
+         //(*cl)->Ey[ncc] = ccc.GetEy();
+         //(*cl)->Ez[ncc] = ccc.GetEz();
 
 
 
 
       }
    }
+   CUDA_MALLOC_TEST("END 2aRRAY");
 
    return 0;
 
