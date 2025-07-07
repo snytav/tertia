@@ -63,6 +63,8 @@ double *d_Bz,
 double *d_rRho
 );
 
+int  get2D_index(cudaLayer *cl,int i,int j);
+
 int CUDA_WRAP_printLayerParticles(cudaLayer *h_l,char *s);
 
 int CUDA_WRAP_copyLayerParticles(cudaLayer *h_dst,cudaLayer *_src);

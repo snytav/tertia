@@ -106,7 +106,9 @@ int CUDA_WRAP_copy_from_CellArray2Layer(Mesh *mesh,Cell *p_CellArray,cudaLayer *
    Nz = mesh->GetMz();
 
    Np = CUDA_WRAP_get_particles_number(mesh,p_CellArray);
-
+   Np = 40960;
+   printf(" Ny %d Nz %d Np %d\n",Ny,Nz,Np);
+    
    LayerAlloc(cl,Ny,Nz,Np);
    CUDA_MALLOC_TEST("LayerAlloc");
    int np = 0;
@@ -128,18 +130,19 @@ int CUDA_WRAP_copy_from_CellArray2Layer(Mesh *mesh,Cell *p_CellArray,cudaLayer *
              copyParticle(&((*cl)->particles[np]),p);
 	      }
 
+	  int n =  get2D_index(*cl,k,j); 
          // add copy arrays!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	  printf("k %5d j %5d ncc %10d Ny*Nz %10d \n",k,j,ncc,Ny*Nz);
-         //(*cl)->Ex[ncc] = ccc.GetEx();
-         //(*cl)->Ey[ncc] = ccc.GetEy();
-         //(*cl)->Ez[ncc] = ccc.GetEz();
+	  //printf("k %5d j %5d ncc %10d Ny*Nz %10d \n",k,j,n,Ny*Nz);
+         (*cl)->Ex[n] = ccc.GetEx();
+         (*cl)->Ey[n] = ccc.GetEy();
+         (*cl)->Ez[n] = ccc.GetEz();
 
 
 
 
       }
    }
-   exit(0);
+  // exit(0);
    CUDA_MALLOC_TEST("END 2aRRAY");
 
    return 0;
