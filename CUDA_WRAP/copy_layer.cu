@@ -1,3 +1,4 @@
+#include<stdlib.h>
 #include "../cell3d.h"
 #include "../mesh.h"
 #include "cuLayers.h"
@@ -63,7 +64,7 @@ int LayerAlloc(cudaLayer **cl,int Ny,int Nz, int Np)
     (*cl)->Np = Np;
     (*cl)->particles = (Particle *)malloc(Np*sizeof(Particle));
 
-    int size;
+    int size = Ny*Nz*sizeof(double);
     (*cl)->Ex = (double *)malloc(size);
     (*cl)->Ey = (double *)malloc(size);
     (*cl)->Ez = (double *)malloc(size);
