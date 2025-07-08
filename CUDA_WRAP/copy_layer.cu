@@ -128,7 +128,10 @@ int CUDA_WRAP_copy_from_CellArray2Layer(Mesh *mesh,Cell *p_CellArray,cudaLayer *
           for(;p;np++)
 	      {
 		     p = p->p_Next;
-             copyParticle(&((*cl)->particles[np]),p);
+		     if(p != NULL)
+		     {
+                copyParticle(&((*cl)->particles[np]),p);
+             }
 	      }
 
 	  int n =  get2D_index(*cl,k,j); 
