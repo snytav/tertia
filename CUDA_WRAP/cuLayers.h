@@ -6,7 +6,7 @@
 #include "../cells.h"
 #include "../mesh.h"
 
-
+int copyLayerStructureFromHostToDevice(cudaLayer **dl_dp,cudaLayer *hl_dp);
 
 int copyLayerFromHostToDevice(cudaLayer **hl_dp,cudaLayer *hl_hp);
 

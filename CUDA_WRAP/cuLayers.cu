@@ -36,6 +36,13 @@ void getLayersPC(cudaLayer **c,cudaLayer **p)
 // } cudaLayer;
 
 
+int copyLayerStructureFromHostToDevice(cudaLayer **dl_dp,cudaLayer *hl_dp)
+{
+	cudaMalloc(dl_dp,sizeof(cudaLayer));
+	cudaMemcpy(*dl_dp,hl_dp,sizeof(cudaLayer),cudaMemcpyHostToDevice);
+	return 0;
+}
+
 int copyLayerFromHostToDevice(cudaLayer **hl_dp,cudaLayer *hl_hp)
 {
     *hl_dp = (cudaLayer *)malloc(sizeof(cudaLayer));
