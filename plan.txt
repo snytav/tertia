@@ -1,3 +1,3 @@
 + 1. comment exit at step:60
 + 2. remove error to reach movepart_splitlayer:747 now 705
-3. call function to copy later from host to device from h_pl
++ 3. call function to copy later from host to device from h_pl

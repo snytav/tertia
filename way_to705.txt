@@ -1,0 +1,15 @@
+#0  CUDA_WRAP_copy_from_CellArray2Layer (mesh=0x555556665e00, p_CellArray=0x555556665f68,
+    cl=0x7fffffffdca0) at CUDA_WRAP/copy_layer.cu:94
+#1  0x00005555555e0584 in Mesh::MoveSplitLayer (this=0x555556665e00, iLayer=120, iSplit=0)
+    at /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:705
+#2  0x00005555555df80a in Mesh::MoveAllSplitLayers (this=0x555556665e00)
+    at /home/snytav/tp1/TERTIA/movepart_splitlayer.cpp:446
+#3  0x0000555555608d60 in Domain::Step (this=0x555556617e10)
+    at /home/snytav/tp1/TERTIA/step.cpp:111
+#4  0x0000555555609265 in Domain::GroupSteps (this=0x555556617e10)
+    at /home/snytav/tp1/TERTIA/step.cpp:251
+#5  0x0000555555609439 in Domain::Run (this=0x555556617e10)
+    at /home/snytav/tp1/TERTIA/step.cpp:298
+#6  0x000055555560e222 in main (argc=1, argv=0x7fffffffe2f8)
+    at /home/snytav/tp1/TERTIA/vlpl3d.cpp:103
+
