@@ -713,7 +713,7 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
       copyLayerStructureFromHostToDevice(&d_pl,h_pl_dp);
       copyLayerFromHostToDevice(&h_cl_dp,h_cl);
             copyLayerStructureFromHostToDevice(&d_cl,h_cl_dp);
-      MoveParticlesLayerSplit(iLayer, iSplit,iFullStep, part);
+      MoveParticlesLayerSplit(iLayer, iSplit,iFullStep, part,h_pl,d_pl,h_cl,d_cl);
       string where = "MoveParticlesLayerSplit_Player";
       plasmaControlPoint(this,p_CellLayerP,where.c_str());
 
@@ -884,7 +884,8 @@ int Mesh::getLayerParticles(int iLayer)
 }
 
 //---Mesh:: ---------------------------------------------->
-void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double part) 
+void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double part,
+		cudaLayer *h_pl,cudaLayer *d_pl,cudaLayer *h_cl,cudaLayer *d_cl)
 {
    double Vx = 0.;
    int np = 0;
@@ -897,12 +898,12 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
    double hx = HxSplit()*part;
    double hy = Hy();
    double hz = Hz();
-   cudaLayer *d_cl,*d_pl,*h_cl,*h_pl;
    
+
    printf("in :MoveParticlesLayerSplit  \n ");
    //exit(0); 
 //#ifndef CUDA_WRAP_FFTW_ALLOWED   
-   getLayersPC(&h_cl,&h_pl);
+   //getLayersPC(&h_cl,&h_pl);
 //#endif   
    printf("h_pl %p \n",h_pl);
    //exit(0);

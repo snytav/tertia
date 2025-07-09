@@ -5,6 +5,7 @@
 #include "domain.h"
 /* HDF5 Library                                                       */ 
 #include "myhdfshell.h"
+#include "CUDA_WRAP/cuCell.h"
 
 //---------------------------- Mesh class -----------------------
 class Mesh{
@@ -70,7 +71,8 @@ public:
    void MoveAllHydroLayers(void);
    double EM_EnergyLayer(int iLayer);
    void MoveParticlesLayer(int iLayer, int iFullStep, double part=1.);
-   void MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double part=1.);
+   void MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double part);
+
 
    void MoveBfield(void);
    void MoveParticles(void);
