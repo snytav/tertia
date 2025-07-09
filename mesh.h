@@ -5,7 +5,6 @@
 #include "domain.h"
 /* HDF5 Library                                                       */ 
 #include "myhdfshell.h"
-#include "CUDA_WRAP/cuCell.h"
 
 //---------------------------- Mesh class -----------------------
 class Mesh{

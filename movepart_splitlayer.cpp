@@ -713,6 +713,7 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
       copyLayerStructureFromHostToDevice(&d_pl,h_pl_dp);
       copyLayerFromHostToDevice(&h_cl_dp,h_cl);
             copyLayerStructureFromHostToDevice(&d_cl,h_cl_dp);
+      setLayersPC(d_cl,d_pl);
       MoveParticlesLayerSplit(iLayer, iSplit,iFullStep, part,h_pl,d_pl,h_cl,d_cl);
       string where = "MoveParticlesLayerSplit_Player";
       plasmaControlPoint(this,p_CellLayerP,where.c_str());
@@ -787,7 +788,6 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
 #endif   
    gettimeofday(&tp1,NULL);
            //printf("rank %d begins particles2 \n",GetRank());
-
    MoveParticlesLayerSplit(iLayer,iSplit, iFullStep, part);
         //printf("rank %d after particles2 \n",GetRank());
    gettimeofday(&tp2,NULL);
@@ -884,8 +884,7 @@ int Mesh::getLayerParticles(int iLayer)
 }
 
 //---Mesh:: ---------------------------------------------->
-void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double part,
-		cudaLayer *h_pl,cudaLayer *d_pl,cudaLayer *h_cl,cudaLayer *d_cl)
+void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double part)
 {
    double Vx = 0.;
    int np = 0;
@@ -905,28 +904,19 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
 //#ifndef CUDA_WRAP_FFTW_ALLOWED   
    //getLayersPC(&h_cl,&h_pl);
 //#endif   
-   printf("h_pl %p \n",h_pl);
    //exit(0);
  //  CUDA_WRAP_printLayerParticles(h_pl,"IN particle ");
    if((iLayer<= 118))  
    {
-      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
+      //CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
    }
    
 //#ifndef CUDA_WRAP_FFTW_ALLOWED 
    printf("before  particlesPrepareAtLayer \n ");
-   int Np = particlesPrepareAtLayer(this,p_CellLayerP,p_CellLayerC,iLayer,l_My,l_Mz,h_pl->Np);  
+   //int Np = particlesPrepareAtLayer(this,p_CellLayerP,p_CellLayerC,iLayer,l_My,l_Mz,h_pl->Np);  
    printf("after  particlesPrepareAtLayer \n "); 
    //exit(0);
 //#endif   
-   h_cl = (cudaLayer *)malloc(sizeof(cudaLayer));
-   h_pl = (cudaLayer *)malloc(sizeof(cudaLayer));
-   cudaMemcpy(h_cl,d_pl,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
-   printf("h_cl copied from device h_cl->Np %d \n",h_cl->Np);
-   if(h_cl->Np <= 0)
-   {
-//	   exit(0);
-   }
 //    CUDA_WRAP_print_ particles__before_MoveParticlesLayerSplit_Player_0000000001.datlayer(d_pl,Np,"layerFormed",l_My,l_Mz);
    printf("after d_pl formed\n");
  //  exit(0);
@@ -1658,8 +1648,9 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
 #endif
    int nstep = this->domain()->p_Cntrl->GetNstep();
    printf("before cuMoveSplitParticles h_pl->Np %d\n",h_pl->Np);
+   setLayersPC(&d_cl,&d_pl);
    cuMoveSplitParticles(iLayer,iSplit,h_cl,h_pl,d_cl,d_pl,l_Mx,l_My,l_Mz,hx,hy,hz,
-                                     djx0,djy0,djz0,drho0,nsorts,iFullStep,nstep);
+                                      djx0,djy0,djz0,drho0,nsorts,iFullStep,nstep);
 #ifdef CUDA_WRAP_PARTICLE_HOST_COMPUTATIONS
    delete[] djx0;
    delete[] djy0;
