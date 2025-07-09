@@ -1,0 +1,2 @@
+1. pass h_cl,h_pl and d_cl,d_pl
+2. watch that device layer pointer are not damaged on the way to kernel
