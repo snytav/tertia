@@ -702,11 +702,17 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
       //exit(0);
       ControlPoint(this,"_before_MoveParticlesLayerSplit");
       cudaLayer *h_pl_dp,*h_pl,*d_pl;
+      cudaLayer *h_cl_dp,*h_cl,*d_cl;
       CUDA_WRAP_copy_from_CellArray2Layer(this,
                                       this->get_p_CellLayerP(),
                                       &h_pl);
+      CUDA_WRAP_copy_from_CellArray2Layer(this,
+                                            this->get_p_CellLayerC(),
+                                            &h_cl);
       copyLayerFromHostToDevice(&h_pl_dp,h_pl);
       copyLayerStructureFromHostToDevice(&d_pl,h_pl_dp);
+      copyLayerFromHostToDevice(&h_cl_dp,h_cl);
+            copyLayerStructureFromHostToDevice(&d_cl,h_cl_dp);
       MoveParticlesLayerSplit(iLayer, iSplit,iFullStep, part);
       string where = "MoveParticlesLayerSplit_Player";
       plasmaControlPoint(this,p_CellLayerP,where.c_str());

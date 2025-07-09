@@ -79,6 +79,7 @@ int LayerAlloc(cudaLayer **cl,int Ny,int Nz, int Np)
 
     (*cl)->Rho = (double *)malloc(size);
     (*cl)->JxBeam = (double *)malloc(size);
+    (*cl)->RhoBeam = (double *)malloc(size);
     (*cl)->fftJxBeamHydro = (double *)malloc(size);
 
     (*cl)->fftRhoBeamHydro = (double *)malloc(size);
