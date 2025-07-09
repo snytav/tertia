@@ -90,7 +90,10 @@ __device__ void copyParticle(beamParticle *dst,beamParticle *src)
 }
 
 
-__global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLayer *cl,cudaLayer *pl,int Ny,int Nz,double hx,double hy,double hz,
+__global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,
+                                          
+                                           cudaLayer *d_cl,cudaLayer *d_pl,
+int Ny,int Nz,double hx,double hy,double hz,
                                      double *djx0,double *djy0,double *djz0,double *drho0,int iFullStep,double *d_p)
 {
  /*        unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -837,7 +840,10 @@ void copyLayerFromDeviceToHost(cudaLayer **h_l,cudaLayer *d_l)
 }
 
 
-void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,int Mx,int Ny,int Nz,double hx,double hy,double hz,
+void cuMoveSplitParticles(int iLayer,int iSplit,
+cudaLayer *h_cl,cudaLayer *h_pl,
+cudaLayer *d_cl1,cudaLayer *d_pl1,
+int Mx,int Ny,int Nz,double hx,double hy,double hz,
                                      double *djx0,double *djy0,double *djz0,double *drho0,int nsorts,int iFullStep,int nstep)
 {
 
@@ -851,7 +857,7 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
      printf("Np from h_pl %d \n",Np);
      //exit(0);
 
-     static cudaLayer *d_cl,*d_pl;
+     //static cudaLayer *d_cl,*d_pl;
      struct timeval tv1,tv2,tf1,tf2;
 
 #ifdef CUDA_WRAP_DEBUG_ERROR_MESSAGES   
@@ -892,10 +898,6 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
         cudaMemcpy(d_drho0,drho0,sizeof(double)*nsorts,cudaMemcpyHostToDevice);
         // insert section output
      
-        cudaMalloc(&d_pl,sizeof(cudaLayer));
-        cudaMemcpy(d_pl,h_pl,sizeof(cudaLayer),cudaMemcpyHostToDevice);
-        cudaMalloc(&d_cl,sizeof(cudaLayer));
-        cudaMemcpy(d_cl,h_cl,sizeof(cudaLayer),cudaMemcpyHostToDevice);
         
         first = 0;
      }
@@ -916,7 +918,7 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
 	exit(0);
       }
 //      cudaPrintfInit();
-     cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl,d_pl,Ny,Nz,hx,hy,hz,
+     cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl1,d_pl1,Ny,Nz,hx,hy,hz,
                                      d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
 //      cudaPrintfDisplay(stdout, true);
 //      cudaPrintfEnd();
@@ -943,27 +945,27 @@ void cuMoveSplitParticles(int iLayer,int iSplit,cudaLayer *h_cl,cudaLayer *h_pl,
 
      }
 
-     //////////////////////////////////////////////////
-     cudaError_t err11 = cudaGetLastError();
-     printf("block 2 err11 after particles kernel %03d --------------------------------------\n",err11);
-     copyLayerFromDeviceToHost(&h_cl1,d_cl);
-     cudaError_t err12 = cudaGetLastError();
-     printf("block 2 err12 after particles kernel %03d --------------------------------------\n",err12);
-     h_cl1 = (cudaLayer*)malloc(sizeof(cudaLayer));
-     h_pl1 = (cudaLayer*)malloc(sizeof(cudaLayer));
-     cudaMemcpy(h_cl1,d_cl,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
-     cudaError_t err13 = cudaGetLastError();
-     printf("block 2 err13 after particles kernel %03d --------------------------------------\n",err13);
-     cudaMemcpy(h_pl1,d_pl,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
-     cudaError_t err14 = cudaGetLastError();
-     printf("block 2 err14  after particles kernel %03d --------------------------------------\n",err14);
-
-     cudaDeviceSynchronize();
-     err = cudaGetLastError();
-     printf("block 2 after particles kernel %03d --------------------------------------\n",err);
-                                           
-     gettimeofday(&tv2,NULL);
-    // printf("particle kernel %e \n",(tv2.tv_sec-tv1.tv_sec)+1e-6*(tv2.tv_usec-tv1.tv_usec));
+//     //////////////////////////////////////////////////
+//     cudaError_t err11 = cudaGetLastError();
+//     printf("block 2 err11 after particles kernel %03d --------------------------------------\n",err11);
+//     copyLayerFromDeviceToHost(&h_cl1,d_cl);
+//     cudaError_t err12 = cudaGetLastError();
+//     printf("block 2 err12 after particles kernel %03d --------------------------------------\n",err12);
+//     h_cl1 = (cudaLayer*)malloc(sizeof(cudaLayer));
+//     h_pl1 = (cudaLayer*)malloc(sizeof(cudaLayer));
+//     cudaMemcpy(h_cl1,d_cl,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
+//     cudaError_t err13 = cudaGetLastError();
+//     printf("block 2 err13 after particles kernel %03d --------------------------------------\n",err13);
+//     cudaMemcpy(h_pl1,d_pl,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
+//     cudaError_t err14 = cudaGetLastError();
+//     printf("block 2 err14  after particles kernel %03d --------------------------------------\n",err14);
+//
+//     cudaDeviceSynchronize();
+//     err = cudaGetLastError();
+//     printf("block 2 after particles kernel %03d --------------------------------------\n",err);
+//                                           
+//     gettimeofday(&tv2,NULL);
+//    // printf("particle kernel %e \n",(tv2.tv_sec-tv1.tv_sec)+1e-6*(tv2.tv_usec-tv1.tv_usec));
                                      
  //    cudaPrintfDisplay(stdout, true);
  //    cudaPrintfEnd();   
