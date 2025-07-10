@@ -14,9 +14,7 @@ int CUDA_WRAP_write_plasma_value(int i,int num_attr,int n,double t);
 //writing a value to the control array for a definite particle in a definite cell
 int write_plasma_value(int i,int num_attr,int n,double *d_p,double t);
 
-void cuMoveSplitParticles(int iLayer,int iSplit,
-cudaLayer *h_cl,cudaLayer *h_pl,
-cudaLayer *d_cl1,cudaLayer *d_pl1,
+void cuMoveSplitParticles(int iLayer,int iSplit,int Np,
 int Mx,int Ny,int Nz,double hx,double hy,double hz,
                                      double *djx0,double *djy0,double *djz0,double *drho0,int nsorts,int iFullStep,int nstep);
 

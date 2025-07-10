@@ -714,7 +714,7 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
       copyLayerFromHostToDevice(&h_cl_dp,h_cl);
             copyLayerStructureFromHostToDevice(&d_cl,h_cl_dp);
       setLayersPC(d_cl,d_pl);
-      MoveParticlesLayerSplit(iLayer, iSplit,iFullStep, part,h_pl,d_pl,h_cl,d_cl);
+      MoveParticlesLayerSplit(iLayer, iSplit,iFullStep, part);//,h_pl,d_pl,h_cl,d_cl);
       string where = "MoveParticlesLayerSplit_Player";
       plasmaControlPoint(this,p_CellLayerP,where.c_str());
 
@@ -913,7 +913,6 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
    
 //#ifndef CUDA_WRAP_FFTW_ALLOWED 
    printf("before  particlesPrepareAtLayer \n ");
-   //int Np = particlesPrepareAtLayer(this,p_CellLayerP,p_CellLayerC,iLayer,l_My,l_Mz,h_pl->Np);  
    printf("after  particlesPrepareAtLayer \n "); 
    //exit(0);
 //#endif   
@@ -1642,14 +1641,18 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
    
    if((iLayer<= 118)) 
    {
-      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
+//      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
    }
    //printf("deposit np %d \n",np);
 #endif
    int nstep = this->domain()->p_Cntrl->GetNstep();
-   printf("before cuMoveSplitParticles h_pl->Np %d\n",h_pl->Np);
-   setLayersPC(&d_cl,&d_pl);
-   cuMoveSplitParticles(iLayer,iSplit,h_cl,h_pl,d_cl,d_pl,l_Mx,l_My,l_Mz,hx,hy,hz,
+   cudaLayer *d_cl, *d_pl;
+
+
+   int Np = CUDA_WRAP_get_particles_number(this,this->get_p_CellLayerP());
+   //particlesPrepareAtLayer(this,p_CellLayerP,p_CellLayerC,iLayer,l_My,l_Mz);
+
+   cuMoveSplitParticles(iLayer,iSplit,Np,l_Mx,l_My,l_Mz,hx,hy,hz,
                                       djx0,djy0,djz0,drho0,nsorts,iFullStep,nstep);
 #ifdef CUDA_WRAP_PARTICLE_HOST_COMPUTATIONS
    delete[] djx0;

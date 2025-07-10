@@ -840,9 +840,7 @@ void copyLayerFromDeviceToHost(cudaLayer **h_l,cudaLayer *d_l)
 }
 
 
-void cuMoveSplitParticles(int iLayer,int iSplit,
-cudaLayer *h_cl,cudaLayer *h_pl,
-cudaLayer *d_cl1,cudaLayer *d_pl1,
+void cuMoveSplitParticles(int iLayer,int iSplit,int Np,
 int Mx,int Ny,int Nz,double hx,double hy,double hz,
                                      double *djx0,double *djy0,double *djz0,double *drho0,int nsorts,int iFullStep,int nstep)
 {
@@ -850,11 +848,13 @@ int Mx,int Ny,int Nz,double hx,double hy,double hz,
 #ifdef CUDA_WRAP_FFTW_ALLOWED
     // return;
 #endif
+     cudaLayer *d_cl1;
+     cudaLayer *d_pl1;
+     getLayersPC(&d_cl1,&d_pl1);
      int err_init = cudaGetLastError();
      printf("cuMoveSplitParticles begin %d \n",err_init);
 
-     int Np = h_pl->Np;
-     printf("Np from h_pl %d \n",Np);
+     
      //exit(0);
 
      //static cudaLayer *d_cl,*d_pl;
@@ -868,7 +868,7 @@ int Mx,int Ny,int Nz,double hx,double hy,double hz,
 #ifdef CUDA_WRAP_FFTW_ALLOWED
 //     return;
 #endif     
-     printf("Np from h_pl1 %d \n",Np);
+//     printf("Np from h_pl1 %d \n",Np);
 //     exit(0);
 
 
@@ -972,10 +972,6 @@ int Mx,int Ny,int Nz,double hx,double hy,double hz,
  
       
      
-     if(iFullStep)
-     {
-        h_cl->Np = Np;
-     }
 //     CUDA_WRAP_printLayerParticles(h_cl,"A");
 //     CUDA_WRAP_print_plasma_values(Np,PLASMA_VALUES_NUMBER,"after");
      
