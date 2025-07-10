@@ -99,7 +99,7 @@ int Ny,int Nz,double hx,double hy,double hz,
          unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x;
          unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y;
          unsigned int sizeY = gridDim.y*blockDim.y;
-         beamParticle *p;
+         Particle *p;
          int np;
          unsigned int j = nx,k = ny;
 	 char s[50];
@@ -118,10 +118,10 @@ int Ny,int Nz,double hx,double hy,double hz,
          if(iLayer == 120 && iSplit == 1 && iFullStep == 0)return;
 
 	 np = sizeY*nx + ny;
-	 /*
+	 
 	 
 #ifdef PLASMA_MOVE_CUPRINTF	 
-	 cuPrintf("nx %5d ny %5d np %5d Np %10d \n",nx,ny,np,Np);
+	 //cuPrintf("nx %5d ny %5d np %5d Np %10d \n",nx,ny,np,Np);
 	 //__syncthreads();
 	 
 #endif	 
@@ -131,8 +131,9 @@ int Ny,int Nz,double hx,double hy,double hz,
 	// printf("after Np check Np %d \n",pl->Np);
 // #endif
 	 //return;
-	 p = pl->particles + np;
-         j = p->i_Y;
+	 p = d_pl->particles + np;
+         //j = p->i_Y;
+	 
          //printf("jread %d \n",j);
         // if(iLayer == 120 && iSplit == 1 && iFullStep == 0) return;
          //j = 0;
@@ -141,11 +142,11 @@ int Ny,int Nz,double hx,double hy,double hz,
 // #endif
          
          //return;
-         k = p->i_Z;  
+         //k = p->i_Z;  
 //#ifdef PLASMA_VALUES_CUPRINTF         
          //if(nx == 0 && ny == 0) 
 	 //{
-	 cuPrintf("np %5d %d \n",np,nx);
+	 //cuPrintf("np %5d %d \n",np,nx);
 	 //}
          //__syncthreads();
 	 return;
