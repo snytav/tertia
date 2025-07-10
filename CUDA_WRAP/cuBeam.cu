@@ -1407,7 +1407,7 @@ int CUDA_WRAP_allocLayer(cudaLayer **dl,int Ny,int Nz,int Np)
 {
    double *d_Ex,*d_Ey,*d_Ez,*d_Bx,*d_By,*d_Bz,*d_Jx,*d_Jy,*d_Jz,*d_Rho;
    cudaLayer *l,*h_l = (cudaLayer*)malloc(sizeof(cudaLayer));
-   Particle *p;
+   beamParticle *p;
    cudaMalloc((void**)&l,sizeof(cudaLayer));
 
    int err = cudaMalloc(&d_Ex,sizeof(double)*Ny*Nz);

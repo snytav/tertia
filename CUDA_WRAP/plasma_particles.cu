@@ -99,7 +99,7 @@ int Ny,int Nz,double hx,double hy,double hz,
          unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x;
          unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y;
          unsigned int sizeY = gridDim.y*blockDim.y;
-         Particle *p;
+         beamParticle *p;
          int np;
          unsigned int j = nx,k = ny;
 	 char s[50];
@@ -171,7 +171,7 @@ int Ny,int Nz,double hx,double hy,double hz,
 
          double djx = 0., djy = 0., djz = 0.;
           
-          
+         /*
         //    isort = p->GetSort();
          double weight = p->f_Weight;
 #ifdef PLASMA_MOVE_CUPRINTF         

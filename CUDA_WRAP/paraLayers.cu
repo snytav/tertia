@@ -8,59 +8,59 @@
 
 
 
-int CUDA_WRAP_createNewLayer(cudaLayer **h_l,cudaLayer *h_d_l)//,int Ny,int Nz,int Np)
-{
-    int Ny,Nz,Np;
-    cudaLayer *h_loc;
-    
-    puts("CUDA_WRAP_createNewLayer");
-    
-    h_loc = (cudaLayer *)malloc(sizeof(cudaLayer));
-    if(h_loc == NULL)
-    {
-        puts("CUDA_WRAP_createNewLayer - no memory for layer");
-	exit(1);
-    }
-    
-   // cudaMemcpy(*h_l,d_l,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
-    printf("Ny %d Nz %d Np %d \n",h_d_l->Ny,h_d_l->Nz,h_d_l->Np);
-    h_loc->Np = h_d_l->Np;
-//    return 0;
-    h_loc->Ny = h_d_l->Ny;
-    h_loc->Nz = h_d_l->Nz;
-    
-    Ny = h_loc->Ny;
-    Nz = h_loc->Nz;
-    Np = h_loc->Np;
-    printf("creating new Layer Ny %d Nz %d Np %d \n",Ny,Nz,Np);
-    h_loc->Bx =               (double *)malloc(Ny*Nz*sizeof(double));
-    h_loc->By =               (double *)malloc(Ny*Nz*sizeof(double));
-    h_loc->Bz =               (double *)malloc(Ny*Nz*sizeof(double));
-    h_loc->Ex =               (double *)malloc(Ny*Nz*sizeof(double));
-    h_loc->Ey =               (double *)malloc(Ny*Nz*sizeof(double));
-    h_loc->Ez =               (double *)malloc(Ny*Nz*sizeof(double));
-    h_loc->Jx =               (double *)malloc(Ny*Nz*sizeof(double));
-    h_loc->Jy =               (double *)malloc(Ny*Nz*sizeof(double));
-    h_loc->Jz =               (double *)malloc(Ny*Nz*sizeof(double));
-    h_loc->fftRhoBeamHydro  = (double *)malloc(Ny*Nz*sizeof(double));
-    h_loc->fftJxBeamHydro   = (double *)malloc(Ny*Nz*sizeof(double));
-    h_loc->Rho =              (double *)malloc(Ny*Nz*sizeof(double));
-    h_loc->particles = (Particle *)malloc(Np*sizeof(Particle));
-    
-    if( 
-        (h_loc->Bz == NULL) ||
-        (h_loc->Ey == NULL) ||
-        (h_loc->Jz == NULL) ||
-        (h_loc->fftRhoBeamHydro == NULL)
-      )
-    {
-        printf("MEMORY ERROR \n");
-        exit(0);
-    }  
-    *h_l = h_loc;
-    
-    return 0;
-}
+// int CUDA_WRAP_createNewLayer(cudaLayer **h_l,cudaLayer *h_d_l)//,int Ny,int Nz,int Np)
+// {
+//     int Ny,Nz,Np;
+//     cudaLayer *h_loc;
+//
+//     puts("CUDA_WRAP_createNewLayer");
+//
+//     h_loc = (cudaLayer *)malloc(sizeof(cudaLayer));
+//     if(h_loc == NULL)
+//     {
+//         puts("CUDA_WRAP_createNewLayer - no memory for layer");
+// 	exit(1);
+//     }
+//
+//    // cudaMemcpy(*h_l,d_l,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
+//     printf("Ny %d Nz %d Np %d \n",h_d_l->Ny,h_d_l->Nz,h_d_l->Np);
+//     h_loc->Np = h_d_l->Np;
+// //    return 0;
+//     h_loc->Ny = h_d_l->Ny;
+//     h_loc->Nz = h_d_l->Nz;
+//
+//     Ny = h_loc->Ny;
+//     Nz = h_loc->Nz;
+//     Np = h_loc->Np;
+//     printf("creating new Layer Ny %d Nz %d Np %d \n",Ny,Nz,Np);
+//     h_loc->Bx =               (double *)malloc(Ny*Nz*sizeof(double));
+//     h_loc->By =               (double *)malloc(Ny*Nz*sizeof(double));
+//     h_loc->Bz =               (double *)malloc(Ny*Nz*sizeof(double));
+//     h_loc->Ex =               (double *)malloc(Ny*Nz*sizeof(double));
+//     h_loc->Ey =               (double *)malloc(Ny*Nz*sizeof(double));
+//     h_loc->Ez =               (double *)malloc(Ny*Nz*sizeof(double));
+//     h_loc->Jx =               (double *)malloc(Ny*Nz*sizeof(double));
+//     h_loc->Jy =               (double *)malloc(Ny*Nz*sizeof(double));
+//     h_loc->Jz =               (double *)malloc(Ny*Nz*sizeof(double));
+//     h_loc->fftRhoBeamHydro  = (double *)malloc(Ny*Nz*sizeof(double));
+//     h_loc->fftJxBeamHydro   = (double *)malloc(Ny*Nz*sizeof(double));
+//     h_loc->Rho =              (double *)malloc(Ny*Nz*sizeof(double));
+//     h_loc->particles = (Particle *)malloc(Np*sizeof(Particle));
+//
+//     if(
+//         (h_loc->Bz == NULL) ||
+//         (h_loc->Ey == NULL) ||
+//         (h_loc->Jz == NULL) ||
+//         (h_loc->fftRhoBeamHydro == NULL)
+//       )
+//     {
+//         printf("MEMORY ERROR \n");
+//         exit(0);
+//     }
+//     *h_l = h_loc;
+//
+//     return 0;
+// }
 
 int CUDA_WRAP_createNewLayerOnDevice(cudaLayer **h_dst_l,cudaLayer* h_l)
 {
@@ -136,36 +136,36 @@ int CUDA_WRAP_fillLayer(cudaLayer *h_dst_l,int Ny,int Nz,int Np)
 }
 
 
-int CUDA_WRAP_copyLayerFromDevice(cudaLayer **h_l,cudaLayer *d_l)
-{
-    int Ny,Nz,Np;
-
-    printf("in copyLayer \n");    
-    CUDA_WRAP_createNewLayer(h_l,d_l);
-    printf("in copyLayer: layer created \n");    
-    
-    Ny = (*h_l)->Ny;
-    Nz = (*h_l)->Nz;
-    Np = (*h_l)->Np;
-    printf("in copyLayer:dims  \n");    
-    
-    cudaMemcpy((*h_l)->Bx,d_l->Bx,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
-    cudaMemcpy((*h_l)->By,d_l->By,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
-    cudaMemcpy((*h_l)->Bz,d_l->Bz,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
-    cudaMemcpy((*h_l)->Ex,d_l->Ex,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
-    cudaMemcpy((*h_l)->Ey,d_l->Ey,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
-    cudaMemcpy((*h_l)->Ez,d_l->Ez,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
-    cudaMemcpy((*h_l)->Jx,d_l->Jx,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
-    cudaMemcpy((*h_l)->Jy,d_l->Jy,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
-    cudaMemcpy((*h_l)->Jz,d_l->Jz,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
-    cudaMemcpy((*h_l)->JxBeam,d_l->JxBeam,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
-    cudaMemcpy((*h_l)->RhoBeam,d_l->RhoBeam,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
-    cudaMemcpy((*h_l)->Rho,d_l->Rho,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
-    cudaMemcpy((*h_l)->particles,d_l->particles,Np*sizeof(beamParticle),cudaMemcpyDeviceToHost);
-    printf("in copyLayer: host arrays alloced  \n");    
-    
-    return 0;
-}
+// int CUDA_WRAP_copyLayerFromDevice(cudaLayer **h_l,cudaLayer *d_l)
+// {
+//     int Ny,Nz,Np;
+//
+//     printf("in copyLayer \n");
+//     CUDA_WRAP_createNewLayer(h_l,d_l);
+//     printf("in copyLayer: layer created \n");
+//
+//     Ny = (*h_l)->Ny;
+//     Nz = (*h_l)->Nz;
+//     Np = (*h_l)->Np;
+//     printf("in copyLayer:dims  \n");
+//
+//     cudaMemcpy((*h_l)->Bx,d_l->Bx,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
+//     cudaMemcpy((*h_l)->By,d_l->By,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
+//     cudaMemcpy((*h_l)->Bz,d_l->Bz,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
+//     cudaMemcpy((*h_l)->Ex,d_l->Ex,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
+//     cudaMemcpy((*h_l)->Ey,d_l->Ey,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
+//     cudaMemcpy((*h_l)->Ez,d_l->Ez,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
+//     cudaMemcpy((*h_l)->Jx,d_l->Jx,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
+//     cudaMemcpy((*h_l)->Jy,d_l->Jy,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
+//     cudaMemcpy((*h_l)->Jz,d_l->Jz,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
+//     cudaMemcpy((*h_l)->JxBeam,d_l->JxBeam,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
+//     cudaMemcpy((*h_l)->RhoBeam,d_l->RhoBeam,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
+//     cudaMemcpy((*h_l)->Rho,d_l->Rho,Ny*Nz*sizeof(double),cudaMemcpyDeviceToHost);
+//     cudaMemcpy((*h_l)->particles,d_l->particles,Np*sizeof(beamParticle),cudaMemcpyDeviceToHost);
+//     printf("in copyLayer: host arrays alloced  \n");
+//
+//     return 0;
+// }
 
 int CUDA_WRAP_copyToNewLayerOnDevice(cudaLayer **h_dst_l,cudaLayer *h_l)
 {

@@ -16,172 +16,172 @@ void CUDA_WRAP_getBeamFFT(double *jx,double *rho,int n);
 //void CUDA_WRAP_setBeamFFT(double *jx,double *rho,int n);
 double *fftJxBeamBuffer,*fftRhoBeamBuffer;
 
-int CUDA_WRAP_getLayerFromMesh(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,int Nz,cudaLayer **host_layer)
-{ 
-   double *Ex,*Ey,*Ez,*Bx,*By,*Bz,*Jx,*Jy,*Jz,*Rho;
-   double *JxBeamP,*RhoBeamP;
-   Particle *bp;
-   cudaLayer *h_dl;
-   int np = 0;
-   
-   int err = cudaGetLastError();
-   printf("in getLayerFromMesh begin err %d \n",err);
-      
-   for (int k=0; k<Nz; k++)
-   {
-      for (int j=0; j<Ny; j++)
-      {
-              long ncc = mesh->GetN(iLayer, j,k);
-	     // long ncc = mesh->GetNyz(j,  k);
-              Cell &ccc = p_CellArray[ncc];
-	      
-	      Particle *p  = ccc.GetParticles();
-		
-	      for(;p;np++)
-	      {
-		  p = p->p_Next;
-	      }
-	      
-      }
-   }
-   int err1 = cudaGetLastError();
-   printf("in getLayerFromMesh Layer %d count err %d \n",iLayer,err1);
-   
-   Ex = (double *)malloc(sizeof(double)*Ny*Nz);
-   Ey = (double *)malloc(sizeof(double)*Ny*Nz);
-   Ez = (double *)malloc(sizeof(double)*Ny*Nz);
-   Bx = (double *)malloc(sizeof(double)*Ny*Nz);
-   By = (double *)malloc(sizeof(double)*Ny*Nz);
-   Bz = (double *)malloc(sizeof(double)*Ny*Nz);
-   Jx = (double *)malloc(sizeof(double)*Ny*Nz);
-   Jy = (double *)malloc(sizeof(double)*Ny*Nz);
-   Jz = (double *)malloc(sizeof(double)*Ny*Nz);
-   Rho = (double *)malloc(sizeof(double)*Ny*Nz);
-   JxBeamP  = (double *)malloc(sizeof(double)*Ny*Nz);
-   RhoBeamP = (double *)malloc(sizeof(double)*Ny*Nz);
-
-   int err22 = cudaGetLastError();
-   printf("in getLayerFromMesh after alloc Layer %d count err %d \n",iLayer,err22);
-   //exit(0);
-
-   
-   CUDA_WRAP_getBeamFFT(JxBeamP,RhoBeamP,Ny*Nz);
-   
-   bp = (Particle *)malloc(np*sizeof(Particle));
-   if(bp == NULL) puts("bp NULL");
-   int err2 = cudaGetLastError();
-   printf("in copyLayerToDevice alloc err %d np before list composition %d \n",err2,np);
-   
-//   CUDA_WRAP_allocLayer(dl,Ny,Nz,np);
-   
-   np = 0;
-   
-   FILE *f = fopen("layer_being_formedCPU.dat","wt");
-	      
-   for (int k=0; k<Nz; k++)
-   {
-      for (int j=0; j<Ny; j++)
-      {
-              long nccc = mesh->GetN(iLayer,j,  k);
-              Cell &ccc = p_CellArray[nccc];	    
-	      Particle *p  = ccc.GetParticles();
-	      
-	      if(p == NULL) printf("cell %5d %5d %5d has no particles \n",iLayer,j,k);
-	      else
-	      {
-	      
-		// printf("cell %5d %5d %5d \n",iLayer,j,k); 
-	      }
-		
-	      for(;p;np++)
-	      {
-		 Particle *pc = bp + np;
-		 pc->f_X      = p->f_X;
-		 pc->f_Y      = p->f_Y;
-		 pc->f_Z      = p->f_Z;
-		 pc->f_Px     = p->f_Px;
-		 pc->f_Py     = p->f_Py;
-		 pc->f_Pz     = p->f_Pz;
-		 pc->f_Weight = p->f_Weight;
-		 pc->f_Q2m    = p->f_Q2m;
-		 //if(total_np < 16) printf("Pz %d %25.15e \n",total_np,p_cuda->f_Pz);
-		 //pc->i_X      = iLayer;
-#ifdef  CUDA_WRAP_PARALLEL_DEBUG		 
-		 printf("i_X %d Layer %d \n",pc->i_X,iLayer);
-#endif		 
-		 /*pc->i_Y      = j;
-		 pc->i_Z      = k;
-		 pc->isort    = p->GetSort()*/;
-#ifdef CUDA_WRAP_PARALLEL_DEBUG		 
-	 
-		 fprintf(f,"%10d %5d %5d %5d %10.3e %10.3e %10.3e %10.3e %10.3e %10.3e \n",np,pc->i_X,pc->i_Y,pc->i_Z,p->f_X,p->f_Y,p->f_Z,p->f_Px,p->f_Py,p->f_Pz);
-		 printf("getLayer rank %3d %10d %5d %5d %5d %10.3e %10.3e %10.3e %10.3e %10.3e %10.3e \n",GetRank(),np,pc->i_X,pc->i_Y,pc->i_Z,pc->f_X,pc->f_Y,pc->f_Z,pc->f_Px,pc->f_Py,pc->f_Pz);
-#endif		 
-
-		 
-		 p = p->p_Next;
-	      }  
-	      long n = j + Ny*k;
-
-              Rho[n] = ccc.GetDens(); // - dens;
-
-              Ex[n]  = ccc.GetEx();
-              Ey[n]  = ccc.GetEy();
-              Ez[n]  = ccc.GetEz();
-	      
-              Bx[n]  = ccc.GetBx();
-              By[n]  = ccc.GetBy();
-              Bz[n]  = ccc.GetBz();
-
-              Jx[n] = ccc.GetJx();
-              Jy[n] = ccc.GetJy();
-              Jz[n] = ccc.GetJz();
-#ifdef  CUDA_WRAP_PARALLEL_DEBUG	 
-	      printf("getLayerFields rank %2d %5d %5d E (%10.3e,%10.3e,%10.3e) B (%10.3e,%10.3e,%10.3e) J (%10.3e,%10.3e,%10.3e) Rho %10.3e \n",GetRank(),j,k,
-		                                ccc.GetEx(),ccc.GetEy(),ccc.GetEz(),
-		                                ccc.GetBx(),ccc.GetBy(),ccc.GetBz(),
-		                                ccc.GetJx(),ccc.GetJy(),ccc.GetJz(),ccc.GetDens());
-#endif		                                
-	      
-      }
-   }
-   int err3 = cudaGetLastError();
-   printf("in copyLayerToDevice particle list err %d \n",err3);
-   
-   
-   fclose(f);
-
-   h_dl = (cudaLayer *)malloc(sizeof(cudaLayer));
-   
-//   cudaMemcpy(h_dl,*dl,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
-   
-   h_dl->Ex = Ex;
-   h_dl->Ey = Ey;
-   h_dl->Ez = Ez;
-
-   h_dl->Bx = Bx;
-   h_dl->By = By;
-   h_dl->Bz = Bz;
-   
-   h_dl->Jx = Jx;
-   h_dl->Jy = Jy;
-   h_dl->Jz = Jz;
-   h_dl->Rho = Rho;
-   
-   h_dl->fftJxBeamHydro  = JxBeamP;
-   h_dl->fftRhoBeamHydro = RhoBeamP;
-   
-   h_dl->Np = np;
-   h_dl->Ny = Ny;
-   h_dl->Nz = Nz;   
-   h_dl->particles = bp;
-   int err4 = cudaGetLastError();
-   
-   *host_layer = h_dl;
-   printf("1st particle % \n");
-   printf("1st particle %e \n",(*host_layer)->particles[0].f_Y);
-   return np;
-}     
+// int CUDA_WRAP_getLayerFromMesh(Mesh *mesh,Cell *p_CellArray,int iLayer,int Ny,int Nz,cudaLayer **host_layer)
+// {
+//    double *Ex,*Ey,*Ez,*Bx,*By,*Bz,*Jx,*Jy,*Jz,*Rho;
+//    double *JxBeamP,*RhoBeamP;
+//    beamParticle *bp;
+//    cudaLayer *h_dl;
+//    int np = 0;
+//
+//    int err = cudaGetLastError();
+//    printf("in getLayerFromMesh begin err %d \n",err);
+//
+//    for (int k=0; k<Nz; k++)
+//    {
+//       for (int j=0; j<Ny; j++)
+//       {
+//               long ncc = mesh->GetN(iLayer, j,k);
+// 	     // long ncc = mesh->GetNyz(j,  k);
+//               Cell &ccc = p_CellArray[ncc];
+//
+// 	      Particle *p  = ccc.GetParticles();
+//
+// 	      for(;p;np++)
+// 	      {
+// 		  p = p->p_Next;
+// 	      }
+//
+//       }
+//    }
+//    int err1 = cudaGetLastError();
+//    printf("in getLayerFromMesh Layer %d count err %d \n",iLayer,err1);
+//
+//    Ex = (double *)malloc(sizeof(double)*Ny*Nz);
+//    Ey = (double *)malloc(sizeof(double)*Ny*Nz);
+//    Ez = (double *)malloc(sizeof(double)*Ny*Nz);
+//    Bx = (double *)malloc(sizeof(double)*Ny*Nz);
+//    By = (double *)malloc(sizeof(double)*Ny*Nz);
+//    Bz = (double *)malloc(sizeof(double)*Ny*Nz);
+//    Jx = (double *)malloc(sizeof(double)*Ny*Nz);
+//    Jy = (double *)malloc(sizeof(double)*Ny*Nz);
+//    Jz = (double *)malloc(sizeof(double)*Ny*Nz);
+//    Rho = (double *)malloc(sizeof(double)*Ny*Nz);
+//    JxBeamP  = (double *)malloc(sizeof(double)*Ny*Nz);
+//    RhoBeamP = (double *)malloc(sizeof(double)*Ny*Nz);
+//
+//    int err22 = cudaGetLastError();
+//    printf("in getLayerFromMesh after alloc Layer %d count err %d \n",iLayer,err22);
+//    //exit(0);
+//
+//
+//    CUDA_WRAP_getBeamFFT(JxBeamP,RhoBeamP,Ny*Nz);
+//
+//    bp = (beamParticle *)malloc(np*sizeof(beamParticle));
+//    if(bp == NULL) puts("bp NULL");
+//    int err2 = cudaGetLastError();
+//    printf("in copyLayerToDevice alloc err %d np before list composition %d \n",err2,np);
+//
+// //   CUDA_WRAP_allocLayer(dl,Ny,Nz,np);
+//
+//    np = 0;
+//
+//    FILE *f = fopen("layer_being_formedCPU.dat","wt");
+//
+//    for (int k=0; k<Nz; k++)
+//    {
+//       for (int j=0; j<Ny; j++)
+//       {
+//               long nccc = mesh->GetN(iLayer,j,  k);
+//               Cell &ccc = p_CellArray[nccc];
+// 	      Particle *p  = ccc.GetParticles();
+//
+// 	      if(p == NULL) printf("cell %5d %5d %5d has no particles \n",iLayer,j,k);
+// 	      else
+// 	      {
+//
+// 		// printf("cell %5d %5d %5d \n",iLayer,j,k);
+// 	      }
+//
+// 	      for(;p;np++)
+// 	      {
+// 		 Particle *pc = bp + np;
+// 		 pc->f_X      = p->f_X;
+// 		 pc->f_Y      = p->f_Y;
+// 		 pc->f_Z      = p->f_Z;
+// 		 pc->f_Px     = p->f_Px;
+// 		 pc->f_Py     = p->f_Py;
+// 		 pc->f_Pz     = p->f_Pz;
+// 		 pc->f_Weight = p->f_Weight;
+// 		 pc->f_Q2m    = p->f_Q2m;
+// 		 //if(total_np < 16) printf("Pz %d %25.15e \n",total_np,p_cuda->f_Pz);
+// 		 //pc->i_X      = iLayer;
+// #ifdef  CUDA_WRAP_PARALLEL_DEBUG
+// 		 printf("i_X %d Layer %d \n",pc->i_X,iLayer);
+// #endif
+// 		 /*pc->i_Y      = j;
+// 		 pc->i_Z      = k;
+// 		 pc->isort    = p->GetSort()*/;
+// #ifdef CUDA_WRAP_PARALLEL_DEBUG
+//
+// 		 fprintf(f,"%10d %5d %5d %5d %10.3e %10.3e %10.3e %10.3e %10.3e %10.3e \n",np,pc->i_X,pc->i_Y,pc->i_Z,p->f_X,p->f_Y,p->f_Z,p->f_Px,p->f_Py,p->f_Pz);
+// 		 printf("getLayer rank %3d %10d %5d %5d %5d %10.3e %10.3e %10.3e %10.3e %10.3e %10.3e \n",GetRank(),np,pc->i_X,pc->i_Y,pc->i_Z,pc->f_X,pc->f_Y,pc->f_Z,pc->f_Px,pc->f_Py,pc->f_Pz);
+// #endif
+//
+//
+// 		 p = p->p_Next;
+// 	      }
+// 	      long n = j + Ny*k;
+//
+//               Rho[n] = ccc.GetDens(); // - dens;
+//
+//               Ex[n]  = ccc.GetEx();
+//               Ey[n]  = ccc.GetEy();
+//               Ez[n]  = ccc.GetEz();
+//
+//               Bx[n]  = ccc.GetBx();
+//               By[n]  = ccc.GetBy();
+//               Bz[n]  = ccc.GetBz();
+//
+//               Jx[n] = ccc.GetJx();
+//               Jy[n] = ccc.GetJy();
+//               Jz[n] = ccc.GetJz();
+// #ifdef  CUDA_WRAP_PARALLEL_DEBUG
+// 	      printf("getLayerFields rank %2d %5d %5d E (%10.3e,%10.3e,%10.3e) B (%10.3e,%10.3e,%10.3e) J (%10.3e,%10.3e,%10.3e) Rho %10.3e \n",GetRank(),j,k,
+// 		                                ccc.GetEx(),ccc.GetEy(),ccc.GetEz(),
+// 		                                ccc.GetBx(),ccc.GetBy(),ccc.GetBz(),
+// 		                                ccc.GetJx(),ccc.GetJy(),ccc.GetJz(),ccc.GetDens());
+// #endif
+//
+//       }
+//    }
+//    int err3 = cudaGetLastError();
+//    printf("in copyLayerToDevice particle list err %d \n",err3);
+//
+//
+//    fclose(f);
+//
+//    h_dl = (cudaLayer *)malloc(sizeof(cudaLayer));
+//
+// //   cudaMemcpy(h_dl,*dl,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
+//
+//    h_dl->Ex = Ex;
+//    h_dl->Ey = Ey;
+//    h_dl->Ez = Ez;
+//
+//    h_dl->Bx = Bx;
+//    h_dl->By = By;
+//    h_dl->Bz = Bz;
+//
+//    h_dl->Jx = Jx;
+//    h_dl->Jy = Jy;
+//    h_dl->Jz = Jz;
+//    h_dl->Rho = Rho;
+//
+//    h_dl->fftJxBeamHydro  = JxBeamP;
+//    h_dl->fftRhoBeamHydro = RhoBeamP;
+//
+//    h_dl->Np = np;
+//    h_dl->Ny = Ny;
+//    h_dl->Nz = Nz;
+//    h_dl->particles = bp;
+//    int err4 = cudaGetLastError();
+//
+//    *host_layer = h_dl;
+//    printf("1st particle % \n");
+//    printf("1st particle %e \n",(*host_layer)->particles[0].f_Y);
+//    return np;
+// }
 
 
 

@@ -37,7 +37,7 @@ int CUDA_WRAP_get_particles_number(Mesh *mesh,Cell *p_CellArray)
 
 }
 
-int copyParticle(Particle *p1,Particle *p2)
+int copyParticle(beamParticle *p1,beamParticle *p2)
 {
    p1->f_Px     = p2->f_Px;
    p1->f_Py     = p2->f_Py;
@@ -48,8 +48,11 @@ int copyParticle(Particle *p1,Particle *p2)
    p1->f_Y      = p2->f_Y;
    p1->f_Z      = p2->f_Z;
    p1->f_Pz     = p2->f_Pz;
+   p1->i_X      = p2->i_X;
+   p1->i_Y      = p2->i_Y;
+   p1->i_Z      = p2->i_Z;
 
-  // p1->isort    = p2->isort;
+  p1->isort    = p2->isort;
 
 
 }
@@ -62,7 +65,7 @@ int LayerAlloc(cudaLayer **cl,int Ny,int Nz, int Np)
     (*cl)->Nz = Nz;
     (*cl)->Ny = Ny;
     (*cl)->Np = Np;
-    (*cl)->particles = (Particle *)malloc(Np*sizeof(Particle));
+    (*cl)->particles = (beamParticle *)malloc(Np*sizeof(beamParticle));
 
     int size = Ny*Nz*sizeof(double);
     (*cl)->Ex = (double *)malloc(size);

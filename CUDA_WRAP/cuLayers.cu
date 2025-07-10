@@ -196,7 +196,7 @@ int CUDA_WRAP_allocLayerOnHost(cudaLayer **hl,int Ny,int Nz,int Np)
 {
    double *d_Ex,*d_Ey,*d_Ez,*d_Bx,*d_By,*d_Bz,*d_Jx,*d_Jy,*d_Jz,*d_Rho;
    cudaLayer *l,*h_l = (cudaLayer*)malloc(sizeof(cudaLayer));
-   Particle *p;
+   beamParticle *p;
    //cudaMalloc((void**)&l,sizeof(cudaLayer));
    
 /*#ifdef CUDA_WRAP_FFTW_ALLOWED
@@ -296,49 +296,49 @@ int CUDA_WRAP_allocLayerOnHost(cudaLayer **hl,int Ny,int Nz,int Np)
    return 0;
 }
 
-int CUDA_WRAP_allocHostLayer(cudaLayer **h_l,int Ny,int Nz,int Np)
-{
-   double *d_Ex,*d_Ey,*d_Ez,*d_Bx,*d_By,*d_Bz,*d_Jx,*d_Jy,*d_Jz,*d_Rho;
-   cudaLayer *l;
-   printf("in CUDA_WRAP_allocHostLayer\n   ");
-   //exit(0);
-   *h_l = (cudaLayer*)malloc(sizeof(cudaLayer));
-   
-   
-   beamParticle *p;
-   //cudaMalloc((void**)&l,sizeof(cudaLayer));
-   
-  
-//#ifdef CUDA_WRAP_PARALLEL_DEBUG	     
-   printf("in alloc host layer Ny %d Nz %d Np %d =============================================================\n",Ny,Nz,Np);     
-//#endif   
-
-   (*h_l)->Ex = (double *)malloc(sizeof(double)*Ny*Nz); 
-   (*h_l)->Ey = (double *)malloc(sizeof(double)*Ny*Nz); 
-   (*h_l)->Ez = (double *)malloc(sizeof(double)*Ny*Nz); 
-   (*h_l)->Bx = (double *)malloc(sizeof(double)*Ny*Nz); 
-   (*h_l)->By = (double *)malloc(sizeof(double)*Ny*Nz); 
-   (*h_l)->Bz = (double *)malloc(sizeof(double)*Ny*Nz); 
-   (*h_l)->Jx = (double *)malloc(sizeof(double)*Ny*Nz); 
-   (*h_l)->Jy = (double *)malloc(sizeof(double)*Ny*Nz); 
-   printf("in alloc layer Jy %p \n", (*h_l)->Jy);
-   (*h_l)->Jz = (double *)malloc(sizeof(double)*Ny*Nz);
-   (*h_l)->Rho = (double *)malloc(sizeof(double)*Ny*Nz);
-   (*h_l)->particles = (Particle *)malloc(sizeof(double)*Np);
-   (*h_l)->fftRhoBeamHydro = (double *)malloc(sizeof(double)*Ny*Nz);
-   (*h_l)->fftJxBeamHydro  = (double *)malloc(sizeof(double)*Ny*Nz);
-   CUDA_WRAP_printLayerParticles(*h_l,"IN ALLOC");
-   
-   (*h_l)->Ny = Ny;
-   (*h_l)->Nz = Nz;
-   (*h_l)->Np = Np;
-   
-//   cudaMemcpy(l,h_l,sizeof(cudaLayer),cudaMemcpyHostToDevice);
-   
-   //*hl = h_l;
-   
-   return 0;
-}
+// int CUDA_WRAP_allocHostLayer(cudaLayer **h_l,int Ny,int Nz,int Np)
+// {
+//    double *d_Ex,*d_Ey,*d_Ez,*d_Bx,*d_By,*d_Bz,*d_Jx,*d_Jy,*d_Jz,*d_Rho;
+//    cudaLayer *l;
+//    printf("in CUDA_WRAP_allocHostLayer\n   ");
+//    //exit(0);
+//    *h_l = (cudaLayer*)malloc(sizeof(cudaLayer));
+//
+//
+//    beamParticle *p;
+//    //cudaMalloc((void**)&l,sizeof(cudaLayer));
+//
+//
+// //#ifdef CUDA_WRAP_PARALLEL_DEBUG
+//    printf("in alloc host layer Ny %d Nz %d Np %d =============================================================\n",Ny,Nz,Np);
+// //#endif
+//
+//    (*h_l)->Ex = (double *)malloc(sizeof(double)*Ny*Nz);
+//    (*h_l)->Ey = (double *)malloc(sizeof(double)*Ny*Nz);
+//    (*h_l)->Ez = (double *)malloc(sizeof(double)*Ny*Nz);
+//    (*h_l)->Bx = (double *)malloc(sizeof(double)*Ny*Nz);
+//    (*h_l)->By = (double *)malloc(sizeof(double)*Ny*Nz);
+//    (*h_l)->Bz = (double *)malloc(sizeof(double)*Ny*Nz);
+//    (*h_l)->Jx = (double *)malloc(sizeof(double)*Ny*Nz);
+//    (*h_l)->Jy = (double *)malloc(sizeof(double)*Ny*Nz);
+//    printf("in alloc layer Jy %p \n", (*h_l)->Jy);
+//    (*h_l)->Jz = (double *)malloc(sizeof(double)*Ny*Nz);
+//    (*h_l)->Rho = (double *)malloc(sizeof(double)*Ny*Nz);
+//    (*h_l)->particles = (beamParticle *)malloc(sizeof(double)*Np);
+//    (*h_l)->fftRhoBeamHydro = (double *)malloc(sizeof(double)*Ny*Nz);
+//    (*h_l)->fftJxBeamHydro  = (double *)malloc(sizeof(double)*Ny*Nz);
+//    CUDA_WRAP_printLayerParticles(*h_l,"IN ALLOC");
+//
+//    (*h_l)->Ny = Ny;
+//    (*h_l)->Nz = Nz;
+//    (*h_l)->Np = Np;
+//
+// //   cudaMemcpy(l,h_l,sizeof(cudaLayer),cudaMemcpyHostToDevice);
+//
+//    //*hl = h_l;
+//
+//    return 0;
+// }
 
 
 int CUDA_WRAP_copyLayerFrom3D(int iLayer,int Ny,int Nz,int Np,cudaLayer **h_cl)
