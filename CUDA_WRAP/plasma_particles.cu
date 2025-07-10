@@ -96,7 +96,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,
 int Ny,int Nz,double hx,double hy,double hz,
                                      double *djx0,double *djy0,double *djz0,double *drho0,int iFullStep,double *d_p)
 {
- /*        unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x;
+         unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x;
          unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y;
          unsigned int sizeY = gridDim.y*blockDim.y;
          beamParticle *p;
@@ -113,11 +113,12 @@ int Ny,int Nz,double hx,double hy,double hz,
          cuPrintf("moveSplit222 \n");
 
 #endif
-         //printf("moveSplit223 \n");
+         printf("moveSplit223 \n");
 	 
-//         if(iLayer == 120 && iSplit == 1 && iFullStep == 0)return;
+         if(iLayer == 120 && iSplit == 1 && iFullStep == 0)return;
 
 	 np = sizeY*nx + ny;
+	 /*
 	 
 #ifdef PLASMA_MOVE_CUPRINTF	 
 	 cuPrintf("nx %5d ny %5d np %5d Np %10d \n",nx,ny,np,Np);

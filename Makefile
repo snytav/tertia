@@ -33,13 +33,13 @@ MPI_DIR=/usr/lib/x86_64-linux-gnu/openmpi/
 MPI_INCLUDE = -I$(MPI_DIR)/include
 
 
-CUDAFLAGS = -dc -G -g
+CUDAFLAGS = -dc -G -g -O0
 CUDA_INC = -I/usr/local/cuda/include  $(HDF5_INCLUDE) \
             $(MPI_INCLUDE)
 
 CUDA_LIB =  -lcudart -lcufft -L/usr/local/cuda/lib64
 
-CC = g++ -std=c++03
+CC = g++ -std=c++03 -O0
 MPI_INCLUDE = -I$(MPI_DIR)/include
 GSL_INCLUDE = -I$(GSL_DIR)/include/gsl
 CFLAGS = -pg -g $(OO) $(GG) $(ICC_FLAGS) -c $(MPI_INCLUDE) $(GSL_INCLUDE) $(HDF5_INCLUDE)  \
