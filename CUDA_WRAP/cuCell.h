@@ -20,7 +20,7 @@ typedef struct {
 
 typedef struct {
         double *Ex,*Ey,*Ez,*Bx,*By,*Bz,*Jx,*Jy,*Jz,*Rho,*RhoBeam,*JxBeam,*fftRhoBeamHydro,*fftJxBeamHydro;
-	Particle *particles;
+	beamParticle *particles;
 	int Np,Ny,Nz;
 } cudaLayer;
 

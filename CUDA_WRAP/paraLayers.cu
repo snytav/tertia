@@ -8,59 +8,59 @@
 
 
 
-// int CUDA_WRAP_createNewLayer(cudaLayer **h_l,cudaLayer *h_d_l)//,int Ny,int Nz,int Np)
-// {
-//     int Ny,Nz,Np;
-//     cudaLayer *h_loc;
-//
-//     puts("CUDA_WRAP_createNewLayer");
-//
-//     h_loc = (cudaLayer *)malloc(sizeof(cudaLayer));
-//     if(h_loc == NULL)
-//     {
-//         puts("CUDA_WRAP_createNewLayer - no memory for layer");
-// 	exit(1);
-//     }
-//
-//    // cudaMemcpy(*h_l,d_l,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
-//     printf("Ny %d Nz %d Np %d \n",h_d_l->Ny,h_d_l->Nz,h_d_l->Np);
-//     h_loc->Np = h_d_l->Np;
-// //    return 0;
-//     h_loc->Ny = h_d_l->Ny;
-//     h_loc->Nz = h_d_l->Nz;
-//
-//     Ny = h_loc->Ny;
-//     Nz = h_loc->Nz;
-//     Np = h_loc->Np;
-//     printf("creating new Layer Ny %d Nz %d Np %d \n",Ny,Nz,Np);
-//     h_loc->Bx =               (double *)malloc(Ny*Nz*sizeof(double));
-//     h_loc->By =               (double *)malloc(Ny*Nz*sizeof(double));
-//     h_loc->Bz =               (double *)malloc(Ny*Nz*sizeof(double));
-//     h_loc->Ex =               (double *)malloc(Ny*Nz*sizeof(double));
-//     h_loc->Ey =               (double *)malloc(Ny*Nz*sizeof(double));
-//     h_loc->Ez =               (double *)malloc(Ny*Nz*sizeof(double));
-//     h_loc->Jx =               (double *)malloc(Ny*Nz*sizeof(double));
-//     h_loc->Jy =               (double *)malloc(Ny*Nz*sizeof(double));
-//     h_loc->Jz =               (double *)malloc(Ny*Nz*sizeof(double));
-//     h_loc->fftRhoBeamHydro  = (double *)malloc(Ny*Nz*sizeof(double));
-//     h_loc->fftJxBeamHydro   = (double *)malloc(Ny*Nz*sizeof(double));
-//     h_loc->Rho =              (double *)malloc(Ny*Nz*sizeof(double));
-//     h_loc->particles = (Particle *)malloc(Np*sizeof(Particle));
-//
-//     if(
-//         (h_loc->Bz == NULL) ||
-//         (h_loc->Ey == NULL) ||
-//         (h_loc->Jz == NULL) ||
-//         (h_loc->fftRhoBeamHydro == NULL)
-//       )
-//     {
-//         printf("MEMORY ERROR \n");
-//         exit(0);
-//     }
-//     *h_l = h_loc;
-//
-//     return 0;
-// }
+ int CUDA_WRAP_createNewLayer(cudaLayer **h_l,cudaLayer *h_d_l)//,int Ny,int Nz,int Np)
+ {
+     int Ny,Nz,Np;
+     cudaLayer *h_loc;
+
+     puts("CUDA_WRAP_createNewLayer");
+
+     h_loc = (cudaLayer *)malloc(sizeof(cudaLayer));
+     if(h_loc == NULL)
+     {
+         puts("CUDA_WRAP_createNewLayer - no memory for layer");
+ 	exit(1);
+     }
+
+    // cudaMemcpy(*h_l,d_l,sizeof(cudaLayer),cudaMemcpyDeviceToHost);
+     printf("Ny %d Nz %d Np %d \n",h_d_l->Ny,h_d_l->Nz,h_d_l->Np);
+     h_loc->Np = h_d_l->Np;
+ //    return 0;
+     h_loc->Ny = h_d_l->Ny;
+     h_loc->Nz = h_d_l->Nz;
+
+     Ny = h_loc->Ny;
+     Nz = h_loc->Nz;
+     Np = h_loc->Np;
+     printf("creating new Layer Ny %d Nz %d Np %d \n",Ny,Nz,Np);
+     h_loc->Bx =               (double *)malloc(Ny*Nz*sizeof(double));
+     h_loc->By =               (double *)malloc(Ny*Nz*sizeof(double));
+     h_loc->Bz =               (double *)malloc(Ny*Nz*sizeof(double));
+     h_loc->Ex =               (double *)malloc(Ny*Nz*sizeof(double));
+     h_loc->Ey =               (double *)malloc(Ny*Nz*sizeof(double));
+     h_loc->Ez =               (double *)malloc(Ny*Nz*sizeof(double));
+     h_loc->Jx =               (double *)malloc(Ny*Nz*sizeof(double));
+     h_loc->Jy =               (double *)malloc(Ny*Nz*sizeof(double));
+     h_loc->Jz =               (double *)malloc(Ny*Nz*sizeof(double));
+     h_loc->fftRhoBeamHydro  = (double *)malloc(Ny*Nz*sizeof(double));
+     h_loc->fftJxBeamHydro   = (double *)malloc(Ny*Nz*sizeof(double));
+     h_loc->Rho =              (double *)malloc(Ny*Nz*sizeof(double));
+     h_loc->particles = (beamParticle *)malloc(Np*sizeof(beamParticle));
+
+     if(
+         (h_loc->Bz == NULL) ||
+         (h_loc->Ey == NULL) ||
+         (h_loc->Jz == NULL) ||
+         (h_loc->fftRhoBeamHydro == NULL)
+       )
+     {
+         printf("MEMORY ERROR \n");
+         exit(0);
+     }
+     *h_l = h_loc;
+
+     return 0;
+ }
 
 int CUDA_WRAP_createNewLayerOnDevice(cudaLayer **h_dst_l,cudaLayer* h_l)
 {

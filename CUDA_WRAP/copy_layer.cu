@@ -37,7 +37,25 @@ int CUDA_WRAP_get_particles_number(Mesh *mesh,Cell *p_CellArray)
 
 }
 
-int copyParticle(beamParticle *p1,beamParticle *p2)
+int Particle2beamParticle(beamParticle *bp,Particle *p,int i,int j,int k)
+{
+    bp->f_X      = p->f_X;
+    bp->f_Y      = p->f_Y;
+    bp->f_Z      = p->f_Z;
+    bp->f_Px     = p->f_Px;
+    bp->f_Py     = p->f_Py, 
+    bp->f_Pz     = p->f_Pz, 
+    bp->f_Weight = p->f_Weight; 
+    bp->f_Q2m    = p->f_Q2m;
+    bp->isort    = p->i_Sort;
+    bp->i_X      = i;
+    bp->i_Y      = j;
+    bp->i_Z      = k;
+
+	return 0;
+}
+
+int copyParticleHost2Host(beamParticle *p1,beamParticle *p2)
 {
    p1->f_Px     = p2->f_Px;
    p1->f_Py     = p2->f_Py;
@@ -94,7 +112,7 @@ int LayerAlloc(cudaLayer **cl,int Ny,int Nz, int Np)
     return 0;
 }
 
-int CUDA_WRAP_copy_from_CellArray2Layer(Mesh *mesh,Cell *p_CellArray,cudaLayer **cl)
+int CUDA_WRAP_copy_from_CellArray2Layer(Mesh *mesh,Cell *p_CellArray,cudaLayer **cl,int iLayer)
 {
    double *Ex,*Ey,*Ez,*Bx,*By,*Bz,*Jx,*Jy,*Jz,*Rho;
    beamParticle *bp;
@@ -134,7 +152,9 @@ int CUDA_WRAP_copy_from_CellArray2Layer(Mesh *mesh,Cell *p_CellArray,cudaLayer *
 		     p = p->p_Next;
 		     if(p != NULL)
 		     {
-                copyParticle(&((*cl)->particles[np]),p);
+				beamParticle bp;
+				Particle2beamParticle(&bp,p,iLayer,j,k);
+                copyParticleHost2Host(&((*cl)->particles[np]),&bp);
              }
 	      }
 

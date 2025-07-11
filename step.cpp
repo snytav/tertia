@@ -280,11 +280,7 @@ int Domain::Run(void)
   cudaLayer *h_cl,*h_pl;
   CUDA_MALLOC_TEST("after Run-begin");
 
-  CUDA_WRAP_copy_from_CellArray2Layer(this->GetMesh(),
-                                      this->GetMesh()->get_p_CellLayerP(),
-                                      &h_pl);
-  CUDA_MALLOC_TEST("after   CellArray2Layer ");
-
+  
   //   CUDA_WRAP_check_beam_values(Np,BEAM_VALUES_NUMBER,h_beam_values,d_beam_values,dimBlock.x*dimGrid.x,dimBlock.y*dimGrid.y,
 //                                 "beamValues.dat","BEAM",nstep);
   

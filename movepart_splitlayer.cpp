@@ -507,11 +507,11 @@ void Mesh::MoveAllSplitLayers()
             p_CellArray[nc] = p_CellLayerP[nYZ];
          }
       }
-      if(iLayer == 1)
-      {
-         CUDA_WRAP_getLayerFromMesh(this,p_CellArray,1,l_My,l_Mz,&host_send_layer);
-	       printf("out 1st particle %e Np %d\n",host_send_layer->particles[0].f_Y,host_send_layer->Np);
-      }
+//      if(iLayer == 1)
+//      {
+//         CUDA_WRAP_getLayerFromMesh(this,p_CellArray,1,l_My,l_Mz,&host_send_layer,iLayer);
+//	       printf("out 1st particle %e Np %d\n",host_send_layer->particles[0].f_Y,host_send_layer->Np);
+//      }
 
 
 #endif      
@@ -705,10 +705,10 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
       cudaLayer *h_cl_dp,*h_cl,*d_cl;
       CUDA_WRAP_copy_from_CellArray2Layer(this,
                                       this->get_p_CellLayerP(),
-                                      &h_pl);
+                                      &h_pl,iLayer);
       CUDA_WRAP_copy_from_CellArray2Layer(this,
                                             this->get_p_CellLayerC(),
-                                            &h_cl);
+                                            &h_cl,iLayer);
       copyLayerFromHostToDevice(&h_pl_dp,h_pl);
       copyLayerStructureFromHostToDevice(&d_pl,h_pl_dp);
       copyLayerFromHostToDevice(&h_cl_dp,h_cl);
@@ -753,7 +753,7 @@ void Mesh::MoveSplitLayer(int iLayer,int iSplit)
      // printf("after  iterate1 %d\n",GetRank()); 
       //cuLayerPrintCentre(h_C,iLayer,this,p_CellArray);
 
-      CUDA_WRAP_copy_from_CellArray2Layer(this,p_CellArray,&h_pl);
+      CUDA_WRAP_copy_from_CellArray2Layer(this,p_CellArray,&h_pl,iLayer);
       //copyLayerFromHostToDevice(&h_P,p_CellLayerP);
 
       cuLayerPrintCentre(h_P,-1002,this,p_CellLayerP,"P after Iterate");
