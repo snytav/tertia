@@ -510,7 +510,7 @@ void Mesh::MoveAllSplitLayers()
 //      if(iLayer == 1)
 //      {
 //         CUDA_WRAP_getLayerFromMesh(this,p_CellArray,1,l_My,l_Mz,&host_send_layer,iLayer);
-//	       printf("out 1st particle %e Np %d\n",host_send_layer->particles[0].f_Y,host_send_layer->Np);
+//	       printf("out 1st pa rticle %e Np %d\n",host_send_layer->particles[0].f_Y,host_send_layer->Np);
 //      }
 
 
