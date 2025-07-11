@@ -203,7 +203,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          write_plasma_value(np,PLASMA_VALUES_NUMBER,11,d_p,gammap);
          
 
- /*
+ 
          double Vx = px / gammap;
 //         maxVx = max(maxVx,fabs(Vx));
          double q2m = p->f_Q2m;
@@ -237,8 +237,8 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          write_plasma_value(np,PLASMA_VALUES_NUMBER,16,d_p,ym);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,17,d_p,zm);
 
-         */
-         /*
+         
+         
          if (ym + yp != 0.) 
          {
                double dummy = 0.;
@@ -272,8 +272,8 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          double exm, eym, ezm;
          double bxm, bym, bzm;
 
-*/
-         /*
+
+         
 
          double bx=0.;
          double by=0.;
@@ -391,19 +391,19 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          double ey1 = ey;
          double ez1 = ez;
 
-/*
-         if(isort > 0 && iAtomTypeArray[isort] > 0 && iFullStep) {//if and only if ionizable ions
-            int iZ = p->GetZ();
 
-            if (iZ < iAtomTypeArray[isort]) {
-               double field = sqrt(ex*ex + ey*ey + ez*ez);
-               p->Ionize(&ccc, field);
-               p_next = p->p_Next;
-               //	      if (iZ == 0) continue;
-            };
-            q2m *= iZ;
-            weight *= iZ;
-         }
+//         if(isort > 0 && iAtomTypeArray[isort] > 0 && iFullStep) {//if and only if ionizable ions
+//            int iZ = p->GetZ();
+//
+//            if (iZ < iAtomTypeArray[isort]) {
+//               double field = sqrt(ex*ex + ey*ey + ez*ez);
+//               //p->Ionize(&ccc, field);
+//               p_next = p->p_Next;
+//               //	      if (iZ == 0) continue;
+//            };
+//            q2m *= iZ;
+//            weight *= iZ;
+//         }
 
          ex *= q2m*hx/2.;
          ey *= q2m*hx/2.;
@@ -618,16 +618,16 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
                   int check = 0;
                };
 #ifdef PLASMA_MOVE_CUPRINTF               
-               //cuPrintf("partdx %e j %d \n",partdx,j);
+               cuPrintf("partdx %e j %d \n",partdx,j);
 #endif               
-               //return;
+               return;
                cuDepositCurrentsInCellSplit(p, isort,Ny, itmp, jtmp, ktmp, Vx, Vy, Vz, xtmp, ytmp, ztmp, 
                   djx*part_step, djy*part_step, djz*part_step, drho*part_step,cl,d_p,np);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,96,d_p,ytmp);               
          write_plasma_value(np,PLASMA_VALUES_NUMBER,97,d_p,ztmp);                      
 #ifdef PLASMA_MOVE_CUPRINTF                  
-               //cuPrintf("partdx after %e \n",partdx);
-               //cuPrintf("jk-tmp1 %d %d \n",jtmp,ktmp);
+               cuPrintf("partdx after %e \n",partdx);
+               cuPrintf("jk-tmp1 %d %d \n",jtmp,ktmp);
 #endif               
             //   return;                  
             }
@@ -648,7 +648,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
 
             ytmp -= jtmp;
             ztmp -= ktmp;
-            //if(np < 50) cuPrintf("jk-tmp1 %d %d \n",jtmp,ktmp);
+            if(np < 50) cuPrintf("jk-tmp1 %d %d \n",jtmp,ktmp);
             DepositCurrentsInCell(p, isort, itmp, jtmp, ktmp, Vx, Vy, Vz, xtmp, ytmp, ztmp, 
                djx, djy, djz, drho);
 /////////////////////// end of one cell pusher ///////////////////
@@ -672,7 +672,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
                p->i_Z = ktmp;
                //cuPrintf("jk-tmp %d %d np %d \n",jtmp,ktmp,np);
                
-               /*
+               
                long nnew = GetNyz(jtmp,ktmp);
                Cell &cnew = p_CellLayerC[nnew];
                p->p_Next = cnew.p_Particles;
@@ -692,9 +692,9 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
                  // cuPrintf("new percell %d %e %e \n",new_np,cp->f_Y,cp->f_Z);
                }
             }
-//            p = p_next;
+            p = p_next;
               write_plasma_value(np,PLASMA_VALUES_NUMBER,99,d_p,(double)np);
-*/
+
 }
 
 
