@@ -116,7 +116,7 @@ int plasmaControlPoint(Mesh *M,Cell *p_CellLayerP,const char *where)
             double px = p->f_Px;
             double py = p->f_Py;
             double pz = p->f_Pz;
-            fprintf(f, "j %10d k %10d n_loc %05d n %10d %25.15e %25.15e %25.15e %25.15e %25.15e %25.15e\n",
+            fprintf(f, "j %10d k %10d n_loc %05d n %10d x %25.15e y %25.15e z %25.15e px %25.15e py %25.15e pz %25.15e\n",
                     j,k,
                     n_loc++,
                     n++,
