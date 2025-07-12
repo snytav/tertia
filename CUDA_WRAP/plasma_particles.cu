@@ -89,6 +89,12 @@ __device__ void copyParticle(beamParticle *dst,beamParticle *src)
     dst->f_Q2m    = src->f_Q2m;
 }
 
+int __device__ get_index(cudaLayer *cl,int i,int j)
+{
+        return cl->Ny*i + j;
+}
+
+
 __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLayer *cl,cudaLayer *pl,int Ny,int Nz,double hx,double hy,double hz,
                                      double *djx0,double *djy0,double *djz0,double *drho0,int iFullStep,double *d_p)
 {
@@ -101,54 +107,19 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
 	 char s[50];
          
 
-	 //sprintf(s,"%e",3.1415);
-         cuPrintf("moveSplit111 %d \n",3.1415);
 	 
-         
-#ifdef PLASMA_MOVE_CUPRINTF         
-         cuPrintf("moveSplit222 \n");
-
-#endif
-         //printf("moveSplit223 \n");
-	 
-//         if(iLayer == 120 && iSplit == 1 && iFullStep == 0)return;
-
 	 np = sizeY*nx + ny;
 	 
-#ifdef PLASMA_MOVE_CUPRINTF	 
-	 cuPrintf("nx %5d ny %5d np %5d Np %10d \n",nx,ny,np,Np);
-	 //__syncthreads();
+	 __syncthreads();
 	 
-#endif	 
 	
-	 //if(np >= pl->Np) return;
-// #ifdef PLASMA_MOVE_CUPRINTF
-	// printf("after Np check Np %d \n",pl->Np);
-// #endif
-	 //return;
 	 p = pl->particles + np;
          j = p->i_Y;
-         //printf("jread %d \n",j);
-        // if(iLayer == 120 && iSplit == 1 && iFullStep == 0) return;
-         //j = 0;
-// #ifdef PLASMA_MOVE_CUPRINTF
-         //printf("first-j \n");
-// #endif
-         
-         //return;
          k = p->i_Z;  
-//#ifdef PLASMA_VALUES_CUPRINTF         
-         //if(nx == 0 && ny == 0) 
-	 //{
-	 cuPrintf("np %5d %d \n",np,nx);
-	 //}
-         //__syncthreads();
-	 return;
-	 //#endif         
+         __syncthreads();
          
          write_plasma_value(np,PLASMA_VALUES_NUMBER,0,d_p,(double)j);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,1,d_p,(double)k);
-         //return; 
          int i=iLayer;
          int ip = i+1;
          long ncc = k*Ny + j;
@@ -166,13 +137,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          double djx = 0., djy = 0., djz = 0.;
           
           
-        //    isort = p->GetSort();
          double weight = p->f_Weight;
-#ifdef PLASMA_MOVE_CUPRINTF         
-         cuPrintf("weight %e \n",weight);
-#endif         
-         //return;
-         
          double xp  = p->f_X;
          double yp  = p->f_Y;
          double zp  = p->f_Z;
@@ -180,10 +145,6 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          write_plasma_value(np,PLASMA_VALUES_NUMBER,3,d_p,xp);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,4,d_p,yp);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,5,d_p,zp);
-#ifdef PLASMA_MOVE_CUPRINTF         
-         cuPrintf("read coords \n");
-#endif         
-         //return;
 
          double x = xp;
          double y = yp;
@@ -243,9 +204,6 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          {
                double dummy = 0.;
          }
-         cuPrintf("begin interplolate \n");
-//         if(iLayer == 120 && iSplit == 1 && iFullStep == 0)return;
-
 
          double ayc = 1.-yp;
          double ayp = yp;
@@ -278,42 +236,29 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          double bx=0.;
          double by=0.;
          double bz=0.;
-         cuPrintf("fields preparation \n");
-// #endif
-         //cuPrintf("after 29 \n");
-        // if(iLayer == 120 && iSplit == 1 && iFullStep == 0)return;
-         //return;
+
+	 ncc = get_index(cl,j,k);
+	 //int npc = ncc + 1;
+         //int ncp = ncc + l_sizeY;
+         //int npp = ncp + 1;
+         //int nmc = ncc - 1;
+         //int ncm = ncc - l_sizeY;
+         //int nmm = ncm - 1;
+         //int nmp = ncp - 1;
+         //int npm = npc - l_sizeY;
 
          exp = pl->Ex[ncc];
-         //if(np == 36)
-         //{
-         //   cuPrintf("EXP36 np %d j %d k %d exp %25.15e\n",np,j,k,exp);
-          //  return;
-         //}
-         
-        // cuPrintf("after pl->Ex npc %d k %d j %d Ny %d \n",npc,k,j,Ny);
-        // if(iLayer == 120 && iSplit == 1 && iFullStep == 0)return;         
          write_plasma_value(np,PLASMA_VALUES_NUMBER,18,d_p,exp);
          
-//            exp = apcc*pcc.f_Ex + appc*ppc.f_Ex + apcp*pcp.f_Ex + appp*ppp.f_Ex;
-
-         //cuPrintf("after 18 \n");
-         //if(iLayer == 120 && iSplit == 1 && iFullStep == 0)return;
-
          eyp = pl->Ey[ncc];
          write_plasma_value(np,PLASMA_VALUES_NUMBER,19,d_p,eyp);
-//            eyp = apcc*pcc.f_Ey + appc*ppc.f_Ey + apcp*pcp.f_Ey + appp*ppp.f_Ey;
+         //eyp = apcc*pcc.f_Ey + appc*ppc.f_Ey + apcp*pcp.f_Ey + appp*ppp.f_Ey;
 
          ezp = pl->Ez[ncc];
          write_plasma_value(np,PLASMA_VALUES_NUMBER,20,d_p,ezp);
-         
-//            ezp = apcc*pcc.f_Ez + appc*ppc.f_Ez + apcp*pcp.f_Ez + appp*ppp.f_Ez;
-
-         //cuPrintf("after 20 \n");
-         //if(iLayer == 120 && iSplit == 1 && iFullStep == 0)return;
-
-       bxp = pl->Bx[ncc];
-//            bxp = apcc*pl->Bx[npc] + appc*pl->Bx[npp] + apcp*pl->Bx[ncp] + appp*pl->Bx[npp];
+         //ezp = apcc*pcc.f_Ez + appc*ppc.f_Ez + apcp*pcp.f_Ez + appp*ppp.f_Ez;
+         bxp = pl->Bx[ncc];
+         //bxp = apcc*pl->Bx[npc] + appc*pl->Bx[npp] + apcp*pl->Bx[ncp] + appp*pl->Bx[npp];
          write_plasma_value(np,PLASMA_VALUES_NUMBER,21,d_p,bxp);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,22,d_p,accc);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,23,d_p,appc);
@@ -324,51 +269,44 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          write_plasma_value(np,PLASMA_VALUES_NUMBER,28,d_p,pl->Bx[ncp]);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,29,d_p,pl->Bx[npp]);
          
-         //cuPrintf("after 29 \n");
-         //if(iLayer == 120 && iSplit == 1 && iFullStep == 0)return;
-         
          byp = pl->By[ncc];
          write_plasma_value(np,PLASMA_VALUES_NUMBER,30,d_p,byp);
          
-//            byp = apcc*pcc.f_By + appc*ppc.f_By + apcp*pcp.f_By + appp*ppp.f_By;
+         //byp = apcc*pcc.f_By + appc*ppc.f_By + apcp*pcp.f_By + appp*ppp.f_By;
 
          bzp = pl->Bz[ncc];
          write_plasma_value(np,PLASMA_VALUES_NUMBER,31,d_p,bzp);
-//            bzp = apcc*pcc.f_Bz + appc*ppc.f_Bz + apcp*pcp.f_Bz + appp*ppp.f_Bz;
+         //bzp = apcc*pcc.f_Bz + appc*ppc.f_Bz + apcp*pcp.f_Bz + appp*ppp.f_Bz;
 
          exm = cl->Ex[ncc];
          write_plasma_value(np,PLASMA_VALUES_NUMBER,32,d_p,exm);
          
-//         exm = accc*ccc.f_Ex + acpc*cpc.f_Ex + accp*ccp.f_Ex + acpp*cpp.f_Ex;
+         //exm = accc*cl->Ex[ncc] + acpc*cpc.f_Ex + accp*ccp.f_Ex + acpp*cpp.f_Ex;
 
          eym = cl->Ey[ncc];
          write_plasma_value(np,PLASMA_VALUES_NUMBER,33,d_p,eym);
          
-//         eym = accc*ccc.f_Ey + acpc*cpc.f_Ey + accp*ccp.f_Ey + acpp*cpp.f_Ey;
+         //eym = accc*ccc.f_Ey + acpc*cpc.f_Ey + accp*ccp.f_Ey + acpp*cpp.f_Ey;
 
          ezm = cl->Ez[ncc];
          write_plasma_value(np,PLASMA_VALUES_NUMBER,34,d_p,ezm);
          
-//         ezm = accc*ccc.f_Ez + acpc*cpc.f_Ez + accp*ccp.f_Ez + acpp*cpp.f_Ez;
+         //ezm = accc*ccc.f_Ez + acpc*cpc.f_Ez + accp*ccp.f_Ez + acpp*cpp.f_Ez;
 
          bxm = cl->Bx[ncc];
          write_plasma_value(np,PLASMA_VALUES_NUMBER,35,d_p,bxm);
          
-//         bxm = accc*ccc.f_Bx + acpc*cpc.f_Bx + accp*ccp.f_Bx + acpp*cpp.f_Bx;
+         //bxm = accc*ccc.f_Bx + acpc*cpc.f_Bx + accp*ccp.f_Bx + acpp*cpp.f_Bx;
 
          bym = cl->By[ncc];
          write_plasma_value(np,PLASMA_VALUES_NUMBER,36,d_p,bym);
          
-//         bym = accc*ccc.f_By + acpc*cpc.f_By + accp*ccp.f_By + acpp*cpp.f_By;
+         //bym = accc*ccc.f_By + acpc*cpc.f_By + accp*ccp.f_By + acpp*cpp.f_By;
 
          bzm = cl->Bz[ncc];
          write_plasma_value(np,PLASMA_VALUES_NUMBER,37,d_p,bzm);
          
-//         bzm = accc*ccc.f_Bz + acpc*cpc.f_Bz + accp*ccp.f_Bz + acpp*cpp.f_Bz;
-#ifdef PLASMA_MOVE_CUPRINTF
-         cuPrintf("fields prepared \n");
-#endif         
-         //return;
+         //bzm = accc*ccc.f_Bz + acpc*cpc.f_Bz + accp*ccp.f_Bz + acpp*cpp.f_Bz;
 
          ex = 0.5*(exp+exm);
          ey = 0.5*(eyp+eym);
