@@ -34,13 +34,15 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
         int cell_number,wrong_particles = 0;
 	double    *h_copy,frac_err,delta = 0.0,*wrong_array,*delta_array;
 	int wrong_flag = 0;
+	printf("in ceck beam values %s \n ",beam_or_plasma);
 	
 	FILE *f,*f_out,*f_dump;
 	char name_out[100];
 	char name_dump[100];
 
 	sprintf(name_out,"%s_nstep_%010d.dat",beam_or_plasma,nstep);
-	sprintf(name_dump,"VLPL_CPU_values_%s_nstep_%010d.dat",beam_or_plasma,nstep);
+	sprintf(name_dump,"VLPL_CPU_values_%s_nstep_%010d.dati",beam_or_plasma,nstep);
+	printf("out %s dump %s \n", name_out,name_dump);
 	
 	f = fopen(fname,"wt");
 	f_out = fopen(name_out,"wt");

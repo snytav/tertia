@@ -1463,7 +1463,7 @@ int Mx,int Ny,int Nz,double hx,double hy,double hz,
      cudaLayer *d_pl1;
      getLayersPC(&d_cl1,&d_pl1);
      int err_init = cudaGetLastError();
-     printf("cuMoveSplitParticles begin %d \n",err_init);
+     printf("cuMoveSplitParticles begin %d -----------------------------------------------------------\n",err_init);
 
      
      //exit(0);
@@ -1531,6 +1531,7 @@ int Mx,int Ny,int Nz,double hx,double hy,double hz,
 //      cudaPrintfInit();
      cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl1,d_pl1,Ny,Nz,hx,hy,hz,
                                      d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
+
 //      cudaPrintfDisplay(stdout, true);
 //      cudaPrintfEnd();
 //      exit(0);
@@ -1538,7 +1539,8 @@ int Mx,int Ny,int Nz,double hx,double hy,double hz,
      // paricle currents diagnostics
      cudaError_t err00 = cudaGetLastError();
      printf("block 2 err00 after particles kernel %03d --------------------------------------\n",err00);
-
+     CUDA_WRAP_check_plasma_values(Np,PLASMA_VALUES_NUMBER,dimBlock.x*dimGrid.x,dimBlock.y*dimGrid.y,nstep);
+     exit(0);
      for(int iLayer = 0;iLayer < Mx;iLayer++)
      {
          CUDA_WRAP_copy_particle_currents(Mx,Ny,Nz,iLayer);

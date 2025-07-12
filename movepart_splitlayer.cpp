@@ -1651,9 +1651,10 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
 
    int Np = CUDA_WRAP_get_particles_number(this,this->get_p_CellLayerP());
    //particlesPrepareAtLayer(this,p_CellLayerP,p_CellLayerC,iLayer,l_My,l_Mz);
-
+   printf("before  cuMoveSplitParticles\n  ");
    cuMoveSplitParticles(iLayer,iSplit,Np,l_Mx,l_My,l_Mz,hx,hy,hz,
                                       djx0,djy0,djz0,drho0,nsorts,iFullStep,nstep);
+   printf("after cuMoveSplitParticles \n");
 #ifdef CUDA_WRAP_PARTICLE_HOST_COMPUTATIONS
    delete[] djx0;
    delete[] djy0;
