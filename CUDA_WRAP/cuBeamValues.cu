@@ -37,16 +37,20 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	printf("in ceck beam values %s \n ",beam_or_plasma);
 	
 	FILE *f,*f_out,*f_dump;
+	char fname_attr[1000];
 	char name_out[100];
 	char name_dump[100];
 
+	sprintf(fname_attr,"attr_%s_nstep_%010d.dat",beam_or_plasma,nstep);
+
 	sprintf(name_out,"%s_nstep_%010d.dat",beam_or_plasma,nstep);
-	sprintf(name_dump,"VLPL_CPU_values_%s_nstep_%010d.dati",beam_or_plasma,nstep);
-	printf("out %s dump %s \n", name_out,name_dump);
+	sprintf(name_dump,"VLPL_CPU_values_%s_nstep_%010d.dat",beam_or_plasma,nstep);
+	printf("fname_attr %s out %s dump %s \n",fname_attr, fname,name_out,name_dump);
 	
-	f = fopen(fname,"wt");
+	f = fopen(fname_attr,"wt");
 	f_out = fopen(name_out,"wt");
-	f_dump = fopen(name_out,"wt");
+	f_dump = fopen(name_dump,"wt");
+	printf("files out %s dump %sopened  \n", name_out,name_dump);
 	
 	wrong_array = (double *)malloc(num_attr*sizeof(double));
 	delta_array = (double *)malloc(num_attr*sizeof(double));
@@ -87,14 +91,11 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
             cu_x = h_copy[i*num_attr + n];
      	    x    = h_p   [i*num_attr + n];
 			  
-//#ifdef CUDA_WRAP_BEAM_VALUES_DETAILS
 			  if((fabs(x-cu_x) > BEAM_TOLERANCE)  
                             &&  (i < blocksize_x*blocksize_y) 
 			    )
-			//  {
-			//   if(i < 50) 
 			   {
-			       fprintf(f,"%5d %5d %25.15e/%25.15e delta %15.5e \n",n,i,x,cu_x,fabs(cu_x - x));
+			       fprintf(f,"attr %5d np  %5d cpu %25.15e gpu%25.15e delta %15.5e \n",n,i,x,cu_x,fabs(cu_x - x));
 
 			   }
 			   fprintf(f_dump,"%25.15e",x);
@@ -118,7 +119,7 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 		fprintf(f_dump,"\n");
         fr_attr = (double)wpa/(Np);
         fprintf(f,"value %3d OK %7.2f wrong %7.2f delta %15.5e wpa %10d Np %10d CORRECT %10d \n",n,1.0 - fr_attr,fr_attr,delta,wpa,Np,Np - wpa);
-	printf("\n value %3d OK %7.2f wrong %7.2f delta %15.5e wpa %10d Np %10d CORRECT %10d \n",n,1.0 - fr_attr,fr_attr,delta,wpa,Np,Np - wpa);
+	//printf("\n value %3d OK %7.2f wrong %7.2f delta %15.5e wpa %10d Np %10d CORRECT %10d \n",n,1.0 - fr_attr,fr_attr,delta,wpa,Np,Np - wpa);
 	if(Np - wpa < blocksize_x*blocksize_y) wrong_flag = 1;
 	
 	wrong_array[n] = fr_attr;
@@ -126,7 +127,7 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	
 	//puts("___________________________________________________________________________________________________________");
     }
-	
+
 	free(h_copy);
 	
 	frac_err = (double)wrong_particles/(Np*num_attr);
