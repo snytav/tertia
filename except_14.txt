@@ -1,0 +1,15 @@
+CUDA Exception: Warp Illegal Address
+The exception was triggered at PC 0x7fff8be70e20  write_plasma_value(int, int, int, double*, double)  (plasma_particles.cu:1405)
+
+Thread 1 "test" received signal CUDA_EXCEPTION_14, Warp Illegal Address.
+[Switching focus to CUDA kernel 0, grid 3001, block (12,0,0), thread (0,2,0), device 0, sm 11, warp 0, lane 0]
+0x00007fff8be70e80 in write_plasma_value (i=39938, num_attr=200, n=0, d_p=0x7ebf72000000, t=25) at CUDA_WRAP/plasma_particles.cu:1411
+1411            return 0;
+(cuda-gdb) p np
+No symbol "np" in current context.
+(cuda-gdb) p n 
+$6 = 0
+(cuda-gdb) p i
+$7 = 39938
+(cuda-gdb) 
+

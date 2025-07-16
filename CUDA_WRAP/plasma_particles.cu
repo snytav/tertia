@@ -102,11 +102,11 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          
 
 	 //sprintf(s,"%e",3.1415);
-         cuPrintf("moveSplit111 %d \n",3.1415);
+         //cuPrintf("moveSplit111 %d \n",3.1415);
 	 
          
 #ifdef PLASMA_MOVE_CUPRINTF         
-         cuPrintf("moveSplit222 \n");
+         //cuPrintf("moveSplit222 \n");
 
 #endif
          //printf("moveSplit223 \n");
@@ -116,7 +116,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
 	 np = sizeY*nx + ny;
 	 
 #ifdef PLASMA_MOVE_CUPRINTF	 
-	 cuPrintf("nx %5d ny %5d np %5d Np %10d \n",nx,ny,np,Np);
+	 //cuPrintf("nx %5d ny %5d np %5d Np %10d \n",nx,ny,np,Np);
 	 //__syncthreads();
 	 
 #endif	 
@@ -140,16 +140,13 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
 //#ifdef PLASMA_VALUES_CUPRINTF         
          //if(nx == 0 && ny == 0) 
 	 //{
-	 cuPrintf("np %5d %d \n",np,nx);
+	 //cuPrintf("np %5d %d \n",np,nx);
 	 //}
-         //__syncthreads();
-	 return;
-	 //#endif         
          
          write_plasma_value(np,PLASMA_VALUES_NUMBER,0,d_p,(double)j);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,1,d_p,(double)k);
          //return; 
-         int i=iLayer;
+         int i=p->i_X;
          int ip = i+1;
          long ncc = k*Ny + j;
          long l_sizeY = Ny;
@@ -169,7 +166,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
         //    isort = p->GetSort();
          double weight = p->f_Weight;
 #ifdef PLASMA_MOVE_CUPRINTF         
-         cuPrintf("weight %e \n",weight);
+         //cuPrintf("weight %e \n",weight);
 #endif         
          //return;
          
@@ -181,7 +178,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          write_plasma_value(np,PLASMA_VALUES_NUMBER,4,d_p,yp);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,5,d_p,zp);
 #ifdef PLASMA_MOVE_CUPRINTF         
-         cuPrintf("read coords \n");
+         //cuPrintf("read coords \n");
 #endif         
          //return;
 

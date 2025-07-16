@@ -95,7 +95,7 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
                             &&  (i < blocksize_x*blocksize_y) 
 			    )
 			   {
-			       fprintf(f,"attr %5d np  %5d cpu %25.15e gpu%25.15e delta %15.5e \n",n,i,x,cu_x,fabs(cu_x - x));
+			       fprintf(f,"attr %10d np  %10d cpu %25.15e gpu %25.15e delta %15.5e \n",n,i,x,cu_x,fabs(cu_x - x));
 
 			   }
 			   fprintf(f_dump,"%25.15e",x);
