@@ -1,0 +1,21 @@
+176              write_plasma_value(np,PLASMA_VALUES_NUMBER,2,d_p,weight);
+(cuda-gdb) step
+[Switching focus to CUDA kernel 0, grid 3001, block (0,0,0), thread (0,4,0), device 0, sm 0, warp 2, lane 0]
+
+CUDA thread hit Breakpoint 2, cuMoveSplitParticlesKernel<<<(13,13,1),(16,16,1)>>> (iLayer=120, iSplit=0, Np=0, cl=0x7fff873f9e00, 
+    pl=0x7fff873f9c00, Ny=64, Nz=64, hx=0.10000000000000001, hy=0.5, hz=0.5, djx0=0x7fff873fa000, djy0=0x7fff873fa200, 
+    djz0=0x7fff873fa400, drho0=0x7fff873fa600, iFullStep=0, d_p=0x7ebf72000000) at CUDA_WRAP/plasma_particles.cu:173
+173              double xp  = p->f_X;
+(cuda-gdb) step
+174              double yp  = p->f_Y;
+(cuda-gdb) step
+175              double zp  = p->f_Z;
+(cuda-gdb) step
+176              write_plasma_value(np,PLASMA_VALUES_NUMBER,2,d_p,weight);
+(cuda-gdb) step
+[Switching focus to CUDA kernel 0, grid 3001, block (0,0,0), thread (0,2,0), device 0, sm 0, warp 1, lane 0]
+
+CUDA thread hit Breakpoint 2, cuMoveSplitParticlesKernel<<<(13,13,1),(16,16,1)>>> (iLayer=120, iSplit=0, Np=0, cl=0x7fff873f9e00, 
+    pl=0x7fff873f9c00, Ny=64, Nz=64, hx=0.10000000000000001, hy=0.5, hz=0.5, djx0=0x7fff873fa000, djy0=0x7fff873fa200, 
+    djz0=0x7fff873fa400, drho0=0x7fff873fa600, iFullStep=0, d_p=0x7ebf72000000) at CUDA_WRAP/plasma_particles.cu:173
+

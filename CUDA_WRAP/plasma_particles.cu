@@ -143,8 +143,8 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
 	 //cuPrintf("np %5d %d \n",np,nx);
 	 //}
          
-         write_plasma_value(np,PLASMA_VALUES_NUMBER,0,d_p,(double)j);
-         write_plasma_value(np,PLASMA_VALUES_NUMBER,1,d_p,(double)k);
+         //write_plasma_value(np,PLASMA_VALUES_NUMBER,0,d_p,(double)j);
+         //write_plasma_value(np,PLASMA_VALUES_NUMBER,1,d_p,(double)k);
          //return; 
          int i=p->i_X;
          int ip = i+1;
@@ -174,8 +174,9 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          double yp  = p->f_Y;
          double zp  = p->f_Z;
          write_plasma_value(np,PLASMA_VALUES_NUMBER,2,d_p,weight);
-         write_plasma_value(np,PLASMA_VALUES_NUMBER,3,d_p,xp);
+         //write_plasma_value(np,PLASMA_VALUES_NUMBER,3,d_p,xp);
          write_plasma_value(np,PLASMA_VALUES_NUMBER,4,d_p,yp);
+
          write_plasma_value(np,PLASMA_VALUES_NUMBER,5,d_p,zp);
 #ifdef PLASMA_MOVE_CUPRINTF         
          //cuPrintf("read coords \n");
