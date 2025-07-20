@@ -1396,19 +1396,8 @@ int CUDA_WRAP_write_plasma_value(int i,int num_attr,int n,double t)
 //writing a value to the control array for a definite particle in a definite cell
 __device__ int write_plasma_value(int i,int num_attr,int n,double *d_p,double t)
 {
-#ifdef CUDA_WRAP_CHECK_BEAM_VALUES_ALLOWED 
+           d_p [i*num_attr +  n] = t;
 
-	//int cell_number = i*Ny + j;
-	if(n == 0) 
-	{
-//	   cuPrintf("before write %e  \n",d_p [i*num_attr +  n]);
-	}
-	d_p [i*num_attr +  n] = t;
-	if(n == 0) 
-	{
-//	   cuPrintf("after write  %e  \n",d_p [i*num_attr +  n]);
-	}
-#endif	
 	return 0;
 }
 
@@ -1529,7 +1518,7 @@ int Mx,int Ny,int Nz,double hx,double hy,double hz,
 //      cudaPrintfInit();
      cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl1,d_pl1,Ny,Nz,hx,hy,hz,
                                      d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
-
+     cudaDeviceSynchronize();
 //      cudaPrintfDisplay(stdout, true);
 //      cudaPrintfEnd();
 //      exit(0);

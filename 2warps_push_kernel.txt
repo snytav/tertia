@@ -19,3 +19,17 @@ CUDA thread hit Breakpoint 2, cuMoveSplitParticlesKernel<<<(13,13,1),(16,16,1)>>
     pl=0x7fff873f9c00, Ny=64, Nz=64, hx=0.10000000000000001, hy=0.5, hz=0.5, djx0=0x7fff873fa000, djy0=0x7fff873fa200, 
     djz0=0x7fff873fa400, drho0=0x7fff873fa600, iFullStep=0, d_p=0x7ebf72000000) at CUDA_WRAP/plasma_particles.cu:173
 
+
+further!!!!!!!!!!!!!!!!!:
+CUDA Exception: Warp Illegal Address
+The exception was triggered at PC 0x7fff8be70b20  write_plasma_value(int, int, int, double*, double)  (plasma_particles.cu:1406)
+
+Thread 1 "test" received signal CUDA_EXCEPTION_14, Warp Illegal Address.
+[Switching focus to CUDA kernel 0, grid 3001, block (12,0,0), thread (0,2,0), device 0, sm 11, warp 3, lane 0]
+cuMoveSplitParticlesKernel<<<(13,13,1),(16,16,1)>>> (iLayer=120, iSplit=0, Np=0, cl=0x7fff873f9e00, pl=0x7fff873f9c00, Ny=64, Nz=64, 
+    hx=0.10000000000000001, hy=0.5, hz=0.5, djx0=0x7fff873fa000, djy0=0x7fff873fa200, djz0=0x7fff873fa400, drho0=0x7fff873fa600, 
+    iFullStep=0, d_p=0x7ebf72000000) at CUDA_WRAP/plasma_particles.cu:178
+178              write_plasma_value(np,PLASMA_VALUES_NUMBER,4,d_p,yp);
+
+
+
