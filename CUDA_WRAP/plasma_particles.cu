@@ -127,6 +127,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
 // #endif
 	 //return;
 	 p = pl->particles + np;
+         
          j = p->i_Y;
          //printf("jread %d \n",j);
         // if(iLayer == 120 && iSplit == 1 && iFullStep == 0) return;
@@ -136,7 +137,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
 // #endif
          
          //return;
-         k = p->i_Z;  
+         k = p->i_Z;
 //#ifdef PLASMA_VALUES_CUPRINTF         
          //if(nx == 0 && ny == 0) 
 	 //{
@@ -173,15 +174,16 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          double xp  = p->f_X;
          double yp  = p->f_Y;
          double zp  = p->f_Z;
+	 //return;
          write_plasma_value(np,PLASMA_VALUES_NUMBER,2,d_p,weight);
          //write_plasma_value(np,PLASMA_VALUES_NUMBER,3,d_p,xp);
-         write_plasma_value(np,PLASMA_VALUES_NUMBER,4,d_p,yp);
-
+         //write_plasma_value(np,PLASMA_VALUES_NUMBER,4,d_p,yp);
+         return;
          write_plasma_value(np,PLASMA_VALUES_NUMBER,5,d_p,zp);
 #ifdef PLASMA_MOVE_CUPRINTF         
          //cuPrintf("read coords \n");
 #endif         
-         //return;
+         return;
 
          double x = xp;
          double y = yp;
