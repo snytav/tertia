@@ -1,0 +1,1 @@
+ compute-sanitizer ./test -tool memcheck —show-backtrace no —print-limit 10000 2>&1 >&out
