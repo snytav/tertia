@@ -89,6 +89,15 @@ __device__ void copyParticle(beamParticle *dst,beamParticle *src)
     dst->f_Q2m    = src->f_Q2m;
 }
 
+__global__ void pushPlasmaParticles(cudaLayer *pl)
+{
+	unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x;
+        unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y;
+        unsigned int sizeY = gridDim.y*blockDim.y;
+        beamParticle *p;
+
+}
+
 __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLayer *cl,cudaLayer *pl,int Ny,int Nz,double hx,double hy,double hz,
                                      double *djx0,double *djy0,double *djz0,double *drho0,int iFullStep,double *d_p)
 {
@@ -126,9 +135,11 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
 	// printf("after Np check Np %d \n",pl->Np);
 // #endif
 	 //return;
-	 p = pl->particles + np;
+	 p = pl->particles;
+	 p += np;
          
-         j = p->i_Y;
+         //j = p->i_Y;
+          double x = p->f_X;
          //printf("jread %d \n",j);
         // if(iLayer == 120 && iSplit == 1 && iFullStep == 0) return;
          //j = 0;
@@ -175,7 +186,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          double yp  = p->f_Y;
          double zp  = p->f_Z;
 	 //return;
-         write_plasma_value(np,PLASMA_VALUES_NUMBER,2,d_p,weight);
+         //write_plasma_value(np,PLASMA_VALUES_NUMBER,2,d_p,weight);
          //write_plasma_value(np,PLASMA_VALUES_NUMBER,3,d_p,xp);
          //write_plasma_value(np,PLASMA_VALUES_NUMBER,4,d_p,yp);
          return;
@@ -185,7 +196,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
 #endif         
          return;
 
-         double x = xp;
+         x = xp;
          double y = yp;
          double z = zp;
 
@@ -1518,8 +1529,9 @@ int Mx,int Ny,int Nz,double hx,double hy,double hz,
 	exit(0);
       }
 //      cudaPrintfInit();
-     cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl1,d_pl1,Ny,Nz,hx,hy,hz,
-                                     d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
+     pushPlasmaParticles<<<dimGrid, dimBlock>>>(d_pl1); 
+     //cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl1,d_pl1,Ny,Nz,hx,hy,hz,
+     //                                d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
      cudaDeviceSynchronize();
 //      cudaPrintfDisplay(stdout, true);
 //      cudaPrintfEnd();
