@@ -96,6 +96,8 @@ __global__ void pushPlasmaParticles(cudaLayer *pl)
         unsigned int sizeY = gridDim.y*blockDim.y;
         beamParticle *p;
 
+	int i = pl->particles[0].i_X;
+
 }
 
 __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLayer *cl,cudaLayer *pl,int Ny,int Nz,double hx,double hy,double hz,
