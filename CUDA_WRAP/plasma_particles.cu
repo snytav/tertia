@@ -97,6 +97,7 @@ __global__ void pushPlasmaParticles(cudaLayer *pl)
         beamParticle *p;
 
 	int i = pl->particles[0].i_X;
+	double y = pl->particles[1000].f_Y;
 
 }
 
