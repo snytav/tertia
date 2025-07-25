@@ -98,6 +98,8 @@ __global__ void pushPlasmaParticles(cudaLayer *pl)
 	int np;
         unsigned int j = nx,k = ny;
 	np = sizeY*nx + ny;
+        p = pl->particles + np;
+
 
 //	int i = pl->particles[0].i_X;
 //	double y = pl->particles[1000].f_Y;
