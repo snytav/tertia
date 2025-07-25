@@ -33,6 +33,7 @@ int CUDA_WRAP_alloc_beam_values(int Np,int num_attr,double **h_p,double **d_p)
 double printAttributesTable(double *h_copy,double *h_p,int Np,int num_attr,char *beam_or_plasma,int nstep)
 {
 	FILE *f,*f_out,*f_dump;
+	double cu_x,x;
 	char fname_attr[1000];
 	char name_out[100];
 	char name_dump[100];
@@ -52,27 +53,26 @@ double printAttributesTable(double *h_copy,double *h_p,int Np,int num_attr,char 
 	
 
 	for(int n = 0;n < num_attr; n++)
-    {
+        {
 	   for (int i = 0;i < Np;i++)
 	   {
-           int wpa = 0,wrong_particles = 0;;
-     	   double fr_attr,x,cu_x;
 	
-           cu_x = h_copy[i*num_attr + n];
-     	   x    = h_p   [i*num_attr + n];
+              cu_x = h_copy[i*num_attr + n];
+     	      x    = h_p   [i*num_attr + n];
      	   
-     	   if(fabs(cu_x - x) > PARTICLE_TOLERANCE)
-     	   {
-			   wrong_particles++;
-		   }
+     	      if(fabs(cu_x - x) > PARTICLE_TOLERANCE)
+     	      {
+	         wrong_particles++;
+	      }
 		   
-        }
-        frac = (((double)wrong_particles)/Np)*100;
-        fprintf(f,"attribute %3d wrong particles %10d of %10d, %2f  ",n,wrong_particles,Np,frac);
-        if(frac < 1.0)
+	   }
+           frac = (((double)wrong_particles)/Np)*100;
+           fprintf(f,"attribute %3d wrong particles %10d of %10d, %2f  ",n,wrong_particles,Np,frac);
+
+	if(frac < 1.0)
         {
-			frac_light += 1.0;
-		}
+	  frac_light += 1.0;
+	}
 		else
 		{
 			if (frac < 30)
@@ -112,7 +112,7 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	sprintf(name_dump,"VLPL_CPU_values_%s_nstep_%010d.dat",beam_or_plasma,nstep);
 	printf("fname_attr %s out %s dump %s \n",fname_attr, fname,name_out,name_dump);
 	
-	if((f = fopen(fname_attr,"wt")) == NULL) return -1.0;
+	//if((f = fopen(fname_attr,"wt")) == NULL) return -1.0;
 	f_out = fopen(name_out,"wt");
 	if((f_dump = fopen(name_dump,"wt")) == NULL) return -1.0;
 	printf("files out %s dump %s  opened  \n", name_out,name_dump);

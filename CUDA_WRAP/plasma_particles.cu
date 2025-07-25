@@ -1556,7 +1556,7 @@ int Mx,int Ny,int Nz,double hx,double hy,double hz,
      cudaError_t err00 = cudaGetLastError();
      printf("block 2 err00 after particles kernel %03d --------------------------------------\n",err00);
      CUDA_WRAP_check_plasma_values(Np,PLASMA_VALUES_NUMBER,dimBlock.x*dimGrid.x,dimBlock.y*dimGrid.y,nstep);
-     exit(0);
+//      exit(0);
      for(int iLayer = 0;iLayer < Mx;iLayer++)
      {
          CUDA_WRAP_copy_particle_currents(Mx,Ny,Nz,iLayer);
