@@ -1,6 +1,7 @@
 #include "../run_control.h"
 #include <stdio.h>
 #include "labels.h"
+#include "cuParticles.h"
 
 #include <string>
 using namespace std;
@@ -29,10 +30,74 @@ int CUDA_WRAP_alloc_beam_values(int Np,int num_attr,double **h_p,double **d_p)
 	return err;
 }
 
+double printAttributesTable(double *h_copy,double *h_p,int Np,int num_attr,char *beam_or_plasma,int nstep)
+{
+	FILE *f,*f_out,*f_dump;
+	char fname_attr[1000];
+	char name_out[100];
+	char name_dump[100];
+	int wrong_particles;
+	double frac_rude = 0.0,frac_medium = 0.0,frac_light = 0.0,frac;
+
+	sprintf(fname_attr,"attr_%s_nstep_%010d.dat",beam_or_plasma,nstep);
+	if((f = fopen(fname_attr,"wt")) == NULL) return -1.0;
+	
+//	double wrong_array = (double *)malloc(num_attr*sizeof(double));
+//	double delta_array = (double *)malloc(num_attr*sizeof(double));
+//	
+//	wrong_array = (double *)malloc(num_attr*sizeof(double));
+//	delta_array = (double *)malloc(num_attr*sizeof(double));
+//        int width = Ny*Nz; 
+//        double *h_data_in;
+	
+
+	for(int n = 0;n < num_attr; n++)
+    {
+	   for (int i = 0;i < Np;i++)
+	   {
+           int wpa = 0,wrong_particles = 0;;
+     	   double fr_attr,x,cu_x;
+	
+           cu_x = h_copy[i*num_attr + n];
+     	   x    = h_p   [i*num_attr + n];
+     	   
+     	   if(fabs(cu_x - x) > PARTICLE_TOLERANCE)
+     	   {
+			   wrong_particles++;
+		   }
+		   
+        }
+        frac = (((double)wrong_particles)/Np)*100;
+        fprintf(f,"attribute %3d wrong particles %10d of %10d, %2f  ",n,wrong_particles,Np,frac);
+        if(frac < 1.0)
+        {
+			frac_light += 1.0;
+		}
+		else
+		{
+			if (frac < 30)
+			{
+				frac_medium += 1.0;
+			}
+			else
+			{
+			    frac_rude += 1.0;
+			}
+		}
+	}
+	frac_light  /= num_attr;
+	frac_medium /= num_attr;
+	frac_rude   /= num_attr;
+	fprintf(f,"attributes error light %10.3e medium %10.3e rude %10.3e \n ",frac_light,frac_medium,frac_rude);
+	fclose(f);
+	
+	return frac_rude;
+}
+
 double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,int blocksize_x,int blocksize_y,char *fname,char *beam_or_plasma,int nstep)
 {
         int cell_number,wrong_particles = 0;
-	double    *h_copy,frac_err,delta = 0.0,*wrong_array,*delta_array;
+	double    *h_copy,frac_err,delta = 0.0,*wrong_array,*delta_array,res;
 	int wrong_flag = 0;
 	printf("in ceck beam values %s \n ",beam_or_plasma);
 	
@@ -41,16 +106,16 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	char name_out[100];
 	char name_dump[100];
 
-	sprintf(fname_attr,"attr_%s_nstep_%010d.dat",beam_or_plasma,nstep);
+	
 
 	sprintf(name_out,"%s_nstep_%010d.dat",beam_or_plasma,nstep);
 	sprintf(name_dump,"VLPL_CPU_values_%s_nstep_%010d.dat",beam_or_plasma,nstep);
 	printf("fname_attr %s out %s dump %s \n",fname_attr, fname,name_out,name_dump);
 	
-	f = fopen(fname_attr,"wt");
+	if((f = fopen(fname_attr,"wt")) == NULL) return -1.0;
 	f_out = fopen(name_out,"wt");
 	if((f_dump = fopen(name_dump,"wt")) == NULL) return -1.0;
-	printf("files out %s dump %sopened  \n", name_out,name_dump);
+	printf("files out %s dump %s  opened  \n", name_out,name_dump);
 	
 	wrong_array = (double *)malloc(num_attr*sizeof(double));
 	delta_array = (double *)malloc(num_attr*sizeof(double));
@@ -65,6 +130,7 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	//GET PARTICLE DATA FROM SURFACE
 	//CUDA_WRAP_get_particle_surface(partSurfOut,cuOutputArrayX,NUMBER_ATTRIBUTES*part_per_cell_max,width,h_data_in);
 	int err = cudaMemcpy(h_copy,d_p,num_attr*Np*sizeof(double),cudaMemcpyDeviceToHost);
+	if((res = printAttributesTable(h_copy,h_p,Np,num_attr,beam_or_plasma,nstep)) < 0.0) return -1.0;
         int Np1 = Np;
 	string s = "";
 	fprintf(f_out,"%15s ",s.c_str());
@@ -88,8 +154,9 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
            }
        }
        fclose(f_dump);	
-       return 0.0;
+       return res;
    }
+   
 /*			  
       	       
 #ifdef CUDA_WRAP_PARTICLE_VALUES_DETAILS	     
