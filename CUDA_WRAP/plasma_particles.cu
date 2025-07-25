@@ -117,6 +117,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          unsigned int j = nx,k = ny;
 	 char s[50];
 	 double x = p->f_X;
+	 j = p->i_Y;
          
 
 	 //sprintf(s,"%e",3.1415);
