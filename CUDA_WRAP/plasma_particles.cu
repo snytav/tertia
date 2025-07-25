@@ -116,6 +116,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          int np;
          unsigned int j = nx,k = ny;
 	 char s[50];
+	 double x = p->f_X;
          
 
 	 //sprintf(s,"%e",3.1415);
@@ -148,7 +149,7 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
 	 p += np;
          
          //j = p->i_Y;
-          double x = p->f_X;
+         x = p->f_X;
          //printf("jread %d \n",j);
         // if(iLayer == 120 && iSplit == 1 && iFullStep == 0) return;
          //j = 0;
