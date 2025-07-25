@@ -95,9 +95,12 @@ __global__ void pushPlasmaParticles(cudaLayer *pl)
         unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y;
         unsigned int sizeY = gridDim.y*blockDim.y;
         beamParticle *p;
+	int np;
+        unsigned int j = nx,k = ny;
+	np = sizeY*nx + ny;
 
-	int i = pl->particles[0].i_X;
-	double y = pl->particles[1000].f_Y;
+//	int i = pl->particles[0].i_X;
+//	double y = pl->particles[1000].f_Y;
 
 }
 
@@ -114,7 +117,8 @@ __global__ void cuMoveSplitParticlesKernel(int iLayer,int iSplit,int Np,cudaLaye
          
 
 	 //sprintf(s,"%e",3.1415);
-         //cuPrintf("moveSplit111 %d \n",3.1415);
+  // int np;
+    //     unsigned int j = nx,k = ny;       //cuPrintf("moveSplit111 %d \n",3.1415);
 	 
          
 #ifdef PLASMA_MOVE_CUPRINTF         
