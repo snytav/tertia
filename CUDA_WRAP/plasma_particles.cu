@@ -100,7 +100,7 @@ __global__ void pushPlasmaParticles(cudaLayer *pl,double *d_p)
 	np = sizeY*nx + ny;
         p = pl->particles + np;
 	j = p->i_Y;
-	cuPrintf("j %d \n",j);
+	cuPrintf("j %d np %d \n",j,np );
 //	write_plasma_value(np,PLASMA_VALUES_NUMBER,0,d_p,(double)j);
 
 
@@ -1548,8 +1548,9 @@ int Mx,int Ny,int Nz,double hx,double hy,double hz,
      //                                d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
      cudaDeviceSynchronize();
       cudaPrintfDisplay(stdout, true);
-      cudaPrintfEnd();
-      exit(0);
+   
+	   cudaPrintfEnd();
+//      exit(0);
      cudaLayer *h_cl1,*h_pl1;
      // paricle currents diagnostics
      cudaError_t err00 = cudaGetLastError();

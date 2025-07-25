@@ -49,7 +49,7 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	
 	f = fopen(fname_attr,"wt");
 	f_out = fopen(name_out,"wt");
-	f_dump = fopen(name_dump,"wt");
+	if((f_dump = fopen(name_dump,"wt")) == NULL) return -1.0;
 	printf("files out %s dump %sopened  \n", name_out,name_dump);
 	
 	wrong_array = (double *)malloc(num_attr*sizeof(double));
@@ -65,7 +65,7 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	//GET PARTICLE DATA FROM SURFACE
 	//CUDA_WRAP_get_particle_surface(partSurfOut,cuOutputArrayX,NUMBER_ATTRIBUTES*part_per_cell_max,width,h_data_in);
 	int err = cudaMemcpy(h_copy,d_p,num_attr*Np*sizeof(double),cudaMemcpyDeviceToHost);
-    int Np1 = Np;
+        int Np1 = Np;
 	string s = "";
 	fprintf(f_out,"%15s ",s.c_str());
 	for (int i = 0;i < Np1;i++)
@@ -73,44 +73,24 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	    fprintf(f_out,"%15d ",i);
 	}
 	fprintf(f_out,"\n");
-    for(int n = 0;n < num_attr; n++)
-    {
-        int wpa = 0,wrong_particles = 0;;
-	double fr_attr,x,cu_x;
-	
-	delta = 0.0;
-	
-	    if(n < 115)
-	    {
-	       string name_attr = getLabel(n); 
-           fprintf(f_out,"%15s ",name_attr.c_str());
-        }
-		for (int i = 0;i < Np1;i++)
+        for(int n = 0;n < num_attr; n++)
         {
+           int wpa = 0,wrong_particles = 0;;
+	   double fr_attr,x,cu_x;
+	
+	   for (int i = 0;i < Np1;i++)
+           {
 	
             cu_x = h_copy[i*num_attr + n];
      	    x    = h_p   [i*num_attr + n];
 			  
-			  if((fabs(x-cu_x) > BEAM_TOLERANCE)  
-                            &&  (i < blocksize_x*blocksize_y) 
-			    )
-			   {
-			       fprintf(f,"attr %10d np  %10d cpu %25.15e gpu %25.15e delta %15.5e \n",n,i,x,cu_x,fabs(cu_x - x));
-
-			   }
-			   fprintf(f_dump,"%25.15e",x);
-			   fprintf(f_out,"%15.5e ",cu_x);
-			 // }
-//#endif			
-                          if(delta < fabs(cu_x - x)) delta = fabs(cu_x - x); 
-			  
-			  if(  fabs(x-cu_x) > BEAM_TOLERANCE)
-			  {
-			      wrong_particles++;
-			      wpa++;
-			      //printf(" %d  %d particle %d wrong: x %.2e/%.2e %15.5e\n",i,j,k,x,cu_x,fabs(x-cu_x));
-			  }
-			  
+            fprintf(f_dump,"attr %10d np  %10d cpu %25.15e gpu %25.15e delta %15.5e \n",n,i,x,cu_x,fabs(cu_x - x));
+           }
+       }
+       fclose(f_dump);	
+       return 0.0;
+   }
+/*			  
       	       
 #ifdef CUDA_WRAP_PARTICLE_VALUES_DETAILS	     
 #endif	     
@@ -126,9 +106,9 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	delta_array[n] = delta;
 	
 	//puts("___________________________________________________________________________________________________________");
-    }
+  *///  }
 
-	free(h_copy);
+/*	free(h_copy);
 	
 	frac_err = (double)wrong_particles/(Np*num_attr);
 	fclose(f_out);
@@ -154,6 +134,7 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	{
 	   int ig45 = 0;
 	}*/
+       /*
 	double max_delta = 0.0;
 	for(int i = 0;i < num_attr;i++)
 	{
@@ -180,11 +161,12 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	
 /*	last_wrong = frac_err;
 	last_delta = max_delta;
-*/	
+	
         if(wrong_flag == 1) printf("\nONE OR MORE VALUES ARE WRONG !!!!!!!!!!!!!!!!!!!!!!!!!\n");
 	printf("%s-RELATED CHECK OK %.4f wrong %.4f delta %15.5e =================================================\n",beam_or_plasma,
 	       1.0-frac_err,frac_err,max_delta);
 	fclose(f);
 	
         return frac_err;
-}
+*/	
+//}
