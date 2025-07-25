@@ -89,7 +89,7 @@ __device__ void copyParticle(beamParticle *dst,beamParticle *src)
     dst->f_Q2m    = src->f_Q2m;
 }
 
-__global__ void pushPlasmaParticles(cudaLayer *pl)
+__global__ void pushPlasmaParticles(cudaLayer *pl,double *d_p)
 {
 	unsigned int nx = blockIdx.x * blockDim.x + threadIdx.x;
         unsigned int ny = blockIdx.y * blockDim.y + threadIdx.y;
@@ -99,6 +99,9 @@ __global__ void pushPlasmaParticles(cudaLayer *pl)
         unsigned int j = nx,k = ny;
 	np = sizeY*nx + ny;
         p = pl->particles + np;
+	j = p->i_Y;
+	cuPrintf("j %d \n",j);
+//	write_plasma_value(np,PLASMA_VALUES_NUMBER,0,d_p,(double)j);
 
 
 //	int i = pl->particles[0].i_X;
@@ -1539,14 +1542,14 @@ int Mx,int Ny,int Nz,double hx,double hy,double hz,
       {
 	exit(0);
       }
-//      cudaPrintfInit();
-     pushPlasmaParticles<<<dimGrid, dimBlock>>>(d_pl1); 
+      cudaPrintfInit();
+     pushPlasmaParticles<<<dimGrid, dimBlock>>>(d_pl1,d_plasma_values); 
      //cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl1,d_pl1,Ny,Nz,hx,hy,hz,
      //                                d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
      cudaDeviceSynchronize();
-//      cudaPrintfDisplay(stdout, true);
-//      cudaPrintfEnd();
-//      exit(0);
+      cudaPrintfDisplay(stdout, true);
+      cudaPrintfEnd();
+      exit(0);
      cudaLayer *h_cl1,*h_pl1;
      // paricle currents diagnostics
      cudaError_t err00 = cudaGetLastError();
