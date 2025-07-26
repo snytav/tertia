@@ -98,10 +98,13 @@ __global__ void pushPlasmaParticles(cudaLayer *pl,double *d_p)
 	int np;
         unsigned int j = nx,k = ny;
 	np = sizeY*nx + ny;
-        p = pl->particles + np;
-	j = p->i_Y;
-	cuPrintf("j %d np %d \n",j,np );
-//	write_plasma_value(np,PLASMA_VALUES_NUMBER,0,d_p,(double)j);
+        //p = pl->particles + np;
+	//j = p->i_Y;
+	cuPrintf(" np*200 %d \n",np*200 );
+	d_p[np] = (double)j;
+
+
+	//write_plasma_value(np,PLASMA_VALUES_NUMBER,0,d_p,(double)j);
 
 
 //	int i = pl->particles[0].i_X;
@@ -1423,7 +1426,9 @@ int CUDA_WRAP_write_plasma_value(int i,int num_attr,int n,double t)
 //writing a value to the control array for a definite particle in a definite cell
 __device__ int write_plasma_value(int i,int num_attr,int n,double *d_p,double t)
 {
-           d_p [i*num_attr +  n] = t;
+ //         d_p[200*40960]  = 10.0;
+//        cuPrintf(" i*num_attr +  n  %d \n", i*num_attr +  n   );	
+	d_p [i*num_attr +  n] = t;
 
 	return 0;
 }
@@ -1556,7 +1561,7 @@ int Mx,int Ny,int Nz,double hx,double hy,double hz,
      cudaError_t err00 = cudaGetLastError();
      printf("block 2 err00 after particles kernel %03d --------------------------------------\n",err00);
      CUDA_WRAP_check_plasma_values(Np,PLASMA_VALUES_NUMBER,dimBlock.x*dimGrid.x,dimBlock.y*dimGrid.y,nstep);
-//      exit(0);
+      exit(0);
      for(int iLayer = 0;iLayer < Mx;iLayer++)
      {
          CUDA_WRAP_copy_particle_currents(Mx,Ny,Nz,iLayer);
