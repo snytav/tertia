@@ -67,7 +67,7 @@ double printAttributesTable(double *h_copy,double *h_p,int Np,int num_attr,char 
 		   
 	   }
            frac = (((double)wrong_particles)/Np)*100;
-           fprintf(f,"attribute %3d wrong particles %10d of %10d, %2f  ",n,wrong_particles,Np,frac);
+           fprintf(f,"attribute %3d wrong particles %10d of %10d, %2f  \n",n,wrong_particles,Np,frac);
 
 	if(frac < 1.0)
         {
