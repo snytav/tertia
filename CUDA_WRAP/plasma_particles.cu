@@ -100,7 +100,7 @@ __global__ void pushPlasmaParticles(cudaLayer *pl,double *d_p)
 	np = sizeY*nx + ny;
         //p = pl->particles + np;
 	//j = p->i_Y;
-	cuPrintf(" np*200 %d \n",np*200 );
+	cuPrintf(" np %d j %d \n",np,j );
 	d_p[np] = (double)j;
 
 
@@ -1547,15 +1547,23 @@ int Mx,int Ny,int Nz,double hx,double hy,double hz,
       {
 	exit(0);
       }
+      int Npk = 10;
+
       cudaPrintfInit();
-     pushPlasmaParticles<<<dimGrid, dimBlock>>>(d_pl1,d_plasma_values); 
+     pushPlasmaParticles<<<1,Npk>>>(d_pl1,d_plasma_values); 
      //cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl1,d_pl1,Ny,Nz,hx,hy,hz,
      //                                d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
      cudaDeviceSynchronize();
-      cudaPrintfDisplay(stdout, true);
-   
-	   cudaPrintfEnd();
-//      exit(0);
+     cudaPrintfDisplay(stdout, true);
+     cudaPrintfEnd();
+     double *h_p = (double *)malloc(Npk*sizeof(double)); 
+     cudaMemcpy(h_p,d_plasma_values,Npk*sizeof(double),cudaMemcpyDeviceToHost);
+     for(int i = 0;i <Npk;i++)
+     {
+	     printf("h_p i %d %e \n",i,h_p[i]);
+     }
+     
+     //exit(0);
      cudaLayer *h_cl1,*h_pl1;
      // paricle currents diagnostics
      cudaError_t err00 = cudaGetLastError();

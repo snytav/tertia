@@ -130,6 +130,7 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	//GET PARTICLE DATA FROM SURFACE
 	//CUDA_WRAP_get_particle_surface(partSurfOut,cuOutputArrayX,NUMBER_ATTRIBUTES*part_per_cell_max,width,h_data_in);
 	int err = cudaMemcpy(h_copy,d_p,num_attr*Np*sizeof(double),cudaMemcpyDeviceToHost);
+	printf("d_p[0] %e d_p[19] %e\n ",h_copy[0],h_copy[9]);
 	if((res = printAttributesTable(h_copy,h_p,Np,num_attr,beam_or_plasma,nstep)) < 0.0) return -1.0;
         int Np1 = Np;
 	string s = "";
