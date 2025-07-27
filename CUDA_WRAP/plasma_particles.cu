@@ -1414,7 +1414,7 @@ int CUDA_WRAP_write_plasma_value(int i,int num_attr,int n,double t)
 
 	//int cell_number = i*Ny + j;
 	
-	h_plasma_values [i*num_attr + n] = t;
+	h_plasma_values [i] = t;
 	
 	//cudaMemcpy((void**)d_p,num_attr*ppc_max*Ny*Nz*sizeof(double));
 	

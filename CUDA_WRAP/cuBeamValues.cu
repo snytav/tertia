@@ -148,8 +148,8 @@ double CUDA_WRAP_check_beam_values(int Np,int num_attr,double *h_p,double *d_p,i
 	   for (int i = 0;i < Np1;i++)
            {
 	
-            cu_x = h_copy[i*num_attr + n];
-     	    x    = h_p   [i*num_attr + n];
+            cu_x = h_copy[i];
+     	    x    = h_p   [i];
 			  
             fprintf(f_dump,"attr %10d np  %10d cpu %25.15e gpu %25.15e delta %15.5e \n",n,i,x,cu_x,fabs(cu_x - x));
            }
