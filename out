@@ -1,0 +1,3385 @@
+ CUDA_MALLOC_TEST at main begin  
+ CUDA_MALLOC_TEST at main begin  OK 
+Usage: v3d <ini-file> 
+Default name: v.ini will be used 
+0
+xUpperParallelLimit 120 rank 0 
+Mesh is prepared on PE 0
+Pulses created on PE 0
+Fields exchanged 0
+in domain rank 0 
+Movie file created .//mov0.dat
+Poynting file created .//poynting.dat
+ CUDA_MALLOC_TEST at before Run  
+ CUDA_MALLOC_TEST at before Run  OK 
+ CUDA_MALLOC_TEST at in  Run  
+ CUDA_MALLOC_TEST at in  Run  OK 
+ CUDA_MALLOC_TEST at before Run-begin  
+ CUDA_MALLOC_TEST at before Run-begin  OK 
+ CUDA_MALLOC_TEST at mid Run-begin  
+ CUDA_MALLOC_TEST at mid Run-begin  OK 
+ CUDA_MALLOC_TEST at after Run-begin  
+ CUDA_MALLOC_TEST at after Run-begin  OK 
+ CUDA_MALLOC_TEST at GroupSteps  
+ CUDA_MALLOC_TEST at GroupSteps  OK 
+begin group step 0 
+be dia 0 
+before step 0 itmp 0 rank 0 p_Cntrl->i_Ndiagnose 1 iters 1 
+begin step rank 0 
+before beam prepare
+rank 0 after prepare Np 0 %з d_RhoBeam3D (nil)
+ CUDA_MALLOC_TEST at STEP:60  
+ CUDA_MALLOC_TEST at STEP:60  OK 
+BEFORE BEAM
+Total number of particles on host 19190 
+AFTER BEAM
+before beam move
+after beam move
+before sending particles rank 0 
+after sending particles rank 0 
+after  CUDA_WRAP_compareBeamCurrents  
+  CUDA_WRAP_copyBeamToArray  
+long after sending particles rank 0 
+in MoveAllSplitLayers 
+ before set 121 
+after set 121 
+in getLayerParticles begin err 0 
+Layer 121 AT I np 0 
+rank 0 before recv layer -2 
+MoveAll rank 0 l_Mx 121 
+alloc3D error ey 0 
+alloc3D error ez 0 
+alloc3D error bx 0 
+rank 0 before recv layer -1 
+in getLayerParticles begin err 0 
+Layer 121 AT II np 40960 
+in copyLayerToDevice begin err 0 
+in copyLayerToDevice particle count err 0 
+in copyLayerToDevice particle list err 0 
+cuBeam 1593 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7f95ed649000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560e800000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7f95ed649000    
+  h_l->particles 0x7e560e800000  
+ -9.990000e+02 -1.313000e+03 4.647861e-310 6.930913e-310 6.930934e-310 6.930913e-310 0.000000e+00
+  h_l->particles 0x7e560e800000 &bp_test  0x7ffde56dfca0 Np 40960 
+ after test write
+before  CUDA_WRAP_printLayerParticles np 40960  (h_dl->particles 0x7e560e800000  
+after   CUDA_WRAP_printLayerParticles 
+  in copyLayerToDevice particle copy err 0 np 40960
+0 1.250000e-01 1.250000e-01 
+1 3.750000e-01 1.250000e-01 
+2 6.250000e-01 1.250000e-01 
+3 8.750000e-01 1.250000e-01 
+4 1.250000e-01 3.750000e-01 
+5 3.750000e-01 3.750000e-01 
+6 6.250000e-01 3.750000e-01 
+7 8.750000e-01 3.750000e-01 
+8 1.250000e-01 6.250000e-01 
+9 3.750000e-01 6.250000e-01 
+error particle copy 0 
+in copyLayerToDevice end err 0 
+rank 0 Np 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7f95ed6a9000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560ec00000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7f95ed6a9000    
+  h_l->particles 0x7e560ec00000  
+ -9.990000e+02 -1.313000e+03 4.647891e-310 6.930913e-310 2.023693e-319 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560ec00000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7f95ed709000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560f000000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7f95ed709000    
+  h_l->particles 0x7e560f000000  
+ -9.990000e+02 -1.313000e+03 4.647891e-310 6.930913e-310 2.023693e-319 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560f000000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+in  cuLayerPrintCentre C-before 5 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 C-before 5============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 1075052544    -9.99000e+02    -1.31300e+03    4.64789e-310    6.93091e-310    2.02369e-319    4.94066e-324 
+rank 0 Layer  -1 END==========================================================================================================================
+in getLayerParticles begin err 0 
+Layer 121 AT III np 40960 
+in  cuLayerPrintCentre RECEIVED-D C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer 119 
+IN CPU PART layer 119 Ny  65 Nz  65 
+rank 0 Layer 119 RECEIVED-D============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     4.109740489179723e-05 RhoB     4.109749416570666e-05 
+particle0 err 1075052544    -9.99000e+02    4.64786e-310    1.36646e-312    2.56761e-312    6.93084e-310    4.64789e-310 
+rank 0 Layer 119 END==========================================================================================================================
+before copy loop 121 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7f95ed769000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560f400000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7f95ed769000    
+  h_l->particles 0x7e560f400000  
+ -9.990000e+02 -1.313000e+03 1.366464e-312 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560f400000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7f95ed769000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375e058
+h_cl->Jy 0x7f95ed759000 
+ h_cl->Rho 0x7f95ed769000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7f95ed7c9000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560f800000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7f95ed7c9000    
+  h_l->particles 0x7e560f800000  
+ -9.990000e+02 -1.313000e+03 6.930847e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560f800000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7f95ed7c9000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375e050
+h_cl->Jy 0x7f95ed7b9000 
+ h_cl->Rho 0x7f95ed7c9000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e560fc30000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560c000000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e560fc30000    
+  h_l->particles 0x7e560c000000  
+ -9.990000e+02 -1.313000e+03 6.930847e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560c000000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e560fc30000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375e048
+h_cl->Jy 0x7e560fc20000 
+ h_cl->Rho 0x7e560fc30000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e560fc90000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560c400000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e560fc90000    
+  h_l->particles 0x7e560c400000  
+ -9.990000e+02 -1.313000e+03 6.862972e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560c400000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e560fc90000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375e040
+h_cl->Jy 0x7e560fc80000 
+ h_cl->Rho 0x7e560fc90000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e560fcf0000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560c800000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e560fcf0000    
+  h_l->particles 0x7e560c800000  
+ -9.990000e+02 -1.313000e+03 6.862972e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560c800000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e560fcf0000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375e038
+h_cl->Jy 0x7e560fce0000 
+ h_cl->Rho 0x7e560fcf0000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e560fd50000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560cc00000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e560fd50000    
+  h_l->particles 0x7e560cc00000  
+ -9.990000e+02 -1.313000e+03 6.862972e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560cc00000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e560fd50000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375e030
+h_cl->Jy 0x7e560fd40000 
+ h_cl->Rho 0x7e560fd50000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e560fdb0000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560d000000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e560fdb0000    
+  h_l->particles 0x7e560d000000  
+ -9.990000e+02 -1.313000e+03 6.862972e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560d000000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e560fdb0000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375e028
+h_cl->Jy 0x7e560fda0000 
+ h_cl->Rho 0x7e560fdb0000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e560d410000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560d600000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e560d410000    
+  h_l->particles 0x7e560d600000  
+ -9.990000e+02 -1.313000e+03 6.862972e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560d600000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e560d410000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375e020
+h_cl->Jy 0x7e560d400000 
+ h_cl->Rho 0x7e560d410000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e560d470000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560da00000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e560d470000    
+  h_l->particles 0x7e560da00000  
+ -9.990000e+02 -1.313000e+03 6.862970e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560da00000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e560d470000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375e018
+h_cl->Jy 0x7e560d460000 
+ h_cl->Rho 0x7e560d470000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e560d4d0000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560a000000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e560d4d0000    
+  h_l->particles 0x7e560a000000  
+ -9.990000e+02 -1.313000e+03 6.862970e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560a000000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e560d4d0000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375e010
+h_cl->Jy 0x7e560d4c0000 
+ h_cl->Rho 0x7e560d4d0000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e560d530000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560a400000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e560d530000    
+  h_l->particles 0x7e560a400000  
+ -9.990000e+02 -1.313000e+03 6.862970e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560a400000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e560d530000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375e008
+h_cl->Jy 0x7e560d520000 
+ h_cl->Rho 0x7e560d530000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e560d590000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560a800000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e560d590000    
+  h_l->particles 0x7e560a800000  
+ -9.990000e+02 -1.313000e+03 6.862970e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560a800000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e560d590000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375e000
+h_cl->Jy 0x7e560d580000 
+ h_cl->Rho 0x7e560d590000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e560d5f0000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560ae00000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e560d5f0000    
+  h_l->particles 0x7e560ae00000  
+ -9.990000e+02 -1.313000e+03 6.862970e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560ae00000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e560d5f0000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dff8
+h_cl->Jy 0x7e560d5e0000 
+ h_cl->Rho 0x7e560d5f0000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e560ac50000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560b200000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e560ac50000    
+  h_l->particles 0x7e560b200000  
+ -9.990000e+02 -1.313000e+03 6.862970e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560b200000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e560ac50000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dff0
+h_cl->Jy 0x7e560ac40000 
+ h_cl->Rho 0x7e560ac50000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e560acb0000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560b600000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e560acb0000    
+  h_l->particles 0x7e560b600000  
+ -9.990000e+02 -1.313000e+03 6.862968e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560b600000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e560acb0000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dfe8
+h_cl->Jy 0x7e560aca0000 
+ h_cl->Rho 0x7e560acb0000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e560ad10000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e560ba00000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e560ad10000    
+  h_l->particles 0x7e560ba00000  
+ -9.990000e+02 -1.313000e+03 6.862968e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e560ba00000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e560ad10000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dfe0
+h_cl->Jy 0x7e560ad00000 
+ h_cl->Rho 0x7e560ad10000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e560ad70000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e5608000000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e560ad70000    
+  h_l->particles 0x7e5608000000  
+ -9.990000e+02 -1.313000e+03 6.862968e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e5608000000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e560ad70000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dfd8
+h_cl->Jy 0x7e560ad60000 
+ h_cl->Rho 0x7e560ad70000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e560add0000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e5608400000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e560add0000    
+  h_l->particles 0x7e5608400000  
+ -9.990000e+02 -1.313000e+03 6.862968e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e5608400000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e560add0000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dfd0
+h_cl->Jy 0x7e560adc0000 
+ h_cl->Rho 0x7e560add0000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e5608830000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e5608a00000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e5608830000    
+  h_l->particles 0x7e5608a00000  
+ -9.990000e+02 -1.313000e+03 6.862968e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e5608a00000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e5608830000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dfc8
+h_cl->Jy 0x7e5608820000 
+ h_cl->Rho 0x7e5608830000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e5608890000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e5608e00000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e5608890000    
+  h_l->particles 0x7e5608e00000  
+ -9.990000e+02 -1.313000e+03 6.862966e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e5608e00000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e5608890000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dfc0
+h_cl->Jy 0x7e5608880000 
+ h_cl->Rho 0x7e5608890000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e56088f0000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e5609200000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e56088f0000    
+  h_l->particles 0x7e5609200000  
+ -9.990000e+02 -1.313000e+03 6.862966e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e5609200000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e56088f0000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dfb8
+h_cl->Jy 0x7e56088e0000 
+ h_cl->Rho 0x7e56088f0000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e5608950000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e5609600000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e5608950000    
+  h_l->particles 0x7e5609600000  
+ -9.990000e+02 -1.313000e+03 6.862966e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e5609600000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e5608950000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dfb0
+h_cl->Jy 0x7e5608940000 
+ h_cl->Rho 0x7e5608950000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e56089b0000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e5609a00000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e56089b0000    
+  h_l->particles 0x7e5609a00000  
+ -9.990000e+02 -1.313000e+03 6.862966e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e5609a00000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e56089b0000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dfa8
+h_cl->Jy 0x7e56089a0000 
+ h_cl->Rho 0x7e56089b0000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e5609e10000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e5606000000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e5609e10000    
+  h_l->particles 0x7e5606000000  
+ -9.990000e+02 -1.313000e+03 6.862966e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e5606000000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e5609e10000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dfa0
+h_cl->Jy 0x7e5609e00000 
+ h_cl->Rho 0x7e5609e10000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e5609e70000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e5606400000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e5609e70000    
+  h_l->particles 0x7e5606400000  
+ -9.990000e+02 -1.313000e+03 6.862967e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e5606400000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e5609e70000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df98
+h_cl->Jy 0x7e5609e60000 
+ h_cl->Rho 0x7e5609e70000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e5609ed0000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e5606800000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e5609ed0000    
+  h_l->particles 0x7e5606800000  
+ -9.990000e+02 -1.313000e+03 6.862967e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e5606800000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e5609ed0000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df90
+h_cl->Jy 0x7e5609ec0000 
+ h_cl->Rho 0x7e5609ed0000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e5609f30000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e5606c00000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e5609f30000    
+  h_l->particles 0x7e5606c00000  
+ -9.990000e+02 -1.313000e+03 6.862967e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e5606c00000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e5609f30000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df88
+h_cl->Jy 0x7e5609f20000 
+ h_cl->Rho 0x7e5609f30000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e5609f90000 
+alloc layer particles error 0 size beamParticle 80 p 0x7e5607000000 Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e5609f90000    
+  h_l->particles 0x7e5607000000  
+ -9.990000e+02 -1.313000e+03 6.862967e-310 6.930913e-310 5.978194e-322 4.940656e-324 0.000000e+00
+  h_l->particles 0x7e5607000000 &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e5609f90000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df80
+h_cl->Jy 0x7e5609f80000 
+ h_cl->Rho 0x7e5609f90000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+CUDA_WRAP_allocLayerOnHost d_Rho 0x7e5609ff0000 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho 0x7e5609ff0000    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 6.862967e-310 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho 0x7e5609ff0000 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df78
+h_cl->Jy 0x7e5609fe0000 
+ h_cl->Rho 0x7e5609ff0000 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 6.862967e-310 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df70
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df68
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df60
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df58
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df50
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df48
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df40
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df38
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df30
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df28
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df20
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df18
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df10
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df08
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375df00
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375def8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375def0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dee8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dee0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375ded8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375ded0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dec8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dec0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375deb8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375deb0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dea8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dea0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de98
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de90
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de88
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de80
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de78
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de70
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de68
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de60
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de58
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de50
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de48
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de40
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de38
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de30
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de28
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de20
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de18
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de10
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de08
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375de00
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375ddf8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375ddf0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dde8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dde0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375ddd8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375ddd0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375ddc8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375ddc0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375ddb8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375ddb0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dda8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dda0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd98
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd90
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd88
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd80
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd78
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd70
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd68
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd60
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd58
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd50
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd48
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd40
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd38
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd30
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd28
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd20
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd18
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd10
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd08
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dd00
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dcf8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dcf0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dce8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dce0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dcd8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dcd0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dcc8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dcc0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dcb8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dcb0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dca8
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dca0
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dc98
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+alloc layer error Ex 2 
+alloc layer error Ey 2 
+alloc layer error Ez 2 
+alloc layer error Bx 2 
+alloc layer error By 2 
+alloc layer error Bz 2 
+alloc layer error Jx 2 
+alloc layer error Jy 2 
+alloc layer error Jz 2 
+alloc layer error Rho 2 
+CUDA_WRAP_allocLayerOnHost d_Rho (nil) 
+alloc layer error JxBeam 2 
+alloc layer error RhoBeam 2 
+alloc layer particles error 2 size beamParticle 80 p (nil) Np 40960 
+CUDA_WRAP_allocLayerOnHost  h_l->Rho (nil)    
+  h_l->particles (nil)  
+ -9.990000e+02 -1.313000e+03 0.000000e+00 6.930913e-310 5.978194e-322 4.940656e-324 1.036131e-317
+  h_l->particles (nil) &bp_test  0x7ffde56dfdd0 Np 40960 
+ after test write
+h_layers[iLayer]->Rho (nil) 
+ in  CUDA_WRAP_copyLayerFrom3D
+  h_cl 0x558f6375dc90
+h_cl->Jy (nil) 
+ h_cl->Rho (nil) 
+ copyLayer Ny 64 Nz 64 Np 40960 
+h_layers[l_Mx]-B 64 64 40960 
+rank 0 before recv layer l_Mx 121  Ny 64  Nz 64 Np 40960 
+ in  cuLayerPrintCentre C-before 4 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 C-before 4============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0    4.94066e-324     0.00000e+00    6.93091e-310    6.93091e-310    4.64789e-310    4.94066e-324 
+rank 0 Layer  -1 END==========================================================================================================================
+in  cuLayerPrintCentre RECEIVED-0 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer 119 
+IN CPU PART layer 119 Ny  65 Nz  65 
+rank 0 Layer 119 RECEIVED-0============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     4.109740489179723e-05 RhoB     4.109749416570666e-05 
+particle0 err 0    4.94066e-324     0.00000e+00    6.93091e-310    6.93091e-310    4.64789e-310    4.94066e-324 
+rank 0 Layer 119 END==========================================================================================================================
+in getLayerParticles begin err 1 
+Layer 121 AT IV np 40960 
+h_layers[l_Mx]-A 64 64 40960 
+CUDA_WRAP_createNewLayer
+Ny 64 Nz 64 Np 40960 
+creating new Layer Ny 64 Nz 64 Np 40960 
+in getLayerParticles begin err 0 
+Layer 121 AT before recevied rank np 40960 
+in  cuLayerPrintCentre RECEIVED-1 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer 119 
+IN CPU PART layer 119 Ny  65 Nz  65 
+rank 0 Layer 119 RECEIVED-1============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     4.109740489179723e-05 RhoB     4.109749416570666e-05 
+particle0 err 0    5.97819e-322    4.64786e-310    1.35808e-312    2.56761e-312    6.93084e-310    4.64789e-310 
+rank 0 Layer 119 END==========================================================================================================================
+in  cuLayerPrintCentre C-before 3 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 C-before 3============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0    6.93091e-310    4.64789e-310    2.02369e-319    3.16202e-322    3.16202e-322    4.64789e-310 
+rank 0 Layer  -1 END==========================================================================================================================
+in  cuLayerPrintCentre RECEIVED-2 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer 119 
+IN CPU PART layer 119 Ny  65 Nz  65 
+rank 0 Layer 119 RECEIVED-2============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     4.109740489179723e-05 RhoB     4.109749416570666e-05 
+particle0 err 0    6.93091e-310    4.64789e-310    2.02369e-319    3.16202e-322    3.16202e-322    4.64789e-310 
+rank 0 Layer 119 END==========================================================================================================================
+Layer RECEIVED from above rank 0  ===================================================== 
+in  cuLayerPrintCentre before received C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer 121 
+IN CPU PART layer 121 Ny  65 Nz  65 
+rank 0 Layer 121 before received============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0     0.00000e+00     1.25000e-01     1.25000e-01     0.00000e+00     0.00000e+00     0.00000e+00 
+rank 0 Layer 121 END==========================================================================================================================
+in  cuLayerPrintCentre RECEIVED C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer 119 
+IN CPU PART layer 119 Ny  65 Nz  65 
+rank 0 Layer 119 RECEIVED============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     4.109740489179723e-05 RhoB     4.109749416570666e-05 
+particle0 err 0     0.00000e+00     1.25000e-01     1.25000e-01     0.00000e+00     0.00000e+00     0.00000e+00 
+rank 0 Layer 119 END==========================================================================================================================
+finished recv Layer 0 
+in  cuLayerPrintCentre C-before 2 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 C-before 2============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0     0.00000e+00     1.25000e-01     1.25000e-01    6.93091e-310     0.00000e+00    4.94066e-324 
+rank 0 Layer  -1 END==========================================================================================================================
+in  cuLayerPrintCentre INIT host-P3 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 INIT host-P3============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0     0.00000e+00     1.25000e-01     1.25000e-01    6.93091e-310     0.00000e+00    4.94066e-324 
+rank 0 Layer  -1 END==========================================================================================================================
+in  cuLayerPrintCentre host-P3 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer 119 
+IN CPU PART layer 119 Ny  65 Nz  65 
+rank 0 Layer 119 host-P3============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     4.109740489179723e-05 RhoB     4.109749416570666e-05 
+particle0 err 0     0.00000e+00     1.25000e-01     1.25000e-01    6.93091e-310     0.00000e+00    4.94066e-324 
+rank 0 Layer 119 END==========================================================================================================================
+in  cuLayerPrintCentre assign C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer 120 
+IN CPU PART layer 120 Ny  65 Nz  65 
+rank 0 Layer 120 assign============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0    4.64789e-310    4.64789e-310    4.64789e-310    4.64789e-310    4.64789e-310    3.26083e-322 
+rank 0 Layer 120 END==========================================================================================================================
+in  cuLayerPrintCentre before 1 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer 120 
+IN CPU PART layer 120 Ny  65 Nz  65 
+rank 0 Layer 120 before 1============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0    4.94066e-324     0.00000e+00    6.93091e-310    4.64789e-310    4.94066e-324     0.00000e+00 
+rank 0 Layer 120 END==========================================================================================================================
+in  cuLayerPrintCentre C-before 1 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 C-before 1============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0    4.94066e-324     0.00000e+00    6.93091e-310    4.64789e-310    4.94066e-324     0.00000e+00 
+rank 0 Layer  -1 END==========================================================================================================================
+in  cuLayerPrintCentre INIT host-P2 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 INIT host-P2============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0     0.00000e+00     1.25000e-01     1.25000e-01     0.00000e+00     0.00000e+00     0.00000e+00 
+rank 0 Layer  -1 END==========================================================================================================================
+rank 0 init loop
+in  cuLayerPrintCentre INIT host-P1 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 INIT host-P1============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0     0.00000e+00     1.25000e-01     1.25000e-01     0.00000e+00     0.00000e+00     0.00000e+00 
+rank 0 Layer  -1 END==========================================================================================================================
+in  cuLayerPrintCentre INIT host C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer 121 
+IN CPU PART layer 121 Ny  65 Nz  65 
+rank 0 Layer 121 INIT host============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0     0.00000e+00     1.25000e-01     1.25000e-01     0.00000e+00     0.00000e+00     0.00000e+00 
+rank 0 Layer 121 END==========================================================================================================================
+in  cuLayerPrintCentre INIT host C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 INIT host============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0     0.00000e+00     1.25000e-01     1.25000e-01     0.00000e+00     0.00000e+00     0.00000e+00 
+rank 0 Layer  -1 END==========================================================================================================================
+in  cuLayerPrintCentre C-INIT host C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 C-INIT host============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0     0.00000e+00     1.25000e-01     1.25000e-01     0.00000e+00     0.00000e+00     0.00000e+00 
+rank 0 Layer  -1 END==========================================================================================================================
+in  cuLayerPrintCentre afgter copy to P C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer 120 
+IN CPU PART layer 120 Ny  65 Nz  65 
+rank 0 Layer 120 afgter copy to P============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0     0.00000e+00     1.25000e-01     1.25000e-01     0.00000e+00     0.00000e+00     0.00000e+00 
+rank 0 Layer 120 END==========================================================================================================================
+rank 0 before split
+in  cuLayerPrintCentre C-before loop C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 C-before loop============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0     0.00000e+00     1.25000e-01     1.25000e-01    6.93091e-310     0.00000e+00    1.18576e-322 
+rank 0 Layer  -1 END==========================================================================================================================
+in  cuLayerPrintCentre before loop C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer 120 
+IN CPU PART layer 120 Ny  65 Nz  65 
+rank 0 Layer 120 before loop============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0     0.00000e+00     1.25000e-01     1.25000e-01    6.93091e-310     0.00000e+00    1.18576e-322 
+rank 0 Layer 120 END==========================================================================================================================
+in  cuLayerPrintCentre C-loop 1 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 C-loop 1============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0    6.93091e-310    4.64789e-310    3.16202e-322    3.16202e-322    3.16202e-322    4.64789e-310 
+rank 0 Layer  -1 END==========================================================================================================================
+in  cuLayerPrintCentre C-loop 2 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 C-loop 2============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0    6.93091e-310    4.64789e-310    3.16202e-322    3.16202e-322    3.16202e-322    4.64789e-310 
+rank 0 Layer  -1 END==========================================================================================================================
+in  cuLayerPrintCentre loop 2 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer 120 
+IN CPU PART layer 120 Ny  65 Nz  65 
+rank 0 Layer 120 loop 2============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0    6.93091e-310    4.64789e-310    3.16202e-322    3.16202e-322    3.16202e-322    4.64789e-310 
+rank 0 Layer 120 END==========================================================================================================================
+Loop 2
+in  cuLayerPrintCentre афтер цопы C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer 120 
+IN CPU PART layer 120 Ny  65 Nz  65 
+rank 0 Layer 120 афтер цопы============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0    6.93091e-310    4.64789e-310    3.16202e-322    3.16202e-322    3.16202e-322    4.64789e-310 
+rank 0 Layer 120 END==========================================================================================================================
+in  cuLayerPrintCentre C-loop 3 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 C-loop 3============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0     1.39804e-76    2.46959e-312    6.93091e-310    4.64789e-310    4.94066e-324     0.00000e+00 
+rank 0 Layer  -1 END==========================================================================================================================
+in  cuLayerPrintCentre P-loop 3 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 P-loop 3============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0     0.00000e+00     1.25000e-01     1.25000e-01     0.00000e+00     0.00000e+00     0.00000e+00 
+rank 0 Layer  -1 END==========================================================================================================================
+before call  to setLayersPC h_C 0x558f61f832f0 40960 h_P 0x558f61f83230 40960 
+ in  cuLayerPrintCentre C-loop 33 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 C-loop 33============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0    4.64789e-310    4.64789e-310    4.64789e-310    4.64789e-310    1.35808e-312    2.47033e-323 
+rank 0 Layer  -1 END==========================================================================================================================
+in  cuLayerPrintCentre loop 3 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer 120 
+IN CPU PART layer 120 Ny  65 Nz  65 
+rank 0 Layer 120 loop 3============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0    4.64789e-310    4.64789e-310    4.64789e-310    4.64789e-310    1.35808e-312    2.47033e-323 
+rank 0 Layer 120 END==========================================================================================================================
+rank 0 after setLayers 
+in  cuLayerPrintCentre C-loop 4 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 C-loop 4============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0    6.93091e-310    4.64789e-310    3.16202e-322    3.16202e-322    3.16202e-322    4.64789e-310 
+rank 0 Layer  -1 END==========================================================================================================================
+in  cuLayerPrintCentre C-loop 5 C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -1 
+IN CPU PART layer -1 Ny  65 Nz  65 
+rank 0 Layer  -1 C-loop 5============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0     1.41398e-76    1.81392e-306    6.93091e-310    4.64789e-310    1.18576e-322    4.64789e-310 
+rank 0 Layer  -1 END==========================================================================================================================
+in  cuLayerPrintCentre P before MoveSplitLayer C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -10 
+IN CPU PART layer -10 Ny  65 Nz  65 
+rank 0 Layer -10 P before MoveSplitLayer============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0     0.00000e+00     1.25000e-01     1.25000e-01     0.00000e+00     0.00000e+00     0.00000e+00 
+rank 0 Layer -10 END==========================================================================================================================
+in  cuLayerPrintCentre C before MoveSplitLayer C-loop 3 
+ Ny 64 Nz 64 Np 40960 
+IN CPU PART layer -11 
+IN CPU PART layer -11 Ny  65 Nz  65 
+rank 0 Layer -11 C before MoveSplitLayer============================================================================================================================
+E   (    0.00000e+00,    0.00000e+00,    0.00000e+00) B (    0.00000e+00,    0.00000e+00,    0.00000e+00) J (    0.00000e+00,    0.00000e+00,    0.00000e+00) 
+Rho     0.00000e+00 JxB     0.000000000000000e+00 RhoB     0.000000000000000e+00 
+particle0 err 0     0.00000e+00     1.25000e-01     1.25000e-01     0.00000e+00     0.00000e+00     0.00000e+00 
+rank 0 Layer -11 END==========================================================================================================================
+MoveSplitLayer   120 000 +++++++++++++++++++++++
+in MoveSplitLayerbefore guess 0
+in GuessFieldsHydroLinLayerSplit 
+AT: verification0000000000000000000000000 TOTAL ideal         1.00000 rude         0.00000 
+END VERIFY ===========================================================================================
+AT:  verification in the beginning TOTAL ideal         1.00000 rude         0.00000 
+END VERIFY ===========================================================================================
+before Fourier block block 3=============================================
+end    Fourier block block 3=============================================
+AT:                            end TOTAL ideal         0.98853 rude         0.00537 
+END VERIFY ===========================================================================================
+BEGIN VERIFY =========================================================================================
+AT:                            end TOTAL ideal         0.98853 rude         0.00537 
+END VERIFY ===========================================================================================
+end ======================== FourierSpace         0.98853 OrdinarySpace         0.98853 HiddenCurrents         1.00000 ========================================
+after guess 0
+rank 0 guess 
+check all hidden fields 
+rank 0 before iter loop 
+rank 0 iteration 0 begins 
+113 
+ print particle list host
+rank 0 iteration 0 begins particles 
+ CUDA_MALLOC_TEST at Cell2Layer begin  
+ CUDA_MALLOC_TEST at Cell2Layer begin  OK 
+in getLayerParticles begin err 0 
+ Ny 64 Nz 64 Np 40960
+ CUDA_MALLOC_TEST at LayerAlloc  
+ CUDA_MALLOC_TEST at LayerAlloc  OK 
+ CUDA_MALLOC_TEST at END 2aRRAY  
+ CUDA_MALLOC_TEST at END 2aRRAY  OK 
+ CUDA_MALLOC_TEST at Cell2Layer begin  
+ CUDA_MALLOC_TEST at Cell2Layer begin  OK 
+in getLayerParticles begin err 0 
+ Ny 64 Nz 64 Np 40960
+ CUDA_MALLOC_TEST at LayerAlloc  
+ CUDA_MALLOC_TEST at LayerAlloc  OK 
+ CUDA_MALLOC_TEST at END 2aRRAY  
+ CUDA_MALLOC_TEST at END 2aRRAY  OK 
+in :MoveParticlesLayerSplit  
+ before  particlesPrepareAtLayer 
+ after  particlesPrepareAtLayer 
+ after d_pl formed
+particles k 0 
+particles k 1 
+particles k 2 
+particles k 3 
+particles k 4 
+particles k 5 
+particles k 6 
+particles k 7 
+particles k 8 
+particles k 9 
+particles k 10 
+particles k 11 
+particles k 12 
+particles k 13 
+particles k 14 
+particles k 15 
+particles k 16 
+particles k 17 
+particles k 18 
+particles k 19 
+particles k 20 
+particles k 21 
+particles k 22 
+particles k 23 
+particles k 24 
+particles k 25 
+particles k 26 
+particles k 27 
+particles k 28 
+particles k 29 
+particles k 30 
+particles k 31 
+particles k 32 
+particles k 33 
+particles k 34 
+particles k 35 
+particles k 36 
+particles k 37 
+particles k 38 
+particles k 39 
+particles k 40 
+particles k 41 
+particles k 42 
+particles k 43 
+particles k 44 
+particles k 45 
+particles k 46 
+particles k 47 
+particles k 48 
+particles k 49 
+particles k 50 
+particles k 51 
+particles k 52 
+particles k 53 
+particles k 54 
+particles k 55 
+particles k 56 
+particles k 57 
+particles k 58 
+particles k 59 
+particles k 60 
+particles k 61 
+particles k 62 
+particles k 63 
+in getLayerParticles begin err 2 
+before  cuMoveSplitParticles
+  cuMoveSplitParticles begin 0 -----------------------------------------------------------
+begin particles 0 
+Np from h_pl2 40960 
+particles copy init 0 40960
+block 2 before particles kernel 000 -------------------------------------     40960 
+h_p i 0 4.646797e-310 
+h_p i 1 0.000000e+00 
+h_p i 2 3.948116e+180 
+h_p i 3 1.678376e+117 
+h_p i 4 2.137809e+161 
+h_p i 5 2.356169e+79 
+h_p i 6 4.824071e+228 
+h_p i 7 4.521842e+217 
+h_p i 8 1.085324e-306 
+h_p i 9 5.670610e-310 
+block 2 err00 after particles kernel 001 --------------------------------------
+in ceck beam values PLASMA 
+ fname_attr  out plasmaCheck.dat dump PLASMA_nstep_0000000001.dat 
+files out PLASMA_nstep_0000000001.dat dump VLPL_CPU_values_PLASMA_nstep_0000000001.dat  opened  
+BEGIN  PLASMA-RELATED VALUES sCHECK =============================================================================d_p[0] 0.000000e+00 d_p[19] 0.000000e+00
+ 
