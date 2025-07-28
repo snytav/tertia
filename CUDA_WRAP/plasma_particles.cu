@@ -1542,8 +1542,9 @@ int Mx,int Ny,int Nz,double hx,double hy,double hz,
       {
 	exit(0);
       }
+      int Npk = 10;
       cudaPrintfInit();
-     pushPlasmaParticles<<<dimGrid, dimBlock>>>(d_pl1,d_plasma_values); 
+     pushPlasmaParticles<<<1,10>>>(d_pl1,d_plasma_values); 
      //cuMoveSplitParticlesKernel<<<dimGrid, dimBlock>>>(iLayer,iSplit,Np,d_cl1,d_pl1,Ny,Nz,hx,hy,hz,
      //                                d_djx0,d_djy0,d_djz0,d_drho0,iFullStep,d_plasma_values);
      cudaDeviceSynchronize();
