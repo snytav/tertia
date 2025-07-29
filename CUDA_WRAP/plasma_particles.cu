@@ -1411,7 +1411,7 @@ int CUDA_WRAP_write_plasma_value(int i,int num_attr,int n,double t)
 
 	//int cell_number = i*Ny + j;
 	
-	h_plasma_values [i*num_attr + n] = t;
+	h_plasma_values [n*num_attr + i] = t;
 	
 	//cudaMemcpy((void**)d_p,num_attr*ppc_max*Ny*Nz*sizeof(double));
 	
@@ -1423,7 +1423,7 @@ int CUDA_WRAP_write_plasma_value(int i,int num_attr,int n,double t)
 //writing a value to the control array for a definite particle in a definite cell
 __device__ int write_plasma_value(int i,int num_attr,int n,double *d_p,double t)
 {
-           d_p [i] = t;
+           d_p [i+n*num_attr] = t;
 
 	return 0;
 }
