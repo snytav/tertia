@@ -100,8 +100,11 @@ __global__ void pushPlasmaParticles(cudaLayer *pl,double *d_p)
 	np = sizeY*nx + ny;
         p = pl->particles + np;
 	j = p->i_Y;
-	cuPrintf("j %d \n",j);
+	k = p->i_Z;
+	cuPrintf("j %d k %d \n",j,k);
 	write_plasma_value(np,PLASMA_VALUES_NUMBER,0,d_p,(double)j);
+	write_plasma_value(np,PLASMA_VALUES_NUMBER,1,d_p,(double)k);
+
 
 
 //	int i = pl->particles[0].i_X;
@@ -1410,8 +1413,14 @@ int CUDA_WRAP_write_plasma_value(int i,int num_attr,int n,double t)
 //   create_h_plasma_particles(Np);
 
 	//int cell_number = i*Ny + j;
-	
+
 	h_plasma_values [n*num_attr + i] = t;
+
+	if(n == 0 && i == 0)
+	{
+	    printf("attribute  1 particle 0 %e \n   ",h_plasma_values [n*num_attr + i]);	
+        }
+
 	
 	//cudaMemcpy((void**)d_p,num_attr*ppc_max*Ny*Nz*sizeof(double));
 	
@@ -1419,6 +1428,17 @@ int CUDA_WRAP_write_plasma_value(int i,int num_attr,int n,double t)
 	
 	return 0;
 }
+
+int CUDA_WRAP_print_plasma_value(char *where,int i,int num_attr,int n)
+{
+    printf("%s particle %d  attribute %d %e \n",where,i,n,  h_plasma_values [n*num_attr + i]);
+
+}	
+
+
+
+
+
 
 //writing a value to the control array for a definite particle in a definite cell
 __device__ int write_plasma_value(int i,int num_attr,int n,double *d_p,double t)

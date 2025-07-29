@@ -1663,6 +1663,8 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
    delete[] iAtomTypeArray;
 #endif   
 
+
+   CUDA_WRAP_print_plasma_value("end movepart",0,PLASMA_VALUES_NUMBER,1); 	
 }
 
 //---Mesh::DepositCurrentsInCellSplit ---------------------------------------------->
