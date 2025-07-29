@@ -1550,7 +1550,7 @@ int Mx,int Ny,int Nz,double hx,double hy,double hz,
      cudaDeviceSynchronize();
       cudaPrintfDisplay(stdout, true);
       cudaPrintfEnd();
-      exit(0);
+    //  exit(0);
      cudaLayer *h_cl1,*h_pl1;
      // paricle currents diagnostics
      cudaError_t err00 = cudaGetLastError();
