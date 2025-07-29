@@ -993,6 +993,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
       printf("particles k %d \n",k);	   
       for (j=0; j<l_My; j++)
       {
+         printf("             particles j %d \n",j);
 	 
          i=iLayer;
          int ip = i+1;
@@ -1633,6 +1634,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
                double check1=0;
             };
          }
+	 CUDA_WRAP_print_plasma_value("end j ",0,PLASMA_VALUES_NUMBER,1);
       }
    }
    long totalNe = domain()->GetSpecie(0)->GetNp();
@@ -1643,7 +1645,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
    {
 //      CUDA_WRAP_check_all_hidden_fields(this,iLayer,l_My,l_Mz,p_CellLayerC,p_CellLayerP,h_cl,h_pl);
    }
-   //printf("deposit np %d \n",np);
+   printf("deposit np %d \n",np);
 #endif
    int nstep = this->domain()->p_Cntrl->GetNstep();
    cudaLayer *d_cl, *d_pl;
@@ -1651,7 +1653,10 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
 
    int Np = CUDA_WRAP_get_particles_number(this,this->get_p_CellLayerP());
    //particlesPrepareAtLayer(this,p_CellLayerP,p_CellLayerC,iLayer,l_My,l_Mz);
+   
    printf("before  cuMoveSplitParticles\n  ");
+   CUDA_WRAP_print_plasma_value(" efore  cuMoveSplitParticles ",0,PLASMA_VALUES_NUMBER,1);
+
    cuMoveSplitParticles(iLayer,iSplit,Np,l_Mx,l_My,l_Mz,hx,hy,hz,
                                       djx0,djy0,djz0,drho0,nsorts,iFullStep,nstep);
    printf("after cuMoveSplitParticles \n");
@@ -1662,7 +1667,7 @@ void Mesh::MoveParticlesLayerSplit(int iLayer,int iSplit, int iFullStep, double 
    delete[] drho0;
    delete[] iAtomTypeArray;
 #endif   
-
+   printf("AT END MoveParticlesSplitLayer\n");
 
    CUDA_WRAP_print_plasma_value("end movepart",0,PLASMA_VALUES_NUMBER,1); 	
 }
