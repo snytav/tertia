@@ -1428,7 +1428,7 @@ __device__ int write_plasma_value(int i,int num_attr,int n,double *d_p,double t)
 {
  //         d_p[200*40960]  = 10.0;
 //        cuPrintf(" i*num_attr +  n  %d \n", i*num_attr +  n   );	
-	d_p [i] = t;
+	d_p [  POSITION(i,n,num_attr)    ] = t;
 
 	return 0;
 }
