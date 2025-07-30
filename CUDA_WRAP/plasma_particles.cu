@@ -101,10 +101,10 @@ __global__ void pushPlasmaParticles(cudaLayer *pl,double *d_p)
         //p = pl->particles + np;
 	//j = p->i_Y;
 	cuPrintf(" np %d j %d \n",np,j );
-	d_p[np] = (double)j;
+	//d_p[np] = (double)j;
 
 
-	//write_plasma_value(np,PLASMA_VALUES_NUMBER,0,d_p,(double)j);
+	write_plasma_value(np,PLASMA_VALUES_NUMBER,0,d_p,(double)j);
 
 
 //	int i = pl->particles[0].i_X;
@@ -1428,7 +1428,7 @@ __device__ int write_plasma_value(int i,int num_attr,int n,double *d_p,double t)
 {
  //         d_p[200*40960]  = 10.0;
 //        cuPrintf(" i*num_attr +  n  %d \n", i*num_attr +  n   );	
-	d_p [i*num_attr +  n] = t;
+	d_p [i] = t;
 
 	return 0;
 }
