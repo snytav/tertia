@@ -85,7 +85,7 @@
 
 #define PLASMA_VALUES_NUMBER 200
 
-#define POSITION(i,n,num_attr)  ( i   )
+#define POSITION(i,n,num_attr)  ( (i)*(num_attr)   )
 
 #define PLASMA_MOVE_CUPRINTF
 
